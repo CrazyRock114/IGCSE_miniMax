@@ -80,6 +80,7 @@ export interface Syllabus {
 export type SimPrimitive =
   | 'plot2d'
   | 'atom'
+  | 'molecule'
   | 'beam'
   | 'vectors'
   | 'particles'
@@ -203,8 +204,18 @@ export interface SimSeries {
    * Fixed y-axis bounds, when the quantity has a natural range the data does not reach.
    * pH runs 0–14, so letting the axis round up to 20 would be wrong even though no point
    * exceeds it.
+   *
+   * Also the way to stop an axis rescaling as parameters change. Where a lesson asks the
+   * student to compare two settings, a self-scaling axis quietly normalises away the very
+   * difference being pointed at.
    */
   yBounds?: { min: number; max: number }
+  /**
+   * Fixed x-axis bounds. Mainly for counted quantities — five gridlines across 0–4 land
+   * on the integers, where an auto-scaled 0–5 would put ticks at 1.25 and 3.75 and no
+   * point on the curve would sit on a gridline.
+   */
+  xBounds?: { min: number; max: number }
 }
 
 /**
@@ -221,6 +232,23 @@ export interface SimBody {
   kind?: string
 }
 
+/**
+ * A connection between two bodies, by index into `bodies` — a covalent bond, a lattice
+ * edge, a linkage in a mechanism.
+ *
+ * Bonds are a relation, not a body, so they live here rather than being faked as bodies
+ * with a position. That keeps `bodies.length` equal to the number of atoms, which is what
+ * lets a molecular formula be counted straight off the drawing.
+ */
+export interface SimLink {
+  a: number
+  b: number
+  /** Bond order: 1 single, 2 double, 3 triple. Defaults to 1. */
+  order?: number
+  /** Free-form tag, e.g. 'functional' to pick out the group that drives the chemistry. */
+  kind?: string
+}
+
 export interface SimResult {
   series: SimSeries[]
   /** Keyed by ReadoutSpec.key */
@@ -228,6 +256,7 @@ export interface SimResult {
   /** Optional annotations the renderer may draw (markers, regions) */
   markers?: Array<{ x: number; y: number; label: Bilingual }>
   bodies?: SimBody[]
+  links?: SimLink[]
   /**
    * Extent of the simulation's coordinate space, for primitives that draw in a
    * physical geometry rather than on graph axes.
