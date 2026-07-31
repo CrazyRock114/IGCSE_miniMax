@@ -10,9 +10,13 @@ const reagentIndex = (key: string): number => REAGENTS.findIndex((r) => r.key ==
 
 function run(family: number, reagentKey: string, carbons: number) {
   const result = reactionKernel({ carbons, family, reagent: reagentIndex(reagentKey) })
+  const bodies = result.bodies ?? []
+  const links = result.links ?? []
   return {
     ...result,
-    formula: molecularFormula(result.bodies!),
+    bodies,
+    links,
+    formula: molecularFormula(bodies),
     name: result.markers![0]!.label.en,
   }
 }
