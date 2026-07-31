@@ -1,0 +1,61 @@
+name: Build and deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Allow the workflow to publish to GitHub Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let a running deploy finish rather than cancelling it mid-publish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # The same gates that run locally. A broken kernel or a lesson citing a syllabus
+      # statement that does not exist should never reach the published site.
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run test
+
+      - name: Build
+        # Project sites are served from /<repo>/, so assets and the router need that base.
+        run: DEPLOY_BASE="/${GITHUB_REPOSITORY#*/}/" npm run build
+
+      # GitHub Pages has no server-side rewrites, so a deep link like
+      # /lesson/0625/1-2-motion would 404 on reload. Serving index.html as the 404 page
+      # hands the URL back to the client-side router.
+      - name: Add SPA fallback
+        run: cp dist/index.html dist/404.html
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
