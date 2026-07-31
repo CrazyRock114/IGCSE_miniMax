@@ -6,7 +6,7 @@ English-primary with Chinese scaffolding, for students in international schools.
 | Subject | Statements | Coverage |
 | --- | --- | --- |
 | Physics 0625 | 324 | **62%** — 17 lessons |
-| Chemistry 0620 | 231 | 33% — 8 lessons |
+| Chemistry 0620 | 231 | 39% — 10 lessons |
 
 ## What makes this different
 
@@ -123,7 +123,7 @@ See [NOTICE](NOTICE) for third-party attributions.
 ## Simulation primitives
 
 A lesson picks a primitive and configures it with data; it does not ship its own
-renderer. Ten of the planned thirteen are built:
+renderer. Eleven of the planned fourteen are built:
 
 | Primitive | Interaction | Used by |
 | --- | --- | --- |
@@ -137,7 +137,8 @@ renderer. Ten of the planned thirteen are built:
 | `atom` | Electron shell diagrams; isotopes and ions from one control set | `0620/2-2-atomic-structure` |
 | `molecule` | Displayed formulae built by valence, so the formula is counted off the drawing | `0620/11-1-homologous-series`, `11-5-alkenes`, `11-8-polymers` |
 | `bonding` | Dot-and-cross diagrams; the same control runs electron transfer and electron sharing | `0620/2-4-bonding` |
-| `ladder` | An ordered series with a threshold line across it — above it reacts, below it does not | `0620/9-4-reactivity-series` |
+| `ladder` | An ordered series with a threshold line across it — above it reacts, below it does not | `0620/9-4-reactivity-series`, `9-6-extraction` |
+| `lattice` | Rows of atoms with the upper layers pushed across the lower ones | `0620/9-3-alloys` |
 | `vectors`, `apparatus`, `graphpaper` | planned | — |
 
 Animation is driven by advancing one named parameter from a clock, so kernels stay
@@ -145,7 +146,7 @@ pure functions and remain testable at any chosen instant.
 
 ## Status
 
-**277 of 555 statements taught (50%)** across 25 lessons, with 650 tests passing.
+**292 of 555 statements taught (53%)** across 27 lessons, with 696 tests passing.
 
 Physics 0625 — 62%, by topic:
 
@@ -161,7 +162,7 @@ Physics 0625 — 62%, by topic:
 - ✅ Full 0625 statement map (324 statements, 6 topics)
 - ✅ Bilingual layer, content registry, build-gating checks
 - ✅ Seventeen lessons across all six topics, each with a tested kernel
-- ✅ Ten simulation primitives — three animated, two directly manipulable
+- ✅ Eleven simulation primitives — three animated, two directly manipulable
 - ✅ Shared field-line tracer (`src/lib/fieldLines.ts`) serving both magnetic and electric fields
 - ✅ Topic 6 complete; topic 2 at 93%
 - ⬜ Remaining topic 4: induction, a.c. generator, motors, transformers (49 statements)
@@ -179,14 +180,14 @@ cites another subject's statement ids. Routes are `/lesson/:subject/:slug`, and 
 page has a subject switcher. Adding a subject means adding a syllabus file and one entry
 in `src/content/syllabus/index.ts`.
 
-**Chemistry 0620 — 33%**, 76 of 231 statements across 8 lessons:
+**Chemistry 0620 — 39%**, 91 of 231 statements across 10 lessons:
 
 | Topic | Taught |
 | --- | --- |
 | 2 Atoms, elements and compounds | 22 / 27 |
 | 6 Chemical reactions | 8 / 28 |
 | 7 Acids, bases and salts | 12 / 20 |
-| 9 Metals | 7 / 22 |
+| 9 Metals | **22 / 22** |
 | 11 Organic chemistry | 27 / 41 |
 
 Topics 1, 3, 4, 5, 8, 10 and 12 are not started. Biology (0610) is not started.
