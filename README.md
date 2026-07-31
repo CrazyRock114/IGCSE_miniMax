@@ -6,7 +6,7 @@ English-primary with Chinese scaffolding, for students in international schools.
 | Subject | Statements | Coverage |
 | --- | --- | --- |
 | Physics 0625 | 324 | **62%** — 17 lessons |
-| Chemistry 0620 | 231 | 25% — 6 lessons |
+| Chemistry 0620 | 231 | 30% — 7 lessons |
 
 ## What makes this different
 
@@ -123,7 +123,7 @@ See [NOTICE](NOTICE) for third-party attributions.
 ## Simulation primitives
 
 A lesson picks a primitive and configures it with data; it does not ship its own
-renderer. Eight of the planned eleven are built:
+renderer. Nine of the planned twelve are built:
 
 | Primitive | Interaction | Used by |
 | --- | --- | --- |
@@ -136,6 +136,7 @@ renderer. Eight of the planned eleven are built:
 | `field2d` | Field lines traced by integrating the real field, so spacing means strength | `4-1-magnetism` |
 | `atom` | Electron shell diagrams; isotopes and ions from one control set | `0620/2-2-atomic-structure` |
 | `molecule` | Displayed formulae built by valence, so the formula is counted off the drawing | `0620/11-1-homologous-series`, `11-5-alkenes`, `11-8-polymers` |
+| `bonding` | Dot-and-cross diagrams; the same control runs electron transfer and electron sharing | `0620/2-4-bonding` |
 | `vectors`, `apparatus`, `graphpaper` | planned | — |
 
 Animation is driven by advancing one named parameter from a clock, so kernels stay
@@ -143,7 +144,7 @@ pure functions and remain testable at any chosen instant.
 
 ## Status
 
-**258 of 555 statements taught (46%)** across 23 lessons, with 597 tests passing.
+**270 of 555 statements taught (49%)** across 24 lessons, with 625 tests passing.
 
 Physics 0625 — 62%, by topic:
 
@@ -159,7 +160,7 @@ Physics 0625 — 62%, by topic:
 - ✅ Full 0625 statement map (324 statements, 6 topics)
 - ✅ Bilingual layer, content registry, build-gating checks
 - ✅ Seventeen lessons across all six topics, each with a tested kernel
-- ✅ Eight simulation primitives — three animated, two directly manipulable
+- ✅ Nine simulation primitives — three animated, two directly manipulable
 - ✅ Shared field-line tracer (`src/lib/fieldLines.ts`) serving both magnetic and electric fields
 - ✅ Topic 6 complete; topic 2 at 93%
 - ⬜ Remaining topic 4: induction, a.c. generator, motors, transformers (49 statements)
@@ -177,11 +178,11 @@ cites another subject's statement ids. Routes are `/lesson/:subject/:slug`, and 
 page has a subject switcher. Adding a subject means adding a syllabus file and one entry
 in `src/content/syllabus/index.ts`.
 
-**Chemistry 0620 — 25%**, 57 of 231 statements across 6 lessons:
+**Chemistry 0620 — 30%**, 69 of 231 statements across 7 lessons:
 
 | Topic | Taught |
 | --- | --- |
-| 2 Atoms, elements and compounds | 10 / 27 |
+| 2 Atoms, elements and compounds | 22 / 27 |
 | 6 Chemical reactions | 8 / 28 |
 | 7 Acids, bases and salts | 12 / 20 |
 | 11 Organic chemistry | 27 / 41 |

@@ -81,6 +81,7 @@ export type SimPrimitive =
   | 'plot2d'
   | 'atom'
   | 'molecule'
+  | 'bonding'
   | 'beam'
   | 'vectors'
   | 'particles'
@@ -234,6 +235,14 @@ export interface SimBody {
   r?: number
   /** Free-form tag the primitive uses to style the body, e.g. 'fast' | 'weight'. */
   kind?: string
+  /**
+   * Text drawn on the body — an element symbol, an ionic charge, a component's value.
+   *
+   * Deliberately a plain string, not `Bilingual`: what goes here is notation rather than
+   * prose. "Na" and "2+" are the same in every language, and a translated chemical symbol
+   * would be wrong rather than merely unhelpful.
+   */
+  label?: string
 }
 
 /**
