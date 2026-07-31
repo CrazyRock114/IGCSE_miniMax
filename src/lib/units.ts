@@ -16,9 +16,13 @@ export function toSigFigs(value: number, sigFigs: number): number {
   if (!Number.isFinite(value)) return value
   if (value === 0) return 0
   if (sigFigs < 1) throw new RangeError(`sigFigs must be at least 1, got ${sigFigs}`)
-  const magnitude = Math.floor(Math.log10(Math.abs(value)))
-  const factor = 10 ** (sigFigs - 1 - magnitude)
-  return Math.round(value * factor) / factor
+
+  // `toPrecision` rather than multiply-round-divide. Scaling by 10**(n - 1 - magnitude)
+  // and dividing back reintroduces floating-point error for large values — 123456 to
+  // 2 s.f. came back as 120000.00000000001 on some platforms but exactly 120000 on
+  // others, which is precisely the kind of bug that hides until CI runs on a different
+  // machine. `toPrecision` rounds in decimal and `Number` parses the result exactly.
+  return Number(value.toPrecision(sigFigs))
 }
 
 /**

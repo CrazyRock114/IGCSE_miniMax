@@ -19,6 +19,19 @@ describe('toSigFigs', () => {
     expect(toSigFigs(123456, 2)).toBe(120000)
   })
 
+  it('returns exact values, with no floating-point residue', () => {
+    // Regression: the old scale-round-unscale implementation returned
+    // 120000.00000000001 here on some platforms but not others.
+    for (const [value, figs, expected] of [
+      [123456, 2, 120000],
+      [987654321, 3, 988000000],
+      [0.000123456, 3, 0.000123],
+      [5.5555e12, 4, 5.556e12],
+    ] as const) {
+      expect(toSigFigs(value, figs)).toBe(expected)
+    }
+  })
+
   it('handles zero and negatives', () => {
     expect(toSigFigs(0, 3)).toBe(0)
     expect(toSigFigs(-40.82, 3)).toBe(-40.8)
