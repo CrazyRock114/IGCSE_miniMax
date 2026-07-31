@@ -232,7 +232,12 @@ export const reactivityKernel: SimKernel<ReactivityParams, SimResult> = ({ metal
   }))
 
   // The line sits in the gap between the last metal that reacts and the first that does not.
-  bodies.push({ x: 0, y: -(chosenReagent.threshold + 0.5), kind: 'threshold' })
+  bodies.push({
+    x: 0,
+    y: -(chosenReagent.threshold + 0.5),
+    kind: 'threshold',
+    label: 'above this line: reacts',
+  })
 
   const headline: Bilingual = willReact
     ? {

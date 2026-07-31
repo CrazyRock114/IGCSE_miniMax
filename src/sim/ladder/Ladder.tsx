@@ -87,7 +87,7 @@ export function Ladder({ result }: SimViewProps) {
               strokeDasharray="7 4"
             />
             <text x={W - 16} y={y(threshold.y) - 5} textAnchor="end" fontSize={10} fill="#dc2626">
-              above this line: reacts
+              {threshold.label}
             </text>
           </g>
         )}
