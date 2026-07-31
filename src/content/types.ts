@@ -193,6 +193,12 @@ export interface SimSeries {
   /** Axis units, e.g. { x: 's', y: 'm' } */
   unit: { x: string; y: string }
   points: Array<[number, number]>
+  /**
+   * Fixed y-axis bounds, when the quantity has a natural range the data does not reach.
+   * pH runs 0–14, so letting the axis round up to 20 would be wrong even though no point
+   * exceeds it.
+   */
+  yBounds?: { min: number; max: number }
 }
 
 /**

@@ -141,12 +141,15 @@ export const titrationKernel: SimKernel<TitrationParams, SimResult> = ({
         key: 'strong',
         label: { en: 'Strong acid (HCl)', zh: '强酸（HCl）' },
         unit: { x: 'cm³ alkali added', y: 'pH' },
+        // pH is bounded 0–14 by definition, so the axis should say so.
+        yBounds: { min: 0, max: 14 },
         points: strong,
       },
       {
         key: 'weak',
         label: { en: 'Weak acid (CH₃COOH)', zh: '弱酸（CH₃COOH）' },
         unit: { x: 'cm³ alkali added', y: 'pH' },
+        yBounds: { min: 0, max: 14 },
         points: weak,
       },
     ],

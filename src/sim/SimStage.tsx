@@ -101,11 +101,16 @@ function PlotGrid({ result }: SimViewProps) {
       else byUnit.set(key, [s])
     }
 
-    return Array.from(byUnit.values()).map((series) => ({
-      series,
-      x: axisRange(series.flatMap((s) => s.points.map(([x]) => x))),
-      y: axisRange(series.flatMap((s) => s.points.map(([, y]) => y))),
-    }))
+    return Array.from(byUnit.values()).map((series) => {
+      // A series may pin its own y range where the quantity has natural bounds the data
+      // does not reach — pH stops at 14 whether or not any point gets there.
+      const pinned = series.find((s) => s.yBounds)?.yBounds
+      return {
+        series,
+        x: axisRange(series.flatMap((s) => s.points.map(([x]) => x))),
+        y: pinned ?? axisRange(series.flatMap((s) => s.points.map(([, y]) => y))),
+      }
+    })
   }, [allSeries])
 
   return (
