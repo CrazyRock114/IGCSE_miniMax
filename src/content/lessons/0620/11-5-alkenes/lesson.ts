@@ -108,7 +108,7 @@ const lesson: Lesson = {
         zh: '加成：整个试剂并入分子，右边除了唯一的产物什么都没有。',
       },
       substitute: (r) =>
-        `M_r: ${Math.round(r['relativeMolecularMass'] ?? 0)} · ${Math.round(r['productMolecules'] ?? 0)} product molecule(s)`,
+        `M_r = ${Math.round(r['relativeMolecularMass'] ?? 0)} \\quad ${Math.round(r['productMolecules'] ?? 0)}\\ \\text{product molecules}`,
     },
     {
       latex: '\\mathrm{CH_4} + \\mathrm{Cl_2} \\xrightarrow{\\text{UV}} \\mathrm{CH_3Cl} + \\mathrm{HCl}',

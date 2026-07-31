@@ -9,6 +9,7 @@ import { Field2D } from './field2d/Field2D'
 import { Atom } from './atom/Atom'
 import { Molecule } from './molecule/Molecule'
 import { Bonding } from './bonding/Bonding'
+import { Ladder } from './ladder/Ladder'
 
 export interface SimViewProps {
   result: SimResult
@@ -44,6 +45,8 @@ export function SimStage(props: SimViewProps) {
       return <Molecule {...props} />
     case 'bonding':
       return <Bonding {...props} />
+    case 'ladder':
+      return <Ladder {...props} />
     case 'plot2d':
       return <PlotGrid series={props.result.series} />
     default:

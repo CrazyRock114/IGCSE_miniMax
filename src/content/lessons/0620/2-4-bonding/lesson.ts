@@ -120,7 +120,7 @@ const lesson: Lesson = {
         zh: '金属失去最外层电子。原子核毫无变化，所以它仍是钠，只是带了电。',
       },
       substitute: (r) =>
-        `${Math.round(r['electronsTransferred'] ?? 0)} electron(s) transferred · ${Math.round(r['sharedPairs'] ?? 0)} shared pair(s)`,
+        `${Math.round(r['electronsTransferred'] ?? 0)}\\ \\text{transferred} \\quad ${Math.round(r['sharedPairs'] ?? 0)}\\ \\text{shared pairs} \\quad ${Math.round(r['outerElectronsWhenBonded'] ?? 0)}\\ \\text{in the outer shell}`,
     },
     {
       latex: '\\mathrm{Cl} + e^- \\rightarrow \\mathrm{Cl^-}',

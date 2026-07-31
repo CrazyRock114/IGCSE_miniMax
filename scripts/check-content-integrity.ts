@@ -21,6 +21,24 @@ const warnings: string[] = []
 const err = (where: string, msg: string) => errors.push(`${c.bold(where)}: ${msg}`)
 const warn = (where: string, msg: string) => warnings.push(`${c.bold(where)}: ${msg}`)
 
+/**
+ * Multi-letter words in a LaTeX string that are not commands and not inside a text-mode
+ * group — that is, prose that will render as a row of italic variables.
+ *
+ * Deliberately lenient: `\text{…}`, `\mathrm{…}` and the like are stripped first, along
+ * with every command name, so only genuinely bare words are left. Two-letter runs are
+ * allowed because subscripted symbols such as `M_r` and `A_r` are legitimately written
+ * that way.
+ */
+function bareWordsIn(latex: string): string[] {
+  const stripped = latex
+    // Text-mode groups, including one level of nesting.
+    .replace(/\\(?:text|textrm|mathrm|mathbf|operatorname)\s*\{(?:[^{}]|\{[^{}]*\})*\}/g, ' ')
+    // Command names, which are words but not variables.
+    .replace(/\\[a-zA-Z]+/g, ' ')
+  return stripped.match(/[a-zA-Z]{3,}/g) ?? []
+}
+
 const lessons = await loadLessons()
 const banks = await loadQuestionBanks()
 
@@ -133,6 +151,28 @@ for (const { lesson, dir, slug, subject, hasKernel } of lessons) {
 
     if (result.series.length === 0 && !result.bodies?.length) {
       warn(where, 'kernel returns nothing to draw — no series and no bodies')
+    }
+
+    // --- live substitutions must be valid KaTeX, not prose ---
+    // `substitute` output is rendered as maths. English words dropped into it come out as
+    // a run of italic single-letter variables with the spaces stripped: "reacts with 4 of
+    // 4" renders as "reactswith4of4". Nothing throws, so only looking at the page catches
+    // it — which is what this check is for.
+    for (const [i, block] of lesson.equations.entries()) {
+      if (!block.substitute) continue
+      for (const corner of corners) {
+        const latex = block.substitute(kernel(corner).readouts)
+        const prose = bareWordsIn(latex)
+        if (prose.length > 0) {
+          err(
+            where,
+            `equation ${i + 1} substitutes prose into maths: ${prose
+              .map((w) => `"${w}"`)
+              .join(', ')} — wrap words in \\text{…}`
+          )
+          break
+        }
+      }
     }
 
     // --- animation, drag targets and presets must reference real parameters ---
