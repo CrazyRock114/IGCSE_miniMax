@@ -8,6 +8,7 @@ import { Particles } from './particles/Particles'
 import { Waves } from './waves/Waves'
 import { Circuit } from './circuit/Circuit'
 import { Field2D } from './field2d/Field2D'
+import { Atom } from './atom/Atom'
 
 export interface SimViewProps {
   result: SimResult
@@ -39,6 +40,8 @@ export function SimStage(props: SimViewProps) {
       return <Circuit {...props} />
     case 'field2d':
       return <Field2D {...props} />
+    case 'atom':
+      return <Atom {...props} />
     case 'plot2d':
       return <PlotGrid {...props} />
     default:

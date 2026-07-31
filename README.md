@@ -6,7 +6,7 @@ English-primary with Chinese scaffolding, for students in international schools.
 | Subject | Statements | Coverage |
 | --- | --- | --- |
 | Physics 0625 | 324 | **62%** |
-| Chemistry 0620 | 231 | 0% — syllabus mapped, lessons next |
+| Chemistry 0620 | 231 | 13% — 3 lessons |
 
 ## What makes this different
 
@@ -134,6 +134,7 @@ renderer. Five of the planned ten are built:
 | `waves` | **Animated.** Medium and displacement graph side by side | `3-1-waves` |
 | `circuit` | **Animated.** Charge drifts round the loop; dot density is current | `4-3-2-series-parallel` |
 | `field2d` | Field lines traced by integrating the real field, so spacing means strength | `4-1-magnetism` |
+| `atom` | Electron shell diagrams; isotopes and ions from one control set | `0620/2-2-atomic-structure` |
 | `vectors`, `apparatus`, `graphpaper` | planned | — |
 
 Animation is driven by advancing one named parameter from a clock, so kernels stay
@@ -175,7 +176,12 @@ cites another subject's statement ids. Routes are `/lesson/:subject/:slug`, and 
 page has a subject switcher. Adding a subject means adding a syllabus file and one entry
 in `src/content/syllabus/index.ts`.
 
-**Chemistry 0620 is mapped but not yet taught** — 231 statements across 12 topics, no
-lessons written. Biology (0610) is not started.
+**Chemistry 0620 is in progress** — 30 of 231 statements taught across 3 lessons.
+Biology (0610) is not started.
+
+## Live site
+
+https://crazyrock114.github.io/Science_cc/ — deployed from `main` by GitHub Actions,
+which runs lint, typecheck and the full test suite before publishing.
 
 Run `npm run check:syllabus` for the live coverage breakdown.

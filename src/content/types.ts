@@ -79,6 +79,7 @@ export interface Syllabus {
  */
 export type SimPrimitive =
   | 'plot2d'
+  | 'atom'
   | 'beam'
   | 'vectors'
   | 'particles'
@@ -126,6 +127,11 @@ export interface ReadoutSpec {
   /** Significant figures used when displaying. IGCSE cares about this. */
   sigFigs: number
   symbol?: string
+  /**
+   * Render as a whole number. Counts — electrons, protons, particles — are exact, so
+   * quoting "23.0 electrons" to three significant figures would be nonsense.
+   */
+  integer?: boolean
 }
 
 /**

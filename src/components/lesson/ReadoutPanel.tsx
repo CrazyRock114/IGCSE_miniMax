@@ -23,7 +23,9 @@ export function ReadoutPanel({ readouts, values }: ReadoutPanelProps) {
             {r.symbol && <span className="ml-1 font-mono">{r.symbol}</span>}
           </dt>
           <dd className="mt-0.5 font-mono text-lg tabular-nums text-ink">
-            {formatSigFigs(values[r.key] ?? 0, r.sigFigs)}
+            {r.integer
+              ? Math.round(values[r.key] ?? 0)
+              : formatSigFigs(values[r.key] ?? 0, r.sigFigs)}
             <span className="ml-1 text-xs font-normal text-muted">{r.unit}</span>
           </dd>
         </div>
