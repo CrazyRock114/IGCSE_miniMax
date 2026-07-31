@@ -182,10 +182,10 @@ const lesson: Lesson = {
     ],
     readouts: [
       // Counts, not measurements — rendered as whole numbers.
-      { key: 'massNumber', label: { en: 'Mass number', zh: '质量数' }, unit: '', symbol: 'A', sigFigs: 3, integer: true },
-      { key: 'electrons', label: { en: 'Electrons', zh: '电子数' }, unit: '', sigFigs: 3, integer: true },
-      { key: 'outerElectrons', label: { en: 'Outer shell', zh: '最外层电子' }, unit: '', sigFigs: 2, integer: true },
-      { key: 'group', label: { en: 'Group', zh: '族' }, unit: '', sigFigs: 2, integer: true },
+      { key: 'massNumber', label: { en: 'Mass number', zh: '质量数' }, unit: '', symbol: 'A', sigFigs: 3, exact: true },
+      { key: 'electrons', label: { en: 'Electrons', zh: '电子数' }, unit: '', sigFigs: 3, exact: true },
+      { key: 'outerElectrons', label: { en: 'Outer shell', zh: '最外层电子' }, unit: '', sigFigs: 2, exact: true },
+      { key: 'group', label: { en: 'Group', zh: '族' }, unit: '', sigFigs: 2, exact: true },
     ],
     presets: [
       { label: { en: 'Sodium atom', zh: '钠原子' }, params: { protonNumber: 11, extraNeutrons: 0, charge: 0 } },

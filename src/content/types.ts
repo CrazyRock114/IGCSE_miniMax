@@ -129,10 +129,14 @@ export interface ReadoutSpec {
   sigFigs: number
   symbol?: string
   /**
-   * Render as a whole number. Counts — electrons, protons, particles — are exact, so
-   * quoting "23.0 electrons" to three significant figures would be nonsense.
+   * Print the value as it is, rather than padding it to `sigFigs`.
+   *
+   * For quantities that are exact rather than measured: counts (electrons, protons,
+   * product molecules) and sums of tabulated values (a relative molecular mass). "23.0
+   * electrons" is nonsense, and so is an M_r of "30.0" — but chloromethane's really is
+   * 50.5, so rounding to a whole number would be wrong too.
    */
-  integer?: boolean
+  exact?: boolean
 }
 
 /**

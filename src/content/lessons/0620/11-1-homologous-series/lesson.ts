@@ -146,23 +146,23 @@ const lesson: Lesson = {
       },
     ],
     readouts: [
-      // Atom counts are exact, so they are shown as whole numbers.
-      { key: 'carbons', label: { en: 'Carbon atoms', zh: '碳原子数' }, unit: '', sigFigs: 2, integer: true },
-      { key: 'hydrogens', label: { en: 'Hydrogen atoms', zh: '氢原子数' }, unit: '', sigFigs: 2, integer: true },
+      // All four are exact rather than measured, so they print as they are.
+      { key: 'carbons', label: { en: 'Carbon atoms', zh: '碳原子数' }, unit: '', sigFigs: 2, exact: true },
+      { key: 'hydrogens', label: { en: 'Hydrogen atoms', zh: '氢原子数' }, unit: '', sigFigs: 2, exact: true },
       {
         key: 'relativeMolecularMass',
         label: { en: 'Relative molecular mass', zh: '相对分子质量' },
         unit: '',
         symbol: 'M_r',
         sigFigs: 3,
-        integer: true,
+        exact: true,
       },
       {
         key: 'boilingPoint',
         label: { en: 'Boiling point', zh: '沸点' },
         unit: '°C',
         sigFigs: 3,
-        integer: true,
+        exact: true,
       },
     ],
     presets: [

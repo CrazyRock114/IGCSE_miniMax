@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   countSigFigs,
+  formatExact,
   formatSigFigs,
   formatWithUnit,
   niceAxisMax,
@@ -97,6 +98,22 @@ describe('countSigFigs', () => {
     expect(countSigFigs('0.0450')).toBe(3)
     expect(countSigFigs('2.50')).toBe(3)
     expect(countSigFigs('0.5')).toBe(1)
+  })
+
+  it('formats an exact value without padding it', () => {
+    // Counts and sums of tabulated masses are exact: "30.0" for an M_r would be wrong.
+    expect(formatExact(30)).toBe('30')
+    expect(formatExact(23)).toBe('23')
+    expect(formatExact(0)).toBe('0')
+    // But chloromethane's M_r really is 50.5, so it cannot just be rounded.
+    expect(formatExact(50.5)).toBe('50.5')
+    expect(formatExact(-162)).toBe('-162')
+  })
+
+  it('absorbs floating-point residue from exact arithmetic', () => {
+    // 35.5 × 4 + 12 comes out just off in binary floating point.
+    expect(formatExact(154.00000000000003)).toBe('154')
+    expect(formatExact(22.999999999)).toBe('23')
   })
 
   it('does not count trailing zeros in a bare integer', () => {

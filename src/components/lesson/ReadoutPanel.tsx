@@ -1,6 +1,6 @@
 import type { ReadoutSpec } from '@/content/types'
 import { T } from '@/components/i18n/T'
-import { formatSigFigs } from '@/lib/units'
+import { formatExact, formatSigFigs } from '@/lib/units'
 
 interface ReadoutPanelProps {
   readouts: ReadoutSpec[]
@@ -23,8 +23,8 @@ export function ReadoutPanel({ readouts, values }: ReadoutPanelProps) {
             {r.symbol && <span className="ml-1 font-mono">{r.symbol}</span>}
           </dt>
           <dd className="mt-0.5 font-mono text-lg tabular-nums text-ink">
-            {r.integer
-              ? Math.round(values[r.key] ?? 0)
+            {r.exact
+              ? formatExact(values[r.key] ?? 0)
               : formatSigFigs(values[r.key] ?? 0, r.sigFigs)}
             <span className="ml-1 text-xs font-normal text-muted">{r.unit}</span>
           </dd>

@@ -15,8 +15,9 @@
  * Covers 0620.11.1.1–6 and 11.2.1–2.
  */
 
-import type { Bilingual, SimBody, SimKernel, SimLink, SimResult } from '@/content/types'
+import type { Bilingual, SimKernel, SimResult } from '@/content/types'
 import { relativeMolecularMass } from '@/lib/molecularFormula'
+import { buildStructure, minimumCarbons } from '@/lib/organic'
 
 export interface MoleculeParams extends Record<string, number> {
   /** Carbon atoms in the chain, 1–4 */
@@ -113,120 +114,6 @@ const AXES = {
   xBounds: { min: 0, max: 4 },
   yBounds: { min: -200, max: 200 },
 } as const
-
-/**
- * Directions a hydrogen may take off a carbon, in the order they are tried.
- *
- * Above and below come first so that a terminal CH₂ — the end of every alkene — gets its
- * two hydrogens placed symmetrically, the way every textbook and exam paper draws ethene.
- * Only when a third or fourth hydrogen is needed does one go out to the side, giving the
- * familiar CH₃ end group.
- *
- * The exception is a carbon that already has something above it, which in this lesson
- * means the carboxyl carbon of methanoic acid. There the remaining hydrogen belongs out
- * to the left, as H–COOH, rather than tucked underneath.
- */
-const FIRST_CARBON_ORDER = ['up', 'down', 'left', 'right'] as const
-const FIRST_CARBON_ORDER_BUSY_TOP = ['left', 'down', 'right'] as const
-const OTHER_CARBON_ORDER = ['up', 'down', 'right', 'left'] as const
-
-const OFFSETS = {
-  up: [0, 1],
-  down: [0, -1],
-  left: [-1, 0],
-  right: [1, 0],
-} as const
-
-export interface Structure {
-  bodies: SimBody[]
-  links: SimLink[]
-}
-
-/**
- * Builds the displayed formula for the `n`-carbon member of a family.
- *
- * The chain runs left to right along y = 0 and the functional group goes on the
- * right-hand end, so switching family swaps out the same corner of the picture and the
- * effect of the group is easy to see.
- */
-export function buildStructure(familyKey: string, n: number): Structure {
-  const bodies: SimBody[] = []
-  const links: SimLink[] = []
-  const add = (x: number, y: number, kind: string): number => bodies.push({ x, y, kind }) - 1
-
-  const carbons = Array.from({ length: n }, (_, i) => add(i, 0, 'C'))
-  // Bonds used so far on each carbon, and the directions already spoken for.
-  const used = new Array<number>(n).fill(0)
-  const taken = carbons.map(() => new Set<string>())
-
-  // Chain. The alkene's double bond goes between the last two carbons, so it sits at the
-  // same end as the other families' functional groups.
-  for (let i = 0; i < n - 1; i++) {
-    const isDouble = familyKey === 'alkene' && i === n - 2
-    const order = isDouble ? 2 : 1
-    links.push({
-      a: carbons[i]!,
-      b: carbons[i + 1]!,
-      order,
-      ...(isDouble ? { kind: 'functional' } : {}),
-    })
-    used[i]! += order
-    used[i + 1]! += order
-    taken[i]!.add('right')
-    taken[i + 1]!.add('left')
-  }
-
-  const last = n - 1
-
-  if (familyKey === 'alcohol') {
-    const o = add(n, 0, 'O')
-    const h = add(n + 1, 0, 'H')
-    links.push({ a: carbons[last]!, b: o, order: 1, kind: 'functional' })
-    links.push({ a: o, b: h, order: 1, kind: 'functional' })
-    used[last]! += 1
-    taken[last]!.add('right')
-  }
-
-  if (familyKey === 'acid') {
-    // C=O above the carboxyl carbon, –O–H to its right.
-    const carbonylO = add(last, 1, 'O')
-    const hydroxylO = add(n, 0, 'O')
-    const h = add(n + 1, 0, 'H')
-    links.push({ a: carbons[last]!, b: carbonylO, order: 2, kind: 'functional' })
-    links.push({ a: carbons[last]!, b: hydroxylO, order: 1, kind: 'functional' })
-    links.push({ a: hydroxylO, b: h, order: 1, kind: 'functional' })
-    used[last]! += 3
-    taken[last]!.add('up')
-    taken[last]!.add('right')
-  }
-
-  // Hydrogen fills every bond the carbon has left. Carbon always takes exactly four.
-  for (let i = 0; i < n; i++) {
-    const order =
-      i === 0
-        ? taken[0]!.has('up')
-          ? FIRST_CARBON_ORDER_BUSY_TOP
-          : FIRST_CARBON_ORDER
-        : OTHER_CARBON_ORDER
-    let remaining = 4 - used[i]!
-    for (const direction of order) {
-      if (remaining <= 0) break
-      if (taken[i]!.has(direction)) continue
-      const [dx, dy] = OFFSETS[direction]
-      const h = add(i + dx, dy, 'H')
-      links.push({ a: carbons[i]!, b: h, order: 1 })
-      taken[i]!.add(direction)
-      remaining -= 1
-    }
-  }
-
-  return { bodies, links }
-}
-
-/** Smallest chain a family can have. Only the alkenes, needing a C=C, cannot be n = 1. */
-export function minimumCarbons(familyKey: string): number {
-  return familyKey === 'alkene' ? 2 : 1
-}
 
 export const moleculeKernel: SimKernel<MoleculeParams, SimResult> = ({ carbons, family }) => {
   const chosen = FAMILIES[Math.min(FAMILIES.length - 1, Math.max(0, Math.round(family)))]!

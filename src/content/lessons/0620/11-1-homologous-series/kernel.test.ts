@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import type { SimBody, SimLink } from '@/content/types'
 import { molecularFormula, relativeMolecularMass } from '@/lib/molecularFormula'
-import { FAMILIES, buildStructure, minimumCarbons, moleculeKernel } from './kernel'
+import { buildStructure, minimumCarbons } from '@/lib/organic'
+import { FAMILIES, moleculeKernel } from './kernel'
 
 /** Total bond order on a given atom — what its valence must equal. */
 function valence(links: SimLink[], index: number): number {

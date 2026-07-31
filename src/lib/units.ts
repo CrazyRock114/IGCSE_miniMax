@@ -31,6 +31,19 @@ export function toSigFigs(value: number, sigFigs: number): number {
  * Trailing zeros matter: "2.50 s" claims three significant figures, "2.5 s" claims
  * two. Students lose marks for dropping them, so we must not drop them either.
  */
+/**
+ * An exact value, printed as it is: no significant-figure padding and no trailing zeros.
+ *
+ * For counts and for sums of tabulated values. An M_r of 30 should read "30", not "30.0",
+ * but chloromethane's is genuinely 50.5, so it cannot simply be rounded to a whole number.
+ * The rounding is only there to absorb floating-point residue from arithmetic on values
+ * like chlorine's 35.5.
+ */
+export function formatExact(value: number): string {
+  if (!Number.isFinite(value)) return String(value)
+  return String(Number(value.toFixed(3)))
+}
+
 export function formatSigFigs(value: number, sigFigs: number): string {
   if (!Number.isFinite(value)) return String(value)
   if (value === 0) return (0).toFixed(Math.max(0, sigFigs - 1))
