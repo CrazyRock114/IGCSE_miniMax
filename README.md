@@ -37,7 +37,7 @@ npm run dev
 | `npm run dev` | Dev server on :5173 |
 | `npm run build` | Runs the content checks, then type-checks and builds |
 | `npm run test` | Vitest — simulation kernels and utilities |
-| `npm run typecheck` | `tsc --noEmit` on both projects |
+| `npm run typecheck` | `tsc -b --force` — both projects, including tests |
 | `npm run lint` | ESLint, including the no-Chinese-in-components rule |
 | `npm run check:syllabus` | Coverage report; fails on references to statements that don't exist |
 | `npm run check:content` | Integrity checks: kernel wiring, mark schemes, narration targets |
