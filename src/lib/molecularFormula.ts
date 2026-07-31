@@ -9,6 +9,7 @@ export const RELATIVE_ATOMIC_MASS: Record<string, number> = {
   C: 12,
   N: 14,
   O: 16,
+  F: 19,
   Na: 23,
   Cl: 35.5,
   Br: 80,

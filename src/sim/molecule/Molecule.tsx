@@ -15,6 +15,7 @@ const ELEMENT_COLOUR: Record<string, string> = {
   N: '#2563eb',
   Cl: '#15803d',
   Br: '#b45309',
+  F: '#0891b2',
 }
 
 /** Largest px per bond length. Without a cap, methane would fill the frame. */

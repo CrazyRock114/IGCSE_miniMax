@@ -5,8 +5,8 @@ English-primary with Chinese scaffolding, for students in international schools.
 
 | Subject | Statements | Coverage |
 | --- | --- | --- |
-| Physics 0625 | 324 | **62%** |
-| Chemistry 0620 | 231 | 13% — 3 lessons |
+| Physics 0625 | 324 | **62%** — 17 lessons |
+| Chemistry 0620 | 231 | 25% — 6 lessons |
 
 ## What makes this different
 
@@ -123,7 +123,7 @@ See [NOTICE](NOTICE) for third-party attributions.
 ## Simulation primitives
 
 A lesson picks a primitive and configures it with data; it does not ship its own
-renderer. Five of the planned ten are built:
+renderer. Eight of the planned eleven are built:
 
 | Primitive | Interaction | Used by |
 | --- | --- | --- |
@@ -135,6 +135,7 @@ renderer. Five of the planned ten are built:
 | `circuit` | **Animated.** Charge drifts round the loop; dot density is current | `4-3-2-series-parallel` |
 | `field2d` | Field lines traced by integrating the real field, so spacing means strength | `4-1-magnetism` |
 | `atom` | Electron shell diagrams; isotopes and ions from one control set | `0620/2-2-atomic-structure` |
+| `molecule` | Displayed formulae built by valence, so the formula is counted off the drawing | `0620/11-1-homologous-series`, `11-5-alkenes`, `11-8-polymers` |
 | `vectors`, `apparatus`, `graphpaper` | planned | — |
 
 Animation is driven by advancing one named parameter from a clock, so kernels stay
@@ -142,9 +143,9 @@ pure functions and remain testable at any chosen instant.
 
 ## Status
 
-**Physics coverage: 62%** — 17 lessons, 201 of 324 statements taught, 421 tests passing.
+**258 of 555 statements taught (46%)** across 23 lessons, with 597 tests passing.
 
-Coverage by topic:
+Physics 0625 — 62%, by topic:
 
 | Topic | Taught |
 | --- | --- |
@@ -158,7 +159,7 @@ Coverage by topic:
 - ✅ Full 0625 statement map (324 statements, 6 topics)
 - ✅ Bilingual layer, content registry, build-gating checks
 - ✅ Seventeen lessons across all six topics, each with a tested kernel
-- ✅ Seven simulation primitives — three animated, two directly manipulable
+- ✅ Eight simulation primitives — three animated, two directly manipulable
 - ✅ Shared field-line tracer (`src/lib/fieldLines.ts`) serving both magnetic and electric fields
 - ✅ Topic 6 complete; topic 2 at 93%
 - ⬜ Remaining topic 4: induction, a.c. generator, motors, transformers (49 statements)
@@ -176,8 +177,16 @@ cites another subject's statement ids. Routes are `/lesson/:subject/:slug`, and 
 page has a subject switcher. Adding a subject means adding a syllabus file and one entry
 in `src/content/syllabus/index.ts`.
 
-**Chemistry 0620 is in progress** — 30 of 231 statements taught across 3 lessons.
-Biology (0610) is not started.
+**Chemistry 0620 — 25%**, 57 of 231 statements across 6 lessons:
+
+| Topic | Taught |
+| --- | --- |
+| 2 Atoms, elements and compounds | 10 / 27 |
+| 6 Chemical reactions | 8 / 28 |
+| 7 Acids, bases and salts | 12 / 20 |
+| 11 Organic chemistry | 27 / 41 |
+
+Topics 1, 3, 4, 5, 8, 9, 10 and 12 are not started. Biology (0610) is not started.
 
 ## Live site
 
