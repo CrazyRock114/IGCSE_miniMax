@@ -18,7 +18,10 @@ interface Plot2DProps {
   caption?: string
 }
 
-const PADDING = { top: 14, right: 18, bottom: 34, left: 50 }
+// The top padding carries the y-axis label on its own line. Sitting it beside the topmost
+// tick, as is tempting, works only while every unit is one or two characters — anything
+// like "energy / kJ mol⁻¹" then runs straight over the tick value.
+const PADDING = { top: 24, right: 18, bottom: 34, left: 50 }
 
 /**
  * Axis tick label. Axis extents are already round numbers, so quarter divisions of them
@@ -191,7 +194,7 @@ export function Plot2D({
         >
           {first?.unit.x}
         </text>
-        <text x={PADDING.left - 42} y={PADDING.top + 6} fontSize={11} fill="#334155">
+        <text x={6} y={11} fontSize={11} fill="#334155">
           {first?.unit.y}
         </text>
       </svg>

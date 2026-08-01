@@ -6,7 +6,7 @@ English-primary with Chinese scaffolding, for students in international schools.
 | Subject | Statements | Coverage |
 | --- | --- | --- |
 | Physics 0625 | 324 | **62%** — 17 lessons |
-| Chemistry 0620 | 231 | 46% — 12 lessons |
+| Chemistry 0620 | 231 | 50% — 13 lessons |
 
 ## What makes this different
 
@@ -147,7 +147,7 @@ pure functions and remain testable at any chosen instant.
 
 ## Status
 
-**308 of 555 statements taught (55%)** across 29 lessons, with 754 tests passing.
+**316 of 555 statements taught (57%)** across 30 lessons, with 779 tests passing.
 
 Physics 0625 — 62%, by topic:
 
@@ -181,18 +181,19 @@ cites another subject's statement ids. Routes are `/lesson/:subject/:slug`, and 
 page has a subject switcher. Adding a subject means adding a syllabus file and one entry
 in `src/content/syllabus/index.ts`.
 
-**Chemistry 0620 — 46%**, 107 of 231 statements across 12 lessons:
+**Chemistry 0620 — 50%**, 115 of 231 statements across 13 lessons:
 
 | Topic | Taught |
 | --- | --- |
 | 2 Atoms, elements and compounds | 22 / 27 |
+| 5 Chemical energetics | **8 / 8** |
 | 6 Chemical reactions | 8 / 28 |
 | 7 Acids, bases and salts | 12 / 20 |
 | 8 The Periodic Table | **16 / 16** |
 | 9 Metals | **22 / 22** |
 | 11 Organic chemistry | 27 / 41 |
 
-Topics 1, 3, 4, 5, 10 and 12 are not started. Biology (0610) is not started.
+Topics 1, 3, 4, 10 and 12 are not started. Biology (0610) is not started.
 
 ## Live site
 
