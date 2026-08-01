@@ -32,6 +32,68 @@ body {
   line-height: 1.7;
 }
 
+/*
+ * On-demand Chinese, used by the middle assist level.
+ *
+ * Two jobs, and both matter. The `中` marker is a *persistent* signal that there is
+ * Chinese behind this item — without it, hover mode looks identical to English-only on
+ * any paragraph, because a dotted underline across several lines of prose looks like a
+ * rendering fault and so had to be suppressed there.
+ *
+ * The panel itself is a pseudo-element fed by `attr()`, which means no extra DOM: `T`
+ * renders inside headings, table cells and buttons, and a nested interactive element in
+ * any of those would be invalid HTML. It also appears instantly, where the native `title`
+ * tooltip it replaces took about a second and could not be styled or line-wrapped.
+ */
+.zh-hint {
+  position: relative;
+}
+
+.zh-hint::after {
+  content: '中';
+  margin-left: 0.3em;
+  font-size: 0.62em;
+  vertical-align: 0.45em;
+  font-weight: 600;
+  color: var(--color-core);
+  opacity: 0.45;
+}
+
+.zh-hint:hover::after,
+.zh-hint:focus-visible::after {
+  opacity: 1;
+}
+
+.zh-hint::before {
+  content: attr(data-zh);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 40;
+  display: none;
+  width: max-content;
+  max-width: min(30rem, 80vw);
+  margin-top: 0.35rem;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--color-line);
+  border-radius: 0.5rem;
+  background: var(--color-surface);
+  box-shadow: 0 8px 24px rgb(15 23 42 / 12%);
+  color: var(--color-ink-soft);
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.65;
+  white-space: normal;
+  text-align: left;
+  text-decoration: none;
+  pointer-events: none;
+}
+
+.zh-hint:hover::before,
+.zh-hint:focus-visible::before {
+  display: block;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

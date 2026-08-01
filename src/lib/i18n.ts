@@ -21,9 +21,12 @@ export type AssistLevel = 'off' | 'hover' | 'inline'
 export const ASSIST_LEVELS: AssistLevel[] = ['off', 'hover', 'inline']
 
 export const assistLevelLabels: Record<AssistLevel, Bilingual> = {
-  off: { en: 'English only', zh: '纯英文' },
-  hover: { en: 'Chinese on hover', zh: '悬停显示中文' },
-  inline: { en: 'Chinese alongside', zh: '中英并列' },
+  off: { en: 'English only — exam conditions', zh: '纯英文——考试模式' },
+  hover: {
+    en: 'English, with Chinese revealed when you hover the 中 marker',
+    zh: '英文为主，悬停 中 标记即显示中文',
+  },
+  inline: { en: 'Chinese shown under every line', zh: '每句下方并列中文' },
 }
 
 /**
@@ -35,8 +38,8 @@ export const assistLevelLabels: Record<AssistLevel, Bilingual> = {
  */
 export const assistLevelShortLabels: Record<AssistLevel, string> = {
   off: 'EN',
-  hover: 'EN·中',
-  inline: 'EN+中',
+  hover: 'EN + 中?',
+  inline: 'EN + 中',
 }
 
 const STORAGE_KEY = 'sci.assist'

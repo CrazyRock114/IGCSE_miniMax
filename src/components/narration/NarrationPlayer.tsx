@@ -132,20 +132,25 @@ export function NarrationPlayer({ script, onAction }: NarrationPlayerProps) {
         >
           ‹ Back
         </button>
-        <button
-          type="button"
-          onClick={speaking ? stop : speak}
-          className="rounded-lg bg-ink px-3 py-1.5 text-sm font-medium text-white hover:bg-ink-soft"
-        >
-          {speaking ? '■ Stop' : '▶ Play'}
-        </button>
+        {/* Stepping through the transcript is the real experience until recorded audio
+            exists; today "read aloud" is the device's own synthesiser and sounds like it.
+            So Next is the primary action and speech is offered as a labelled extra, rather
+            than a filled Play button implying a produced voice track. */}
         <button
           type="button"
           onClick={next}
           disabled={isLast}
-          className="rounded-lg border border-line px-3 py-1.5 text-sm hover:bg-canvas disabled:opacity-40"
+          className="rounded-lg bg-ink px-3 py-1.5 text-sm font-medium text-white hover:bg-ink-soft disabled:opacity-40"
         >
           Next ›
+        </button>
+        <button
+          type="button"
+          onClick={speaking ? stop : speak}
+          title="Uses your device's built-in voice. Recorded narration is not yet available."
+          className="rounded-lg border border-line px-3 py-1.5 text-sm text-muted hover:bg-canvas"
+        >
+          {speaking ? '■ Stop' : '▶ Read aloud (device voice)'}
         </button>
       </div>
 

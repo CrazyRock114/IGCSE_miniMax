@@ -2,7 +2,12 @@ import type { ElementType, ReactNode } from 'react'
 import type { Bilingual } from '@/content/types'
 import { useAssistLevel } from '@/lib/i18n'
 
-/** Above this length a value is prose, not a label, and gets no underline hint. */
+/**
+ * Above this length a value is prose, not a label.
+ *
+ * A dotted underline across several lines of a paragraph looks like a rendering fault, so
+ * prose gets the `中` marker and the panel without the rule. Short labels get both.
+ */
 const HOVER_UNDERLINE_MAX_CHARS = 48
 
 interface TProps {
@@ -40,16 +45,20 @@ export function T({ value, as: As = 'span', className, zhClassName }: TProps): R
   }
 
   if (level === 'hover' && hasZh) {
-    // The dotted underline is a useful "there is Chinese behind this" hint on a
-    // heading or label, but on a paragraph it underlines several lines of prose and
-    // makes the page look broken. Long values get the tooltip without the rule.
-    const marked = value.en.length <= HOVER_UNDERLINE_MAX_CHARS
+    // Every scaffolded item carries the `中` marker, so this level is visibly different
+    // from English-only even on a page that is mostly prose. Short labels additionally
+    // get a dotted underline; see HOVER_UNDERLINE_MAX_CHARS for why prose does not.
+    const underlined = value.en.length <= HOVER_UNDERLINE_MAX_CHARS
     return (
       <As
-        className={className}
-        title={value.zh}
+        className={`zh-hint ${className ?? ''}`}
+        data-zh={value.zh}
+        // Deliberately not focusable. Making every scaffolded span a tab stop would put
+        // 138 of them before the controls on a syllabus page. Keyboard and touch users are
+        // served by the `inline` level, which shows the Chinese without any interaction —
+        // and where `T` renders as a link or button the panel still opens on focus.
         style={
-          marked
+          underlined
             ? { textDecoration: 'underline dotted', textUnderlineOffset: '0.25em' }
             : undefined
         }

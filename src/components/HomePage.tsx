@@ -84,6 +84,25 @@ export function HomePage() {
             {assessmentObjectives.map((ao) => `${ao.code} ${ao.weight}%`).join(' · ')}
           </p>
         </div>
+
+        {/* The squares below are one per syllabus statement, and nothing on the page says
+            so. Without this the map reads as decoration and the only way to find a lesson
+            is to click a 10-pixel square and hope. */}
+        <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted">
+          <span>Each square is one syllabus statement:</span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="inline-block size-2.5 rounded-sm bg-teal-600" />
+            Core, taught
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="inline-block size-2.5 rounded-sm bg-violet-500" />
+            Supplement, taught
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="inline-block size-2.5 rounded-sm bg-slate-200" />
+            not yet taught
+          </span>
+        </div>
       </header>
 
       <div className="space-y-8">
@@ -103,13 +122,40 @@ export function HomePage() {
               <ul className="space-y-2">
                 {topic.subtopics.map((sub) => {
                   const subDone = sub.statements.filter((s) => covered.has(s.id)).length
+                  // Every lesson that teaches any statement in this subtopic, de-duplicated.
+                  // The row itself links to the first — clicking the title is what anyone
+                  // tries, and until now only the individual squares were clickable.
+                  const lessons = Array.from(
+                    new Map(
+                      sub.statements
+                        .flatMap((s) => lessonsForStatement(s.id))
+                        .map((l) => [`${l.subject}/${l.slug}`, l])
+                    ).values()
+                  )
+                  const first = lessons[0]
+
+                  const heading = (
+                    <>
+                      <span className="font-mono text-sm font-medium text-ink">{sub.id}</span>
+                      <span className="text-sm text-ink-soft">
+                        <T value={sub.title} />
+                      </span>
+                    </>
+                  )
+
                   return (
                     <li key={sub.id} className="rounded-lg border border-line bg-surface px-3 py-2">
                       <div className="flex flex-wrap items-center gap-2">
-                        <span className="font-mono text-sm font-medium text-ink">{sub.id}</span>
-                        <span className="text-sm text-ink-soft">
-                          <T value={sub.title} />
-                        </span>
+                        {first ? (
+                          <Link
+                            to={`/lesson/${first.subject}/${first.slug}`}
+                            className="flex items-center gap-2 rounded hover:text-teal-700"
+                          >
+                            {heading}
+                          </Link>
+                        ) : (
+                          <span className="flex items-center gap-2 opacity-70">{heading}</span>
+                        )}
                         <span className="ml-auto flex gap-0.5">
                           {sub.statements.map((s) => {
                             const isCovered = covered.has(s.id)
@@ -142,6 +188,20 @@ export function HomePage() {
                           </span>
                         )}
                       </div>
+
+                      {lessons.length > 0 && (
+                        <p className="mt-1 flex flex-wrap gap-x-3 text-xs">
+                          {lessons.map((l) => (
+                            <Link
+                              key={`${l.subject}/${l.slug}`}
+                              to={`/lesson/${l.subject}/${l.slug}`}
+                              className="text-teal-700 hover:underline"
+                            >
+                              <T value={l.title} />
+                            </Link>
+                          ))}
+                        </p>
+                      )}
                     </li>
                   )
                 })}
