@@ -1,5 +1,6 @@
 import type { SimBody } from '@/content/types'
 import type { SimViewProps } from '../SimStage'
+import { PlotGrid } from '../plot2d/PlotGrid'
 import { T } from '@/components/i18n/T'
 
 const W = 460
@@ -23,8 +24,12 @@ export function Ladder({ result }: SimViewProps) {
   // [2] the observation. All three are prose, so they render as HTML rather than SVG text.
   const [, headline, note] = result.markers ?? []
 
-  const rungs = bodies.filter((b) => b.kind !== 'threshold')
+  const rungs = bodies.filter((b) => b.kind !== 'threshold' && b.kind !== 'axis')
   const threshold = bodies.find((b) => b.kind === 'threshold')
+  // The axis caption, and which way it points. Group I gets more reactive going *down* the
+  // group while Group VII gets more reactive going up, so the arrow cannot be hard-coded.
+  const axis = bodies.find((b) => b.kind === 'axis')
+  const pointsUp = (axis?.y ?? 1) >= 0
   const height = TOP * 2 + rungs.length * ROW
 
   const y = (value: number) => TOP + (-value + 0.5) * ROW
@@ -53,9 +58,9 @@ export function Ladder({ result }: SimViewProps) {
         </defs>
         <line
           x1={26}
-          y1={height - TOP - 6}
+          y1={pointsUp ? height - TOP - 6 : TOP + 6}
           x2={26}
-          y2={TOP + 6}
+          y2={pointsUp ? TOP + 6 : height - TOP - 6}
           stroke="#94a3b8"
           strokeWidth={1.4}
           markerEnd="url(#ladder-arrow)"
@@ -68,7 +73,7 @@ export function Ladder({ result }: SimViewProps) {
           fill="#64748b"
           transform={`rotate(-90 16 ${height / 2})`}
         >
-          more reactive
+          {axis?.label ?? 'more reactive'}
         </text>
 
         {rungs.map((b, i) => (
@@ -97,6 +102,12 @@ export function Ladder({ result }: SimViewProps) {
         <p className="mt-2 text-center text-sm text-muted">
           <T value={note.label} />
         </p>
+      )}
+
+      {result.series.length > 0 && (
+        <div className="mt-4">
+          <PlotGrid series={result.series} height={220} />
+        </div>
       )}
     </figure>
   )

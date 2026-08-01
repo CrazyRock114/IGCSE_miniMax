@@ -84,6 +84,7 @@ export type SimPrimitive =
   | 'bonding'
   | 'ladder'
   | 'lattice'
+  | 'periodictable'
   | 'beam'
   | 'vectors'
   | 'particles'
