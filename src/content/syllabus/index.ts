@@ -9,9 +9,10 @@
 import type { Syllabus, SyllabusStatement, SyllabusSubtopic } from '../types'
 import { igcsePhysics0625 } from './igcse-physics-0625'
 import { igcseChemistry0620 } from './igcse-chemistry-0620'
+import { igcseBiology0610 } from './igcse-biology-0610'
 
 /** Every syllabus the course covers, in the order they should be offered. */
-export const SYLLABUSES: Syllabus[] = [igcsePhysics0625, igcseChemistry0620]
+export const SYLLABUSES: Syllabus[] = [igcsePhysics0625, igcseChemistry0620, igcseBiology0610]
 
 export const syllabusByCode: ReadonlyMap<string, Syllabus> = new Map(
   SYLLABUSES.map((s) => [s.code, s])
