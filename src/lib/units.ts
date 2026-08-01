@@ -135,6 +135,45 @@ export function niceAxisMax(value: number): number {
 }
 
 /**
+ * Step sizes an axis division may take, per decade.
+ *
+ * Deliberately coarse. A step of 75 divides 1750–2050 exactly and is useless on a year
+ * axis, because nobody labels a gridline 1725. Sticking to 1, 2, 2.5, 4 and 5 keeps every
+ * tick on a number a reader recognises.
+ */
+const STEP_LADDER = [1, 2, 2.5, 4, 5, 10]
+
+/**
+ * An axis range framing data that does not live near zero.
+ *
+ * The default rule keeps a zero baseline, which is right for a speed–time graph — the area
+ * under the curve means something there. It is wrong for a calendar year, and wrong for a
+ * concentration whose whole interesting variation sits far from the origin: carbon dioxide
+ * from 277 to 414 ppm plotted from zero is a flat line near the top of the frame.
+ *
+ * Returns four equal divisions on a round step, with both ends of the data inside.
+ */
+export function niceRange(lo: number, hi: number): { min: number; max: number } {
+  if (!Number.isFinite(lo) || !Number.isFinite(hi)) return { min: 0, max: 1 }
+  if (hi < lo) return niceRange(hi, lo)
+  if (hi === lo) return { min: lo - 1, max: lo + 1 }
+
+  const rough = (hi - lo) / 4
+  const magnitude = 10 ** Math.floor(Math.log10(rough))
+
+  for (let decade = magnitude; decade <= magnitude * 10; decade *= 10) {
+    for (const rung of STEP_LADDER) {
+      const step = rung * decade
+      if (step < rough) continue
+      const min = Math.floor(lo / step) * step
+      // Four divisions must reach past the top of the data, or a point falls off the plot.
+      if (min + 4 * step >= hi) return { min, max: min + 4 * step }
+    }
+  }
+  return { min: lo, max: hi }
+}
+
+/**
  * Round an axis minimum *down* to a nice value.
  *
  * The counterpart to `niceAxisMax` for data that dips below zero without being centred

@@ -6,6 +6,7 @@ import {
   formatWithUnit,
   niceAxisMax,
   niceAxisMin,
+  niceRange,
   toRadians,
   toScientific,
   toSigFigs,
@@ -128,6 +129,64 @@ describe('countSigFigs', () => {
   it('returns 0 for values that are not numbers', () => {
     expect(countSigFigs('about 5')).toBe(0)
     expect(countSigFigs('')).toBe(0)
+  })
+})
+
+describe('niceRange', () => {
+  it('frames data that does not live near zero', () => {
+    // Carbon dioxide, 277 to 414 ppm. From a zero baseline this is a flat line near the top.
+    expect(niceRange(277, 414)).toEqual({ min: 250, max: 450 })
+    // Calendar years: 1750 to 2020 must not be plotted from year zero.
+    expect(niceRange(1750, 2020)).toEqual({ min: 1700, max: 2100 })
+  })
+
+  it('lands year gridlines on years a reader recognises', () => {
+    for (const [lo, hi] of [
+      [1750, 2020],
+      [1900, 2020],
+      [1960, 2020],
+      [1990, 2020],
+    ] as Array<[number, number]>) {
+      const { min, max } = niceRange(lo, hi)
+      const step = (max - min) / 4
+      // No half-decades: every tick is a whole number of years on a round step.
+      expect(Number.isInteger(step), `${lo}–${hi} step ${step}`).toBe(true)
+      expect(Number.isInteger(min), `${lo}–${hi} min ${min}`).toBe(true)
+    }
+  })
+
+  it('always contains both ends of the data', () => {
+    for (const [lo, hi] of [
+      [277, 414],
+      [730, 1879],
+      [1750, 2020],
+      [1990, 2020],
+      [-25, 125],
+      [0.001, 0.009],
+    ] as Array<[number, number]>) {
+      const r = niceRange(lo, hi)
+      expect(r.min, `${lo}–${hi}`).toBeLessThanOrEqual(lo)
+      expect(r.max, `${lo}–${hi}`).toBeGreaterThanOrEqual(hi)
+    }
+  })
+
+  it('divides into four equal steps on a round number', () => {
+    for (const [lo, hi] of [
+      [277, 414],
+      [730, 1879],
+      [1750, 2020],
+    ] as Array<[number, number]>) {
+      const { min, max } = niceRange(lo, hi)
+      const step = (max - min) / 4
+      // Every gridline lands on a multiple of the step, so no tick reads 1997.5.
+      expect(Number.isInteger(step) || step >= 1, `${lo}–${hi} step ${step}`).toBe(true)
+      expect(min % step, `${lo}–${hi}`).toBeCloseTo(0, 6)
+    }
+  })
+
+  it('handles a degenerate range without collapsing the axis', () => {
+    expect(niceRange(5, 5)).toEqual({ min: 4, max: 6 })
+    expect(niceRange(414, 277)).toEqual(niceRange(277, 414))
   })
 })
 

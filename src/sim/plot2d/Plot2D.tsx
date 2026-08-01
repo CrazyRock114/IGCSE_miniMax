@@ -31,7 +31,9 @@ const PADDING = { top: 24, right: 18, bottom: 34, left: 50 }
 function tickLabel(value: number): string {
   if (value === 0) return '0'
   const abs = Math.abs(value)
-  if (abs >= 1000) return `${value / 1000}k`
+  // Only abbreviate past five digits. Four fit comfortably, and a year must never be
+  // rendered as "1.75k".
+  if (abs >= 10000) return `${value / 1000}k`
   if (Number.isInteger(value)) return String(value)
   return String(Number(value.toFixed(2)))
 }
