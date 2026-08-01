@@ -85,6 +85,8 @@ export type SimPrimitive =
   | 'ladder'
   | 'lattice'
   | 'periodictable'
+  | 'sort'
+  | 'match'
   | 'beam'
   | 'vectors'
   | 'particles'
@@ -265,8 +267,34 @@ export interface SimLink {
   kind?: string
 }
 
+/**
+ * An exercise where the student assigns items to targets.
+ *
+ * Sorting into categories and matching pairs are the same problem wearing different
+ * clothes — put each item somewhere, and be right or wrong about it — so both primitives
+ * read this one structure and differ only in how they draw it. `sort` shows the targets as
+ * bins with the unplaced items pooled beneath; `match` shows two columns and joins them.
+ *
+ * The student's answers live in the simulation's parameters like any other input, one
+ * hidden parameter per item, so the kernel stays a pure function and a test can drive the
+ * exercise to any state without a browser.
+ */
+export interface SimAssignment {
+  items: Array<{
+    id: string
+    label: Bilingual
+    /** Id of the target this item actually belongs on. */
+    target: string
+    /** Where the student has put it. Absent while it is still unplaced. */
+    placed?: string
+  }>
+  targets: Array<{ id: string; label: Bilingual; hint?: Bilingual }>
+}
+
 export interface SimResult {
   series: SimSeries[]
+  /** Present only for the `sort` and `match` primitives. */
+  assignment?: SimAssignment
   /** Keyed by ReadoutSpec.key */
   readouts: Record<string, number>
   /** Optional annotations the renderer may draw (markers, regions) */

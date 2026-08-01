@@ -12,6 +12,8 @@ import { Bonding } from './bonding/Bonding'
 import { Ladder } from './ladder/Ladder'
 import { Lattice } from './lattice/Lattice'
 import { PeriodicTable } from './periodictable/PeriodicTable'
+import { Sort } from './sort/Sort'
+import { Match } from './match/Match'
 
 export interface SimViewProps {
   result: SimResult
@@ -53,6 +55,10 @@ export function SimStage(props: SimViewProps) {
       return <Lattice {...props} />
     case 'periodictable':
       return <PeriodicTable {...props} />
+    case 'sort':
+      return <Sort {...props} />
+    case 'match':
+      return <Match {...props} />
     case 'plot2d':
       return <PlotGrid series={props.result.series} />
     default:

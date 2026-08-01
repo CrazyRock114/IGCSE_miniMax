@@ -20,4 +20,26 @@ export const ui = {
     en: 'Jump to a scenario',
     zh: '一键跳到典型情形',
   },
+
+  // --- sorting and matching exercises ---
+  sortChooseItem: {
+    en: 'Pick an item, then click the group it belongs to.',
+    zh: '先选一个条目，再点击它所属的类别。',
+  },
+  sortChooseTarget: {
+    en: 'Now click the group it belongs to. Click a placed item to take it back.',
+    zh: '现在点击它所属的类别。点击已放置的条目可取回。',
+  },
+  sortPool: {
+    en: 'Still to place',
+    zh: '待归类',
+  },
+  matchChooseItem: {
+    en: 'Pick one on the left, then click its partner on the right.',
+    zh: '先选左侧的一项，再点击右侧与之配对的一项。',
+  },
+  matchChooseTarget: {
+    en: 'Now click its partner on the right. Click a paired item to undo it.',
+    zh: '现在点击右侧与之配对的一项。点击已配对的条目可取消。',
+  },
 } satisfies Record<string, Bilingual>
