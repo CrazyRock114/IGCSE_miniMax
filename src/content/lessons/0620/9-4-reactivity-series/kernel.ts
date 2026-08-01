@@ -226,9 +226,10 @@ export const reactivityKernel: SimKernel<ReactivityParams, SimResult> = ({ metal
     x: 0,
     y: -i,
     kind: i === chosenMetal ? 'selected' : e.isMetal ? 'rung' : 'reference',
-    // Symbol and name in one label, split by the renderer. Both are wanted: the symbol is
-    // how the series is written down, the name is how it is said.
-    label: `${e.symbol}|${e.name.en}`,
+    // Symbol, name and an optional aside, split by the renderer. Both the symbol and the
+    // name are wanted: the symbol is how the series is written down, the name is how it is
+    // said. The aside marks the two entries that are landmarks rather than metals.
+    label: `${e.symbol}|${e.name.en}${e.isMetal ? '' : '|not a metal'}`,
   }))
 
   // The line sits in the gap between the last metal that reacts and the first that does not.

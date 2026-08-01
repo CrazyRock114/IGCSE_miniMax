@@ -153,7 +153,7 @@ export const extractionKernel: SimKernel<ExtractionParams, SimResult> = ({ metal
     x: 0,
     y: -i,
     kind: i === chosen ? 'selected' : e.isMetal ? 'rung' : 'reference',
-    label: `${e.symbol}|${e.name.en}`,
+    label: `${e.symbol}|${e.name.en}${e.isMetal ? '' : '|not a metal'}`,
   }))
 
   bodies.push({

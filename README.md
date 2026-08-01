@@ -6,7 +6,7 @@ English-primary with Chinese scaffolding, for students in international schools.
 | Subject | Statements | Coverage |
 | --- | --- | --- |
 | Physics 0625 | 324 | **62%** — 17 lessons |
-| Chemistry 0620 | 231 | 53% — 14 lessons |
+| Chemistry 0620 | 231 | **61%** — 16 lessons |
 
 ## What makes this different
 
@@ -137,7 +137,7 @@ renderer. Twelve of the planned fifteen are built:
 | `atom` | Electron shell diagrams; isotopes and ions from one control set | `0620/2-2-atomic-structure` |
 | `molecule` | Displayed formulae built by valence, so the formula is counted off the drawing | `0620/11-1-homologous-series`, `11-5-alkenes`, `11-8-polymers` |
 | `bonding` | Dot-and-cross diagrams; the same control runs electron transfer and electron sharing | `0620/2-4-bonding` |
-| `ladder` | An ordered series with a threshold line across it, and an arrow whose direction is data | `0620/9-4-reactivity-series`, `9-6-extraction`, `8-2-groups` |
+| `ladder` | A list with a threshold line across it; the ordering arrow and every label are data | `0620/9-4-reactivity-series`, `9-6-extraction`, `8-2-groups`, `7-3-salts`, `10-1-water` |
 | `lattice` | Rows of atoms with the upper layers pushed across the lower ones | `0620/9-3-alloys` |
 | `periodictable` | Periods 1–4 as a grid, coloured by category; sliding Z walks the highlight | `0620/8-1-periodic-table` |
 | `vectors`, `apparatus`, `graphpaper` | planned | — |
@@ -147,7 +147,7 @@ pure functions and remain testable at any chosen instant.
 
 ## Status
 
-**324 of 555 statements taught (58%)** across 31 lessons, with 809 tests passing.
+**341 of 555 statements taught (61%)** across 33 lessons, with 853 tests passing.
 
 Physics 0625 — 62%, by topic:
 
@@ -181,17 +181,17 @@ cites another subject's statement ids. Routes are `/lesson/:subject/:slug`, and 
 page has a subject switcher. Adding a subject means adding a syllabus file and one entry
 in `src/content/syllabus/index.ts`.
 
-**Chemistry 0620 — 53%**, 123 of 231 statements across 14 lessons:
+**Chemistry 0620 — 61%**, 140 of 231 statements across 16 lessons:
 
 | Topic | Taught |
 | --- | --- |
 | 2 Atoms, elements and compounds | 22 / 27 |
 | 5 Chemical energetics | **8 / 8** |
 | 6 Chemical reactions | 8 / 28 |
-| 7 Acids, bases and salts | 12 / 20 |
+| 7 Acids, bases and salts | **20 / 20** |
 | 8 The Periodic Table | **16 / 16** |
 | 9 Metals | **22 / 22** |
-| 10 Chemistry of the environment | 8 / 17 |
+| 10 Chemistry of the environment | **17 / 17** |
 | 11 Organic chemistry | 27 / 41 |
 
 Topics 1, 3, 4 and 12 are not started. Biology (0610) is not started.

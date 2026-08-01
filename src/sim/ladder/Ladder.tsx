@@ -50,31 +50,35 @@ export function Ladder({ result }: SimViewProps) {
       >
         <rect x={0} y={0} width={W} height={height} fill="#f8fafc" />
 
-        {/* Reactivity increases up the page */}
+        {/* Direction of the ordering, when there is one. A list of steps has none. */}
         <defs>
           <marker id="ladder-arrow" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
             <path d="M0,0 L7,3.5 L0,7 z" fill="#94a3b8" />
           </marker>
         </defs>
-        <line
-          x1={26}
-          y1={pointsUp ? height - TOP - 6 : TOP + 6}
-          x2={26}
-          y2={pointsUp ? TOP + 6 : height - TOP - 6}
-          stroke="#94a3b8"
-          strokeWidth={1.4}
-          markerEnd="url(#ladder-arrow)"
-        />
-        <text
-          x={16}
-          y={height / 2}
-          textAnchor="middle"
-          fontSize={10}
-          fill="#64748b"
-          transform={`rotate(-90 16 ${height / 2})`}
-        >
-          {axis?.label ?? 'more reactive'}
-        </text>
+        {axis && (
+          <g>
+            <line
+              x1={26}
+              y1={pointsUp ? height - TOP - 6 : TOP + 6}
+              x2={26}
+              y2={pointsUp ? TOP + 6 : height - TOP - 6}
+              stroke="#94a3b8"
+              strokeWidth={1.4}
+              markerEnd="url(#ladder-arrow)"
+            />
+            <text
+              x={16}
+              y={height / 2}
+              textAnchor="middle"
+              fontSize={10}
+              fill="#64748b"
+              transform={`rotate(-90 16 ${height / 2})`}
+            >
+              {axis.label}
+            </text>
+          </g>
+        )}
 
         {rungs.map((b, i) => (
           <Rung key={i} body={b} y={y(b.y)} />
@@ -113,34 +117,38 @@ export function Ladder({ result }: SimViewProps) {
   )
 }
 
+/**
+ * One rung. Its label is `symbol|name` with an optional third field for an aside, which
+ * renders in brackets after the name — "not a metal", "already done".
+ *
+ * The aside is data rather than a rule in here: what makes an entry an exception belongs
+ * to the lesson, not to the thing drawing the list.
+ */
 function Rung({ body, y }: { body: SimBody; y: number }) {
-  const [symbol = '', name = ''] = (body.label ?? '').split('|')
+  const [symbol = '', name = '', aside = ''] = (body.label ?? '').split('|')
   const selected = body.kind === 'selected'
-  // Carbon and hydrogen are landmarks on the series rather than metals to test, so they
-  // are drawn in outline — visibly not one of the things you can pick.
-  const reference = body.kind === 'reference'
+  // Entries that are on the list but not among the things being chosen between — a
+  // landmark on a series, or a step already carried out.
+  const muted = body.kind === 'reference'
+  const done = body.kind === 'done'
+
+  const colour = muted ? '#94a3b8' : selected ? '#0f766e' : done ? '#5eead4' : '#334155'
 
   return (
     <g>
       {selected && <rect x={44} y={y - 11} width={W - 60} height={22} rx={5} fill="#ccfbf1" />}
-      <text
-        x={56}
-        y={y + 5}
-        fontSize={14}
-        fontWeight={selected ? 700 : 600}
-        fill={reference ? '#94a3b8' : selected ? '#0f766e' : '#334155'}
-      >
+      <text x={56} y={y + 5} fontSize={14} fontWeight={selected ? 700 : 600} fill={colour}>
         {symbol}
       </text>
       <text
         x={92}
         y={y + 5}
         fontSize={13}
-        fontStyle={reference ? 'italic' : undefined}
-        fill={reference ? '#94a3b8' : selected ? '#0f766e' : '#64748b'}
+        fontStyle={muted ? 'italic' : undefined}
+        fill={muted || done ? colour : selected ? '#0f766e' : '#64748b'}
       >
         {name}
-        {reference ? ' (not a metal)' : ''}
+        {aside ? ` (${aside})` : ''}
       </text>
     </g>
   )
