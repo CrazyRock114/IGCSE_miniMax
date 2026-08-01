@@ -39,6 +39,18 @@ describe('exercise data', () => {
     }
   })
 
+  it('does not list the items in the order of the groups', () => {
+    // Housefly, oak, mushroom, E. coli, amoeba against Animal, Plant, Fungus, Prokaryote,
+    // Protoctist answers itself: the student works down both lists in step and never has
+    // to read a feature.
+    for (const exercise of EXERCISES) {
+      const inStep = exercise.items.filter(
+        (item, i) => exercise.targets[i]?.id === item.target
+      ).length
+      expect(inStep, `${exercise.id} has ${inStep} items sitting in group order`).toBe(0)
+    }
+  })
+
   it('keeps item ids unique across all four exercises', () => {
     // They share one flat namespace of parameters, so a collision would silently make
     // two organisms answer for each other.

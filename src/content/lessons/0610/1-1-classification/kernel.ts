@@ -92,16 +92,16 @@ const kingdoms: ClassificationExercise = {
     },
   ],
   items: [
-    { id: 'k-housefly', label: { en: 'Housefly', zh: '家蝇' }, target: 'animal' },
-    { id: 'k-oak', label: { en: 'Oak tree', zh: '橡树' }, target: 'plant' },
     { id: 'k-mushroom', label: { en: 'Mushroom', zh: '蘑菇' }, target: 'fungus' },
-    { id: 'k-ecoli', label: { en: 'Escherichia coli', zh: '大肠杆菌' }, target: 'prokaryote' },
-    { id: 'k-amoeba', label: { en: 'Amoeba', zh: '变形虫' }, target: 'protoctist' },
-    { id: 'k-moss', label: { en: 'Moss', zh: '苔藓' }, target: 'plant' },
-    { id: 'k-yeast', label: { en: 'Yeast', zh: '酵母菌' }, target: 'fungus' },
-    { id: 'k-plasmodium', label: { en: 'Plasmodium', zh: '疟原虫' }, target: 'protoctist' },
-    { id: 'k-earthworm', label: { en: 'Earthworm', zh: '蚯蚓' }, target: 'animal' },
     { id: 'k-cyano', label: { en: 'Cyanobacterium', zh: '蓝细菌' }, target: 'prokaryote' },
+    { id: 'k-oak', label: { en: 'Oak tree', zh: '橡树' }, target: 'plant' },
+    { id: 'k-earthworm', label: { en: 'Earthworm', zh: '蚯蚓' }, target: 'animal' },
+    { id: 'k-yeast', label: { en: 'Yeast', zh: '酵母菌' }, target: 'fungus' },
+    { id: 'k-amoeba', label: { en: 'Amoeba', zh: '变形虫' }, target: 'protoctist' },
+    { id: 'k-housefly', label: { en: 'Housefly', zh: '家蝇' }, target: 'animal' },
+    { id: 'k-ecoli', label: { en: 'Escherichia coli', zh: '大肠杆菌' }, target: 'prokaryote' },
+    { id: 'k-moss', label: { en: 'Moss', zh: '苔藓' }, target: 'plant' },
+    { id: 'k-plasmodium', label: { en: 'Plasmodium', zh: '疟原虫' }, target: 'protoctist' },
   ],
 }
 
@@ -155,14 +155,14 @@ const vertebrates: ClassificationExercise = {
     },
   ],
   items: [
+    { id: 'v-shark', label: { en: 'Shark', zh: '鲨鱼' }, target: 'fish' },
+    { id: 'v-crocodile', label: { en: 'Crocodile', zh: '鳄鱼' }, target: 'reptile' },
     { id: 'v-bat', label: { en: 'Bat', zh: '蝙蝠' }, target: 'mammal' },
     { id: 'v-penguin', label: { en: 'Penguin', zh: '企鹅' }, target: 'bird' },
-    { id: 'v-crocodile', label: { en: 'Crocodile', zh: '鳄鱼' }, target: 'reptile' },
-    { id: 'v-frog', label: { en: 'Frog', zh: '青蛙' }, target: 'amphibian' },
-    { id: 'v-shark', label: { en: 'Shark', zh: '鲨鱼' }, target: 'fish' },
-    { id: 'v-dolphin', label: { en: 'Dolphin', zh: '海豚' }, target: 'mammal' },
     { id: 'v-newt', label: { en: 'Newt', zh: '蝾螈' }, target: 'amphibian' },
     { id: 'v-tortoise', label: { en: 'Tortoise', zh: '陆龟' }, target: 'reptile' },
+    { id: 'v-dolphin', label: { en: 'Dolphin', zh: '海豚' }, target: 'mammal' },
+    { id: 'v-frog', label: { en: 'Frog', zh: '青蛙' }, target: 'amphibian' },
   ],
 }
 
@@ -208,14 +208,14 @@ const arthropods: ClassificationExercise = {
     },
   ],
   items: [
-    { id: 'a-butterfly', label: { en: 'Butterfly', zh: '蝴蝶' }, target: 'insect' },
-    { id: 'a-spider', label: { en: 'Spider', zh: '蜘蛛' }, target: 'arachnid' },
-    { id: 'a-crab', label: { en: 'Crab', zh: '螃蟹' }, target: 'crustacean' },
-    { id: 'a-centipede', label: { en: 'Centipede', zh: '蜈蚣' }, target: 'myriapod' },
-    { id: 'a-scorpion', label: { en: 'Scorpion', zh: '蝎子' }, target: 'arachnid' },
     { id: 'a-woodlouse', label: { en: 'Woodlouse', zh: '鼠妇' }, target: 'crustacean' },
+    { id: 'a-butterfly', label: { en: 'Butterfly', zh: '蝴蝶' }, target: 'insect' },
     { id: 'a-millipede', label: { en: 'Millipede', zh: '马陆' }, target: 'myriapod' },
+    { id: 'a-scorpion', label: { en: 'Scorpion', zh: '蝎子' }, target: 'arachnid' },
+    { id: 'a-crab', label: { en: 'Crab', zh: '螃蟹' }, target: 'crustacean' },
     { id: 'a-ant', label: { en: 'Ant', zh: '蚂蚁' }, target: 'insect' },
+    { id: 'a-centipede', label: { en: 'Centipede', zh: '蜈蚣' }, target: 'myriapod' },
+    { id: 'a-spider', label: { en: 'Spider', zh: '蜘蛛' }, target: 'arachnid' },
   ],
 }
 
@@ -253,12 +253,12 @@ const plants: ClassificationExercise = {
     },
   ],
   items: [
-    { id: 'p-bracken', label: { en: 'Bracken', zh: '欧洲蕨' }, target: 'fern' },
-    { id: 'p-treefern', label: { en: 'Tree fern', zh: '树蕨' }, target: 'fern' },
     { id: 'p-maize', label: { en: 'Maize', zh: '玉米' }, target: 'monocot' },
-    { id: 'p-wheat', label: { en: 'Wheat', zh: '小麦' }, target: 'monocot' },
     { id: 'p-sunflower', label: { en: 'Sunflower', zh: '向日葵' }, target: 'dicot' },
+    { id: 'p-bracken', label: { en: 'Bracken', zh: '欧洲蕨' }, target: 'fern' },
     { id: 'p-bean', label: { en: 'Bean plant', zh: '菜豆' }, target: 'dicot' },
+    { id: 'p-treefern', label: { en: 'Tree fern', zh: '树蕨' }, target: 'fern' },
+    { id: 'p-wheat', label: { en: 'Wheat', zh: '小麦' }, target: 'monocot' },
   ],
 }
 

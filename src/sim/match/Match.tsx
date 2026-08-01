@@ -26,8 +26,14 @@ export function Match({ result, onParamChange }: SimViewProps) {
     setSelected(null)
   }
 
-  /** Which item, if any, has claimed this target. */
-  const claimant = (targetId: string) => items.find((i) => i.placed === targetId)
+  /**
+   * Which items have claimed this target — all of them, not just the first.
+   *
+   * Nothing stops a student pairing two items with the same partner, and hiding the second
+   * one would leave them staring at an item marked wrong with no visible reason. Showing
+   * both makes the clash the obvious thing to fix.
+   */
+  const claimants = (targetId: string) => items.filter((i) => i.placed === targetId)
 
   return (
     <figure className="m-0">
@@ -67,7 +73,7 @@ export function Match({ result, onParamChange }: SimViewProps) {
 
         <div className="space-y-2">
           {targets.map((target, index) => {
-            const taken = claimant(target.id)
+            const taken = claimants(target.id)
             return (
               <button
                 key={target.id}
@@ -78,17 +84,17 @@ export function Match({ result, onParamChange }: SimViewProps) {
                   'block w-full rounded-lg border px-3 py-2 text-left text-sm transition-colors ' +
                   (selected
                     ? 'border-teal-500 bg-teal-50/50 text-ink hover:bg-teal-50'
-                    : taken
+                    : taken.length > 0
                       ? 'border-line bg-canvas text-muted'
                       : 'border-line bg-surface text-ink')
                 }
               >
                 <T value={target.label} />
-                {taken && (
-                  <span className="mt-0.5 block text-xs text-muted">
-                    ← <T value={taken.label} />
+                {taken.map((item) => (
+                  <span key={item.id} className="mt-0.5 block text-xs text-muted">
+                    ← <T value={item.label} />
                   </span>
-                )}
+                ))}
               </button>
             )
           })}
