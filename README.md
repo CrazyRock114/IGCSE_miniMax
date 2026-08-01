@@ -7,7 +7,7 @@ English-primary with Chinese scaffolding, for students in international schools.
 | --- | --- | --- |
 | Physics 0625 | 324 | **62%** — 17 lessons |
 | Chemistry 0620 | 231 | **61%** — 16 lessons |
-| Biology 0610 | 389 | 2% — 1 lesson |
+| Biology 0610 | 389 | 8% — 4 lessons |
 
 ## What makes this different
 
@@ -148,7 +148,7 @@ pure functions and remain testable at any chosen instant.
 
 ## Status
 
-**350 of 944 statements taught (37%)** across 34 lessons, with 879 tests passing.
+**372 of 944 statements taught (39%)** across 36 lessons, with 922 tests passing.
 
 Physics 0625 — 62%, by topic:
 
