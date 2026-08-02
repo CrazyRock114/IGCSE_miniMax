@@ -1,4 +1,5 @@
 import type { SimViewProps } from '../SimStage'
+import { T } from '@/components/i18n/T'
 import { ELEMENTS } from '@/content/lessons/0620/2-2-atomic-structure/kernel'
 
 const W = 460
@@ -104,9 +105,13 @@ export function Atom({ result }: SimViewProps) {
         <text x={W - 16} y={30} textAnchor="end" fontSize={13} fontWeight={600} fill="#334155">
           {element?.name}
         </text>
-        <text x={W - 16} y={48} textAnchor="end" fontSize={11} fill="#64748b">
-          Group {Math.round(r['group'] ?? 0)} · Period {Math.round(r['period'] ?? 0)}
-        </text>
+        {/* Only for kernels that report a periodic-table position. A physics lesson on the
+            nucleus draws the same diagram and has no business claiming a group. */}
+        {r['group'] !== undefined && r['period'] !== undefined && (
+          <text x={W - 16} y={48} textAnchor="end" fontSize={11} fill="#64748b">
+            Group {Math.round(r['group'])} · Period {Math.round(r['period'])}
+          </text>
+        )}
 
         <text x={W / 2} y={H - 8} textAnchor="middle" fontSize={12} fontWeight={600} fill="#334155">
           {charge === 0
@@ -129,6 +134,17 @@ export function Atom({ result }: SimViewProps) {
           outer shell
         </span>
       </figcaption>
+
+      {/* A kernel may annotate the diagram — which isotope this is, whether it is an ion.
+          The chemistry lesson emits none and so prints nothing here. */}
+      {(result.markers ?? []).map((marker, i) => (
+        <p
+          key={i}
+          className="mt-3 rounded-lg border border-line bg-canvas px-3 py-2 text-sm font-medium text-ink-soft"
+        >
+          <T value={marker.label} />
+        </p>
+      ))}
     </figure>
   )
 }
