@@ -81,6 +81,7 @@ export type SimPrimitive =
   | 'plot2d'
   | 'atom'
   | 'molecule'
+  | 'balance'
   | 'bonding'
   | 'giant'
   | 'ladder'
@@ -340,6 +341,20 @@ export interface SimPyramid {
   unit: string
 }
 
+/**
+ * A chemical equation with the coefficients the student has chosen, and the atom count on
+ * each side worked out element by element.
+ *
+ * The tally is the whole exercise: balancing is not guessing coefficients until it looks
+ * right, it is making two columns of numbers agree, and a student who cannot see the columns
+ * has nothing to reason with.
+ */
+export interface SimEquation {
+  left: Array<{ coefficient: number; formula: string; state: string }>
+  right: Array<{ coefficient: number; formula: string; state: string }>
+  tally: Array<{ element: string; left: number; right: number }>
+}
+
 export interface SimResult {
   series: SimSeries[]
   /** Present only for the `sort` and `match` primitives. */
@@ -348,6 +363,8 @@ export interface SimResult {
   grid?: SimGrid
   /** Present only for the `pyramid` primitive. */
   pyramid?: SimPyramid
+  /** Present only for the `balance` primitive. */
+  equation?: SimEquation
   /** Keyed by ReadoutSpec.key */
   readouts: Record<string, number>
   /** Optional annotations the renderer may draw (markers, regions) */
