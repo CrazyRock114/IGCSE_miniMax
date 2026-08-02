@@ -207,10 +207,17 @@ export function Plot2D({
             <span key={s.key} className="inline-flex items-center gap-1.5">
               <span
                 className="inline-block h-0.5 w-5"
-                style={{
-                  background: colours[i % colours.length],
-                  opacity: s.key === 'reference' ? 0.6 : 1,
-                }}
+                style={
+                  // The swatch is dashed for a reference curve, to match how it is drawn.
+                  // A solid swatch beside a dashed line is the sort of small mismatch that
+                  // makes a reader doubt they are looking at the same curve.
+                  s.key === 'reference'
+                    ? {
+                        backgroundImage: `repeating-linear-gradient(to right, ${colours[i % colours.length]} 0 4px, transparent 4px 7px)`,
+                        opacity: 0.75,
+                      }
+                    : { background: colours[i % colours.length] }
+                }
               />
               {s.label.en}
             </span>
