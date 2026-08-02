@@ -4,6 +4,48 @@ export const gasNarration: NarrationScript = {
   id: '2-1-gas-particles',
   sections: [
     {
+      id: 'states',
+      type: 'concept',
+      title: { en: 'Three ways to arrange the same particles', zh: '同样的粒子，三种排布方式' },
+      lines: [
+        {
+          id: 'st-1',
+          text: {
+            en: 'A solid has a fixed shape and a fixed volume. Its particles are packed closely in a regular pattern, held by strong forces, and they can only vibrate about fixed positions — they cannot move past one another, which is why the shape holds.',
+            zh: '固体有固定的形状和固定的体积。其粒子紧密堆积成规则排列，被强作用力束缚，只能在固定位置附近振动——它们无法彼此越过，形状因此得以保持。',
+          },
+        },
+        {
+          id: 'st-2',
+          text: {
+            en: 'A liquid keeps a fixed volume but takes the shape of its container. The particles are still close together, but the forces are weaker and they can slide past one another — so it flows, and it still cannot be squashed much.',
+            zh: '液体体积固定，形状则随容器而定。粒子之间仍然靠得很近，但作用力较弱，可以相互滑过——因此它能流动，同时仍然很难被压缩。',
+          },
+        },
+        {
+          id: 'st-3',
+          text: {
+            en: 'A gas has neither a fixed shape nor a fixed volume. The particles are far apart with almost no forces between them, moving quickly in all directions — so a gas fills whatever it is put in, and unlike the other two it can be compressed a great deal, because most of it is empty space.',
+            zh: '气体既没有固定形状也没有固定体积。粒子相距很远、彼此间几乎没有作用力，朝各个方向快速运动——因此气体会充满任何容器；而且与前两者不同，它能被大幅压缩，因为其中大部分是空隙。',
+          },
+        },
+        {
+          id: 'st-4',
+          text: {
+            en: 'The changes between them have names, and the pairs are worth learning together. Solid to liquid is melting, liquid to solid is solidifying — often called freezing. Liquid to gas is boiling or evaporating, gas to liquid is condensing. And solid straight to gas, missing the liquid out entirely, is sublimation.',
+            zh: '这些状态之间的变化各有名称，成对记忆最好。固体变液体是熔化，液体变固体是凝固——常称为结冰。液体变气体是沸腾或蒸发，气体变液体是凝结。而固体直接变成气体、完全跳过液态，则是升华。',
+          },
+        },
+        {
+          id: 'st-5',
+          text: {
+            en: 'Boiling and evaporating are not the same thing, and the difference is worth having straight. Boiling happens throughout the liquid, at one particular temperature. Evaporation happens only at the surface, at any temperature, and it is the fastest particles that escape — which is why what is left behind is cooler.',
+            zh: '沸腾和蒸发不是一回事，这个区别值得弄清。沸腾发生在液体内部各处，且只在某一特定温度发生。蒸发只发生在表面，任何温度下都能进行，而逃逸的是速度最快的粒子——这就是剩下的液体会变凉的原因。',
+          },
+        },
+      ],
+    },
+    {
       id: 'intro',
       type: 'intro',
       title: { en: 'What pressure really is', zh: '压强究竟是什么' },

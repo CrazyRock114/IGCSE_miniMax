@@ -6,6 +6,8 @@ const lesson: Lesson = {
   slug: '2-1-gas-particles',
   subject: '0625',
   syllabus: [
+    '0625.2.1.1.1',
+    '0625.2.1.1.2',
     '0625.2.1.2.1',
     '0625.2.1.2.2',
     '0625.2.1.2.3',
@@ -13,6 +15,7 @@ const lesson: Lesson = {
     '0625.2.1.2.5',
     '0625.2.1.2.6',
     '0625.2.1.2.7',
+    '0625.2.1.2.8',
     '0625.2.1.3.1',
     '0625.2.1.3.2',
     '0625.2.1.3.3',
@@ -27,6 +30,10 @@ const lesson: Lesson = {
   },
 
   objectives: [
+    {
+      en: 'Know the distinguishing properties of solids, liquids and gases, and the terms for changes of state.',
+      zh: '掌握固体、液体与气体的区别性质，以及各种物态变化的名称。',
+    },
     {
       en: 'Describe the arrangement, separation and motion of particles in solids, liquids and gases.',
       zh: '描述固、液、气三态中粒子的排列、间距与运动。',
@@ -302,6 +309,49 @@ const lesson: Lesson = {
       examinerNote: {
         en: 'Keep the two kinds of particle straight: the smoke particles are what you see moving, the air molecules are what hit them. Reversing them is a common and costly slip.',
         zh: '要分清两类粒子：看到运动的是烟尘颗粒，撞击它们的是空气分子。说反了是常见且代价很大的错误。',
+      },
+    },
+    {
+      id: '0625-2-1-cp5',
+      syllabus: ['0625.2.1.1.1'],
+      tier: 'core',
+      commandWord: 'Explain',
+      marks: 3,
+      stem: 'Explain, in terms of the arrangement and movement of particles, why a gas can be compressed easily but a liquid cannot.',
+      markScheme: [
+        {
+          text: 'In a gas the particles are far apart, with large spaces between them',
+          marks: 1,
+        },
+        {
+          text: 'so squeezing the gas moves the particles closer together into that empty space',
+          marks: 1,
+        },
+        {
+          text: 'In a liquid the particles are already touching, so there is almost no space to reduce',
+          marks: 1,
+        },
+      ],
+      examinerNote: {
+        en: 'Compressing a gas reduces the space between particles, not the particles themselves. A particle has a fixed size and cannot be squashed.',
+        zh: '压缩气体减小的是粒子之间的空隙，而不是粒子本身。粒子大小固定，无法被压扁。',
+      },
+    },
+    {
+      id: '0625-2-1-cp6',
+      syllabus: ['0625.2.1.1.2'],
+      tier: 'core',
+      commandWord: 'State',
+      marks: 3,
+      stem: 'Name the change of state in each case: (a) a solid becoming a liquid, (b) a gas becoming a liquid, (c) a solid becoming a gas without melting first.',
+      markScheme: [
+        { text: '(a) Melting', marks: 1 },
+        { text: '(b) Condensing / condensation', marks: 1 },
+        { text: '(c) Sublimation', marks: 1 },
+      ],
+      examinerNote: {
+        en: 'Learn them in pairs — melting and solidifying, boiling and condensing — with sublimation as the one that skips a stage.',
+        zh: '成对记忆——熔化与凝固、沸腾与凝结——升华则是跳过中间一步的那一个。',
       },
     },
   ],
