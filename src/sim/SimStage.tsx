@@ -16,6 +16,7 @@ import { Sort } from './sort/Sort'
 import { Match } from './match/Match'
 import { Punnett } from './punnett/Punnett'
 import { Pyramid } from './pyramid/Pyramid'
+import { Giant } from './giant/Giant'
 import { Vectors } from './vectors/Vectors'
 
 export interface SimViewProps {
@@ -52,6 +53,8 @@ export function SimStage(props: SimViewProps) {
       return <Molecule {...props} />
     case 'bonding':
       return <Bonding {...props} />
+    case 'giant':
+      return <Giant {...props} />
     case 'ladder':
       return <Ladder {...props} />
     case 'lattice':

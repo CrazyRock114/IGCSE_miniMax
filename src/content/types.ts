@@ -82,6 +82,7 @@ export type SimPrimitive =
   | 'atom'
   | 'molecule'
   | 'bonding'
+  | 'giant'
   | 'ladder'
   | 'lattice'
   | 'periodictable'
