@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
-import type { SimSeries } from '@/content/types'
+import type { Bilingual, SimSeries } from '@/content/types'
+import { T } from '@/components/i18n/T'
 import { niceAxisMax, niceAxisMin } from '@/lib/units'
 import { Plot2D } from './Plot2D'
 
@@ -12,6 +13,14 @@ interface PlotGridProps {
   series: SimSeries[]
   /** Height when a single panel is drawn; two panels shrink automatically. */
   height?: number
+  /**
+   * Conclusions to print under the plots — which factor is limiting, whether the glucose
+   * went into the urine, whether the object is too close to focus.
+   *
+   * Opt-in, because a primitive that draws its own picture alongside a plot already shows
+   * these itself and would otherwise print them twice.
+   */
+  notes?: Bilingual[]
 }
 
 /**
@@ -51,7 +60,7 @@ export function axisRange(values: number[]): { min: number; max: number } {
  * that draws a physical picture can plot alongside it, which is how a molecule's structure
  * and its homologous series' boiling-point trend end up on the same canvas.
  */
-export function PlotGrid({ series: allSeries, height = 300 }: PlotGridProps) {
+export function PlotGrid({ series: allSeries, height = 300, notes = [] }: PlotGridProps) {
   const groups = useMemo(() => {
     // Group by axis units, preserving the order the kernel emitted them in.
     const byUnit = new Map<string, SimSeries[]>()
@@ -76,20 +85,32 @@ export function PlotGrid({ series: allSeries, height = 300 }: PlotGridProps) {
   }, [allSeries])
 
   return (
-    <div className={'grid gap-4 ' + (groups.length > 1 ? 'sm:grid-cols-2' : '')}>
-      {groups.map((g) => (
-        <Plot2D
-          key={g.series.map((s) => s.key).join('+')}
-          series={g.series}
-          xMin={g.x.min}
-          xMax={g.x.max}
-          yMin={g.y.min}
-          yMax={g.y.max}
-          colours={SERIES_COLOURS}
-          fillKeys={FILLED_SERIES}
-          height={groups.length === 1 ? height : Math.round(height * 0.8)}
-        />
-      ))}
-    </div>
+    <>
+      <div className={'grid gap-4 ' + (groups.length > 1 ? 'sm:grid-cols-2' : '')}>
+        {groups.map((g) => (
+          <Plot2D
+            key={g.series.map((s) => s.key).join('+')}
+            series={g.series}
+            xMin={g.x.min}
+            xMax={g.x.max}
+            yMin={g.y.min}
+            yMax={g.y.max}
+            colours={SERIES_COLOURS}
+            fillKeys={FILLED_SERIES}
+            height={groups.length === 1 ? height : Math.round(height * 0.8)}
+          />
+        ))}
+      </div>
+
+      {notes.length > 0 && (
+        <p className="mt-3 rounded-lg border border-line bg-canvas px-3 py-2 text-sm font-medium text-ink-soft">
+          {notes.map((note, i) => (
+            <span key={i} className="mr-4 inline-block">
+              <T value={note} />
+            </span>
+          ))}
+        </p>
+      )}
+    </>
   )
 }

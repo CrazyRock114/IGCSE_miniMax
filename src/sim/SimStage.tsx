@@ -14,6 +14,7 @@ import { Lattice } from './lattice/Lattice'
 import { PeriodicTable } from './periodictable/PeriodicTable'
 import { Sort } from './sort/Sort'
 import { Match } from './match/Match'
+import { Punnett } from './punnett/Punnett'
 
 export interface SimViewProps {
   result: SimResult
@@ -59,8 +60,15 @@ export function SimStage(props: SimViewProps) {
       return <Sort {...props} />
     case 'match':
       return <Match {...props} />
+    case 'punnett':
+      return <Punnett {...props} />
     case 'plot2d':
-      return <PlotGrid series={props.result.series} />
+      return (
+        <PlotGrid
+          series={props.result.series}
+          notes={(props.result.markers ?? []).map((m) => m.label)}
+        />
+      )
     default:
       // A lesson referencing a primitive that has not been built yet should say so
       // rather than render an empty box.

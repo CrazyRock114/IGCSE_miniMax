@@ -87,6 +87,7 @@ export type SimPrimitive =
   | 'periodictable'
   | 'sort'
   | 'match'
+  | 'punnett'
   | 'beam'
   | 'vectors'
   | 'particles'
@@ -291,10 +292,41 @@ export interface SimAssignment {
   targets: Array<{ id: string; label: Bilingual; hint?: Bilingual }>
 }
 
+/**
+ * A Punnett square: the gametes of one parent along the top, the other down the side, and
+ * every combination of them in the cells.
+ *
+ * Deliberately free of genetics vocabulary. The renderer is told about columns, rows, cells
+ * and groups; it is not told what an allele is. That is what lets the same grid draw a
+ * monohybrid cross, a codominant one, sex determination and a sex-linked cross — four
+ * things the syllabus treats separately and which are the same operation underneath.
+ *
+ * `groups` is the set of distinct outcomes in the order they should be listed and coloured,
+ * and `groupOf` says which one each cell belongs to. Keeping that mapping in the data rather
+ * than in the renderer is what makes codominance possible: three genotypes and three
+ * phenotypes, where a dominant cross has three genotypes and two phenotypes.
+ */
+export interface SimGrid {
+  /** Gametes forming the columns, and a heading naming the parent they came from. */
+  columns: string[]
+  columnsLabel: Bilingual
+  /** Gametes forming the rows, and a heading naming that parent. */
+  rows: string[]
+  rowsLabel: Bilingual
+  /** Offspring at `cells[row][column]`. */
+  cells: string[][]
+  /** Distinct outcomes, in display order. */
+  groups: Array<{ id: string; label: Bilingual }>
+  /** Which group each cell value belongs to. */
+  groupOf: Record<string, string>
+}
+
 export interface SimResult {
   series: SimSeries[]
   /** Present only for the `sort` and `match` primitives. */
   assignment?: SimAssignment
+  /** Present only for the `punnett` primitive. */
+  grid?: SimGrid
   /** Keyed by ReadoutSpec.key */
   readouts: Record<string, number>
   /** Optional annotations the renderer may draw (markers, regions) */

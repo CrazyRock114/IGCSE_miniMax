@@ -42,4 +42,14 @@ export const ui = {
     en: 'Now click its partner on the right. Click a paired item to undo it.',
     zh: '现在点击右侧与之配对的一项。点击已配对的条目可取消。',
   },
+
+  // --- Punnett squares ---
+  punnettHint: {
+    en: 'Every gamete from one parent, paired with every gamete from the other.',
+    zh: '一个亲本的每个配子，与另一亲本的每个配子两两组合。',
+  },
+  punnettCaption: {
+    en: 'Punnett square: the gametes of each parent along the edges, and the possible offspring in the cells.',
+    zh: '庞纳特方格：两侧为各亲本的配子，格中为可能的子代。',
+  },
 } satisfies Record<string, Bilingual>
