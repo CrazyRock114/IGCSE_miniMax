@@ -17,6 +17,7 @@ import { Match } from './match/Match'
 import { Punnett } from './punnett/Punnett'
 import { Pyramid } from './pyramid/Pyramid'
 import { Balance } from './balance/Balance'
+import { Chromatogram } from './chromatogram/Chromatogram'
 import { Giant } from './giant/Giant'
 import { Vectors } from './vectors/Vectors'
 
@@ -58,6 +59,8 @@ export function SimStage(props: SimViewProps) {
       return <Giant {...props} />
     case 'balance':
       return <Balance {...props} />
+    case 'chromatogram':
+      return <Chromatogram {...props} />
     case 'ladder':
       return <Ladder {...props} />
     case 'lattice':

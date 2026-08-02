@@ -153,9 +153,10 @@ for (const { lesson, dir, slug, subject, hasKernel } of lessons) {
       result.series.length === 0 &&
       !result.bodies?.length &&
       !result.assignment &&
-      !result.equation
+      !result.equation &&
+      !result.chromatogram
     ) {
-      warn(where, 'kernel returns nothing to draw — no series, bodies, assignment or equation')
+      warn(where, 'kernel returns nothing to draw')
     }
 
     // --- live substitutions must be valid KaTeX, not prose ---

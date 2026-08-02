@@ -83,6 +83,7 @@ export type SimPrimitive =
   | 'molecule'
   | 'balance'
   | 'bonding'
+  | 'chromatogram'
   | 'giant'
   | 'ladder'
   | 'lattice'
@@ -355,6 +356,24 @@ export interface SimEquation {
   tally: Array<{ element: string; left: number; right: number }>
 }
 
+/**
+ * A developed chromatogram: a strip of paper with a baseline, a solvent front and the spots
+ * between them.
+ *
+ * Distances are in centimetres from the baseline, and every spot carries its own Rf. Keeping
+ * both means the picture and the arithmetic cannot disagree — which matters here, because the
+ * whole point of Rf is that the distances change when the plate is run for longer and the
+ * ratio does not.
+ */
+export interface SimChromatogram {
+  /** How far the solvent front travelled from the baseline, in cm. */
+  solventDistance: number
+  lanes: Array<{
+    label: Bilingual
+    spots: Array<{ label: string; distance: number; rf: number; highlighted?: boolean }>
+  }>
+}
+
 export interface SimResult {
   series: SimSeries[]
   /** Present only for the `sort` and `match` primitives. */
@@ -365,6 +384,8 @@ export interface SimResult {
   pyramid?: SimPyramid
   /** Present only for the `balance` primitive. */
   equation?: SimEquation
+  /** Present only for the `chromatogram` primitive. */
+  chromatogram?: SimChromatogram
   /** Keyed by ReadoutSpec.key */
   readouts: Record<string, number>
   /** Optional annotations the renderer may draw (markers, regions) */
