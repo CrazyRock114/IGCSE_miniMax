@@ -12,6 +12,10 @@ const lesson: Lesson = {
     '0625.3.1.4',
     '0625.3.1.5',
     '0625.3.1.6',
+    '0625.3.1.7',
+    '0625.3.1.8',
+    '0625.3.1.9',
+    '0625.3.1.10',
   ],
   tier: 'core',
   estimatedMinutes: 45,
@@ -23,6 +27,14 @@ const lesson: Lesson = {
   },
 
   objectives: [
+    {
+      en: 'Describe reflection, refraction and diffraction of waves, and their ripple tank demonstrations.',
+      zh: '描述波的反射、折射与衍射，以及它们在波盘中的演示。',
+    },
+    {
+      en: 'Describe how wavelength and gap size affect diffraction through a gap and at an edge. (Extended)',
+      zh: '描述波长与缝宽如何影响通过缝隙和绕过边缘的衍射。（Extended）',
+    },
     { en: 'State that waves transfer energy without transferring matter.', zh: '说明波传递能量而不传递物质。' },
     {
       en: 'Describe wave motion using ropes, springs and water waves.',
@@ -301,6 +313,49 @@ const lesson: Lesson = {
       examinerNote: {
         en: 'Amplitude is measured from the rest position to a crest, so it is half the crest-to-trough height. Quoting 8.0 cm is the classic mistake here.',
         zh: '振幅从平衡位置量到波峰，因此是波峰到波谷高度的一半。写 8.0 cm 是这里的典型错误。',
+      },
+    },
+    {
+      id: '0625-3-1-cp5',
+      syllabus: ['0625.3.1.7'],
+      tier: 'core',
+      commandWord: 'State',
+      marks: 3,
+      stem: 'A water wave passes from deep water into shallow water. State what happens to its speed, its wavelength and its frequency.',
+      markScheme: [
+        { text: 'The speed decreases', marks: 1 },
+        { text: 'The wavelength decreases', marks: 1 },
+        { text: 'The frequency stays the same', marks: 1 },
+      ],
+      examinerNote: {
+        en: 'The frequency is fixed by whatever is producing the wave, and a boundary has no say in it. Saying the frequency drops is the commonest error in the whole topic.',
+        zh: '频率由产生波的源决定，边界对此无能为力。写"频率降低"是整章中最常见的错误。',
+      },
+    },
+    {
+      id: '0625-3-1-cp6',
+      syllabus: ['0625.3.1.9', '0625.3.1.10'],
+      tier: 'extended',
+      commandWord: 'Explain',
+      marks: 3,
+      stem: 'You can hear a person talking round the corner of a building, but you cannot see them. Explain why, in terms of diffraction.',
+      markScheme: [
+        {
+          text: 'Waves diffract — spread out — when they pass an edge or a gap, and the amount of spreading depends on the wavelength compared with the size of the obstacle or gap',
+          marks: 1,
+        },
+        {
+          text: 'Sound has a wavelength of roughly a metre, comparable to the size of the corner, so it diffracts strongly and reaches you',
+          marks: 1,
+        },
+        {
+          text: 'Light has a wavelength of well under a micrometre, far smaller than the corner, so it diffracts far too little to reach you',
+          marks: 1,
+        },
+      ],
+      examinerNote: {
+        en: 'The comparison is between the wavelength and the gap or obstacle, not the wavelength on its own. Light does diffract — just not on the scale of a building.',
+        zh: '比较的是波长与缝隙或障碍物的尺度，而不是波长本身的大小。光确实会衍射——只是在建筑物的尺度上远远不够。',
       },
     },
   ],

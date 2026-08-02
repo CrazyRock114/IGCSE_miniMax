@@ -111,6 +111,62 @@ export const wavesNarration: NarrationScript = {
       ],
     },
     {
+      id: 'ripples',
+      type: 'concept',
+      title: { en: 'Three things a wave does at a boundary', zh: '波在边界处会做的三件事' },
+      lines: [
+        {
+          id: 'rp-1',
+          text: {
+            en: 'A ripple tank is the standard way to see all of this. A vibrating bar makes straight wavefronts on shallow water, a lamp above casts their shadow on the bench, and you can put obstacles in the way.',
+            zh: '波盘是观察这一切的标准方法。振动棒在浅水中产生平直的波前，上方的灯把它们的影子投在桌面上，你还可以在水中放置障碍物。',
+          },
+        },
+        {
+          id: 'rp-2',
+          text: {
+            en: 'Put a straight barrier in and the waves reflect: the angle of reflection equals the angle of incidence, and the wavelength, frequency and speed are all unchanged. Reflection changes only the direction.',
+            zh: '放入一块平直挡板，波会发生反射：反射角等于入射角，而波长、频率和波速都不变。反射只改变方向。',
+          },
+        },
+        {
+          id: 'rp-3',
+          text: {
+            en: 'Put a flat sheet of glass on the bottom to make a shallow region and the waves refract. In shallower water they travel more slowly, so the wavelength shortens — and if they meet the boundary at an angle they change direction. But the frequency does not change, because the source is still vibrating at the same rate.',
+            zh: '在池底放一块平板玻璃形成浅水区，波会发生折射。浅水中波速变慢，因此波长变短——若波以某个角度到达边界，方向也会改变。但频率不变，因为波源的振动频率没有变。',
+          },
+        },
+        {
+          id: 'rp-4',
+          text: {
+            en: 'That is worth saying twice, because it is the most common error in the topic. Refraction changes speed and wavelength. It never changes frequency. The frequency is set by whatever is making the wave, and the boundary has no say in it.',
+            zh: '这一点值得说两遍，因为它是本章最常见的错误。折射改变波速和波长，但绝不改变频率。频率由产生波的源决定，边界对此无能为力。',
+          },
+        },
+        {
+          id: 'rp-5',
+          text: {
+            en: 'And put a barrier with a gap in it, and the waves spread out after passing through. That is diffraction, and unlike the other two nothing about the wave changes at all — not the speed, not the wavelength, not the frequency. Only the shape of the wavefronts.',
+            zh: '再放一块带缝的挡板，波通过后会散开。这就是衍射；与前两者不同，波本身完全没有变化——波速、波长、频率都不变。变的只是波前的形状。',
+          },
+        },
+        {
+          id: 'rp-6',
+          text: {
+            en: 'How much they spread depends on the gap compared with the wavelength. A wide gap barely bends them: most of the wave carries straight on and only the edges curl. Narrow the gap towards the wavelength and the spreading grows, until at a gap about equal to the wavelength the waves emerge as almost semicircular arcs.',
+            zh: '散开的程度取决于缝宽与波长的比较。缝很宽时几乎不弯折：大部分波直行通过，只有边缘略微卷曲。把缝收窄到接近波长，散开就明显增强；当缝宽与波长相当时，波几乎以半圆形的弧面射出。',
+          },
+        },
+        {
+          id: 'rp-7',
+          text: {
+            en: 'At the edge of a single obstacle it is the same story: waves bend round it, and the longer the wavelength the more they bend. Which is why you can hear someone round a corner but not see them — sound has a wavelength of about a metre and diffracts round the wall, while light at a fraction of a micrometre does not.',
+            zh: '在单个障碍物的边缘也是同样的道理：波会绕到它后面，波长越长绕得越多。这就是为什么你能听见拐角处的人说话却看不见他——声波波长约一米，能绕过墙壁衍射，而光的波长不足一微米，做不到。',
+          },
+        },
+      ],
+    },
+    {
       id: 'summary',
       type: 'summary',
       title: { en: 'What to take into the exam', zh: '考场上要记住的' },
