@@ -58,4 +58,10 @@ export const ui = {
     en: 'Bar widths are on a logarithmic scale — the numbers span too many orders of magnitude to draw to scale. The figure on each bar is the real value.',
     zh: '条形的宽度采用对数刻度——这些数值跨越的数量级太多，无法按比例绘制。每根条形上的数字才是真实数值。',
   },
+
+  // --- vector diagrams ---
+  vectorsHint: {
+    en: 'Each arrow starts at the origin. The dashed lines complete the rectangle, which is where the right angle comes from.',
+    zh: '每个箭头都从原点出发。虚线补全了矩形——直角正是从这里来的。',
+  },
 } satisfies Record<string, Bilingual>

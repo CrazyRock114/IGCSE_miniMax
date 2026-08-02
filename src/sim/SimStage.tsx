@@ -16,6 +16,7 @@ import { Sort } from './sort/Sort'
 import { Match } from './match/Match'
 import { Punnett } from './punnett/Punnett'
 import { Pyramid } from './pyramid/Pyramid'
+import { Vectors } from './vectors/Vectors'
 
 export interface SimViewProps {
   result: SimResult
@@ -65,6 +66,8 @@ export function SimStage(props: SimViewProps) {
       return <Punnett {...props} />
     case 'pyramid':
       return <Pyramid {...props} />
+    case 'vectors':
+      return <Vectors {...props} />
     case 'plot2d':
       return (
         <PlotGrid
