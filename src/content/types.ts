@@ -88,6 +88,7 @@ export type SimPrimitive =
   | 'sort'
   | 'match'
   | 'punnett'
+  | 'pyramid'
   | 'beam'
   | 'vectors'
   | 'particles'
@@ -321,12 +322,31 @@ export interface SimGrid {
   groupOf: Record<string, string>
 }
 
+/**
+ * An ecological pyramid: trophic levels stacked from the producers upwards.
+ *
+ * `value` is the real quantity and is printed on the bar. The bar *widths* are drawn on a
+ * logarithmic scale, which needs saying out loud: a pyramid of numbers can run from one oak
+ * tree to half a million insects, six orders of magnitude, and drawn to scale every level
+ * above the first would be a hairline. Textbooks solve this by drawing pyramids of numbers
+ * not to scale at all; a log scale is the same concession made honestly, and it keeps the
+ * ordering — and so any inversion — visible, which is the whole thing the diagram is for.
+ */
+export interface SimPyramid {
+  /** Levels from the bottom — the producers — upwards. */
+  levels: Array<{ label: Bilingual; value: number; detail?: Bilingual }>
+  /** Unit of `value`. Notation, so it is not translated. */
+  unit: string
+}
+
 export interface SimResult {
   series: SimSeries[]
   /** Present only for the `sort` and `match` primitives. */
   assignment?: SimAssignment
   /** Present only for the `punnett` primitive. */
   grid?: SimGrid
+  /** Present only for the `pyramid` primitive. */
+  pyramid?: SimPyramid
   /** Keyed by ReadoutSpec.key */
   readouts: Record<string, number>
   /** Optional annotations the renderer may draw (markers, regions) */

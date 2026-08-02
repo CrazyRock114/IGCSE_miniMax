@@ -15,6 +15,7 @@ import { PeriodicTable } from './periodictable/PeriodicTable'
 import { Sort } from './sort/Sort'
 import { Match } from './match/Match'
 import { Punnett } from './punnett/Punnett'
+import { Pyramid } from './pyramid/Pyramid'
 
 export interface SimViewProps {
   result: SimResult
@@ -62,6 +63,8 @@ export function SimStage(props: SimViewProps) {
       return <Match {...props} />
     case 'punnett':
       return <Punnett {...props} />
+    case 'pyramid':
+      return <Pyramid {...props} />
     case 'plot2d':
       return (
         <PlotGrid

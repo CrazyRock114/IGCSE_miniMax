@@ -52,4 +52,10 @@ export const ui = {
     en: 'Punnett square: the gametes of each parent along the edges, and the possible offspring in the cells.',
     zh: '庞纳特方格：两侧为各亲本的配子，格中为可能的子代。',
   },
+
+  // --- ecological pyramids ---
+  pyramidScale: {
+    en: 'Bar widths are on a logarithmic scale — the numbers span too many orders of magnitude to draw to scale. The figure on each bar is the real value.',
+    zh: '条形的宽度采用对数刻度——这些数值跨越的数量级太多，无法按比例绘制。每根条形上的数字才是真实数值。',
+  },
 } satisfies Record<string, Bilingual>
