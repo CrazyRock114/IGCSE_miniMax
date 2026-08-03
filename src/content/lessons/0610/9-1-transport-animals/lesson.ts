@@ -142,6 +142,87 @@ const lesson: Lesson = {
       },
       syllabus: ['0610.9.4.7'],
     },
+    {
+      en: 'atrioventricular valve',
+      zh: '房室瓣',
+      definition: {
+        en: 'A one-way valve between an atrium and a ventricle. The right side has the tricuspid valve (three flaps), the left has the bicuspid or mitral valve (two flaps). They close when the ventricle contracts, stopping blood from flowing back into the atrium.',
+        zh: '心房与心室之间的单向瓣膜。右侧为三尖瓣（三片瓣叶），左侧为二尖瓣/僧帽瓣（两片瓣叶）。心室收缩时它们关闭，防止血液回流到心房。',
+      },
+      syllabus: ['0610.9.2.8'],
+    },
+    {
+      en: 'semilunar valve',
+      zh: '半月瓣',
+      definition: {
+        en: 'A one-way valve at the exit of each ventricle, where the blood leaves the heart. There is one at the start of the pulmonary artery and one at the start of the aorta. They close after the ventricle has squeezed, stopping blood from falling back into the ventricle.',
+        zh: '位于心室出口（血液离开心脏之处）的单向瓣膜。肺动脉起点有一个，主动脉起点有一个。心室泵血后它们关闭，防止血液倒流回心室。',
+      },
+      syllabus: ['0610.9.2.8'],
+    },
+    {
+      en: 'pacemaker',
+      zh: '起搏点',
+      definition: {
+        en: 'A small group of specialised muscle cells in the wall of the right atrium that sets the rate at which the heart beats. It produces a small electrical signal that spreads across both atria, making them contract together, then passes down to the ventricles.',
+        zh: '右心房壁上一小组特化的肌肉细胞，决定心率。它们发出微小的电信号，扩散到两个心房使其同时收缩，再向下传导到心室。',
+      },
+      syllabus: ['0610.9.2.10'],
+    },
+    {
+      en: 'single circulation',
+      zh: '单循环',
+      definition: {
+        en: 'A circulatory system in which the blood passes through the heart only once per circuit of the body. Fish have this: heart → gills → body → heart. The blood loses pressure going through the gill capillaries before it reaches the body, so flow is slow.',
+        zh: '血液每循环一周只经过心脏一次的循环系统。鱼就是这种：心→鳃→全身→心。血液在鳃毛细血管中损失了压力，到达全身时流速较慢。',
+      },
+      syllabus: ['0610.9.1.3'],
+    },
+    {
+      en: 'oxygenated blood',
+      zh: '含氧血',
+      definition: {
+        en: 'Blood that has just picked up oxygen at the lungs (in mammals) or gills (in fish). In diagrams it is drawn red; in the body it is bright red, not the dark red of deoxygenated blood.',
+        zh: '刚从肺（哺乳动物）或鳃（鱼）获取了氧气的血液。图中画成红色；在体内颜色是鲜红色，与缺氧血的暗红色不同。',
+      },
+      syllabus: ['0610.9.1.3'],
+    },
+    {
+      en: 'plasma',
+      zh: '血浆',
+      definition: {
+        en: 'The pale yellow liquid part of blood, in which the cells and platelets are suspended. It is mostly water, and carries dissolved substances around: carbon dioxide, digested food, hormones, antibodies, and urea.',
+        zh: '血液中淡黄色的液体部分，血细胞和血小板悬浮其中。它大部分是水，把溶解的物质运送全身：二氧化碳、已消化的食物、激素、抗体和尿素。',
+      },
+      syllabus: ['0610.9.4.1'],
+    },
+    {
+      en: 'red blood cell',
+      zh: '红细胞',
+      definition: {
+        en: 'A small doughnut-shaped blood cell with no nucleus. The shape and the missing nucleus together make room for millions of molecules of haemoglobin, the red pigment that carries oxygen from the lungs to every cell in the body.',
+        zh: '小而呈圆饼状（中央凹入）、没有细胞核的血细胞。这种形状加上没有细胞核，使细胞内容纳下几百万个血红蛋白分子——正是这种红色色素把氧从肺部运到全身每个细胞。',
+      },
+      syllabus: ['0610.9.4.2'],
+    },
+    {
+      en: 'phagocyte',
+      zh: '吞噬细胞',
+      definition: {
+        en: 'A type of white blood cell that engulfs and digests pathogens. It changes shape, flows around the bacterium, takes it inside the cell, and breaks it down with enzymes. Pus at a wound site is mostly dead phagocytes that have done this and then died.',
+        zh: '一种能吞噬并分解病原体的白细胞。它改变形状，包围细菌，把它吞进细胞内，再用酶分解。伤口处的脓液主要是已经完成吞噬并死去的吞噬细胞。',
+      },
+      syllabus: ['0610.9.4.5'],
+    },
+    {
+      en: 'lymphocyte',
+      zh: '淋巴细胞',
+      definition: {
+        en: 'A type of white blood cell with a large round nucleus. Lymphocytes make antibodies — proteins that recognise and bind to specific pathogens, marking them for destruction by phagocytes. They are also the cells that "remember" past infections, which is how vaccination works.',
+        zh: '一种有大而圆的细胞核的白细胞。淋巴细胞制造抗体——能识别并结合特定病原体的蛋白质，标记它们以便吞噬细胞破坏。它们也是"记住"过去感染的细胞，这正是疫苗能起作用的原理。',
+      },
+      syllabus: ['0610.9.4.6'],
+    },
   ],
 
   equations: [
@@ -457,6 +538,421 @@ const lesson: Lesson = {
         en: 'Both are white blood cells, so "it fights disease" does not distinguish them and scores nothing.',
         zh: '两者都是白细胞，因此写"它抵抗疾病"无法区分二者，不得分。',
       },
+    },
+  ],
+
+  // Visual / interactive learning modules for Chapter 2 (B7 Transport in
+  // mammals). See src/content/types.ts for the `LessonExtra` shape.
+  // Each module uses a real figure extracted from the G8 PDF so the
+  // student sees the textbook picture, not a hand-drawn approximation.
+  extras: [
+    // 1) The heart in one picture — 11 hotspots over the G8 Figure B7.03
+    {
+      type: 'heart-anatomy',
+      id: 'anatomy',
+      title: { en: 'The heart, in one picture', zh: '一张图看心脏' },
+      hint: {
+        en: 'Click any chamber, valve or great vessel. "Follow the blood" animates a red cell body → right heart → lungs → left heart → body.',
+        zh: '点击任一心腔、瓣膜或大血管。点"跟着血液走一遍"会动画演示一个红细胞从全身→右心→肺→左心→全身的旅程。',
+      },
+      initialPart: 'left-ventricle',
+      parts: [
+        {
+          id: 'vena-cava',
+          name: { en: 'Vena cava', zh: '腔静脉' },
+          stop: 1,
+          description: {
+            en: 'The two largest veins in the body. The superior vena cava brings blood back from the head and arms, the inferior from the lower body. Both dump deoxygenated blood into the right atrium.',
+            zh: '人体最大的两条静脉。上腔静脉收集来自头和手臂的血液，下腔静脉收集来自下半身的血液。两条都把缺氧血注入右心房。',
+          },
+        },
+        {
+          id: 'right-atrium',
+          name: { en: 'Right atrium', zh: '右心房' },
+          stop: 2,
+          description: {
+            en: 'The thin-walled upper-right chamber. It receives deoxygenated blood from the venae cavae and, when full, contracts to push it down into the right ventricle through the tricuspid valve.',
+            zh: '壁薄的上右侧心腔。它接收来自腔静脉的缺氧血，满了之后收缩，把血液经三尖瓣推入右心室。',
+          },
+          secretions: [{ en: 'Receives from venae cavae', zh: '接收腔静脉的血液' }],
+        },
+        {
+          id: 'tricuspid-valve',
+          name: { en: 'Tricuspid (AV) valve', zh: '三尖瓣（房室瓣）' },
+          description: {
+            en: 'The one-way valve between the right atrium and the right ventricle. It has three flaps (hence "tri-"). When the right ventricle contracts, the flaps snap shut, preventing blood from being pushed back into the atrium.',
+            zh: '位于右心房和右心室之间的单向瓣膜。它有三片瓣叶（故名"三尖"）。右心室收缩时，瓣叶啪地关闭，防止血液被推回心房。',
+          },
+        },
+        {
+          id: 'right-ventricle',
+          name: { en: 'Right ventricle', zh: '右心室' },
+          stop: 3,
+          description: {
+            en: 'The lower-right chamber. Its wall is muscular but thinner than the left ventricle — it only has to pump blood to the lungs, which are right next door. The blood leaves through the pulmonary artery.',
+            zh: '右下方的心腔。壁有肌肉但比左心室薄——它只需把血液泵到隔壁的肺。血液从肺动脉离开。',
+          },
+        },
+        {
+          id: 'pulmonary-artery',
+          name: { en: 'Pulmonary artery', zh: '肺动脉' },
+          stop: 4,
+          description: {
+            en: 'The only artery in the body that carries deoxygenated blood. It splits into two, one branch going to each lung. At its start, just after the right ventricle, is the pulmonary semilunar valve.',
+            zh: '人体中唯一一条运输缺氧血的动脉。它分成两支，分别进入左肺和右肺。在它起点——紧接右心室之后——是肺动脉半月瓣。',
+          },
+        },
+        {
+          id: 'pulmonary-vein',
+          name: { en: 'Pulmonary vein', zh: '肺静脉' },
+          stop: 5,
+          description: {
+            en: 'The only vein in the body that carries oxygenated blood — it is bringing the blood back from the lungs to the left atrium, freshly loaded with oxygen.',
+            zh: '人体中唯一一条运输含氧血的静脉——它把从肺中新鲜充氧的血液送回左心房。',
+          },
+        },
+        {
+          id: 'left-atrium',
+          name: { en: 'Left atrium', zh: '左心房' },
+          stop: 6,
+          description: {
+            en: 'The thin-walled upper-left chamber. It receives oxygenated blood from the pulmonary veins and pushes it down into the left ventricle through the bicuspid (mitral) valve.',
+            zh: '壁薄的上左侧心腔。它接收来自肺静脉的含氧血，再通过二尖瓣（僧帽瓣）推入左心室。',
+          },
+        },
+        {
+          id: 'bicuspid-valve',
+          name: { en: 'Bicuspid (mitral) valve', zh: '二尖瓣（僧帽瓣）' },
+          description: {
+            en: 'The one-way valve between the left atrium and the left ventricle. Two flaps, hence "bi-". Closes with a louder "lub" than the tricuspid — that is the first of the two sounds you hear through a stethoscope.',
+            zh: '左心房与左心室之间的单向瓣膜。两片瓣叶，故名"二尖"。关闭时发出的"扑"比三尖瓣响——这正是听诊器听到的第一个心音。',
+          },
+        },
+        {
+          id: 'left-ventricle',
+          name: { en: 'Left ventricle', zh: '左心室' },
+          stop: 7,
+          description: {
+            en: 'The lower-left chamber, and the strongest muscle in the body. Its wall is about three times thicker than the right ventricle — it has to pump blood all the way round the body, not just to the next room. Blood leaves through the aorta.',
+            zh: '左下方的心腔，也是人体最强壮的肌肉。其壁厚约为右心室的三倍——它要把血液泵到全身各处，而非仅一墙之隔的肺。血液从主动脉离开。',
+          },
+        },
+        {
+          id: 'aorta',
+          name: { en: 'Aorta', zh: '主动脉' },
+          stop: 8,
+          description: {
+            en: 'The largest artery in the body, leaving the left ventricle and arching over the top of the heart. It carries oxygenated blood at high pressure, and its first branches feed the heart muscle itself (the coronary arteries).',
+            zh: '人体最大的动脉，从左心室发出，向上弓形越过心脏顶部。它以高压运输含氧血，第一批分支供应心肌本身（冠状动脉）。',
+          },
+        },
+        {
+          id: 'septum',
+          name: { en: 'Septum', zh: '室间隔' },
+          description: {
+            en: 'The muscular wall down the middle of the heart. It completely separates the two sides — oxygenated and deoxygenated blood never mix. A hole in the septum (a "hole in the heart") is a congenital defect.',
+            zh: '心脏中央的肌肉壁。它把左右两侧完全隔开——含氧血和缺氧血永远不混合。间隔上的孔（"心脏有洞"）是先天缺陷。',
+          },
+        },
+      ],
+    },
+
+    // 2) The four blood components as figure-cards
+    {
+      type: 'blood-components',
+      id: 'components',
+      title: { en: 'What blood is made of', zh: '血液的成分' },
+      hint: {
+        en: 'Real figures from the textbook: a red cell, a white cell (lymphocyte), a phagocyte, and a platelet. Each card has the function and the appearance.',
+        zh: '讲义里的真实图：红细胞、淋巴细胞、吞噬细胞、血小板。每张卡有功能与形态描述。',
+      },
+      cards: [
+        {
+          id: 'plasma',
+          term: { en: 'Plasma', zh: '血浆' },
+          mechanism: {
+            en: 'The liquid in which the blood cells float. It is mostly water, and carries dissolved substances around: digested food (glucose, amino acids), carbon dioxide, hormones, antibodies, and waste such as urea.',
+            zh: '血液细胞悬浮其中的液体。它大部分是水，把溶解的物质运送到全身：已消化的食物（葡萄糖、氨基酸）、二氧化碳、激素、抗体和尿素等废物。',
+          },
+          clinical: {
+            en: 'Pale yellow, slightly sticky. Makes up just over half the volume of blood. If you spin a sample in a centrifuge, the cells pile up at the bottom and the plasma stays on top.',
+            zh: '淡黄色、略带黏性。占血液容量的略多于一半。把血样放进离心机旋转，细胞沉到底部，血浆留在上层。',
+          },
+          image: '/figures/g8/9-1-transport-animals/figure-b7-11a-rbc.png',
+          imageSource: { en: 'G8 Science · Table B7.03 — plasma as the matrix of blood', zh: 'G8 Science · 表 B7.03 — 血液的基质' },
+        },
+        {
+          id: 'red-cell',
+          term: { en: 'Red blood cell', zh: '红细胞' },
+          mechanism: {
+            en: 'Carries oxygen from the lungs to every cell in the body. The cell is packed with haemoglobin, a red pigment that binds oxygen where it is plentiful (the lungs) and lets it go where it is needed (the respiring tissues).',
+            zh: '把氧从肺部运到全身每个细胞。细胞内充满血红蛋白——一种红色色素，在氧气充足的地方（肺）与氧结合，在需要氧气的地方（正在呼吸的组织）释放氧。',
+          },
+          clinical: {
+            en: 'A small doughnut-shaped disc with a dimple on each side and no nucleus. The biconcave shape and the missing nucleus together leave room for more haemoglobin, and make the cell flexible enough to squeeze through the tiniest capillaries.',
+            zh: '小而呈圆饼状、两面凹陷的细胞，没有细胞核。双凹的形状加上无核，既容纳更多血红蛋白，也让细胞足够柔韧，能挤过最窄的毛细血管。',
+          },
+          image: '/figures/g8/9-1-transport-animals/figure-b7-11a-rbc.png',
+          imageSource: { en: 'G8 Science · p.31 — doughnut-shaped red blood cell', zh: 'G8 Science · p.31 — 圆饼状红细胞' },
+        },
+        {
+          id: 'lymphocyte',
+          term: { en: 'Lymphocyte', zh: '淋巴细胞' },
+          mechanism: {
+            en: 'Makes antibodies — proteins that recognise and bind to specific pathogens (one type of antibody per lymphocyte, by chance). The antibody tags the pathogen so a phagocyte can find and destroy it. Some lymphocytes also remember past infections for decades.',
+            zh: '制造抗体——能识别并结合特定病原体的蛋白质（每个淋巴细胞碰巧只识别一种）。抗体给病原体打上标记，让吞噬细胞能找到并消灭它。有些淋巴细胞还能把过去的感染记住几十年。',
+          },
+          clinical: {
+            en: 'A round white cell with a single large nucleus that almost fills the cell, leaving only a thin ring of cytoplasm. Smaller than the phagocyte, with a smooth round outline rather than a lobed one.',
+            zh: '圆形白细胞，有一个几乎占满整个细胞的大细胞核，细胞质只剩薄薄一圈。比吞噬细胞小，轮廓平滑呈圆形，细胞核不分裂成叶。',
+          },
+          image: '/figures/g8/9-1-transport-animals/figure-b7-12a-lymphocyte.png',
+          imageSource: { en: 'G8 Science · p.33 — lymphocyte with a large nucleus', zh: 'G8 Science · p.33 — 具大核的淋巴细胞' },
+        },
+        {
+          id: 'phagocyte',
+          term: { en: 'Phagocyte', zh: '吞噬细胞' },
+          mechanism: {
+            en: 'Engulfs and digests pathogens. It changes shape, flows around the bacterium, takes it inside the cell, and breaks it down with enzymes. Each phagocyte can eat several bacteria in succession before it dies.',
+            zh: '能吞噬并消化病原体。它改变形状，包围细菌，吞入细胞内，再用酶分解。每个吞噬细胞能连续吞下几个细菌后才死去。',
+          },
+          clinical: {
+            en: 'An irregularly shaped white cell with a lobed nucleus (usually two to five lobes joined by thin strands). The shape-shifting on the job is what makes them look "blobby" in textbook drawings.',
+            zh: '形状不规则的白细胞，细胞核分裂成叶（通常 2-5 片，以细丝相连）。在工作时不断变形，让它们在课本插图中看起来"凹凸不平"。',
+          },
+          image: '/figures/g8/9-1-transport-animals/figure-b7-12.png',
+          imageSource: { en: 'G8 Science · p.34 — phagocyte with a lobed nucleus', zh: 'G8 Science · p.34 — 具分叶核的吞噬细胞' },
+        },
+        {
+          id: 'platelet',
+          term: { en: 'Platelet', zh: '血小板' },
+          mechanism: {
+            en: 'Triggers blood clotting at a wound. When a blood vessel is damaged, platelets stick to the broken edge and to each other, forming a temporary plug. They also release chemicals that start the conversion of soluble fibrinogen into insoluble fibrin, which forms a permanent mesh.',
+            zh: '在伤口处触发凝血。血管受损时，血小板黏附到破损边缘并互相粘连，形成临时的塞子。它们还释放化学物质，把可溶性的纤维蛋白原转化成不溶的纤维蛋白，形成永久的网状封口。',
+          },
+          clinical: {
+            en: 'Tiny cell fragments — not full cells, with no nucleus. Made in the bone marrow from larger cells that have broken apart. About a third the size of a red blood cell.',
+            zh: '微小的细胞碎片——并非完整的细胞，没有细胞核。在骨髓中由较大的细胞碎裂而成。约为红细胞大小的三分之一。',
+          },
+          image: '/figures/g8/9-1-transport-animals/figure-b7-11.png',
+          imageSource: { en: 'G8 Science · p.32 — platelets, fragments of cells', zh: 'G8 Science · p.32 — 血小板，细胞碎片' },
+        },
+      ],
+    },
+
+    // 3) Artery / capillary / vein side by side
+    {
+      type: 'blood-vessels-compare',
+      id: 'vessels',
+      title: { en: 'Artery, capillary, vein — side by side', zh: '动脉、毛细血管、静脉 —— 并排比较' },
+      hint: {
+        en: 'Each vessel type is built for the pressure it carries. Read the cards, then the table below.',
+        zh: '每种血管都按所承受的压力结构来设计。先看卡片，再看下方对比表。',
+      },
+      vessels: [
+        {
+          id: 'artery',
+          name: { en: 'Artery', zh: '动脉' },
+          wall: {
+            en: 'Thick, with a lot of muscle and elastic fibres. The wall stretches when the heart pumps, then springs back to push the blood on.',
+            zh: '壁厚，含大量肌肉和弹性纤维。心脏泵血时管壁扩张，再弹回把血液继续向前推。',
+          },
+          lumen: {
+            en: 'Narrow. The thick wall + narrow lumen keeps blood under high pressure.',
+            zh: '管腔窄。厚壁+窄腔使血液维持高压。',
+          },
+          hasValves: false,
+          direction: {
+            en: 'Away from the heart (except the pulmonary artery, which leaves the right heart).',
+            zh: '离心的（肺动脉除外——它从右心发出）。',
+          },
+          pressure: {
+            en: 'High, surging with each heartbeat.',
+            zh: '高压，随心跳起伏。',
+          },
+          function: {
+            en: 'Carries blood away from the heart at high pressure. The elastic wall smooths the surges so the flow is less jerky by the time the blood reaches the capillaries.',
+            zh: '把血液以高压从心脏运出。弹性管壁把搏动式血流变得较平稳，让血液到达毛细血管时不再是一股一股的。',
+          },
+          image: '/figures/g8/9-1-transport-animals/figure-b7-06.png',
+          imageSource: { en: 'G8 Science · p.28, Figure B7.06 (top — thick wall, small lumen)', zh: 'G8 Science · p.28, 图 B7.06（上 —— 厚壁、小腔）' },
+        },
+        {
+          id: 'capillary',
+          name: { en: 'Capillary', zh: '毛细血管' },
+          wall: {
+            en: 'One cell thick. Just thin enough for oxygen, glucose, carbon dioxide and other small molecules to diffuse straight through.',
+            zh: '只有一个细胞厚。薄到氧气、葡萄糖、二氧化碳等小分子可以直接穿过。',
+          },
+          lumen: {
+            en: 'So narrow that red blood cells have to squeeze through single file.',
+            zh: '极窄，红细胞只能一个个排队挤过。',
+          },
+          hasValves: false,
+          direction: {
+            en: 'From artery side to vein side. The blood slows almost to a crawl, which is exactly what exchange needs.',
+            zh: '从动脉端流向静脉端。血流几乎减慢到爬行——这正是物质交换需要的。',
+          },
+          pressure: {
+            en: 'Low and steady — the pressure has been soaked up by the artery walls.',
+            zh: '低压平稳——压力已经被动脉壁吸收了。',
+          },
+          function: {
+            en: 'The site of exchange. Oxygen and food leave the blood, carbon dioxide and waste enter it. Branch into a dense network so every cell is within a hair\'s breadth of a capillary.',
+            zh: '物质交换的场所。氧和食物离开血液，二氧化碳和废物进入血液。它们分支成密集的网络，让每个细胞都距毛细血管不到一根头发直径的距离。',
+          },
+          image: '/figures/g8/9-1-transport-animals/figure-b7-07.png',
+          imageSource: { en: 'G8 Science · p.28, Figure B7.07 — capillary network', zh: 'G8 Science · p.28, 图 B7.07 — 毛细血管网' },
+        },
+        {
+          id: 'vein',
+          name: { en: 'Vein', zh: '静脉' },
+          wall: {
+            en: 'Thin. There is little pressure here, so the wall does not need to be strong.',
+            zh: '壁薄。这里的压力低，所以管壁无需厚实。',
+          },
+          lumen: {
+            en: 'Wide. A big opening means the blood can flow back to the heart easily despite the low pressure.',
+            zh: '管腔宽。大口径让血液在低压下仍能顺畅流回心脏。',
+          },
+          hasValves: true,
+          direction: {
+            en: 'Toward the heart (except the pulmonary vein, which enters the left heart).',
+            zh: '回心的（肺静脉除外——它进入左心）。',
+          },
+          pressure: {
+            en: 'Low, almost no surge.',
+            zh: '低压，几乎无搏动。',
+          },
+          function: {
+            en: 'Returns blood to the heart at low pressure. The valves stop it from flowing backwards between breaths or heartbeats — important in the legs, where the blood has to climb up against gravity.',
+            zh: '把血液以低压送回心脏。瓣膜防止血液在呼吸或心跳间歇时倒流——这对腿部尤其重要，那里的血液要逆着重力向上流。',
+          },
+          image: '/figures/g8/9-1-transport-animals/figure-b7-08.png',
+          imageSource: { en: 'G8 Science · p.29, Figure B7.08 — valves in a vein', zh: 'G8 Science · p.29, 图 B7.08 — 静脉瓣' },
+        },
+      ],
+    },
+
+    // 4) The double circulation as a flowchart
+    {
+      type: 'double-circulation',
+      id: 'circulation',
+      title: { en: 'The double circulation', zh: '双循环' },
+      hint: {
+        en: 'Two loops: body → right heart → lungs → left heart → body. The heart pumps twice per circuit, which is why the blood in a mammal arrives at the body at high pressure.',
+        zh: '两个环：全身 → 右心 → 肺 → 左心 → 全身。心脏每次循环泵两次，这就是哺乳动物的血液到达全身时仍是高压的原因。',
+      },
+      image: '/figures/g8/9-1-transport-animals/figure-b7-01.png',
+      imageSource: { en: 'G8 Science · p.21, Figure B7.01 — the general layout of the human circulatory system', zh: 'G8 Science · p.21, 图 B7.01 — 人体循环系统总图' },
+      stations: [
+        {
+          id: 'body-tissues',
+          label: { en: 'Body tissues', zh: '身体组织' },
+          summary: { en: 'O₂ used, CO₂ produced', zh: '消耗 O₂，产生 CO₂' },
+          bloodState: 'mixed',
+          loop: 'systemic',
+        },
+        {
+          id: 'vena-cava-2',
+          label: { en: 'Vena cava', zh: '腔静脉' },
+          summary: { en: 'deoxygenated', zh: '缺氧血' },
+          bloodState: 'deoxygenated',
+          loop: 'systemic',
+        },
+        {
+          id: 'right-heart',
+          label: { en: 'Right heart', zh: '右心' },
+          summary: { en: 'pumps to lungs', zh: '泵向肺' },
+          bloodState: 'deoxygenated',
+          loop: 'pulmonary',
+        },
+        {
+          id: 'pulmonary-artery-2',
+          label: { en: 'Pulmonary artery', zh: '肺动脉' },
+          summary: { en: 'deoxygenated', zh: '缺氧血' },
+          bloodState: 'deoxygenated',
+          loop: 'pulmonary',
+        },
+        {
+          id: 'lungs',
+          label: { en: 'Lungs (gas exchange)', zh: '肺（气体交换）' },
+          summary: { en: 'CO₂ out, O₂ in', zh: '排出 CO₂，吸入 O₂' },
+          bloodState: 'mixed',
+          loop: 'pulmonary',
+        },
+        {
+          id: 'pulmonary-vein-2',
+          label: { en: 'Pulmonary vein', zh: '肺静脉' },
+          summary: { en: 'oxygenated', zh: '含氧血' },
+          bloodState: 'oxygenated',
+          loop: 'pulmonary',
+        },
+        {
+          id: 'left-heart',
+          label: { en: 'Left heart', zh: '左心' },
+          summary: { en: 'pumps to body', zh: '泵向全身' },
+          bloodState: 'oxygenated',
+          loop: 'systemic',
+        },
+        {
+          id: 'aorta-2',
+          label: { en: 'Aorta', zh: '主动脉' },
+          summary: { en: 'oxygenated', zh: '含氧血' },
+          bloodState: 'oxygenated',
+          loop: 'systemic',
+        },
+      ],
+      definitions: [
+        {
+          id: 'double-circulation',
+          term: { en: 'double circulation', zh: '双循环' },
+          definition: {
+            en: 'A system in which the blood passes through the heart twice per circuit. The pressure that the arteries lose going through the lungs is replaced by the left ventricle before the blood goes on to the body.',
+            zh: '血液每循环一周经过心脏两次的系统。血液在肺部失去的动脉压力，由左心室在送往全身之前重新加上。',
+          },
+        },
+        {
+          id: 'pulmonary-circulation',
+          term: { en: 'pulmonary circulation', zh: '肺循环' },
+          definition: {
+            en: 'The half of the double circulation that goes between the heart and the lungs. The right ventricle pumps deoxygenated blood to the lungs, and the pulmonary vein brings it back oxygenated to the left atrium.',
+            zh: '双循环中在心脏与肺之间运行的那一半。右心室把缺氧血泵到肺，肺静脉把含氧血送回左心房。',
+          },
+        },
+        {
+          id: 'systemic-circulation',
+          term: { en: 'systemic circulation', zh: '体循环' },
+          definition: {
+            en: 'The half of the double circulation that goes between the heart and the rest of the body. The left ventricle pumps oxygenated blood out through the aorta, and the venae cavae return deoxygenated blood to the right atrium.',
+            zh: '双循环中在心脏与身体其余部分之间运行的那一半。左心室把含氧血经主动脉泵出，腔静脉把缺氧血送回右心房。',
+          },
+        },
+        {
+          id: 'atrium',
+          term: { en: 'atrium (pl. atria)', zh: '心房' },
+          definition: {
+            en: 'One of the two upper chambers of the heart. Thin-walled. Receives blood returning to the heart and pushes it down into the ventricle below.',
+            zh: '心脏上方的两个心腔之一。壁薄。接收返回心脏的血液，再向下推入下方的心室。',
+          },
+        },
+        {
+          id: 'ventricle',
+          term: { en: 'ventricle', zh: '心室' },
+          definition: {
+            en: 'One of the two lower chambers of the heart. Thick-walled and muscular. Pumps blood out of the heart — to the lungs from the right, to the body from the left.',
+            zh: '心脏下方的两个心腔之一。壁厚、肌肉发达。把血液泵出心脏——右心室去肺，左心室去全身。',
+          },
+        },
+        {
+          id: 'coronary-artery',
+          term: { en: 'coronary artery', zh: '冠状动脉' },
+          definition: {
+            en: 'A network of arteries on the outside of the heart that supplies the heart muscle itself with blood. The heart is full of blood, but the muscle wall is too thick for oxygen to diffuse in from inside — so it has its own supply.',
+            zh: '心脏外面的一组动脉，为心肌本身供血。心脏内部充满血液，但肌肉壁太厚，氧气无法从内部扩散进来——所以心肌有自己专属的供血系统。',
+          },
+        },
+      ],
     },
   ],
 }

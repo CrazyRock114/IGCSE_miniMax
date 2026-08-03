@@ -153,6 +153,78 @@ export const termEnrichments: Record<string, ConceptEnrichment> = {
     },
     relatedTerms: ['lacteal', 'capillary', 'microvilli', 'absorption'],
   },
+
+  // --- 9-1-transport-animals: heart + blood enrichments ---
+  '0610/9-1-transport-animals/red blood cell': {
+    termId: 'red blood cell',
+    subject: '0610',
+    slug: '9-1-transport-animals',
+    image: '/figures/g8/9-1-transport-animals/figure-b7-11a-rbc.png',
+    imageSource: 'G8 Science · p.31 — doughnut-shaped red blood cell',
+    mechanism: {
+      en: 'A doughnut-shaped disc with a dimple on each side and no nucleus. The biconcave shape and the missing nucleus together leave room for more haemoglobin and let the cell bend enough to squeeze through capillaries that are narrower than the cell itself.',
+      zh: '圆饼状、两面凹陷、没有细胞核。双凹形状加上无核，既容纳更多血红蛋白，也让细胞能弯曲得足以挤过比自己还窄的毛细血管。',
+    },
+    relatedTerms: ['haemoglobin', 'plasma', 'capillary', 'oxygenated blood'],
+  },
+  '0610/9-1-transport-animals/phagocyte': {
+    termId: 'phagocyte',
+    subject: '0610',
+    slug: '9-1-transport-animals',
+    image: '/figures/g8/9-1-transport-animals/figure-b7-12.png',
+    imageSource: 'G8 Science · p.34 — phagocyte with a lobed nucleus',
+    mechanism: {
+      en: 'A white blood cell that engulfs and digests pathogens. It changes shape, flows around the bacterium, takes it inside the cell, and breaks it down with enzymes. Pus at a wound site is mostly dead phagocytes that have done this and then died.',
+      zh: '能吞噬并分解病原体的白细胞。它改变形状，包围细菌，吞入细胞内，再用酶分解。伤口处的脓液主要是已经完成吞噬并死去的吞噬细胞。',
+    },
+    relatedTerms: ['lymphocyte', 'pathogen', 'white blood cell', 'antibody'],
+  },
+  '0610/9-1-transport-animals/lymphocyte': {
+    termId: 'lymphocyte',
+    subject: '0610',
+    slug: '9-1-transport-animals',
+    image: '/figures/g8/9-1-transport-animals/figure-b7-12a-lymphocyte.png',
+    imageSource: 'G8 Science · p.33 — lymphocyte with a large nucleus',
+    mechanism: {
+      en: 'A white blood cell with a single large round nucleus. Makes antibodies — proteins that recognise specific pathogens and mark them for destruction. Some lymphocytes also remember past infections for decades, which is the basis of vaccination.',
+      zh: '具有单个大而圆的细胞核的白细胞。它制造抗体——能识别特定病原体并标记它们以便清除的蛋白质。有些淋巴细胞还能把过去的感染记住几十年——这是疫苗的原理。',
+    },
+    relatedTerms: ['phagocyte', 'antibody', 'vaccination', 'white blood cell'],
+  },
+  '0610/9-1-transport-animals/pacemaker': {
+    termId: 'pacemaker',
+    subject: '0610',
+    slug: '9-1-transport-animals',
+    mechanism: {
+      en: 'A small group of specialised muscle cells in the wall of the right atrium that sets the rate at which the heart beats. It produces a small electrical signal that spreads across both atria, making them contract together, then passes down to the ventricles.',
+      zh: '右心房壁上一小组特化的肌肉细胞，决定心率。它们发出微小的电信号，扩散到两个心房使其同时收缩，再向下传导到心室。',
+    },
+    relatedTerms: ['right atrium', 'heart rate', 'cardiac output'],
+  },
+  '0610/9-1-transport-animals/coronary heart disease': {
+    termId: 'coronary heart disease',
+    subject: '0610',
+    slug: '9-1-transport-animals',
+    image: '/figures/g8/9-1-transport-animals/figure-b7-04.png',
+    imageSource: 'G8 Science · p.25, Figure B7.04 — coronary artery on the outside of the heart',
+    mechanism: {
+      en: 'The coronary arteries sit on the outside of the heart and supply the heart muscle itself. If a diet is high in saturated fat and cholesterol, fatty deposits build up on the inside walls of these arteries, making them stiffer and narrower. Less blood gets through, so the heart muscle runs short of oxygen and cannot work properly.',
+      zh: '冠状动脉位于心脏外面，为心肌本身供血。如果饮食中饱和脂肪和胆固醇过多，脂肪沉积会堆积在这些动脉的内壁，让它们变硬变窄。血流减少，心肌缺氧，无法正常工作。',
+    },
+    relatedTerms: ['coronary artery', 'saturated fat', 'aorta', 'left ventricle'],
+  },
+  '0610/9-1-transport-animals/double circulation': {
+    termId: 'double circulation',
+    subject: '0610',
+    slug: '9-1-transport-animals',
+    image: '/figures/g8/9-1-transport-animals/figure-b7-01.png',
+    imageSource: 'G8 Science · p.21, Figure B7.01',
+    mechanism: {
+      en: 'In a double circulation the blood passes through the heart twice per circuit. Once from the right ventricle to the lungs and back, then again from the left ventricle to the body and back. This means the blood that reaches the body has just been re-pressurised by the left ventricle — it is at high pressure, so oxygen and glucose are delivered fast. Fish have a single circulation: heart → gills → body → heart, and the pressure that the gill capillaries soak up is never replaced, so the body receives the blood slowly.',
+      zh: '双循环中血液每循环一周经过心脏两次：先从右心室到肺再回来，再从左心室到全身再回来。到达全身的血液刚被左心室重新加压——处于高压，氧和葡萄糖被快速送达。鱼是单循环：心→鳃→全身→心，鳃毛细血管吸收的压力不会再补回来，所以全身得到的血液较慢。',
+    },
+    relatedTerms: ['pulmonary circulation', 'systemic circulation', 'single circulation', 'heart'],
+  },
 }
 
 /**

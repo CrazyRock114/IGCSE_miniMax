@@ -142,3 +142,54 @@ export const FOOD_ENERGY = {
     mixed: { en: 'Mixed meal', zh: '混合餐' } satisfies Bilingual,
   },
 } as const
+
+// ---------------------------------------------------------------------------
+// 9-1 Transport in animals — Chapter 2 (B7) extras
+// ---------------------------------------------------------------------------
+
+export const HEART_ANATOMY = {
+  modeExplore: { en: 'Explore', zh: '探索' } satisfies Bilingual,
+  modeFollow: { en: 'Follow the blood', zh: '跟着血液走一遍' } satisfies Bilingual,
+  followPrompt: {
+    en: 'A red blood cell is travelling body → right heart → lungs → left heart → body. The right-hand panel follows along.',
+    zh: '一个红细胞正从全身→右心→肺→左心→全身。右侧面板同步讲解。',
+  } satisfies Bilingual,
+  emptyExplore: {
+    en: 'Click a part of the heart in the picture to read what happens there.',
+    zh: '点击图中任意心脏结构，查看那里发生什么。',
+  } satisfies Bilingual,
+  emptyFollow: {
+    en: 'Starting the journey — the first stop will appear on the right in a moment.',
+    zh: '旅程即将开始，第一站马上会出现在右侧。',
+  } satisfies Bilingual,
+} as const
+
+export const BLOOD_VESSELS_COMPARE = {
+  tableHeading: { en: 'Side by side', zh: '并排比较' } satisfies Bilingual,
+  yes: { en: 'yes', zh: '有' } satisfies Bilingual,
+  no: { en: 'no', zh: '无' } satisfies Bilingual,
+  rowLabel: {
+    wall: { en: 'Wall', zh: '管壁' } satisfies Bilingual,
+    lumen: { en: 'Lumen', zh: '管腔' } satisfies Bilingual,
+    hasValves: { en: 'Valves', zh: '瓣膜' } satisfies Bilingual,
+    direction: { en: 'Flow direction', zh: '血流方向' } satisfies Bilingual,
+    pressure: { en: 'Pressure', zh: '压力' } satisfies Bilingual,
+  },
+} as const
+
+export const DOUBLE_CIRCULATION = {
+  reveal: { en: 'Show definition', zh: '查看释义' } satisfies Bilingual,
+  collapse: { en: 'Hide', zh: '收起' } satisfies Bilingual,
+  definitionsHeading: {
+    en: 'The terms the syllabus uses',
+    zh: '考纲里的术语',
+  } satisfies Bilingual,
+  connector: {
+    en: 'the heart pumps again',
+    zh: '心脏再次泵血',
+  } satisfies Bilingual,
+  rowLabel: {
+    pulmonary: { en: 'Pulmonary loop', zh: '肺循环' } satisfies Bilingual,
+    systemic: { en: 'Systemic loop', zh: '体循环' } satisfies Bilingual,
+  },
+} as const
