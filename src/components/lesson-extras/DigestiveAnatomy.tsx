@@ -35,7 +35,9 @@ type Hotspot =
  * along the entire U.
  */
 const HOTSPOTS: Record<string, Hotspot> = {
-  mouth: { type: 'circle', x: 510, y: 165, r: 38 },
+  // v9: mouth hotspot moved (-30, +10) to sit on the actual mouth in the
+  // figure — the previous center sat slightly right of the lips.
+  mouth: { type: 'circle', x: 480, y: 175, r: 38 },
   // v6: nudged 15px right — the figure's oesophagus sits further right of
   // midline than the v5 ellipse covered.
   oesophagus: { type: 'ellipse', x: 560, y: 320, rx: 22, ry: 120 },
@@ -54,11 +56,11 @@ const HOTSPOTS: Record<string, Hotspot> = {
   // from it, and the open bottom is where the small intestine enters at the
   // caecum (left) and the rectum descends from the sigmoid (right). v3
   // scaled to 60% of v2 — the U was still too large and swallowed the
-  // small-intestine area. v4-v7 progressively shifted and resized. v8 shifts
-  // the whole U (-15, -15) so it sits a little further left and up.
+  // small-intestine area. v4-v8 progressively shifted and resized. v9 shifts
+  // the whole U (-20, -20) so it sits further left and up.
   'large-intestine': {
     type: 'path',
-    d: 'M 435 804 L 435 629 L 695 629 L 695 802 L 662 826',
+    d: 'M 415 784 L 415 609 L 675 609 L 675 782 L 642 806',
     strokeWidth: 30,
   },
   anus: { type: 'circle', x: 542, y: 890, r: 22 },
@@ -362,10 +364,10 @@ function HotspotShape({
 function FollowDot({ hotspot }: { hotspot: Hotspot }) {
   // For the path (large intestine) the dot sits at the caecum end —
   // the entry point from the small intestine. For other shapes, the
-  // shape's own center. v8: caecum end sits at (435, 804) after the
-  // (-15, -15) shift.
-  const cx = hotspot.type === 'path' ? 435 : hotspot.x
-  const cy = hotspot.type === 'path' ? 804 : hotspot.y
+  // shape's own center. v9: caecum end sits at (415, 784) after the
+  // (-20, -20) shift.
+  const cx = hotspot.type === 'path' ? 415 : hotspot.x
+  const cy = hotspot.type === 'path' ? 784 : hotspot.y
   return (
     <g style={{ pointerEvents: 'none' }}>
       <circle cx={cx} cy={cy} r="11" fill="#dc2626" stroke="#7f1d1d" strokeWidth="2">
@@ -391,13 +393,13 @@ function LabelTag({
   label: string
   labelBg: string
 }) {
-  const cx = hotspot.type === 'path' ? 565 : hotspot.x
+  const cx = hotspot.type === 'path' ? 545 : hotspot.x
   const top =
     hotspot.type === 'circle'
       ? hotspot.y - hotspot.r
       : hotspot.type === 'ellipse'
       ? hotspot.y - hotspot.ry
-      : 629 // path: above the (v8-shifted) transverse colon top
+      : 609 // path: above the (v9-shifted) transverse colon top
   return (
     <>
       <rect x={cx - 60} y={top - 28} width="120" height="22" rx="4" fill={labelBg} />
