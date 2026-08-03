@@ -607,6 +607,9 @@ export type LessonExtra =
   | VilliSurfaceAreaExtra
   | BileEmulsificationExtra
   | BalancedPlateExtra
+  | DigestionFlowExtra
+  | VillusDetailExtra
+  | FoodEnergyExtra
 
 /** What to show in the side panel when an organ is selected. */
 export interface AnatomyOrgan {
@@ -722,4 +725,80 @@ export interface BalancedPlateExtra {
    * is the lesson, not a precise calorie count.
    */
   targets: Record<'carb' | 'protein' | 'veg' | 'fruit' | 'dairy' | 'fat', number>
+}
+
+/**
+ * The chain of events from a sandwich in the mouth to a faeces at the anus, plus the
+ * six formal terms the syllabus uses for each step.
+ *
+ * Drawn as a horizontal flowchart with the terms as labelled boxes, the definitions
+ * as togglable cards beneath. Same pattern as the other "data, then reveal"
+ * interactive modules.
+ */
+export interface DigestionFlowExtra {
+  type: 'digestion-flow'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  /** Ordered pipeline of stages the food actually passes through. */
+  stages: Array<{
+    id: string
+    label: Bilingual
+    /** One-line summary shown on the flow box. */
+    summary: Bilingual
+  }>
+  /** Definitions the lesson author wants the student to remember. */
+  definitions: Array<{
+    id: string
+    term: Bilingual
+    definition: Bilingual
+  }>
+}
+
+/**
+ * A labelled cross-section of a single villus. More detail than `VilliSurfaceArea`
+ * (which is a numeric "how big is the multiplier" exercise): this one shows the
+ * named structures — epithelium, capillary network, lacteal, microvilli — and the
+ * direction each type of nutrient takes across the wall.
+ */
+export interface VillusDetailExtra {
+  type: 'villus-detail'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  /** Layers, outside-in. Click to highlight. */
+  parts: Array<{
+    id: string
+    name: Bilingual
+    description: Bilingual
+    /** Which side of the wall this structure is on, used to position the label. */
+    side: 'outside' | 'inside' | 'core' | 'surface'
+  }>
+  /** Nutrients crossing the wall, with where they go. */
+  transport: Array<{
+    id: string
+    name: Bilingual
+    destination: Bilingual
+  }>
+}
+
+/**
+ * Energy content of foods, kJ per 100 g. The point is *comparison*: the same
+ * mass of fat carries more than twice the energy of the same mass of carbohydrate
+ * or protein, which is the explanation for the obesity / fried-food line in
+ * Chapter 1.1.
+ */
+export interface FoodEnergyExtra {
+  type: 'food-energy'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  foods: Array<{
+    id: string
+    name: Bilingual
+    /** kJ per 100 g. */
+    energy: number
+    /** Coarse grouping, drives the row colour. */
+    group: 'carb' | 'protein' | 'fat' | 'fruit-veg' | 'dairy' | 'mixed'
+  }>
 }

@@ -5,6 +5,9 @@ import { TeethAnatomy } from './TeethAnatomy'
 import { VilliSurfaceArea } from './VilliSurfaceArea'
 import { BileEmulsification } from './BileEmulsification'
 import { BalancedPlate } from './BalancedPlate'
+import { DigestionFlow } from './DigestionFlow'
+import { VillusDetail } from './VillusDetail'
+import { FoodEnergy } from './FoodEnergy'
 
 /**
  * Dispatches the lesson's `extras` to the right component.
@@ -53,5 +56,11 @@ function renderExtra(extra: LessonExtra) {
       return <BileEmulsification extra={extra} />
     case 'balanced-plate':
       return <BalancedPlate extra={extra} />
+    case 'digestion-flow':
+      return <DigestionFlow extra={extra} />
+    case 'villus-detail':
+      return <VillusDetail extra={extra} />
+    case 'food-energy':
+      return <FoodEnergy extra={extra} />
   }
 }
