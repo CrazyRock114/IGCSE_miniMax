@@ -178,6 +178,253 @@ const lesson: Lesson = {
 
   narration,
 
+  // Visual / interactive learning modules. See src/content/types.ts for the
+  // `LessonExtra` shape — each one is data, the renderers live in
+  // src/components/lesson-extras/.
+  extras: [
+    {
+      type: 'digestive-anatomy',
+      id: 'anatomy',
+      title: { en: 'The digestive system, in one picture', zh: '一张图看消化系统' },
+      hint: {
+        en: 'Click an organ to read about it. "Follow the food" animates a bolus mouth → anus.',
+        zh: '点击任一器官阅读。点"跟着食物走一遍"会动画演示食物从口到肛门的旅程。',
+      },
+      initialOrgan: 'stomach',
+      organs: [
+        {
+          id: 'mouth',
+          name: { en: 'Mouth', zh: '口腔' },
+          stop: 1,
+          description: {
+            en: 'Where physical digestion starts. Teeth tear and grind the food into smaller pieces, and saliva — made by three pairs of salivary glands — wets it and adds amylase, which begins breaking starch down to maltose.',
+            zh: '物理性消化的起点。牙齿把食物咬碎磨细，三对唾液腺分泌的唾液湿润食物并加入淀粉酶，开始将淀粉分解为麦芽糖。',
+          },
+          secretions: [
+            { en: 'Saliva', zh: '唾液' },
+            { en: 'Amylase', zh: '淀粉酶' },
+            { en: 'Mucus', zh: '黏液' },
+          ],
+        },
+        {
+          id: 'oesophagus',
+          name: { en: 'Oesophagus', zh: '食道' },
+          stop: 2,
+          description: {
+            en: 'A muscular tube that pushes food down to the stomach. Food does not fall — the walls squeeze behind it in a wave called peristalsis. This works even if you are upside down, which is why astronauts can eat in space.',
+            zh: '将食物推送到胃的肌肉管道。食物不是靠重力，而是靠管壁从后面挤压的蠕动波送下去的——倒立也能咽下去，所以宇航员在太空中照样能吃东西。',
+          },
+        },
+        {
+          id: 'stomach',
+          name: { en: 'Stomach', zh: '胃' },
+          stop: 3,
+          description: {
+            en: 'A muscular sac that churns the food and adds gastric juice: hydrochloric acid and a protease called pepsin. The acid kills most bacteria, and the low pH (~2) is what the protease needs to work. Food stays here for 2–4 hours and turns into a thick liquid called chyme.',
+            zh: '肌肉质的囊袋，搅拌食物并加入胃液：盐酸与一种叫胃蛋白酶的蛋白酶。盐酸杀死大部分细菌，pH≈2 的强酸环境正是胃蛋白酶所需。食物在此停留 2–4 小时，被搅成稠糊状的食糜。',
+          },
+          secretions: [
+            { en: 'HCl (pH ≈ 2)', zh: '盐酸（pH≈2）' },
+            { en: 'Pepsin', zh: '胃蛋白酶' },
+            { en: 'Mucus', zh: '黏液' },
+          ],
+        },
+        {
+          id: 'liver',
+          name: { en: 'Liver', zh: '肝脏' },
+          description: {
+            en: 'The body’s chemical factory. Among many other jobs, it makes bile, which is shipped to the gall bladder for storage. It also processes the absorbed nutrients from the small intestine.',
+            zh: '身体的化工厂。除了众多功能之外，它生成胆汁，运到胆囊贮存。它也处理从小肠吸收来的营养物质。',
+          },
+          secretions: [{ en: 'Bile', zh: '胆汁' }],
+        },
+        {
+          id: 'gall-bladder',
+          name: { en: 'Gall bladder', zh: '胆囊' },
+          description: {
+            en: 'A small bag under the liver that stores bile and squirts it into the small intestine when fatty food arrives. It is a storage organ, not a gland — the liver is the gland that *makes* bile.',
+            zh: '肝脏下方的小囊袋，贮存胆汁。当含脂肪的食物到达小肠时，它就把胆汁挤入小肠。它是贮存器官，不是腺体——制造胆汁的腺体是肝脏。',
+          },
+        },
+        {
+          id: 'pancreas',
+          name: { en: 'Pancreas', zh: '胰腺' },
+          description: {
+            en: 'Both a gland and an organ. As a gland it pours three enzymes into the small intestine (amylase, protease, lipase) plus sodium hydrogencarbonate, which neutralises the acid arriving from the stomach. Without the neutralising step, the pancreatic enzymes could not work — they need a pH of 7–8.',
+            zh: '既是腺体也是器官。作为腺体，它向小肠注入三种酶（淀粉酶、蛋白酶、脂肪酶）以及碳酸氢钠，后者把从胃来的酸中和掉。没有这一步，胰腺酶根本无法工作——它们需要 pH 7–8 的环境。',
+          },
+          secretions: [
+            { en: 'Amylase', zh: '淀粉酶' },
+            { en: 'Protease', zh: '蛋白酶' },
+            { en: 'Lipase', zh: '脂肪酶' },
+            { en: 'NaHCO₃', zh: '碳酸氢钠' },
+          ],
+        },
+        {
+          id: 'small-intestine',
+          name: { en: 'Small intestine', zh: '小肠' },
+          stop: 4,
+          description: {
+            en: 'About 6 metres long, and the place where digestion is finished and the products are absorbed. The wall is folded into villi and microvilli that give it the surface area of a tennis court, so glucose, amino acids, fatty acids and glycerol can cross into the blood and lymph fast enough to keep you alive.',
+            zh: '约 6 米长，是消化完成、产物被吸收的场所。肠壁皱成绒毛与微绒毛，表面积达一个网球场那么大，葡萄糖、氨基酸、脂肪酸和甘油才得以足够快地进入血液和淋巴，让你活着。',
+          },
+        },
+        {
+          id: 'large-intestine',
+          name: { en: 'Large intestine (colon)', zh: '大肠（结肠）' },
+          stop: 5,
+          description: {
+            en: 'About 1.5 metres long. Its job is to absorb water and salts from what is left, and to consolidate the remains into faeces. The bacteria living here also make vitamin K, which the body absorbs.',
+            zh: '约 1.5 米长。任务是吸收残渣中的水分和盐分，并把残渣固化成粪便。这里的细菌还制造维生素 K，被身体吸收。',
+          },
+        },
+        {
+          id: 'anus',
+          name: { en: 'Anus', zh: '肛门' },
+          stop: 6,
+          description: {
+            en: 'The end of the line. A sphincter muscle holds the faeces in until it is socially acceptable to release them. This is egestion, not excretion — the material has never been inside the body in the sense of crossing a cell membrane.',
+            zh: '消化道的终点。括约肌把粪便关在里面，直到社交上可以释放时。这一步叫排遗（egestion），不是排泄（excretion）——这些物质从未穿过细胞膜进入体内。',
+          },
+        },
+      ],
+    },
+    {
+      type: 'balanced-plate',
+      id: 'plate',
+      title: { en: 'Build a balanced plate', zh: '搭一盘均衡膳食' },
+      hint: {
+        en: 'Click a food to add it. Aim for at least 2 veg, 1 fruit, 1 protein, 1 carb, 1 dairy, and a small amount of healthy fat.',
+        zh: '点击食物加入餐盘。目标是至少 2 份蔬菜、1 份水果、1 份蛋白质、1 份碳水、1 份乳制品，和少量健康脂肪。',
+      },
+      targets: { veg: 2, fruit: 1, protein: 1, carb: 1, dairy: 1, fat: 1 },
+      foods: [
+        { id: 'broccoli', group: 'veg', glyph: '🥦', name: { en: 'Broccoli', zh: '西兰花' } },
+        { id: 'carrot', group: 'veg', glyph: '🥕', name: { en: 'Carrot', zh: '胡萝卜' } },
+        { id: 'spinach', group: 'veg', glyph: '🥬', name: { en: 'Spinach', zh: '菠菜' } },
+        { id: 'apple', group: 'fruit', glyph: '🍎', name: { en: 'Apple', zh: '苹果' } },
+        { id: 'orange', group: 'fruit', glyph: '🍊', name: { en: 'Orange', zh: '橙子' } },
+        { id: 'banana', group: 'fruit', glyph: '🍌', name: { en: 'Banana', zh: '香蕉' } },
+        { id: 'chicken', group: 'protein', glyph: '🍗', name: { en: 'Chicken', zh: '鸡肉' } },
+        { id: 'fish', group: 'protein', glyph: '🐟', name: { en: 'Fish', zh: '鱼肉' } },
+        { id: 'eggs', group: 'protein', glyph: '🥚', name: { en: 'Eggs', zh: '鸡蛋' } },
+        { id: 'beans', group: 'protein', glyph: '🫘', name: { en: 'Beans', zh: '豆类' } },
+        { id: 'rice', group: 'carb', glyph: '🍚', name: { en: 'Rice', zh: '米饭' } },
+        { id: 'bread', group: 'carb', glyph: '🍞', name: { en: 'Bread', zh: '面包' } },
+        { id: 'potato', group: 'carb', glyph: '🥔', name: { en: 'Potato', zh: '马铃薯' } },
+        { id: 'milk', group: 'dairy', glyph: '🥛', name: { en: 'Milk', zh: '牛奶' } },
+        { id: 'cheese', group: 'dairy', glyph: '🧀', name: { en: 'Cheese', zh: '奶酪' } },
+        { id: 'yogurt', group: 'dairy', glyph: '🍦', name: { en: 'Yoghurt', zh: '酸奶' } },
+        { id: 'nuts', group: 'fat', glyph: '🥜', name: { en: 'Nuts', zh: '坚果' } },
+        { id: 'olive-oil', group: 'fat', glyph: '🫒', name: { en: 'Olive oil', zh: '橄榄油' } },
+        { id: 'avocado', group: 'fat', glyph: '🥑', name: { en: 'Avocado', zh: '牛油果' } },
+      ],
+    },
+    {
+      type: 'teeth-anatomy',
+      id: 'teeth',
+      title: { en: 'Teeth — the four types, and the parts of one', zh: '牙齿——四种形状，一颗牙的层次' },
+      hint: {
+        en: 'Click a layer of the tooth to read what it does, then click each tooth type below.',
+        zh: '点击牙齿任一层了解作用，再点击下方四种牙齿。',
+      },
+      layers: [
+        {
+          id: 'enamel',
+          name: { en: 'Enamel', zh: '牙釉质' },
+          description: {
+            en: 'The hardest substance in the body — almost pure calcium phosphate. It covers the crown and takes the chewing force. It cannot grow back once it is gone, which is why dentists fill cavities rather than waiting for them to heal.',
+            zh: '人体最硬的物质——几乎是纯的磷酸钙。覆盖在牙冠，承受咬合力。一旦磨损就再也长不回来，所以牙医补牙而不是等它自己长好。',
+          },
+        },
+        {
+          id: 'dentine',
+          name: { en: 'Dentine', zh: '牙本质' },
+          description: {
+            en: 'A bone-like layer under the enamel. Dentine makes up most of the tooth and contains microscopic channels that lead to the pulp — which is why a cavity that reaches the dentine can be very sensitive.',
+            zh: '釉质下面像骨头的一层，构成牙齿的大部分，内有通向牙髓的微管——所以龋齿一旦深及牙本质就会非常敏感。',
+          },
+        },
+        {
+          id: 'pulp',
+          name: { en: 'Pulp', zh: '牙髓' },
+          description: {
+            en: 'The soft centre. Contains the blood vessels that keep the tooth alive and the nerves that signal "this hurts, stop chewing here". A tooth that has lost its pulp is "dead" — it can stay in the jaw, but it becomes brittle and may eventually need to be removed.',
+            zh: '牙齿中央的软组织。内有血管维持牙齿活着，有神经负责报告"疼，别咬这边"。失去牙髓的牙是"死牙"——可以留在牙床里，但会变脆，最终可能需要拔除。',
+          },
+        },
+        {
+          id: 'cementum',
+          name: { en: 'Cementum', zh: '牙骨质' },
+          description: {
+            en: 'Covers the root, anchoring it to the jawbone via the periodontal ligament. It is much softer than enamel — which is why root decay (a common problem in older adults) advances faster than decay in the crown.',
+            zh: '覆盖牙根，通过牙周韧带把牙齿固定在牙槽骨上。比釉质软得多——所以牙根的龋坏（老年人常见）比牙冠的龋坏进展更快。',
+          },
+        },
+      ],
+      kinds: [
+        {
+          id: 'incisor',
+          name: { en: 'Incisor', zh: '切牙' },
+          count: 8,
+          role: {
+            en: 'Flat, chisel-shaped, at the front. They bite off pieces of food — think of them as the knives.',
+            zh: '扁平凿形，位于最前面。负责把食物咬下来——把它们想成刀。',
+          },
+        },
+        {
+          id: 'canine',
+          name: { en: 'Canine', zh: '尖牙（犬牙）' },
+          count: 4,
+          role: {
+            en: 'Pointed, next to the incisors. They tear and grip — useful for meat, fruit with skin, and refusing to let go of a stubborn sweet wrapper.',
+            zh: '尖锥形，紧邻切牙。负责撕裂和抓紧——吃肉、带皮水果、撕不开的糖纸都靠它。',
+          },
+        },
+        {
+          id: 'premolar',
+          name: { en: 'Premolar', zh: '前磨牙' },
+          count: 8,
+          role: {
+            en: 'Two-cusped, behind the canines. They crush and grind — the start of the chewing process.',
+            zh: '两个牙尖，位于尖牙之后。负责压碎和研磨——咀嚼从这里开始。',
+          },
+        },
+        {
+          id: 'molar',
+          name: { en: 'Molar', zh: '磨牙' },
+          count: 12,
+          role: {
+            en: 'Four-cusped, the largest teeth, right at the back. The grinders — food is small enough to swallow by the time it leaves them.',
+            zh: '四个牙尖，体型最大，位于最靠后。研磨的主力——食物过了它们之后已经碎到可以咽下去了。',
+          },
+        },
+      ],
+    },
+    {
+      type: 'bile-emulsification',
+      id: 'emulsification',
+      title: { en: 'Bile — one big drop becomes many small ones', zh: '胆汁——一大滴脂肪变成许多小滴' },
+      hint: {
+        en: 'The yellow drop is fat. Adding bile does not break any bonds — it just shatters the drop into smaller ones. Each small drop is the same total amount of fat, but with much more surface for lipase to reach.',
+        zh: '黄色的是脂肪。加入胆汁并没有打断任何化学键，只是把大滴打成小滴。每滴还是同样多的脂肪，但脂肪酶可接触的表面积大得多。',
+      },
+    },
+    {
+      type: 'villi-surface-area',
+      id: 'villi',
+      title: { en: 'Why villi — the area maths', zh: '为什么要绒毛——表面积的数学' },
+      hint: {
+        en: 'A flat tube has the area you would expect. Folding it into villi multiplies that area. Adding microvilli on each villus multiplies it again.',
+        zh: '光管的表面积就那么大。把它折成绒毛，表面积成倍增长；每根绒毛上再加一层微绒毛，又再翻几倍。',
+      },
+      // Real numbers for the small intestine: ~2.5 cm radius, ~6 m long.
+      radiusMm: 25,
+      lengthMm: 6000,
+      baselineVilliPerCm2: 30,
+    },
+  ],
+
   checkpoints: [
     {
       id: '0610-7-1-cp1',

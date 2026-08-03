@@ -579,4 +579,147 @@ export interface Lesson {
   practical?: string
   /** Rough teaching time in minutes */
   estimatedMinutes: number
+  /**
+   * Visual / interactive learning modules — anatomy explorers, animations, mini-games.
+   *
+   * Why a separate field rather than packing everything into the sim: the `sim` is one
+   * `primitive` (a renderer) wired to one kernel (pure function). These are bespoke,
+   * data-driven interactive modules that do not fit the series/assignment/grid/pyramid
+   * shape, so they live alongside it. The renderer dispatches on `type` and the lesson
+   * author picks the order.
+   */
+  extras?: LessonExtra[]
+}
+
+// ---------------------------------------------------------------------------
+// Lesson extras — visual / interactive learning modules
+// ---------------------------------------------------------------------------
+
+/**
+ * A single visual or interactive module rendered as its own section in the lesson.
+ *
+ * The `type` is a discriminator the renderer uses to pick a component. Each variant
+ * carries only the data that component needs; we do not try to homogenise them.
+ */
+export type LessonExtra =
+  | DigestiveAnatomyExtra
+  | TeethAnatomyExtra
+  | VilliSurfaceAreaExtra
+  | BileEmulsificationExtra
+  | BalancedPlateExtra
+
+/** What to show in the side panel when an organ is selected. */
+export interface AnatomyOrgan {
+  /** Stable id, used as the React key and as the click target on the SVG. */
+  id: string
+  /** Display name. */
+  name: Bilingual
+  /** What happens here, in one or two short paragraphs. */
+  description: Bilingual
+  /** Key secretions or events, rendered as a small chip row under the description. */
+  secretions?: Bilingual[]
+  /**
+   * Approximate stop number on the "follow the food" timeline (1-based). Used to
+   * sequence organs mouth→anus in the animated trace. Organs without a stop number
+   * (liver, gall bladder, pancreas — they contribute, not the food passes through) are
+   * left out of the timeline.
+   */
+  stop?: number
+}
+
+export interface DigestiveAnatomyExtra {
+  type: 'digestive-anatomy'
+  id: string
+  title: Bilingual
+  /** What the user is meant to notice, in one line. */
+  hint: Bilingual
+  /**
+   * The organs shown in the body silhouette, in display order. Each becomes a clickable
+   * hotspot; the matching side panel describes what happens there.
+   */
+  organs: AnatomyOrgan[]
+  /**
+   * Which organ to highlight on first render. Optional — if absent, no organ is
+   * selected and the panel shows the intro hint instead.
+   */
+  initialOrgan?: string
+}
+
+/** A single tooth type — its count, shape and what it does. */
+export interface ToothKind {
+  id: string
+  name: Bilingual
+  /** How many of this kind an adult has. */
+  count: number
+  /** What it is for. */
+  role: Bilingual
+  /**
+   * A short shape description used as a fallback in the gallery when no SVG path is
+   * provided. The default is a generic "molar-like" silhouette.
+   */
+  shape?: Bilingual
+}
+
+export interface TeethAnatomyExtra {
+  type: 'teeth-anatomy'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  /** Layers of a tooth, drawn outside-in. */
+  layers: Array<{
+    id: string
+    name: Bilingual
+    /** What this layer is made of / what it does. */
+    description: Bilingual
+  }>
+  kinds: ToothKind[]
+}
+
+export interface VilliSurfaceAreaExtra {
+  type: 'villi-surface-area'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  /** Inner radius of the small intestine in mm. Used as the basis for the area math. */
+  radiusMm: number
+  /** Length of the segment shown, in mm. */
+  lengthMm: number
+  /**
+   * Recommended number of villi per cm² for the syllabus-friendly "×N" factor. The
+   * kernel multiplies the unfolded area by this and rounds to a tidy number; the slider
+   * just lets the student perturb it and see the result.
+   */
+  baselineVilliPerCm2: number
+}
+
+export interface BileEmulsificationExtra {
+  type: 'bile-emulsification'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+}
+
+export interface BalancedPlateExtra {
+  type: 'balanced-plate'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  /**
+   * Foods the student can put on their plate. Categorised so the renderer can colour
+   * them and the scoring can check coverage.
+   */
+  foods: Array<{
+    id: string
+    name: Bilingual
+    /** Group on the plate — drives the section colour and the scoring. */
+    group: 'carb' | 'protein' | 'veg' | 'fruit' | 'dairy' | 'fat'
+    /** Hand-drawn emoji or glyph used as a quick visual on the food card. */
+    glyph: string
+  }>
+  /**
+   * Minimum recommended servings per group. The check lights up green when each
+   * group has at least this many. Designed to be generous — half a plate of veg
+   * is the lesson, not a precise calorie count.
+   */
+  targets: Record<'carb' | 'protein' | 'veg' | 'fruit' | 'dairy' | 'fat', number>
 }
