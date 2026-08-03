@@ -36,18 +36,25 @@ type Hotspot =
  */
 const HOTSPOTS: Record<string, Hotspot> = {
   mouth: { type: 'circle', x: 510, y: 165, r: 38 },
-  oesophagus: { type: 'ellipse', x: 500, y: 315, rx: 22, ry: 120 },
+  oesophagus: { type: 'ellipse', x: 520, y: 320, rx: 22, ry: 120 },
   stomach: { type: 'ellipse', x: 622, y: 478, rx: 80, ry: 70 },
   liver: { type: 'ellipse', x: 478, y: 472, rx: 100, ry: 42 },
   'gall-bladder': { type: 'circle', x: 475, y: 540, r: 24 },
-  pancreas: { type: 'ellipse', x: 612, y: 588, rx: 100, ry: 26 },
-  'small-intestine': { type: 'ellipse', x: 522, y: 720, rx: 130, ry: 110 },
-  // U-shape: ascending colon (left) → caecum → rectum → sigmoid → descending colon (right).
-  // Traced against the figure; the stroke gives a click target along the whole U.
+  // Pancreas sits to the left of the stomach, just under the liver, sweeping
+  // from the duodenum (left) back across to the spleen (right). The original
+  // hotspot was too far right and too low; pulled it up and left.
+  pancreas: { type: 'ellipse', x: 560, y: 555, rx: 90, ry: 24 },
+  'small-intestine': { type: 'ellipse', x: 530, y: 745, rx: 95, ry: 80 },
+  // The large intestine is an INVERTED U (∩) in the figure: the transverse
+  // colon is the closed top, the two arms (ascending + descending) come down
+  // from it, and the open bottom is where the small intestine enters at the
+  // caecum (left) and the rectum descends from the sigmoid (right). Earlier
+  // pass drew this as a ∪ (open at the top, closed at the bottom) which
+  // inverted the figure; this path is corrected to the real shape.
   'large-intestine': {
     type: 'path',
-    d: 'M 240 470 L 240 790 Q 245 850 320 855 L 520 870 L 720 855 Q 730 830 720 790 L 720 470',
-    strokeWidth: 60,
+    d: 'M 240 805 L 240 480 L 720 480 L 720 800 L 660 845',
+    strokeWidth: 55,
   },
   anus: { type: 'circle', x: 542, y: 890, r: 22 },
 }
@@ -352,7 +359,7 @@ function FollowDot({ hotspot }: { hotspot: Hotspot }) {
   // the entry point from the small intestine. For other shapes, the
   // shape's own center.
   const cx = hotspot.type === 'path' ? 240 : hotspot.x
-  const cy = hotspot.type === 'path' ? 800 : hotspot.y
+  const cy = hotspot.type === 'path' ? 805 : hotspot.y
   return (
     <g style={{ pointerEvents: 'none' }}>
       <circle cx={cx} cy={cy} r="11" fill="#dc2626" stroke="#7f1d1d" strokeWidth="2">
@@ -365,9 +372,9 @@ function FollowDot({ hotspot }: { hotspot: Hotspot }) {
 
 /**
  * The label/tooltip that appears when a hotspot is hovered or selected.
- * Anchored above the hotspot's center — for the path hotspot (large
- * intestine) we anchor it above the caecum, the part the user most
- * often clicks first.
+ * Anchored above the hotspot's top edge so it doesn't overlap the figure.
+ * For the path hotspot (large intestine) we anchor above the transverse
+ * colon top so the label sits in the empty space above the U.
  */
 function LabelTag({
   hotspot,
@@ -378,13 +385,13 @@ function LabelTag({
   label: string
   labelBg: string
 }) {
-  const cx = hotspot.type === 'path' ? 240 : hotspot.x
+  const cx = hotspot.type === 'path' ? 480 : hotspot.x
   const top =
     hotspot.type === 'circle'
       ? hotspot.y - hotspot.r
       : hotspot.type === 'ellipse'
       ? hotspot.y - hotspot.ry
-      : 460 // above the ascending colon top
+      : 480 // path: above the transverse colon top
   return (
     <>
       <rect x={cx - 60} y={top - 28} width="120" height="22" rx="4" fill={labelBg} />
