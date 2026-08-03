@@ -36,7 +36,9 @@ type Hotspot =
  */
 const HOTSPOTS: Record<string, Hotspot> = {
   mouth: { type: 'circle', x: 510, y: 165, r: 38 },
-  oesophagus: { type: 'ellipse', x: 530, y: 320, rx: 22, ry: 120 },
+  // v6: nudged 15px right — the figure's oesophagus sits further right of
+  // midline than the v5 ellipse covered.
+  oesophagus: { type: 'ellipse', x: 560, y: 320, rx: 22, ry: 120 },
   stomach: { type: 'ellipse', x: 622, y: 478, rx: 80, ry: 70 },
   liver: { type: 'ellipse', x: 478, y: 472, rx: 100, ry: 42 },
   'gall-bladder': { type: 'circle', x: 475, y: 540, r: 24 },
@@ -44,18 +46,21 @@ const HOTSPOTS: Record<string, Hotspot> = {
   // from the duodenum (left) back across to the spleen (right). The original
   // hotspot was too far right and too low; pulled it up and left.
   pancreas: { type: 'ellipse', x: 560, y: 555, rx: 90, ry: 24 },
-  'small-intestine': { type: 'ellipse', x: 530, y: 725, rx: 95, ry: 80 },
+  // v6: lifted 40px up — the small-intestine hotspot still sat below the
+  // tangled small-bowel bundle in the figure.
+  'small-intestine': { type: 'ellipse', x: 530, y: 645, rx: 95, ry: 80 },
   // The large intestine is an INVERTED U (∩) in the figure: the transverse
   // colon is the closed top, the two arms (ascending + descending) come down
   // from it, and the open bottom is where the small intestine enters at the
-  // caecum (left) and the rectum descends from the sigmoid (right). Earlier
-  // pass drew this as a ∪ (open at the top, closed at the bottom) which
-  // inverted the figure; this path is corrected to the real shape. v3
+  // caecum (left) and the rectum descends from the sigmoid (right). v3
   // scaled to 60% of v2 — the U was still too large and swallowed the
-  // small-intestine area.
+  // small-intestine area. v4 shifted right 60 / down 50; v5 shifted the
+  // U further right and down (oesophagus→545, small-int up, U 60% size);
+  // v6 shifts the U another +60 right and +50 down to land it on the colon
+  // outline now that the small-intestine hotspot has lifted clear of the U.
   'large-intestine': {
     type: 'path',
-    d: 'M 336 748 L 336 553 L 624 553 L 624 745 L 588 772',
+    d: 'M 456 848 L 456 653 L 744 653 L 744 845 L 708 872',
     strokeWidth: 33,
   },
   anus: { type: 'circle', x: 542, y: 890, r: 22 },
@@ -359,9 +364,10 @@ function HotspotShape({
 function FollowDot({ hotspot }: { hotspot: Hotspot }) {
   // For the path (large intestine) the dot sits at the caecum end —
   // the entry point from the small intestine. For other shapes, the
-  // shape's own center.
-  const cx = hotspot.type === 'path' ? 336 : hotspot.x
-  const cy = hotspot.type === 'path' ? 748 : hotspot.y
+  // shape's own center. v6: path shifted to (456, 848) — FollowDot moves
+  // with it.
+  const cx = hotspot.type === 'path' ? 456 : hotspot.x
+  const cy = hotspot.type === 'path' ? 848 : hotspot.y
   return (
     <g style={{ pointerEvents: 'none' }}>
       <circle cx={cx} cy={cy} r="11" fill="#dc2626" stroke="#7f1d1d" strokeWidth="2">
@@ -387,13 +393,13 @@ function LabelTag({
   label: string
   labelBg: string
 }) {
-  const cx = hotspot.type === 'path' ? 480 : hotspot.x
+  const cx = hotspot.type === 'path' ? 600 : hotspot.x
   const top =
     hotspot.type === 'circle'
       ? hotspot.y - hotspot.r
       : hotspot.type === 'ellipse'
       ? hotspot.y - hotspot.ry
-      : 553 // path: above the (now smaller) transverse colon top
+      : 653 // path: above the (v6-shifted) transverse colon top
   return (
     <>
       <rect x={cx - 60} y={top - 28} width="120" height="22" rx="4" fill={labelBg} />
