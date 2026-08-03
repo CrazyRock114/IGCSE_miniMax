@@ -104,3 +104,200 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* ---------------------------------------------------------------------------
+ * Selection translator
+ *
+ * Self-contained: the floating layer renders into a fixed-position wrapper
+ * mounted at the document root, so it does not depend on the layout of any
+ * particular page. Z-index sits above sticky headers / tooltips but below
+ * native browser dialogs.
+ * ------------------------------------------------------------------------- */
+
+.translator-layer {
+  /* The container itself is layout-transparent; only its children paint. */
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+}
+
+.translator-layer > * {
+  pointer-events: auto;
+}
+
+.translator-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  height: 30px;
+  padding: 0 0.7rem;
+  border-radius: 0.5rem;
+  border: 1px solid #0d9488;
+  background: #ffffff;
+  color: #115e59;
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1;
+  box-shadow: 0 6px 18px rgb(15 23 42 / 18%);
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.12s ease, background-color 0.12s ease;
+}
+
+.translator-btn:hover {
+  background: #f0fdfa;
+  transform: translateY(-1px);
+}
+
+.translator-btn:active {
+  transform: translateY(0);
+}
+
+.translator-btn:focus-visible {
+  outline: 2px solid #0d9488;
+  outline-offset: 2px;
+}
+
+.translator-btn-glyph {
+  display: inline-block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.translator-popover {
+  border: 1px solid var(--color-line);
+  border-radius: 0.75rem;
+  background: var(--color-surface);
+  box-shadow: 0 14px 36px rgb(15 23 42 / 18%);
+  overflow: hidden;
+  font-size: 0.875rem;
+  color: var(--color-ink);
+}
+
+.translator-popover-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--color-line);
+  background: var(--color-canvas);
+}
+
+.translator-popover-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.translator-popover-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-muted);
+  font-size: 1.05rem;
+  line-height: 1;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+.translator-popover-close:hover {
+  background: var(--color-line);
+  color: var(--color-ink);
+}
+
+.translator-popover-body {
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.translator-popover-source,
+.translator-popover-target {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  align-items: start;
+  gap: 0.5rem;
+}
+
+.translator-popover-lang-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.25rem;
+  background: var(--color-canvas);
+  border: 1px solid var(--color-line);
+  color: var(--color-muted);
+  text-align: center;
+  line-height: 1.3;
+}
+
+.translator-popover-text {
+  line-height: 1.5;
+  word-break: break-word;
+  white-space: pre-wrap;
+  max-height: 7em;
+  overflow-y: auto;
+}
+
+.translator-popover-divider {
+  height: 1px;
+  background: var(--color-line);
+  margin: 0 0.4rem;
+}
+
+.translator-popover-loading {
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+.translator-popover-error {
+  color: #b91c1c;
+}
+
+.translator-popover-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-top: 1px solid var(--color-line);
+  background: var(--color-canvas);
+}
+
+.translator-popover-copy {
+  border: 1px solid var(--color-line);
+  background: var(--color-surface);
+  color: var(--color-ink-soft);
+  border-radius: 0.35rem;
+  padding: 0.25rem 0.55rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.translator-popover-copy:hover {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+}
+
+.translator-popover-meta {
+  font-size: 0.7rem;
+  color: var(--color-muted);
+}
+
+.translator-toggle {
+  /* Border, color, padding driven inline so the toggle can match the
+   * active/inactive palette without a separate BEM block. */
+  cursor: pointer;
+}

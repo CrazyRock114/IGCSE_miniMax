@@ -4,6 +4,7 @@ import { assessmentObjectives } from '@/content/syllabus/command-words'
 import { coveredStatementIds, lessons, lessonsForStatement } from '@/lib/registry'
 import { T } from '@/components/i18n/T'
 import { LangToggle } from '@/components/i18n/LangToggle'
+import { TranslatorToggle } from '@/components/translator/TranslatorToggle'
 
 /**
  * The syllabus *is* the home page.
@@ -39,7 +40,10 @@ export function HomePage() {
               {syllabus.guidedLearningHours} guided learning hours
             </p>
           </div>
-          <LangToggle />
+          <div className="flex flex-wrap items-center gap-2">
+            <TranslatorToggle />
+            <LangToggle />
+          </div>
         </div>
 
         {SYLLABUSES.length > 1 && (

@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { HomePage } from '@/components/HomePage'
 import { LessonPage } from '@/components/lesson/LessonPage'
+import { SelectionTranslator } from '@/components/translator/SelectionTranslator'
 
 export default function App() {
   return (
@@ -13,6 +14,9 @@ export default function App() {
         <Route path="/lesson/:subject/:slug" element={<LessonPage />} />
         <Route path="*" element={<HomePage />} />
       </Routes>
+      {/* The translator is page-level chrome, not part of any route — it lives
+       * here so it works on every page without each one opting in. */}
+      <SelectionTranslator />
     </BrowserRouter>
   )
 }

@@ -6,6 +6,7 @@ import { statementById, subtopicByStatementId } from '@/content/syllabus'
 import { T } from '@/components/i18n/T'
 import { Term } from '@/components/i18n/Term'
 import { LangToggle } from '@/components/i18n/LangToggle'
+import { TranslatorToggle } from '@/components/translator/TranslatorToggle'
 import { ParamPanel } from './ParamPanel'
 import { ReadoutPanel } from './ReadoutPanel'
 import { Equation } from './Equation'
@@ -92,7 +93,8 @@ function LessonView({ lesson }: { lesson: Lesson }) {
         <Link to="/" className="text-accent hover:underline">
           ← All lessons
         </Link>
-        <span className="ml-auto">
+        <span className="ml-auto flex flex-wrap items-center gap-2">
+          <TranslatorToggle />
           <LangToggle />
         </span>
       </nav>
