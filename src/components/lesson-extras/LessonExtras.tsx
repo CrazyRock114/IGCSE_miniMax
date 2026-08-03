@@ -8,6 +8,8 @@ import { BalancedPlate } from './BalancedPlate'
 import { DigestionFlow } from './DigestionFlow'
 import { VillusDetail } from './VillusDetail'
 import { FoodEnergy } from './FoodEnergy'
+import { DiseaseCards } from './DiseaseCards'
+import { EnergyNeeds } from './EnergyNeeds'
 
 /**
  * Dispatches the lesson's `extras` to the right component.
@@ -62,5 +64,9 @@ function renderExtra(extra: LessonExtra) {
       return <VillusDetail extra={extra} />
     case 'food-energy':
       return <FoodEnergy extra={extra} />
+    case 'disease-cards':
+      return <DiseaseCards extra={extra} />
+    case 'energy-needs':
+      return <EnergyNeeds extra={extra} />
   }
 }

@@ -610,6 +610,8 @@ export type LessonExtra =
   | DigestionFlowExtra
   | VillusDetailExtra
   | FoodEnergyExtra
+  | DiseaseCardsExtra
+  | EnergyNeedsExtra
 
 /** What to show in the side panel when an organ is selected. */
 export interface AnatomyOrgan {
@@ -801,4 +803,62 @@ export interface FoodEnergyExtra {
     /** Coarse grouping, drives the row colour. */
     group: 'carb' | 'protein' | 'fat' | 'fruit-veg' | 'dairy' | 'mixed'
   }>
+}
+
+/**
+ * A grid of disease/condition cards: real clinical photographs, the mechanism
+ * (how/why it happens), the clinical picture (symptoms), and the term in EN+ZH.
+ *
+ * Modeled on the G8 Science chapter-1.5 lifestyle-diseases block: rickets,
+ * scurvy, kwashiorkor, marasmus, coronary heart disease, obesity. The pictures
+ * are real medical/photojournalism images, not stylised illustrations — a
+ * six-year-old's photo of a kwashiorkor belly tells a student more than any
+ * drawn diagram.
+ */
+export interface DiseaseCardEntry {
+  id: string
+  /** Term English (matches a glossary entry). */
+  term: Bilingual
+  /** Why it happens — the mechanism. */
+  mechanism: Bilingual
+  /** What it looks like — symptoms, signs, clinical picture. */
+  clinical: Bilingual
+  /** Path under /public — the lesson's own images live under /figures/<source>/<lesson>/. */
+  image: string
+  /** Source attribution. */
+  imageSource: Bilingual
+  /** Optional callout colour, drives the card border. */
+  severity?: 'deficiency' | 'lifestyle' | 'severe'
+}
+
+export interface DiseaseCardsExtra {
+  type: 'disease-cards'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  cards: DiseaseCardEntry[]
+}
+
+/**
+ * The energy-needs table (Figure B5.01 style). Three columns: demographic,
+ * daily energy, the actual number. The point: energy needs depend on age, sex
+ * and activity — there is no single "daily requirement" for a person.
+ */
+export interface EnergyNeedsRow {
+  demographic: Bilingual
+  activity: Bilingual
+  energyKj: number
+}
+
+export interface EnergyNeedsExtra {
+  type: 'energy-needs'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  rows: EnergyNeedsRow[]
+  /**
+   * Source for the energy figures — e.g. 'G8 Science Figure B5.01'.
+   * The numbers are a re-presentation; the unit is kJ per day.
+   */
+  source: Bilingual
 }

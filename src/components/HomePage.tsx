@@ -41,6 +41,12 @@ export function HomePage() {
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
+            <Link
+              to="/vocab"
+              className="rounded-md border border-line bg-surface px-2.5 py-1 text-xs font-medium text-ink-soft hover:border-teal-500 hover:text-teal-700"
+            >
+              📚 Vocabulary
+            </Link>
             <TranslatorToggle />
             <LangToggle />
           </div>
