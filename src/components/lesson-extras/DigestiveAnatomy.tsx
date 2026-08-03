@@ -18,22 +18,37 @@ import { DIGESTIVE_ANATOMY } from '@/lib/lessonExtrasStrings'
 const IMG_W = 1071
 const IMG_H = 932
 
-type Hotspot = { type: 'circle'; x: number; y: number; r: number } | { type: 'ellipse'; x: number; y: number; rx: number; ry: number }
+type Hotspot =
+  | { type: 'circle'; x: number; y: number; r: number }
+  | { type: 'ellipse'; x: number; y: number; rx: number; ry: number }
+  | { type: 'path'; d: string; strokeWidth: number }
 
 /**
  * Where each food-passing organ sits on the figure. Tweaked by eye against
  * the extracted PNG; the radii are generous so a slight drift in extraction
  * won't leave the user unable to click.
+ *
+ * The large intestine is drawn as a path rather than a circle because it
+ * is genuinely U-shaped in the figure (ascending → transverse → descending
+ * colon framing the small intestine), and any single ellipse overlaps the
+ * small intestine's hotspot. The thick stroke gives the user a click target
+ * along the entire U.
  */
 const HOTSPOTS: Record<string, Hotspot> = {
   mouth: { type: 'circle', x: 510, y: 165, r: 38 },
-  oesophagus: { type: 'ellipse', x: 478, y: 320, rx: 22, ry: 120 },
+  oesophagus: { type: 'ellipse', x: 500, y: 315, rx: 22, ry: 120 },
   stomach: { type: 'ellipse', x: 622, y: 478, rx: 80, ry: 70 },
   liver: { type: 'ellipse', x: 478, y: 472, rx: 100, ry: 42 },
   'gall-bladder': { type: 'circle', x: 475, y: 540, r: 24 },
   pancreas: { type: 'ellipse', x: 612, y: 588, rx: 100, ry: 26 },
   'small-intestine': { type: 'ellipse', x: 522, y: 720, rx: 130, ry: 110 },
-  'large-intestine': { type: 'ellipse', x: 525, y: 720, rx: 200, ry: 170 },
+  // U-shape: ascending colon (left) → caecum → rectum → sigmoid → descending colon (right).
+  // Traced against the figure; the stroke gives a click target along the whole U.
+  'large-intestine': {
+    type: 'path',
+    d: 'M 240 470 L 240 790 Q 245 850 320 855 L 520 870 L 720 855 Q 730 830 720 790 L 720 470',
+    strokeWidth: 60,
+  },
   anus: { type: 'circle', x: 542, y: 890, r: 22 },
 }
 
@@ -301,7 +316,7 @@ function HotspotShape({
           stroke={showRing ? ringStroke : 'transparent'}
           strokeWidth={2}
         />
-      ) : (
+      ) : h.type === 'ellipse' ? (
         <ellipse
           cx={h.x}
           cy={h.y}
@@ -311,28 +326,21 @@ function HotspotShape({
           stroke={showRing ? ringStroke : 'transparent'}
           strokeWidth={2}
         />
+      ) : (
+        <path
+          d={h.d}
+          fill="none"
+          stroke={showRing ? ringStroke : 'transparent'}
+          strokeWidth={showRing ? h.strokeWidth : Math.max(h.strokeWidth - 12, 18)}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          opacity={showRing ? 0.18 : 0}
+        />
       )}
 
       {(isSelected || isHovered) && (
         <g style={{ pointerEvents: 'none' }}>
-          <rect
-            x={h.type === 'circle' ? h.x - 38 : h.x - 50}
-            y={h.type === 'circle' ? h.y - h.r - 28 : h.y - h.ry - 28}
-            width="100"
-            height="22"
-            rx="4"
-            fill={labelBg}
-          />
-          <text
-            x={h.x}
-            y={h.type === 'circle' ? h.y - h.r - 13 : h.y - h.ry - 13}
-            textAnchor="middle"
-            fontSize="12"
-            fontWeight="600"
-            fill="white"
-          >
-            {label}
-          </text>
+          <LabelTag hotspot={h} label={label} labelBg={labelBg} />
         </g>
       )}
     </g>
@@ -340,8 +348,11 @@ function HotspotShape({
 }
 
 function FollowDot({ hotspot }: { hotspot: Hotspot }) {
-  const cx = hotspot.type === 'circle' ? hotspot.x : hotspot.x
-  const cy = hotspot.type === 'circle' ? hotspot.y : hotspot.y
+  // For the path (large intestine) the dot sits at the caecum end —
+  // the entry point from the small intestine. For other shapes, the
+  // shape's own center.
+  const cx = hotspot.type === 'path' ? 240 : hotspot.x
+  const cy = hotspot.type === 'path' ? 800 : hotspot.y
   return (
     <g style={{ pointerEvents: 'none' }}>
       <circle cx={cx} cy={cy} r="11" fill="#dc2626" stroke="#7f1d1d" strokeWidth="2">
@@ -349,5 +360,37 @@ function FollowDot({ hotspot }: { hotspot: Hotspot }) {
       </circle>
       <circle cx={cx} cy={cy} r="4" fill="white" />
     </g>
+  )
+}
+
+/**
+ * The label/tooltip that appears when a hotspot is hovered or selected.
+ * Anchored above the hotspot's center — for the path hotspot (large
+ * intestine) we anchor it above the caecum, the part the user most
+ * often clicks first.
+ */
+function LabelTag({
+  hotspot,
+  label,
+  labelBg,
+}: {
+  hotspot: Hotspot
+  label: string
+  labelBg: string
+}) {
+  const cx = hotspot.type === 'path' ? 240 : hotspot.x
+  const top =
+    hotspot.type === 'circle'
+      ? hotspot.y - hotspot.r
+      : hotspot.type === 'ellipse'
+      ? hotspot.y - hotspot.ry
+      : 460 // above the ascending colon top
+  return (
+    <>
+      <rect x={cx - 60} y={top - 28} width="120" height="22" rx="4" fill={labelBg} />
+      <text x={cx} y={top - 13} textAnchor="middle" fontSize="12" fontWeight="600" fill="white">
+        {label}
+      </text>
+    </>
   )
 }
