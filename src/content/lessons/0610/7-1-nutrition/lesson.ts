@@ -659,6 +659,170 @@ const lesson: Lesson = {
         { id: 'apple', name: { en: 'Apple', zh: '苹果' }, energy: 200, group: 'fruit-veg' },
       ],
     },
+    {
+      type: 'disease-cards',
+      id: 'diseases',
+      title: {
+        en: 'Deficiency and lifestyle diseases — what they actually look like',
+        zh: '缺乏症与生活方式病——它们到底长什么样',
+      },
+      hint: {
+        en: 'Real pictures from the source material, the mechanism, and the clinical picture for each. These are the diseases the G8 Science chapter-1.5 block names by name.',
+        zh: '讲义原图 + 原理 + 临床表现。讲义 Chapter 1.5 中按名提到的所有疾病。',
+      },
+      cards: [
+        {
+          id: 'rickets',
+          term: { en: 'Rickets', zh: '佝偻病' },
+          image: '/figures/g8/7-1-nutrition/image-b5-07.png',
+          imageSource: { en: 'G8 Science · Vitamin D table (Chapter 1.1)', zh: '讲义 Chapter 1.1 维生素 D 表' },
+          severity: 'deficiency',
+          mechanism: {
+            en: 'Vitamin D is needed for calcium to be absorbed from the gut into the blood. Without it, calcium in the diet cannot enter the body — so the bones of a growing child stay soft and bend under the body\'s weight.',
+            zh: '维生素 D 是肠道吸收钙的必需物质。没有它，食物中的钙不能进入身体——正在长身体的孩子骨头会保持柔软，承受不住体重就弯曲变形。',
+          },
+          clinical: {
+            en: 'Bones, especially the legs, become soft and deformed: knees bow outward, ankles turn in, spine curves. Once common in industrial cities where children rarely went outside — sunlight on the skin makes vitamin D, and oily fish is a dietary source.',
+            zh: '骨骼（尤其腿骨）变软变形：膝盖外翻（O 型腿）、踝内翻、脊柱弯曲。过去工业城市里少见阳光的孩子常发此病——阳光照皮肤能合成维生素 D，含油多的鱼是食物来源。',
+          },
+        },
+        {
+          id: 'scurvy',
+          term: { en: 'Scurvy', zh: '坏血症' },
+          image: '/figures/g8/7-1-nutrition/image-b5-07.png',
+          imageSource: { en: 'G8 Science · Vitamin C table (Chapter 1.1)', zh: '讲义 Chapter 1.1 维生素 C 表' },
+          severity: 'deficiency',
+          mechanism: {
+            en: 'Vitamin C is needed to make collagen, the stretchy protein that holds skin, blood-vessel walls, gums and connective tissue together. Without it, the body cannot maintain these tissues — they become fragile, and any wound takes much longer to close.',
+            zh: '维生素 C 是合成胶原蛋白的必需物质。胶原蛋白是把皮肤、血管壁、牙龈、结缔组织黏合起来的弹性蛋白。没有它，这些组织变得脆弱，伤口也难愈合。',
+          },
+          clinical: {
+            en: 'Bleeding gums, loose teeth, bruises without injury, wounds that will not heal, joint and muscle pain, fatigue. Historically common in sailors on long voyages with no fresh fruit — it killed thousands on 18th-century ocean voyages until lemon juice became a daily ration.',
+            zh: '牙龈出血、牙齿松动、无故淤青、伤口不愈、关节肌肉疼痛、疲倦。历史上常见于长期航行吃不到新鲜水果的水手——18 世纪远洋航行中因此病死亡者成千上万。后来每日配给柠檬汁治好了它。',
+          },
+        },
+        {
+          id: 'kwashiorkor',
+          term: { en: 'Kwashiorkor', zh: '恶性营养不良' },
+          image: '/figures/g8/7-1-nutrition/image-b5-06.png',
+          imageSource: { en: 'G8 Science · p.10, Image B5.06', zh: '讲义 p.10，Image B5.06' },
+          severity: 'severe',
+          mechanism: {
+            en: 'A diet that contains enough energy (carbohydrate, fat) but lacks enough protein. The liver cannot make enough of the blood proteins that hold fluid inside the blood vessels, so fluid leaks into the tissues — this is why a kwashiorkor child has a swollen belly while still being underweight overall.',
+            zh: '能量（碳水、脂肪）足够但严重缺蛋白的饮食。肝脏合成不出足够的血浆蛋白来锁住血管里的水分，于是液体渗到组织里——这就是恶性营养不良患儿肚子鼓胀但整体体重偏低的原因。',
+          },
+          clinical: {
+            en: 'Swollen belly (oedema — fluid in the tissues), reddish or thinning hair, skin that flakes and tears easily, enlarged liver. Common in children 9 months to 2 years weaned off breast milk onto a low-protein diet. A high-protein diet usually reverses it.',
+            zh: '腹部鼓胀（水肿——液体渗到组织中）、头发发红变稀、皮肤易剥落、肝脏肿大。常发生在 9 个月到 2 岁、断奶后改吃低蛋白食物的孩子。改吃高蛋白饮食通常能逆转。',
+          },
+        },
+        {
+          id: 'marasmus',
+          term: { en: 'Marasmus', zh: '消瘦症' },
+          image: '/figures/g8/7-1-nutrition/image-b5-06.png',
+          imageSource: { en: 'G8 Science · p.10, severe malnutrition', zh: '讲义 p.10 严重营养不良' },
+          severity: 'severe',
+          mechanism: {
+            en: 'A diet lacking both protein AND energy — overall starvation. The body, starved of fuel and building blocks, breaks down its own muscle and fat. Unlike kwashiorkor, fluid balance is preserved — the child just wastes away.',
+            zh: '蛋白质和能量都严重缺乏——整体饥饿。身体既缺燃料又缺建材，只好分解自身的肌肉和脂肪。跟恶性营养不良不同，液体平衡没破——孩子就是单纯地消瘦下去。',
+          },
+          clinical: {
+            en: 'A child who looks emaciated — no fat under the skin, muscles wasted, ribs and shoulder blades visible, "old man" face from loss of the fat pads under the skin. The most severe form of malnutrition. Recovery requires sustained re-feeding with both protein and energy.',
+            zh: '患儿极度消瘦——皮下无脂肪、肌肉萎缩、肋骨和肩胛骨清晰可见、皮下脂肪垫消失导致"小老人"面容。营养不良的最严重形式。恢复需要持续补充蛋白质和能量。',
+          },
+        },
+        {
+          id: 'coronary-heart-disease',
+          term: { en: 'Coronary heart disease (CHD)', zh: '冠心病（CHD）' },
+          image: '/figures/g8/7-1-nutrition/image-b5-05.png',
+          imageSource: { en: 'G8 Science · p.8-9, saturated fat & heart disease', zh: '讲义 p.8-9 饱和脂肪与心脏病' },
+          severity: 'lifestyle',
+          mechanism: {
+            en: 'The coronary arteries supply the heart muscle with blood. Diets high in saturated fat and cholesterol cause fatty deposits to build up on the inside walls of these arteries, making them stiffer and narrower. Less blood gets through — the heart muscle runs short of oxygen and cannot work properly.',
+            zh: '冠状动脉是为心肌本身供血的血管。高饱和脂肪和胆固醇饮食会让脂肪沉积堆积在这些动脉内壁，让它们变硬变窄。血流减少，心肌缺氧，无法正常工作。',
+          },
+          clinical: {
+            en: 'The deposits can trigger a blood clot, which can suddenly block the artery — a heart attack. Symptoms: chest pain (especially on exertion), breathlessness, pain radiating down the left arm. Risk factors: high saturated-fat diet, smoking, lack of exercise, family history.',
+            zh: '沉积物可能引发血栓突然完全堵住动脉——这就是心肌梗塞。症状：胸痛（尤其在用力时）、气短、左臂放射性疼痛。危险因素：高饱和脂肪饮食、吸烟、缺乏运动、家族史。',
+          },
+        },
+        {
+          id: 'obesity',
+          term: { en: 'Obesity', zh: '肥胖' },
+          image: '/figures/g8/7-1-nutrition/image-b5-05.png',
+          imageSource: { en: 'G8 Science · p.9, Image B5.05', zh: '讲义 p.9，Image B5.05' },
+          severity: 'lifestyle',
+          mechanism: {
+            en: 'Energy in, energy out. If a person takes in more food energy than they use up, the surplus is stored — mostly as fat under the skin and around the organs. Over months and years this accumulates to a level that is harmful to health.',
+            zh: '能量进出平衡。如果一个人摄入的能量长期超过消耗，多余的部分就存起来——主要是皮下和内脏周围的脂肪。积月累年到危害健康的程度就是肥胖。',
+          },
+          clinical: {
+            en: 'Excess body fat, especially concentrated around the middle (the "apple" shape), is linked to higher risk of coronary heart disease, strokes, type-2 diabetes, and joint problems in the knees and hips. Most people can control weight with normal balanced meals and regular exercise — crash diets tend to fail.',
+            zh: '体内脂肪过多，尤其是脂肪集中在腰腹（"苹果形"体型）的人，患冠心病、中风、2 型糖尿病、膝髋关节问题的风险更高。多数人可以通过正常均衡饮食和规律运动来控制体重——快速节食往往失败。',
+          },
+        },
+      ],
+    },
+    {
+      type: 'energy-needs',
+      id: 'energy-needs',
+      title: { en: 'How much energy does a person actually need?', zh: '一个人一天到底需要多少能量？' },
+      hint: {
+        en: 'There is no single "daily requirement" — energy needs depend on age, sex and how active you are. A 15-year-old boy doing manual work needs more than three times what a 5-year-old girl needs.',
+        zh: '"每日所需能量"不是个固定数——它取决于年龄、性别和活动量。一个 15 岁干体力活的男孩所需能量是一个 5 岁女孩的三倍多。',
+      },
+      source: {
+        en: 'Adapted from G8 Science Figure B5.01. Numbers are illustrative — actual needs vary.',
+        zh: '改自讲义 Figure B5.01。数据为示意值，实际因人而异。',
+      },
+      rows: [
+        {
+          demographic: { en: 'Girl, 5 years', zh: '女孩，5 岁' },
+          activity: { en: 'Moderately active', zh: '活动量中等' },
+          energyKj: 6500,
+        },
+        {
+          demographic: { en: 'Boy, 10 years', zh: '男孩，10 岁' },
+          activity: { en: 'Moderately active', zh: '活动量中等' },
+          energyKj: 9000,
+        },
+        {
+          demographic: { en: 'Girl, 15 years', zh: '女孩，15 岁' },
+          activity: { en: 'Moderately active', zh: '活动量中等' },
+          energyKj: 9500,
+        },
+        {
+          demographic: { en: 'Boy, 15 years', zh: '男孩，15 岁' },
+          activity: { en: 'Sedentary (desk job)', zh: '久坐（伏案工作）' },
+          energyKj: 11500,
+        },
+        {
+          demographic: { en: 'Man, 30 years', zh: '成年男性，30 岁' },
+          activity: { en: 'Office work', zh: '办公室工作' },
+          energyKj: 10500,
+        },
+        {
+          demographic: { en: 'Man, 30 years', zh: '成年男性，30 岁' },
+          activity: { en: 'Heavy manual labour', zh: '重体力劳动' },
+          energyKj: 16500,
+        },
+        {
+          demographic: { en: 'Woman, 30 years', zh: '成年女性，30 岁' },
+          activity: { en: 'Office work', zh: '办公室工作' },
+          energyKj: 8000,
+        },
+        {
+          demographic: { en: 'Woman, 30 years', zh: '成年女性，30 岁' },
+          activity: { en: 'Pregnant (last 6 months)', zh: '妊娠期（后 6 个月）' },
+          energyKj: 9500,
+        },
+        {
+          demographic: { en: 'Woman, 30 years', zh: '成年女性，30 岁' },
+          activity: { en: 'Breast-feeding', zh: '哺乳期' },
+          energyKj: 11000,
+        },
+      ],
+    },
   ],
 
   checkpoints: [
