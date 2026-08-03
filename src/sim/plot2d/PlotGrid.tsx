@@ -86,7 +86,14 @@ export function PlotGrid({ series: allSeries, height = 300, notes = [] }: PlotGr
 
   return (
     <>
-      <div className={'grid gap-4 ' + (groups.length > 1 ? 'sm:grid-cols-2' : '')}>
+      {/* `[&>*]:min-w-0` for the same reason as the lesson column: a grid track will not
+          shrink below its item's intrinsic width, and an SVG always reports one. Two panels
+          side by side on a tablet would otherwise force the page wider than the screen. */}
+      <div
+        className={
+          'grid gap-4 [&>*]:min-w-0 ' + (groups.length > 1 ? 'sm:grid-cols-2' : '')
+        }
+      >
         {groups.map((g) => (
           <Plot2D
             key={g.series.map((s) => s.key).join('+')}

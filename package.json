@@ -14,7 +14,8 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "check:syllabus": "tsx scripts/check-syllabus-coverage.ts",
-    "check:content": "tsx scripts/check-content-integrity.ts && tsx scripts/check-syllabus-coverage.ts"
+    "check:content": "tsx scripts/check-content-integrity.ts && tsx scripts/check-syllabus-coverage.ts",
+    "audit": "tsx scripts/audit-content.ts"
   },
   "dependencies": {
     "katex": "^0.16.27",

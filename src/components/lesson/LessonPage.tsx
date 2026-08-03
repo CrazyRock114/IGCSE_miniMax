@@ -122,8 +122,13 @@ function LessonView({ lesson }: { lesson: Lesson }) {
         <SyllabusChips ids={lesson.syllabus} />
       </header>
 
+      {/* `min-w-0` on the column is load-bearing, not tidying. A grid item defaults to
+          `min-width: auto`, so the track cannot shrink below the widest thing inside it —
+          and an SVG with a 460-unit viewBox reports 460px of intrinsic width however small
+          `w-full` draws it. Without this the whole page grew to about 470px on a 375px
+          phone, so every paragraph on the lesson scrolled sideways with it. */}
       <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
-        <div className="space-y-6">
+        <div className="min-w-0 space-y-6">
           {result && lesson.sim && (
             <section className="rounded-xl border border-line bg-surface p-4">
               <SimStage

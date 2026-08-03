@@ -88,7 +88,6 @@ const lesson: Lesson = {
         en: 'Containing only single carbon–carbon bonds. Alkanes are saturated; alkenes, with a C=C, are not.',
         zh: '只含碳碳单键。烷烃是饱和的；含 C=C 的烯烃则不是。',
       },
-      syllabus: ['0620.11.4.1'],
     },
   ],
 

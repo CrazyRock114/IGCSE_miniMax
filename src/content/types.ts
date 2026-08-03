@@ -209,12 +209,37 @@ export interface SimSpec {
  */
 export type SimKernel<P = Record<string, number>, R = SimResult> = (params: P) => R
 
+/**
+ * A reference line across a plot — a melting point, absolute zero, the temperature an
+ * industrial plant actually runs at.
+ *
+ * Worth having because half the graphs in this course are read against a value that is not
+ * on the curve. "The yield at 450 °C" means finding 450 on the axis and following it up by
+ * eye, and a student who lands on 400 draws the wrong conclusion from a correct graph. The
+ * line does the finding.
+ *
+ * The label is a plain string rather than `Bilingual`: what goes here is a value with its
+ * unit — "0 °C", "450 °C, the industrial temperature" is too long for the space. Anything
+ * needing prose belongs in a marker note under the plot.
+ */
+export interface SimGuide {
+  /** `x` draws a vertical line at this value; `y` draws a horizontal one. */
+  axis: 'x' | 'y'
+  value: number
+  label?: string
+}
+
 export interface SimSeries {
   key: string
   label: Bilingual
   /** Axis units, e.g. { x: 's', y: 'm' } */
   unit: { x: string; y: string }
   points: Array<[number, number]>
+  /**
+   * Reference lines drawn across the panel this series is on. Collected across every series
+   * sharing the panel, so it does not matter which one carries them.
+   */
+  guides?: SimGuide[]
   /**
    * Fixed y-axis bounds, when the quantity has a natural range the data does not reach.
    * pH runs 0–14, so letting the axis round up to 20 would be wrong even though no point

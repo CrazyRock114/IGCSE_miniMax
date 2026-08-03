@@ -238,7 +238,7 @@ const lesson: Lesson = {
     {
       id: '0620-2-4-cp2',
       syllabus: ['0620.2.4.1', '0620.2.4.6'],
-      tier: 'core',
+      tier: 'extended',
       commandWord: 'Deduce',
       marks: 1,
       stem: 'Calcium is in Group II and fluorine in Group VII. Deduce the formula of calcium fluoride.',

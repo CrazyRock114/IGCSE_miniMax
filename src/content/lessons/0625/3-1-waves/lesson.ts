@@ -17,7 +17,7 @@ const lesson: Lesson = {
     '0625.3.1.9',
     '0625.3.1.10',
   ],
-  tier: 'core',
+  tier: 'extended',
   estimatedMinutes: 45,
 
   title: { en: 'Wave motion and the wave equation', zh: '波动与波速公式' },

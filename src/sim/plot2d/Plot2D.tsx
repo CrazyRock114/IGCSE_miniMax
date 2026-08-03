@@ -102,6 +102,10 @@ export function Plot2D({
 
   const showLegend = series.length > 1
 
+  // Guides belong to the panel, not to one curve, so they are collected across every series
+  // sharing it — a kernel should not have to decide which of two curves carries the line.
+  const guides = series.flatMap((s) => s.guides ?? [])
+
   return (
     <figure className="m-0">
       <svg
@@ -168,6 +172,42 @@ export function Plot2D({
           stroke="#334155"
           strokeWidth={1.5}
         />
+
+        {/* Reference lines, under the curves so they never obscure the data. Drawn amber
+            and dashed so they read as annotation rather than as a second curve. */}
+        {guides.map((g, i) => {
+          const inRange =
+            g.axis === 'x' ? g.value >= xMin && g.value <= xMax : g.value >= yMin && g.value <= yMax
+          if (!inRange) return null
+
+          const vertical = g.axis === 'x'
+          const px = vertical ? sx(g.value) : 0
+          const py = vertical ? 0 : sy(g.value)
+          return (
+            <g key={i}>
+              <line
+                x1={vertical ? px : PADDING.left}
+                y1={vertical ? PADDING.top : py}
+                x2={vertical ? px : PADDING.left + plotW}
+                y2={vertical ? PADDING.top + plotH : py}
+                stroke="#d97706"
+                strokeWidth={1.2}
+                strokeDasharray="4 3"
+              />
+              {g.label && (
+                <text
+                  x={vertical ? px + 4 : PADDING.left + plotW - 3}
+                  y={vertical ? PADDING.top + 10 : py - 4}
+                  textAnchor={vertical ? 'start' : 'end'}
+                  fontSize={9}
+                  fill="#b45309"
+                >
+                  {g.label}
+                </text>
+              )}
+            </g>
+          )
+        })}
 
         {paths.map((p, i) => {
           const colour = colours[i % colours.length]!

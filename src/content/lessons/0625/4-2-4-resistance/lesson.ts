@@ -277,7 +277,7 @@ const lesson: Lesson = {
     {
       id: '4-2-4-cp4',
       syllabus: ['0625.4.2.4.4'],
-      tier: 'core',
+      tier: 'extended',
       commandWord: 'Identify',
       marks: 1,
       stem: 'An I–V graph shows no current for all negative p.d., no current up to about +0.7 V, and then a steeply rising current. Identify the component.',

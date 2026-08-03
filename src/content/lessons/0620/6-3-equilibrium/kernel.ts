@@ -106,6 +106,9 @@ export const equilibriumKernel: SimKernel<EquilibriumParams, SimResult> = (param
       }),
       xBounds: { min: 200, max: 600 },
       yBounds: { min: 0, max: 100 },
+      // Reading "the yield at 450 °C" off this curve by eye is where the compromise
+      // argument is won or lost, so the line does the finding.
+      guides: [{ axis: 'x', value: INDUSTRIAL.temperature, label: 'industrial 450 °C' }],
     },
     {
       key: 'vsPressure',
@@ -117,6 +120,7 @@ export const equilibriumKernel: SimKernel<EquilibriumParams, SimResult> = (param
       }),
       xBounds: { min: 0, max: 400 },
       yBounds: { min: 0, max: 100 },
+      guides: [{ axis: 'x', value: INDUSTRIAL.pressure, label: 'industrial 200 atm' }],
     },
   ]
 

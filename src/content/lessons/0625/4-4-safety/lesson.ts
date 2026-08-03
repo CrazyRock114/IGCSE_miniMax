@@ -291,7 +291,7 @@ const lesson: Lesson = {
     {
       id: '0625-4-4-cp4',
       syllabus: ['0625.4.4.4', '0625.4.4.5'],
-      tier: 'extended',
+      tier: 'core',
       commandWord: 'Explain',
       marks: 4,
       stem: 'A metal-cased appliance is earthed, while a plastic-cased one is double insulated and has no earth wire. Explain how each is made safe, and state what the fuse in the double-insulated appliance protects.',

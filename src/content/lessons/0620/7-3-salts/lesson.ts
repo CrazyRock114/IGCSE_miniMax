@@ -313,7 +313,7 @@ const lesson: Lesson = {
     {
       id: '0620-7-3-cp6',
       syllabus: ['0620.7.3.1'],
-      tier: 'extended',
+      tier: 'core',
       commandWord: 'Explain',
       marks: 2,
       stem: 'Sodium chloride cannot be prepared by adding excess sodium hydroxide to hydrochloric acid. Explain why, and state what method should be used instead.',

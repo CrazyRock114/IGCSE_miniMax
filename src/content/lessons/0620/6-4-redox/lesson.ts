@@ -267,7 +267,7 @@ const lesson: Lesson = {
     {
       id: '0620-6-4-cp6',
       syllabus: ['0620.6.4.2', '0620.6.4.12'],
-      tier: 'core',
+      tier: 'extended',
       commandWord: 'Define',
       marks: 2,
       stem: 'Define a redox reaction, and define a reducing agent.',

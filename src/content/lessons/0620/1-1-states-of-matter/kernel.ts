@@ -139,6 +139,12 @@ export const statesKernel: SimKernel<StatesParams, SimResult> = (params) => {
       label: { en: 'Temperature as energy is supplied', zh: '温度随供给能量的变化' },
       unit: { x: 'energy supplied (relative)', y: 'temperature / °C' },
       points: curve,
+      // The two plateaus sit at these temperatures, so the lines land exactly on them —
+      // which is the point being made about where a change of state happens.
+      guides: [
+        { axis: 'y', value: round(meltingPoint, 0), label: `melting point ${round(meltingPoint, 0)} °C` },
+        { axis: 'y', value: round(boilingPoint, 0), label: `boiling point ${round(boilingPoint, 0)} °C` },
+      ],
     },
     {
       key: 'gas',
@@ -149,6 +155,10 @@ export const statesKernel: SimKernel<StatesParams, SimResult> = (params) => {
         return [round(t, 1), round(gasVolume(t, pressure))] as [number, number]
       }),
       xBounds: { min: ABSOLUTE_ZERO, max: 400 },
+      guides: [
+        { axis: 'x', value: ABSOLUTE_ZERO, label: 'absolute zero' },
+        { axis: 'x', value: ROOM_TEMPERATURE, label: 'room temperature' },
+      ],
     },
   ]
 

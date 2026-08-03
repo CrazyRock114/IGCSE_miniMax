@@ -249,7 +249,7 @@ const lesson: Lesson = {
     {
       id: '0625-4-2-cp2',
       syllabus: ['0625.4.2.5.4'],
-      tier: 'extended',
+      tier: 'core',
       commandWord: 'Explain',
       marks: 2,
       stem: 'A student says that the kilowatt-hour is a unit of power because its name contains the word "kilowatt". Explain why the student is wrong.',

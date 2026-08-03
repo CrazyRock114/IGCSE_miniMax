@@ -276,7 +276,7 @@ const lesson: Lesson = {
     {
       id: '4-3-2-cp2',
       syllabus: ['0625.4.3.2.4', '0625.4.3.2.8'],
-      tier: 'core',
+      tier: 'extended',
       commandWord: 'Calculate',
       marks: 4,
       stem: 'A 12 V battery is connected in series with a 30 Ω resistor and a 60 Ω resistor. Calculate the current in the circuit and the p.d. across the 60 Ω resistor.',

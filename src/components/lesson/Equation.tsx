@@ -33,14 +33,19 @@ export function Equation({ block, readouts }: EquationProps) {
   }, [block, readouts])
 
   return (
+    // KaTeX lays a formula out at whatever width it needs and will not wrap. On a phone a
+    // long one — `V_p/V_s = N_p/N_s` with a substituted line under it, or anything with
+    // words in a \text{} group — is wider than the screen, and without this it widens the
+    // whole page rather than itself, so every other block on the lesson ends up scrolling
+    // sideways too. Scrolling the formula alone is the behaviour a reader expects.
     <div className="rounded-lg border border-line bg-surface px-4 py-3">
-      <div dangerouslySetInnerHTML={{ __html: main }} />
+      <div className="overflow-x-auto" dangerouslySetInnerHTML={{ __html: main }} />
       <p className="mt-1 text-sm text-ink-soft">
         <T value={block.meaning} />
       </p>
       {substituted && (
         <div className="mt-2 border-t border-line pt-2 text-teal-800">
-          <div dangerouslySetInnerHTML={{ __html: substituted }} />
+          <div className="overflow-x-auto" dangerouslySetInnerHTML={{ __html: substituted }} />
         </div>
       )}
     </div>

@@ -262,7 +262,7 @@ const lesson: Lesson = {
     {
       id: '0620-2-6-cp5',
       syllabus: ['0620.2.6.1', '0620.2.6.3'],
-      tier: 'core',
+      tier: 'extended',
       commandWord: 'Suggest',
       marks: 2,
       stem: 'Diamond, graphite and silicon(IV) oxide all have melting points above 1500 °C. Suggest why all three melt at such high temperatures.',

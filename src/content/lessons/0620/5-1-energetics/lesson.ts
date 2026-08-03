@@ -226,7 +226,7 @@ const lesson: Lesson = {
     {
       id: '0620-5-1-cp1',
       syllabus: ['0620.5.1.1', '0620.5.1.4'],
-      tier: 'core',
+      tier: 'extended',
       commandWord: 'Explain',
       marks: 2,
       stem: 'When magnesium is added to dilute hydrochloric acid, the temperature of the mixture rises. State whether the reaction is exothermic or endothermic, and state the sign of ΔH.',

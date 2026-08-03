@@ -301,7 +301,7 @@ const lesson: Lesson = {
     {
       id: '0625-1-3-cp5',
       syllabus: ['0625.1.3.4'],
-      tier: 'extended',
+      tier: 'core',
       commandWord: 'Suggest',
       marks: 2,
       stem: 'A beam balance and a spring balance both read correctly on Earth. Suggest what each would read for the same object on the Moon, and explain the difference.',

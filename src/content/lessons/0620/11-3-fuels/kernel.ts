@@ -158,6 +158,9 @@ export const fuelsKernel: SimKernel<FuelsParams, SimResult> = (params) => {
         return [n, round(boilingPoint(n))] as [number, number]
       }),
       xBounds: { min: 0, max: 40 },
+      // Everything whose boiling point is below this line is a gas in the room you are
+      // sitting in, which is why the first fraction is bottled and the rest are poured.
+      guides: [{ axis: 'y', value: 20, label: 'room temperature' }],
     },
   ]
 
