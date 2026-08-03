@@ -96,3 +96,49 @@ export const BALANCED_PLATE = {
     fat: { en: 'Healthy fats', zh: '健康脂肪' } satisfies Bilingual,
   },
 } as const
+
+export const DIGESTION_FLOW = {
+  reveal: { en: 'Show definition', zh: '查看释义' } satisfies Bilingual,
+  collapse: { en: 'Hide', zh: '收起' } satisfies Bilingual,
+} as const
+
+export const VILLUS_DETAIL = {
+  clickHint: {
+    en: 'Click any labelled part of the villus to read what it does.',
+    zh: '点击绒毛上任意标号部分，了解其作用。',
+  } satisfies Bilingual,
+  empty: {
+    en: 'Click a part of the villus to read about it.',
+    zh: '点击绒毛任一部分了解作用。',
+  } satisfies Bilingual,
+  transportTitle: {
+    en: 'Where each nutrient goes',
+    zh: '各种营养物质去哪里',
+  } satisfies Bilingual,
+  lumenLabel: { en: 'lumen of the small intestine', zh: '小肠肠腔' } satisfies Bilingual,
+  lactealTag: { en: 'lacteal', zh: '乳糜管' } satisfies Bilingual,
+  wallLabel: { en: 'gut wall (one cell thick)', zh: '肠壁（单层细胞）' } satisfies Bilingual,
+} as const
+
+export const FOOD_ENERGY = {
+  colFood: { en: 'Food', zh: '食物' } satisfies Bilingual,
+  colGroup: { en: 'Group', zh: '类别' } satisfies Bilingual,
+  colEnergy: { en: 'Energy', zh: '能量' } satisfies Bilingual,
+  colBar: { en: 'Relative', zh: '相对量' } satisfies Bilingual,
+  pinnedHint: {
+    en: 'Pinned for comparison:',
+    zh: '已选中用于对比：',
+  } satisfies Bilingual,
+  clickHint: {
+    en: 'Click a row to pin it; click again to clear. Fat carries more than twice the energy of the same mass of carbohydrate or protein.',
+    zh: '点击任一行选中对比，再次点击取消。脂肪的能量是同质量碳水或蛋白的两倍以上。',
+  } satisfies Bilingual,
+  groupLabel: {
+    carb: { en: 'Carb', zh: '碳水' } satisfies Bilingual,
+    protein: { en: 'Protein', zh: '蛋白质' } satisfies Bilingual,
+    fat: { en: 'Fat', zh: '脂肪' } satisfies Bilingual,
+    'fruit-veg': { en: 'Fruit / Veg', zh: '果蔬' } satisfies Bilingual,
+    dairy: { en: 'Dairy', zh: '乳制品' } satisfies Bilingual,
+    mixed: { en: 'Mixed meal', zh: '混合餐' } satisfies Bilingual,
+  },
+} as const

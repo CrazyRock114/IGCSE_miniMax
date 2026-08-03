@@ -138,6 +138,60 @@ const lesson: Lesson = {
       },
       syllabus: ['0610.7.5.5'],
     },
+    {
+      en: 'ingestion',
+      zh: '摄食',
+      definition: {
+        en: 'Taking food into the body through the mouth.',
+        zh: '把食物经口腔摄入体内。',
+      },
+      syllabus: ['0610.7.3.1'],
+    },
+    {
+      en: 'egestion',
+      zh: '排遗',
+      definition: {
+        en: 'Passing out of material that has never crossed the gut wall. This is not the same as excretion — faeces are not "metabolic waste".',
+        zh: '把从未穿过肠壁的物质排出体外。这与"排泄"不同——粪便不属于"代谢废物"。',
+      },
+      syllabus: ['0610.7.3.6'],
+    },
+    {
+      en: 'kwashiorkor',
+      zh: '恶性营养不良病',
+      definition: {
+        en: 'A form of severe malnutrition caused by a lack of protein. The child has a swollen belly (oedema) but appears to still have some fat under the skin.',
+        zh: '一种因缺乏蛋白质而引起的严重营养不良。患儿腹部水肿鼓胀，但皮下似乎仍有一些脂肪。',
+      },
+      syllabus: ['0610.7.1.3'],
+    },
+    {
+      en: 'marasmus',
+      zh: '消瘦症',
+      definition: {
+        en: 'Severe malnutrition caused by a lack of both protein and energy (overall starvation). The child is wasted — thin all over, with no fat and very little muscle.',
+        zh: '因蛋白质和能量都缺乏（整体饥饿）而引起的严重营养不良。患儿全身消瘦——没有脂肪，肌肉也极少。',
+      },
+      syllabus: ['0610.7.1.3'],
+    },
+    {
+      en: 'coronary heart disease',
+      zh: '冠心病',
+      definition: {
+        en: 'A disease in which the arteries supplying the heart muscle become narrowed by fatty deposits. Linked to diets high in saturated fat.',
+        zh: '为心肌供血的动脉因脂肪沉积而变窄的疾病。与高饱和脂肪饮食相关。',
+      },
+      syllabus: ['0610.7.1.2'],
+    },
+    {
+      en: 'obesity',
+      zh: '肥胖',
+      definition: {
+        en: 'A condition in which body fat has accumulated to the point that health is at risk. Caused by energy intake consistently exceeding energy use over a long time.',
+        zh: '体内脂肪堆积到危害健康的状态。由长期能量摄入持续超过能量消耗所引起。',
+      },
+      syllabus: ['0610.7.1.2'],
+    },
   ],
 
   // The content here is a web of one-to-one facts rather than a relationship between
@@ -422,6 +476,188 @@ const lesson: Lesson = {
       radiusMm: 25,
       lengthMm: 6000,
       baselineVilliPerCm2: 30,
+    },
+    {
+      type: 'digestion-flow',
+      id: 'flow',
+      title: { en: 'The whole journey, in order', zh: '消化全程，按顺序' },
+      hint: {
+        en: 'A sandwich to a faeces in five steps. Click a definition card below to read the formal term.',
+        zh: '从三明治到粪便的五步旅程。点击下方任一释义卡查看正式术语。',
+      },
+      stages: [
+        {
+          id: 'mouth',
+          label: { en: 'Mouth', zh: '口腔' },
+          summary: { en: 'food enters; teeth grind', zh: '食物入内；牙齿咀嚼' },
+        },
+        {
+          id: 'stomach',
+          label: { en: 'Stomach', zh: '胃' },
+          summary: { en: 'HCl + pepsin churn it', zh: '盐酸+胃蛋白酶搅拌' },
+        },
+        {
+          id: 'small-intestine',
+          label: { en: 'Small intestine', zh: '小肠' },
+          summary: { en: 'enzymes finish the job; absorbed', zh: '酶收尾；产物被吸收' },
+        },
+        {
+          id: 'body',
+          label: { en: 'Body cells', zh: '体内细胞' },
+          summary: { en: 'nutrients are used', zh: '营养物质被利用' },
+        },
+        {
+          id: 'anus',
+          label: { en: 'Anus', zh: '肛门' },
+          summary: { en: 'waste leaves the body', zh: '废物排出体外' },
+        },
+      ],
+      definitions: [
+        {
+          id: 'ingestion',
+          term: { en: 'Ingestion', zh: '摄食' },
+          definition: {
+            en: 'Taking food into the body through the mouth.',
+            zh: '把食物经口腔摄入体内。',
+          },
+        },
+        {
+          id: 'mechanical-digestion',
+          term: { en: 'Mechanical digestion', zh: '物理性消化' },
+          definition: {
+            en: 'Breaking food into smaller pieces without changing any molecule — done by teeth and the churning of the stomach.',
+            zh: '把食物弄成更小的碎块而不改变任何分子——由牙齿和胃的搅拌完成。',
+          },
+        },
+        {
+          id: 'chemical-digestion',
+          term: { en: 'Chemical digestion', zh: '化学性消化' },
+          definition: {
+            en: 'Breaking large insoluble molecules into small soluble ones using enzymes.',
+            zh: '用酶把大的不溶分子分解为小的可溶分子。',
+          },
+        },
+        {
+          id: 'absorption',
+          term: { en: 'Absorption', zh: '吸收' },
+          definition: {
+            en: 'The products of digestion moving across the wall of the small intestine into the blood and lymph.',
+            zh: '消化产物穿过小肠壁进入血液和淋巴。',
+          },
+        },
+        {
+          id: 'assimilation',
+          term: { en: 'Assimilation', zh: '同化' },
+          definition: {
+            en: 'Absorbed nutrients being taken up and used by the body\'s cells for energy, growth and repair.',
+            zh: '被吸收的营养物质被身体细胞摄取并用于供能、生长和修复。',
+          },
+        },
+        {
+          id: 'egestion',
+          term: { en: 'Egestion', zh: '排遗' },
+          definition: {
+            en: 'Passing out of material that has never crossed the gut wall — faeces are egested, not excreted.',
+            zh: '把从未穿过肠壁的物质排出体外——粪便属于排遗，而非排泄。',
+          },
+        },
+      ],
+    },
+    {
+      type: 'villus-detail',
+      id: 'villus',
+      title: { en: 'Inside one villus — the four named parts', zh: '一根绒毛的内部——四个有名有姓的部分' },
+      hint: {
+        en: 'Click any part of the villus to read what it does. The transport list on the right shows where each nutrient goes after crossing the wall.',
+        zh: '点击绒毛任一部分了解其作用。右侧列表展示每种营养物质穿过肠壁后去向何处。',
+      },
+      parts: [
+        {
+          id: 'epithelium',
+          name: { en: 'Epithelium', zh: '上皮组织' },
+          side: 'outside',
+          description: {
+            en: 'A single layer of cells wrapping the villus. The fact that it is one cell thick keeps the diffusion distance short, so nutrients cross fast.',
+            zh: '包裹绒毛的单层细胞。厚度仅一个细胞，扩散距离极短，营养物质能快速通过。',
+          },
+        },
+        {
+          id: 'microvilli',
+          name: { en: 'Microvilli', zh: '微绒毛' },
+          side: 'surface',
+          description: {
+            en: 'Tiny finger-like folds on the outer surface of each epithelial cell. They multiply the surface area a further ×20, giving the small intestine the area of a tennis court.',
+            zh: '每个上皮细胞外表面的微小指状突起。再使表面积增加约 20 倍，使小肠总面积达到一个网球场大小。',
+          },
+        },
+        {
+          id: 'capillary',
+          name: { en: 'Capillary network', zh: '毛细血管网' },
+          side: 'inside',
+          description: {
+            en: 'A dense mesh of tiny blood vessels just under the epithelium. Glucose and amino acids pass into the blood here and are carried away, keeping a steep concentration gradient.',
+            zh: '上皮下致密的毛细血管网。葡萄糖和氨基酸在此进入血液并被运走，保持着陡峭的浓度梯度。',
+          },
+        },
+        {
+          id: 'lacteal',
+          name: { en: 'Lacteal', zh: '乳糜管' },
+          side: 'core',
+          description: {
+            en: 'A single lymph vessel running through the core of the villus. Fatty acids and glycerol, which are not soluble in water, are taken up here instead of into the blood.',
+            zh: '贯穿绒毛中央的单根淋巴管。不溶于水的脂肪酸和甘油由此进入淋巴，而非血液。',
+          },
+        },
+      ],
+      transport: [
+        {
+          id: 'glucose',
+          name: { en: 'Glucose', zh: '葡萄糖' },
+          destination: { en: 'capillary → blood', zh: '毛细血管 → 血液' },
+        },
+        {
+          id: 'amino-acids',
+          name: { en: 'Amino acids', zh: '氨基酸' },
+          destination: { en: 'capillary → blood', zh: '毛细血管 → 血液' },
+        },
+        {
+          id: 'fatty-acids',
+          name: { en: 'Fatty acids', zh: '脂肪酸' },
+          destination: { en: 'lacteal → lymph', zh: '乳糜管 → 淋巴' },
+        },
+        {
+          id: 'glycerol',
+          name: { en: 'Glycerol', zh: '甘油' },
+          destination: { en: 'lacteal → lymph', zh: '乳糜管 → 淋巴' },
+        },
+      ],
+    },
+    {
+      type: 'food-energy',
+      id: 'energy',
+      title: { en: 'Same mass, very different energy', zh: '同样质量，能量差别很大' },
+      hint: {
+        en: 'Fat carries more than twice the energy of the same mass of carbohydrate or protein. That single fact explains most of the obesity story.',
+        zh: '脂肪的能量是同质量碳水化合物或蛋白质的两倍以上。仅这一条事实就解释了大多数肥胖问题。',
+      },
+      foods: [
+        { id: 'olive-oil', name: { en: 'Olive oil', zh: '橄榄油' }, energy: 3700, group: 'fat' },
+        { id: 'butter', name: { en: 'Butter', zh: '黄油' }, energy: 3030, group: 'fat' },
+        { id: 'nuts', name: { en: 'Nuts (mixed)', zh: '混合坚果' }, energy: 2400, group: 'fat' },
+        { id: 'chocolate', name: { en: 'Plain chocolate', zh: '黑巧克力' }, energy: 2300, group: 'mixed' },
+        { id: 'chips', name: { en: 'Potato chips', zh: '薯片' }, energy: 2300, group: 'mixed' },
+        { id: 'biscuits', name: { en: 'Biscuits', zh: '饼干' }, energy: 2050, group: 'mixed' },
+        { id: 'cheese', name: { en: 'Cheddar cheese', zh: '切达奶酪' }, energy: 1700, group: 'dairy' },
+        { id: 'bread', name: { en: 'White bread', zh: '白面包' }, energy: 1000, group: 'carb' },
+        { id: 'eggs', name: { en: 'Boiled egg', zh: '水煮蛋' }, energy: 600, group: 'protein' },
+        { id: 'rice', name: { en: 'Boiled rice', zh: '白米饭' }, energy: 540, group: 'carb' },
+        { id: 'chicken', name: { en: 'Chicken breast', zh: '鸡胸肉' }, energy: 500, group: 'protein' },
+        { id: 'banana', name: { en: 'Banana', zh: '香蕉' }, energy: 400, group: 'fruit-veg' },
+        { id: 'fish', name: { en: 'White fish', zh: '白鱼肉' }, energy: 350, group: 'protein' },
+        { id: 'potato', name: { en: 'Boiled potato', zh: '水煮土豆' }, energy: 350, group: 'carb' },
+        { id: 'milk', name: { en: 'Whole milk', zh: '全脂牛奶' }, energy: 270, group: 'dairy' },
+        { id: 'apple', name: { en: 'Apple', zh: '苹果' }, energy: 200, group: 'fruit-veg' },
+      ],
     },
   ],
 
