@@ -12,6 +12,7 @@ import { ReadoutPanel } from './ReadoutPanel'
 import { Equation } from './Equation'
 import { SimStage } from '@/sim/SimStage'
 import { NarrationPlayer } from '@/components/narration/NarrationPlayer'
+import { LessonExtras } from '@/components/lesson-extras/LessonExtras'
 import { QuestionCard } from '@/components/assessment/QuestionCard'
 import { advanceLooping, useAnimationFrame } from '@/lib/useAnimationFrame'
 import { ui } from '@/lib/ui-strings'
@@ -160,6 +161,8 @@ function LessonView({ lesson }: { lesson: Lesson }) {
               canvas, which made it impossible to adjust a parameter and watch the
               result at the same time. */}
           <NarrationPlayer script={lesson.narration} onAction={applyParams} />
+
+          {lesson.extras && lesson.extras.length > 0 && <LessonExtras extras={lesson.extras} />}
 
           {lesson.equations.length > 0 && (
             <section className="space-y-3">
