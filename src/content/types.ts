@@ -612,6 +612,10 @@ export type LessonExtra =
   | FoodEnergyExtra
   | DiseaseCardsExtra
   | EnergyNeedsExtra
+  | HeartAnatomyExtra
+  | BloodComponentsExtra
+  | BloodVesselsCompareExtra
+  | DoubleCirculationExtra
 
 /** What to show in the side panel when an organ is selected. */
 export interface AnatomyOrgan {
@@ -861,4 +865,126 @@ export interface EnergyNeedsExtra {
    * The numbers are a re-presentation; the unit is kJ per day.
    */
   source: Bilingual
+}
+
+// ---------------------------------------------------------------------------
+// 9-1 Transport in animals — Chapter 2 (B7) extras
+// ---------------------------------------------------------------------------
+
+/**
+ * The mammalian heart, in one picture. Same shape as `DigestiveAnatomy`:
+ * a base image with SVG hotspots, side panel that follows selection, optional
+ * "follow the blood" mode that animates a dot through the chambers in
+ * circulation order.
+ *
+ * The blood colours are the convention: red = oxygenated (left side of
+ * heart and arteries leaving it), blue = deoxygenated (right side and
+ * pulmonary artery). Veins carry the opposite colour of the artery that
+ * parallels them — that is the whole point of the figure.
+ */
+export interface HeartAnatomyExtra {
+  type: 'heart-anatomy'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  /**
+   * Heart parts shown on the figure, in display order. Each becomes a
+   * clickable hotspot; the matching side panel describes it.
+   *
+   * `stop` is used by the "follow the blood" mode to sequence parts along
+   * the pulmonary + systemic loops.
+   */
+  parts: AnatomyOrgan[]
+  /**
+   * Which part to highlight on first render. Optional.
+   */
+  initialPart?: string
+}
+
+/**
+ * A grid of the four blood components: plasma, red cells, white cells
+ * (lymphocytes + phagocytes), platelets. Each card has a real figure from
+ * the G8 PDF and a one-paragraph function.
+ *
+ * Same shape as `DiseaseCards` (cards with image + mechanism + clinical)
+ * but applied to components rather than conditions, so we re-use that
+ * `DiseaseCardEntry` shape under a different extra type id.
+ */
+export interface BloodComponentsExtra {
+  type: 'blood-components'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  cards: DiseaseCardEntry[]
+}
+
+/**
+ * A three-way compare of artery, capillary and vein. Same pattern as the
+ * `VilliSurfaceArea` "before / after" idea but with three columns. The
+ * figure shows the cross-section of each, the table shows wall / lumen /
+ * valves / direction / pressure, and the third column is a one-line
+ * function.
+ *
+ * Card carries the same `Bilingual` shape as other enrichments, so the
+ * data is fully in lesson.ts.
+ */
+export interface BloodVesselSpec {
+  id: string
+  name: Bilingual
+  /** Wall thickness note, e.g. 'thick, with muscle and elastic fibres' */
+  wall: Bilingual
+  /** Lumen diameter note, e.g. 'narrow' */
+  lumen: Bilingual
+  /** Whether valves are present (only in veins) */
+  hasValves: boolean
+  /** Direction of blood flow relative to the heart */
+  direction: Bilingual
+  /** Blood pressure at typical points */
+  pressure: Bilingual
+  /** Function — what role does this vessel type play */
+  function: Bilingual
+  /** Image path under /public */
+  image: string
+  imageSource: Bilingual
+}
+
+export interface BloodVesselsCompareExtra {
+  type: 'blood-vessels-compare'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  vessels: BloodVesselSpec[]
+}
+
+/**
+ * The double circulation as a flowchart, modelled on `DigestionFlow`.
+ * Each "station" on the loop is a place blood passes through, and the
+ * side panel describes what happens there. "Follow the blood" mode
+ * highlights each station in turn.
+ */
+export interface DoubleCirculationExtra {
+  type: 'double-circulation'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  /** Ordered stations of the pulmonary + systemic loop, in flow order. */
+  stations: Array<{
+    id: string
+    label: Bilingual
+    /** One-line summary shown on the flow box. */
+    summary: Bilingual
+    /** `oxygenated` (red) or `deoxygenated` (blue) — drives box colour. */
+    bloodState: 'oxygenated' | 'deoxygenated' | 'mixed'
+    /** Loop this station belongs to: 'pulmonary' (heart ↔ lungs) or 'systemic' (heart ↔ body). */
+    loop: 'pulmonary' | 'systemic'
+  }>
+  /** Definitions for the formal terms the syllabus uses (e.g. 'double circulation'). */
+  definitions: Array<{
+    id: string
+    term: Bilingual
+    definition: Bilingual
+  }>
+  /** Image path for the static figure shown above the flowchart. */
+  image: string
+  imageSource: Bilingual
 }

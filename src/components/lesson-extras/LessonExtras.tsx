@@ -10,6 +10,10 @@ import { VillusDetail } from './VillusDetail'
 import { FoodEnergy } from './FoodEnergy'
 import { DiseaseCards } from './DiseaseCards'
 import { EnergyNeeds } from './EnergyNeeds'
+import { HeartAnatomy } from './HeartAnatomy'
+import { BloodComponents } from './BloodComponents'
+import { BloodVesselsCompare } from './BloodVesselsCompare'
+import { DoubleCirculation } from './DoubleCirculation'
 
 /**
  * Dispatches the lesson's `extras` to the right component.
@@ -68,5 +72,13 @@ function renderExtra(extra: LessonExtra) {
       return <DiseaseCards extra={extra} />
     case 'energy-needs':
       return <EnergyNeeds extra={extra} />
+    case 'heart-anatomy':
+      return <HeartAnatomy extra={extra} />
+    case 'blood-components':
+      return <BloodComponents extra={extra} />
+    case 'blood-vessels-compare':
+      return <BloodVesselsCompare extra={extra} />
+    case 'double-circulation':
+      return <DoubleCirculation extra={extra} />
   }
 }
