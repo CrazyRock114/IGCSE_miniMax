@@ -80,40 +80,59 @@ export function DigestiveAnatomy({ extra }: { extra: DigestiveAnatomyExtra }) {
   }
 
   return (
-    <div className="grid gap-4 lg:grid-cols-[1fr_280px]">
-      <div>
-        <div className="mb-2 flex flex-wrap items-center gap-2">
-          <ModeButton active={mode === 'explore'} onClick={stopFollow}>
-            <T value={DIGESTIVE_ANATOMY.modeExplore} />
-          </ModeButton>
-          <ModeButton active={mode === 'follow'} onClick={startFollow}>
-            <T value={DIGESTIVE_ANATOMY.modeFollow} />
-          </ModeButton>
-          {mode === 'follow' && (
-            <span className="text-xs text-muted">
-              <T value={DIGESTIVE_ANATOMY.followPrompt} />
-            </span>
-          )}
+    <div className="space-y-4">
+      <details className="rounded-lg border border-line bg-canvas">
+        <summary className="cursor-pointer select-none px-3 py-2 text-xs font-medium text-muted hover:text-ink-soft">
+          📖 Reference: the textbook diagram of the whole system
+        </summary>
+        <figure className="border-t border-line">
+          <img
+            src="/figures/g8/7-1-nutrition/figure-b5-08.png"
+            alt="The human digestive system — labelled diagram of the whole alimentary canal"
+            className="h-auto w-full"
+            loading="lazy"
+          />
+          <figcaption className="bg-canvas px-3 py-1.5 text-[11px] text-muted">
+            G8 Science · p.14, Figure B5.08 · the human digestive system
+          </figcaption>
+        </figure>
+      </details>
+
+      <div className="grid gap-4 lg:grid-cols-[1fr_280px]">
+        <div>
+          <div className="mb-2 flex flex-wrap items-center gap-2">
+            <ModeButton active={mode === 'explore'} onClick={stopFollow}>
+              <T value={DIGESTIVE_ANATOMY.modeExplore} />
+            </ModeButton>
+            <ModeButton active={mode === 'follow'} onClick={startFollow}>
+              <T value={DIGESTIVE_ANATOMY.modeFollow} />
+            </ModeButton>
+            {mode === 'follow' && (
+              <span className="text-xs text-muted">
+                <T value={DIGESTIVE_ANATOMY.followPrompt} />
+              </span>
+            )}
+          </div>
+
+          <AnatomySvg
+            organs={organs}
+            selectedId={selectedId}
+            onSelect={(id) => {
+              setMode('explore')
+              setSelectedId(id)
+            }}
+            followStep={followStep}
+          />
         </div>
 
-        <AnatomySvg
-          organs={organs}
-          selectedId={selectedId}
-          onSelect={(id) => {
-            setMode('explore')
-            setSelectedId(id)
-          }}
-          followStep={followStep}
-        />
+        <aside className="rounded-lg border border-line bg-canvas p-3 text-sm">
+          {selected ? (
+            <OrganPanel organ={selected} />
+          ) : (
+            <EmptyHint mode={mode} />
+          )}
+        </aside>
       </div>
-
-      <aside className="rounded-lg border border-line bg-canvas p-3 text-sm">
-        {selected ? (
-          <OrganPanel organ={selected} />
-        ) : (
-          <EmptyHint mode={mode} />
-        )}
-      </aside>
     </div>
   )
 }

@@ -4,34 +4,47 @@ import { T } from '@/components/i18n/T'
 import { DIGESTION_FLOW } from '@/lib/lessonExtrasStrings'
 
 /**
- * The six formal terms the syllabus uses to describe what happens between a sandwich
- * going in and faeces coming out, set against the actual sequence of organs the food
- * passes through. The "definitions" cards are togglable so the student can quiz
- * themselves before reading the answer.
+ * The whole-journey picture + the six formal syllabus terms.
  *
- * Two layers:
- *  - Top: horizontal flowchart of stages, the path the food actually takes
- *  - Bottom: definition cards for the six syllabus terms (ingestion, mechanical
- *    digestion, chemical digestion, absorption, assimilation, egestion), each
- *    revealed on click rather than shown all at once
+ * The textbook figure (G8 Figure B5.02, the fox) is the centrepiece: a real
+ * illustration with the four labelled stages drawn in. Below it: the
+ * ordered pipeline the food actually passes through, then a togglable card
+ * grid of the six definition terms the syllabus wants remembered.
  */
 export function DigestionFlow({ extra }: { extra: DigestionFlowExtra }) {
   const [openId, setOpenId] = useState<string | null>(null)
   return (
     <div className="space-y-4">
+      <figure className="m-0 overflow-hidden rounded-lg border border-line bg-canvas">
+        <img
+          src="/figures/g8/7-1-nutrition/figure-b5-02.png"
+          alt="How an animal deals with food — a mammal's four-stage food journey"
+          className="h-auto w-full"
+          loading="lazy"
+        />
+        <figcaption className="border-t border-line bg-canvas px-3 py-1.5 text-[11px] text-muted">
+          G8 Science · p.11, Figure B5.02 · ingestion → digestion → absorption → egestion
+        </figcaption>
+      </figure>
+
       <Flow stages={extra.stages} />
 
-      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-        {extra.definitions.map((d) => (
-          <DefCard
-            key={d.id}
-            id={d.id}
-            term={d.term}
-            definition={d.definition}
-            open={openId === d.id}
-            onToggle={() => setOpenId((cur) => (cur === d.id ? null : d.id))}
-          />
-        ))}
+      <div>
+        <h4 className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted">
+          The six terms the syllabus uses
+        </h4>
+        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+          {extra.definitions.map((d) => (
+            <DefCard
+              key={d.id}
+              id={d.id}
+              term={d.term}
+              definition={d.definition}
+              open={openId === d.id}
+              onToggle={() => setOpenId((cur) => (cur === d.id ? null : d.id))}
+            />
+          ))}
+        </div>
       </div>
     </div>
   )
@@ -42,16 +55,12 @@ export function DigestionFlow({ extra }: { extra: DigestionFlowExtra }) {
 // ---------------------------------------------------------------------------
 
 /**
- * Horizontal flow of stages, drawn as boxes connected by arrows. The boxes are sized
- * by content; on narrow screens they wrap rather than shrink, so the arrow direction
- * stays readable. Selecting a stage is left to the definitions grid below — the flow
- * is a picture, not an input.
+ * Horizontal flow of stages, drawn as boxes connected by arrows. The boxes
+ * are sized by content; on narrow screens they wrap rather than shrink, so
+ * the arrow direction stays readable. Selecting a stage is left to the
+ * definitions grid below — the flow is a picture, not an input.
  */
-function Flow({
-  stages,
-}: {
-  stages: DigestionFlowExtra['stages']
-}) {
+function Flow({ stages }: { stages: DigestionFlowExtra['stages'] }) {
   return (
     <div className="overflow-x-auto rounded-lg border border-line bg-canvas p-3">
       <div className="flex min-w-fit items-stretch gap-0">
