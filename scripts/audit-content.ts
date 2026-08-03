@@ -10,6 +10,7 @@
  * not part of the prebuild — some of what it flags is a judgement call rather than a fault.
  */
 
+import { spawnSync } from 'node:child_process'
 import { igcseBiology0610 } from '../src/content/syllabus/igcse-biology-0610.ts'
 import { igcseChemistry0620 } from '../src/content/syllabus/igcse-chemistry-0620.ts'
 import { igcsePhysics0625 } from '../src/content/syllabus/igcse-physics-0625.ts'
@@ -155,6 +156,20 @@ for (const s of syllabuses) {
       bad(`${s.code} topic ${t.number}`, `"${t.title.en}" has no checkpoint on any statement`)
     }
   }
+}
+
+// --- the README's own figures -----------------------------------------------
+
+// The front page of the repository claimed Biology was at 8% for weeks after it reached
+// 100%, because the numbers were typed by hand. They are generated now, and stale ones are
+// a finding rather than something a reader discovers.
+const readmeCheck = spawnSync(
+  process.execPath,
+  [...process.execArgv, new URL('./update-readme.ts', import.meta.url).pathname, '--check'],
+  { encoding: 'utf8' },
+)
+if (readmeCheck.status !== 0) {
+  bad('README.md', 'coverage figures are out of date — run `npm run readme`')
 }
 
 // --- report -----------------------------------------------------------------
