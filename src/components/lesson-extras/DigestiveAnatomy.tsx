@@ -43,9 +43,9 @@ const HOTSPOTS: Record<string, Hotspot> = {
   liver: { type: 'ellipse', x: 478, y: 472, rx: 100, ry: 42 },
   'gall-bladder': { type: 'circle', x: 475, y: 540, r: 24 },
   // Pancreas sits to the left of the stomach, just under the liver, sweeping
-  // from the duodenum (left) back across to the spleen (right). The original
-  // hotspot was too far right and too low; pulled it up and left.
-  pancreas: { type: 'ellipse', x: 560, y: 555, rx: 90, ry: 24 },
+  // from the duodenum (left) back across to the spleen (right). v8: lifted
+  // 5px to settle the hotspot higher in the figure.
+  pancreas: { type: 'ellipse', x: 560, y: 550, rx: 90, ry: 24 },
   // v6: lifted 40px up — the small-intestine hotspot still sat below the
   // tangled small-bowel bundle in the figure.
   'small-intestine': { type: 'ellipse', x: 530, y: 645, rx: 95, ry: 80 },
@@ -54,14 +54,11 @@ const HOTSPOTS: Record<string, Hotspot> = {
   // from it, and the open bottom is where the small intestine enters at the
   // caecum (left) and the rectum descends from the sigmoid (right). v3
   // scaled to 60% of v2 — the U was still too large and swallowed the
-  // small-intestine area. v4-v6 progressively shifted and resized. v7
-  // applies 0.9x uniform scale (stroke and path) about the U bbox centre
-  // (600, 762.5) and then shifts the whole thing (-20, -20) so it sits a
-  // little further left and up — final calibration after the small-intestine
-  // hotspot lifted clear of the U.
+  // small-intestine area. v4-v7 progressively shifted and resized. v8 shifts
+  // the whole U (-15, -15) so it sits a little further left and up.
   'large-intestine': {
     type: 'path',
-    d: 'M 450 819 L 450 644 L 710 644 L 710 817 L 677 841',
+    d: 'M 435 804 L 435 629 L 695 629 L 695 802 L 662 826',
     strokeWidth: 30,
   },
   anus: { type: 'circle', x: 542, y: 890, r: 22 },
@@ -365,10 +362,10 @@ function HotspotShape({
 function FollowDot({ hotspot }: { hotspot: Hotspot }) {
   // For the path (large intestine) the dot sits at the caecum end —
   // the entry point from the small intestine. For other shapes, the
-  // shape's own center. v7: caecum end sits at (450, 819) after the
-  // 0.9x scale + (-20, -20) shift.
-  const cx = hotspot.type === 'path' ? 450 : hotspot.x
-  const cy = hotspot.type === 'path' ? 819 : hotspot.y
+  // shape's own center. v8: caecum end sits at (435, 804) after the
+  // (-15, -15) shift.
+  const cx = hotspot.type === 'path' ? 435 : hotspot.x
+  const cy = hotspot.type === 'path' ? 804 : hotspot.y
   return (
     <g style={{ pointerEvents: 'none' }}>
       <circle cx={cx} cy={cy} r="11" fill="#dc2626" stroke="#7f1d1d" strokeWidth="2">
@@ -394,13 +391,13 @@ function LabelTag({
   label: string
   labelBg: string
 }) {
-  const cx = hotspot.type === 'path' ? 580 : hotspot.x
+  const cx = hotspot.type === 'path' ? 565 : hotspot.x
   const top =
     hotspot.type === 'circle'
       ? hotspot.y - hotspot.r
       : hotspot.type === 'ellipse'
       ? hotspot.y - hotspot.ry
-      : 644 // path: above the (v7-scaled) transverse colon top
+      : 629 // path: above the (v8-shifted) transverse colon top
   return (
     <>
       <rect x={cx - 60} y={top - 28} width="120" height="22" rx="4" fill={labelBg} />
