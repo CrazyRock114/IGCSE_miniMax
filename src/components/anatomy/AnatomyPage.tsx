@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useMemo, useState } from 'react'
+import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import type { AnatomyOrgan, HeartAnatomyExtra, Lesson } from '@/content/types'
 import { findLesson } from '@/lib/registry'
@@ -65,11 +65,28 @@ function AnatomyView({ lesson, extra }: { lesson: Lesson; extra: HeartAnatomyExt
   const [hoveredId, setHoveredId] = useState<string | null>(null)
   const [listOpen, setListOpen] = useState(false)
   const [autoRotate, setAutoRotate] = useState(true)
+  const [selectedScreenPos, setSelectedScreenPos] = useState<{ x: number; y: number } | null>(null)
+  // Canvas viewport size in pixels (updated by the canvas resize observer).
+  const [viewport, setViewport] = useState<{ w: number; h: number }>({ w: 0, h: 0 })
+  const canvasWrapRef = useRef<HTMLDivElement>(null)
 
   const selected: AnatomyOrgan | null = useMemo(
     () => parts.find((p) => p.id === selectedId) ?? null,
     [parts, selectedId]
   )
+
+  // Track the canvas wrapper's size so the screen→viewport math matches
+  // what the renderer sees.
+  useEffect(() => {
+    const el = canvasWrapRef.current
+    if (!el) return
+    const ro = new ResizeObserver((entries) => {
+      const r = entries[0]?.contentRect
+      if (r) setViewport({ w: r.width, h: r.height })
+    })
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
 
   // Keyboard shortcuts: arrow keys step through parts, Esc clears.
   useEffect(() => {
@@ -91,18 +108,21 @@ function AnatomyView({ lesson, extra }: { lesson: Lesson; extra: HeartAnatomyExt
 
   return (
     <div className="relative h-screen w-screen overflow-hidden bg-canvas">
-      <Suspense fallback={<FullScreen3DFallback />}>
-        <FullScreen3D
-          extra={extra}
-          parts={parts}
-          selectedId={selectedId}
-          hoveredId={hoveredId}
-          onSelect={setSelectedId}
-          onHover={setHoveredId}
-          autoRotate={autoRotate}
-          onAutoRotateChange={setAutoRotate}
-        />
-      </Suspense>
+      <div ref={canvasWrapRef} className="absolute inset-0">
+        <Suspense fallback={<FullScreen3DFallback />}>
+          <FullScreen3D
+            extra={extra}
+            parts={parts}
+            selectedId={selectedId}
+            hoveredId={hoveredId}
+            onSelect={setSelectedId}
+            onHover={setHoveredId}
+            autoRotate={autoRotate}
+            onAutoRotateChange={setAutoRotate}
+            onSelectedScreenPos={setSelectedScreenPos}
+          />
+        </Suspense>
+      </div>
 
       <Header
         lesson={lesson}
@@ -123,11 +143,15 @@ function AnatomyView({ lesson, extra }: { lesson: Lesson; extra: HeartAnatomyExt
         />
       )}
 
-      {/* Floating selected-part callout (right). Hidden when nothing selected. */}
-      {selected && (
+      {/* Floating callout (right of the selected dot) with a leader line
+          drawn to the dot. Hidden when nothing is selected or the dot is
+          off-screen. */}
+      {selected && selectedScreenPos && viewport.w > 0 && (
         <Callout
           part={selected}
           parts={parts}
+          screenPos={selectedScreenPos}
+          viewport={viewport}
           onSelect={setSelectedId}
           onClose={() => setSelectedId(null)}
         />
@@ -186,6 +210,7 @@ function FullScreen3D({
   onHover,
   autoRotate,
   onAutoRotateChange,
+  onSelectedScreenPos,
 }: {
   extra: HeartAnatomyExtra
   parts: AnatomyOrgan[]
@@ -195,6 +220,7 @@ function FullScreen3D({
   onHover: (id: string | null) => void
   autoRotate: boolean
   onAutoRotateChange: (v: boolean) => void
+  onSelectedScreenPos: (pos: { x: number; y: number } | null) => void
 }) {
   return (
     <Anatomy3D
@@ -208,6 +234,7 @@ function FullScreen3D({
       orderedForFollow={[]}
       autoRotate={autoRotate}
       onAutoRotateChange={onAutoRotateChange}
+      onSelectedScreenPos={onSelectedScreenPos}
     />
   )
 }
@@ -220,75 +247,119 @@ function FullScreen3DFallback() {
   )
 }
 
+const CALLOUT_WIDTH = 360
+const CALLOUT_GAP = 16
+
 function Callout({
   part,
   parts,
+  screenPos,
+  viewport,
   onSelect,
   onClose,
 }: {
   part: AnatomyOrgan
   parts: AnatomyOrgan[]
+  screenPos: { x: number; y: number }
+  viewport: { w: number; h: number }
   onSelect: (id: string) => void
   onClose: () => void
 }) {
   const idx = parts.findIndex((p) => p.id === part.id)
+
+  // Position the callout to the right of the dot, but if that would push
+  // it off the right edge, flip it to the left. Same for vertical.
+  const rightX = screenPos.x + CALLOUT_GAP + 8 // +8 to clear the dot itself
+  const leftX = screenPos.x - CALLOUT_GAP - 8 - CALLOUT_WIDTH
+  const placeRight = rightX + CALLOUT_WIDTH <= viewport.w
+  const calloutX = placeRight ? rightX : Math.max(8, leftX)
+  const calloutY = Math.max(8, Math.min(screenPos.y - 80, viewport.h - 320))
+
+  // The leader line goes from the dot to the nearest callout edge.
+  // When the callout is to the right of the dot, the line starts from the
+  // callout's left edge; when it's to the left, from the right edge.
+  const lineStartX = placeRight ? calloutX : calloutX + CALLOUT_WIDTH
+  const lineStartY = Math.max(40, Math.min(screenPos.y, calloutY + 80))
+  const lineEndX = screenPos.x
+  const lineEndY = screenPos.y
+
   return (
-    <aside className="pointer-events-auto absolute right-4 top-20 z-10 w-[min(380px,calc(100vw-2rem))] rounded-xl border border-line bg-canvas/95 p-4 shadow-lg backdrop-blur">
-      <div className="mb-2 flex items-baseline justify-between gap-2">
-        <h2 className="text-base font-semibold text-ink">
-          <T value={part.name} />
-        </h2>
-        <span className="text-[10px] uppercase tracking-wide text-muted">
-          {idx + 1} / {parts.length}
-        </span>
-      </div>
+    <>
+      <svg
+        className="pointer-events-none absolute inset-0 z-10"
+        width={viewport.w}
+        height={viewport.h}
+        aria-hidden="true"
+      >
+        <line
+          x1={lineStartX}
+          y1={lineStartY}
+          x2={lineEndX}
+          y2={lineEndY}
+          stroke="#0d9488"
+          strokeWidth={1.5}
+          strokeDasharray="3 3"
+          opacity={0.8}
+        />
+        <circle cx={lineStartX} cy={lineStartY} r={3} fill="#0d9488" />
+      </svg>
 
-      <p className="text-sm leading-relaxed text-ink-soft">
-        <T value={part.description} />
-      </p>
-
-      {part.secretions && part.secretions.length > 0 && (
-        <div className="mt-3 flex flex-wrap gap-1.5">
-          {part.secretions.map((s, i) => (
-            <span
-              key={i}
-              className="rounded-full border border-line bg-canvas px-2 py-0.5 text-xs text-ink-soft"
-            >
-              <T value={s} />
-            </span>
-          ))}
+      <aside
+        className="pointer-events-auto absolute z-10 rounded-xl border border-line bg-canvas/95 p-4 shadow-lg backdrop-blur"
+        style={{ left: calloutX, top: calloutY, width: CALLOUT_WIDTH }}
+      >
+        <div className="mb-2 flex items-baseline justify-between gap-2">
+          <h2 className="text-base font-semibold text-ink">
+            <T value={part.name} />
+          </h2>
+          <span className="text-[10px] uppercase tracking-wide text-muted">
+            {idx + 1} / {parts.length}
+          </span>
         </div>
-      )}
 
-      <div className="mt-4 flex items-center gap-2">
-        <button
-          type="button"
-          onClick={() => onSelect(parts[(idx - 1 + parts.length) % parts.length]!.id)}
-          className="flex-1 rounded-md border border-line bg-canvas px-2 py-1.5 text-xs text-ink-soft hover:bg-surface"
-        >
-          ← Prev
-        </button>
-        <button
-          type="button"
-          onClick={() => onSelect(parts[(idx + 1) % parts.length]!.id)}
-          className="flex-1 rounded-md border border-line bg-canvas px-2 py-1.5 text-xs text-ink-soft hover:bg-surface"
-        >
-          Next →
-        </button>
-        <button
-          type="button"
-          onClick={onClose}
-          className="rounded-md border border-line bg-canvas px-2 py-1.5 text-xs text-ink-soft hover:bg-surface"
-          aria-label="Close"
-        >
-          ✕
-        </button>
-      </div>
+        <p className="text-sm leading-relaxed text-ink-soft">
+          <T value={part.description} />
+        </p>
 
-      <p className="mt-3 text-[10px] text-muted">
-        <T value={ANATOMY_3D.calloutHint} />
-      </p>
-    </aside>
+        {part.secretions && part.secretions.length > 0 && (
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {part.secretions.map((s, i) => (
+              <span
+                key={i}
+                className="rounded-full border border-line bg-canvas px-2 py-0.5 text-xs text-ink-soft"
+              >
+                <T value={s} />
+              </span>
+            ))}
+          </div>
+        )}
+
+        <div className="mt-4 flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => onSelect(parts[(idx - 1 + parts.length) % parts.length]!.id)}
+            className="flex-1 rounded-md border border-line bg-canvas px-2 py-1.5 text-xs text-ink-soft hover:bg-surface"
+          >
+            ← Prev
+          </button>
+          <button
+            type="button"
+            onClick={() => onSelect(parts[(idx + 1) % parts.length]!.id)}
+            className="flex-1 rounded-md border border-line bg-canvas px-2 py-1.5 text-xs text-ink-soft hover:bg-surface"
+          >
+            Next →
+          </button>
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-md border border-line bg-canvas px-2 py-1.5 text-xs text-ink-soft hover:bg-surface"
+            aria-label="Close"
+          >
+            ✕
+          </button>
+        </div>
+      </aside>
+    </>
   )
 }
 
