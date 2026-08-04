@@ -1,7 +1,14 @@
-import { useEffect, useMemo, useState } from 'react'
+import { Suspense, lazy, useEffect, useMemo, useState } from 'react'
 import type { AnatomyOrgan, HeartAnatomyExtra } from '@/content/types'
 import { T } from '@/components/i18n/T'
 import { HEART_ANATOMY } from '@/lib/lessonExtrasStrings'
+
+// The 3D viewer pulls in three.js + @react-three/fiber + drei (~+275 KB
+// gzipped). Loaded only when the student switches to the 3D tab, so lessons
+// that don't use 3D don't pay the cost.
+const Anatomy3D = lazy(() =>
+  import('./Anatomy3D').then((m) => ({ default: m.Anatomy3D }))
+)
 
 /**
  * The mammalian heart, in one picture.
@@ -60,9 +67,11 @@ const HOTSPOTS: Record<string, Hotspot> = {
 
 export function HeartAnatomy({ extra }: { extra: HeartAnatomyExtra }) {
   const parts = extra.parts
+  const has3D = typeof extra.model3d === 'string'
   const [selectedId, setSelectedId] = useState<string | null>(extra.initialPart ?? null)
   const [hoveredId, setHoveredId] = useState<string | null>(null)
   const [mode, setMode] = useState<'explore' | 'follow'>('explore')
+  const [view, setView] = useState<'2d' | '3d'>(has3D ? '3d' : '2d')
   const [followStep, setFollowStep] = useState(0)
 
   // Memoize the ordered list of "follow" parts once.
@@ -108,6 +117,17 @@ export function HeartAnatomy({ extra }: { extra: HeartAnatomyExtra }) {
     <div className="grid gap-4 lg:grid-cols-[1fr_300px]">
       <div>
         <div className="mb-2 flex flex-wrap items-center gap-2">
+          {has3D && (
+            <ViewTab active={view === '3d'} onClick={() => setView('3d')}>
+              3D
+            </ViewTab>
+          )}
+          {has3D && (
+            <ViewTab active={view === '2d'} onClick={() => setView('2d')}>
+              2D
+            </ViewTab>
+          )}
+          <span className="mx-1 h-4 w-px bg-line" aria-hidden="true" />
           <ModeButton active={mode === 'explore'} onClick={stopFollow}>
             <T value={HEART_ANATOMY.modeExplore} />
           </ModeButton>
@@ -121,18 +141,36 @@ export function HeartAnatomy({ extra }: { extra: HeartAnatomyExtra }) {
           )}
         </div>
 
-        <FigureWithHotspots
-          parts={parts}
-          selectedId={selectedId}
-          hoveredId={hoveredId}
-          onSelect={(id) => {
-            setMode('explore')
-            setSelectedId(id)
-          }}
-          onHover={setHoveredId}
-          followStep={followStep}
-          orderedForFollow={orderedForFollow}
-        />
+        {view === '3d' && has3D ? (
+          <Suspense fallback={<ThreeDFallback />}>
+            <Anatomy3D
+              modelUrl={extra.model3d!}
+              parts={parts}
+              selectedId={selectedId}
+              hoveredId={hoveredId}
+              onSelect={(id) => {
+                setMode('explore')
+                setSelectedId(id)
+              }}
+              onHover={setHoveredId}
+              followStep={followStep}
+              orderedForFollow={orderedForFollow}
+            />
+          </Suspense>
+        ) : (
+          <FigureWithHotspots
+            parts={parts}
+            selectedId={selectedId}
+            hoveredId={hoveredId}
+            onSelect={(id) => {
+              setMode('explore')
+              setSelectedId(id)
+            }}
+            onHover={setHoveredId}
+            followStep={followStep}
+            orderedForFollow={orderedForFollow}
+          />
+        )}
       </div>
 
       <aside className="rounded-lg border border-line bg-canvas p-3 text-sm">
@@ -172,6 +210,39 @@ function ModeButton({
     >
       {children}
     </button>
+  )
+}
+
+function ViewTab({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean
+  onClick: () => void
+  children: React.ReactNode
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={
+        'rounded-md px-2.5 py-1 text-xs font-semibold tracking-wide transition-colors ' +
+        (active
+          ? 'bg-teal-600 text-white'
+          : 'border border-line bg-surface text-muted hover:bg-canvas hover:text-ink-soft')
+      }
+    >
+      {children}
+    </button>
+  )
+}
+
+function ThreeDFallback() {
+  return (
+    <div className="flex h-[460px] w-full items-center justify-center rounded-lg border border-line bg-canvas text-xs text-muted">
+      Loading 3D viewer…
+    </div>
   )
 }
 

@@ -19,10 +19,13 @@
     "readme": "tsx scripts/update-readme.ts"
   },
   "dependencies": {
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.7.0",
     "katex": "^0.16.27",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.11.0",
+    "three": "^0.185.1",
     "uplot": "^1.6.32",
     "zustand": "^5.0.8"
   },

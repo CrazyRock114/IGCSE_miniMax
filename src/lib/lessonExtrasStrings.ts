@@ -253,3 +253,12 @@ export const SMOKING_EFFECTS = {
   mechanismLabel: { en: 'How it harms', zh: '如何伤害' } satisfies Bilingual,
   clinicalLabel: { en: 'What it looks like', zh: '临床表现' } satisfies Bilingual,
 } as const
+
+// Shared by the 3D anatomy viewer (`Anatomy3D`). One block because the
+// component is the only consumer; if more 3D scenes appear, split it.
+export const ANATOMY_3D = {
+  dragHint: {
+    en: 'Drag to rotate · scroll to zoom · click a pin to read',
+    zh: '拖动旋转·滚轮缩放·点击标记查看',
+  } satisfies Bilingual,
+} as const
