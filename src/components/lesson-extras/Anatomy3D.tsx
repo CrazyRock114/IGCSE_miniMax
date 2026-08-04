@@ -14,7 +14,7 @@ import { ANATOMY_3D } from '@/lib/lessonExtrasStrings'
  * fullscreen `/anatomy/:subject/:slug` page.
  *
  * The container fills its parent — the parent decides the size:
- * - in-lesson tab: an `aspect-[4/3] w-full` box (matches the 2D figure's
+ * - in-lesson tab: an `aspect-[951/564] w-full` box (matches the 2D figure's
  *   visual height on the same page)
  * - fullscreen page: `h-screen w-screen` so the canvas is the entire page
  *
@@ -30,6 +30,16 @@ import { ANATOMY_3D } from '@/lib/lessonExtrasStrings'
  * selected part every frame, so the parent page can draw a leader line
  * from the floating callout to the dot in the model. Set to `undefined`
  * when no part is selected.
+ *
+ * `pinOverrides` lets the parent replace the lesson's `position3d` for
+ * any part — the viewer uses the override if present, otherwise the
+ * lesson value. Used by the Edit Mode panel on the fullscreen page: the
+ * student nudges a slider and the dot moves in real time without a
+ * rebuild.
+ *
+ * `editMode` swaps the click handler: instead of selecting a part it
+ * reports `onPinAdjust` so the parent can drop that part into the
+ * editor panel.
  */
 export function Anatomy3D({
   modelUrl,
@@ -43,6 +53,9 @@ export function Anatomy3D({
   autoRotate = false,
   onAutoRotateChange,
   onSelectedScreenPos,
+  pinOverrides,
+  editMode = false,
+  onPinAdjust,
 }: {
   modelUrl: string
   parts: AnatomyOrgan[]
@@ -55,6 +68,9 @@ export function Anatomy3D({
   autoRotate?: boolean
   onAutoRotateChange?: ((v: boolean) => void) | undefined
   onSelectedScreenPos?: ((pos: { x: number; y: number } | null) => void) | undefined
+  pinOverrides?: Record<string, [number, number, number]> | undefined
+  editMode?: boolean | undefined
+  onPinAdjust?: ((id: string) => void) | undefined
 }) {
   return (
     <div className="relative aspect-[951/564] w-full overflow-hidden bg-canvas">
@@ -64,14 +80,16 @@ export function Anatomy3D({
         gl={{ antialias: true, alpha: true, preserveDrawingBuffer: false }}
         shadows={false}
       >
-        {/* Three-point lighting: a soft ambient base, a warm key from the
-            upper-right front, and a cool fill from the lower-left. Together
-            they read every surface of a flesh-toned organ without the harsh
-            contrast a single directional light would produce. */}
-        <ambientLight intensity={0.55} />
-        <directionalLight position={[3, 4, 2]} intensity={1.1} color="#fff4e6" />
-        <directionalLight position={[-3, -1, -2]} intensity={0.45} color="#dbeafe" />
-        <directionalLight position={[0, 2, -3]} intensity={0.35} />
+        {/* Four-light setup: hemisphere (sky/ground ambient) + ambient base
+            + warm key (upper-right front) + cool fill (lower-left) + cool
+            rim (back). Brighter than a textbook diagram because the page
+            background is off-white — a 1.0 default reads as muddy by
+            comparison. */}
+        <hemisphereLight args={['#fff4e6', '#dbeafe', 0.6]} />
+        <ambientLight intensity={1.1} />
+        <directionalLight position={[3, 4, 2]} intensity={1.8} color="#fff4e6" />
+        <directionalLight position={[-3, -1, -2]} intensity={0.85} color="#dbeafe" />
+        <directionalLight position={[0, 2, -3]} intensity={0.7} />
 
         <Suspense fallback={null}>
           <ModelWithHotspots
@@ -85,6 +103,9 @@ export function Anatomy3D({
             orderedForFollow={orderedForFollow}
             autoRotate={autoRotate}
             onSelectedScreenPos={onSelectedScreenPos}
+            pinOverrides={pinOverrides}
+            editMode={editMode}
+            onPinAdjust={onPinAdjust}
           />
         </Suspense>
 
@@ -140,6 +161,9 @@ function ModelWithHotspots({
   orderedForFollow,
   autoRotate,
   onSelectedScreenPos,
+  pinOverrides,
+  editMode,
+  onPinAdjust,
 }: {
   modelUrl: string
   parts: AnatomyOrgan[]
@@ -151,6 +175,9 @@ function ModelWithHotspots({
   orderedForFollow: AnatomyOrgan[]
   autoRotate: boolean
   onSelectedScreenPos?: ((pos: { x: number; y: number } | null) => void) | undefined
+  pinOverrides?: Record<string, [number, number, number]> | undefined
+  editMode?: boolean | undefined
+  onPinAdjust?: ((id: string) => void) | undefined
 }) {
   const gltf = useGLTF(modelUrl)
   const scene = useMemo(() => gltf.scene.clone(true), [gltf])
@@ -190,15 +217,18 @@ function ModelWithHotspots({
     camera.updateProjectionMatrix()
   }, [camera, size.width, size.height])
 
-  // Pre-compute each part's world-space position (after our normalisation).
-  // Stored as a flat array so the screen-projection loop in useFrame is a
-  // simple lookup, not a re-derivation.
+  // Resolve the effective [0,1] position for each part: lesson value
+  // unless an override is present. Pinned to a memo over both, so the
+  // edit-mode panel can drive live movement without a re-derivation.
+  // Collapse the override map to a primitive key so the dep array stays
+  // a list of plain expressions (react-hooks/exhaustive-deps).
+  const overrideKeys = pinOverrides ? Object.keys(pinOverrides).sort().join('|') : ''
   const pinsWithPos = useMemo(
     () =>
       parts
-        .filter((p) => p.position3d)
+        .filter((p) => p.position3d || pinOverrides?.[p.id])
         .map((p) => {
-          const pos = p.position3d!
+          const pos = pinOverrides?.[p.id] ?? p.position3d!
           // Convert [0,1] bbox coords to world space (after our centre+scale).
           const localX = (pos[0] - 0.5) * (sphereRadius * 2) + center.x
           const localY = (pos[1] - 0.5) * (sphereRadius * 2) + center.y
@@ -213,7 +243,10 @@ function ModelWithHotspots({
             ) as THREE.Vector3,
           }
         }),
-    [parts, center, sphereRadius, scale]
+    // `overrideKeys` is the only piece of `pinOverrides` that matters for
+    // recomputation: the values themselves are read inside the body.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [parts, center, sphereRadius, scale, overrideKeys]
   )
 
   // Auto-rotate: spin the *group* (not the scene) about Y. Pins are
@@ -252,8 +285,11 @@ function ModelWithHotspots({
     }
   })
 
-  // Filter to parts that actually have a 3D position.
-  const partsWithPos = useMemo(() => parts.filter((p) => p.position3d), [parts])
+  // Filter to parts that actually have a 3D position (lesson or override).
+  const partsWithPos = useMemo(
+    () => parts.filter((p) => p.position3d || pinOverrides?.[p.id]),
+    [parts, pinOverrides]
+  )
 
   // Resolve which part is being "followed" right now.
   const followTarget = orderedForFollow[Math.min(Math.max(0, followStep), Math.max(0, orderedForFollow.length - 1))]
@@ -272,7 +308,12 @@ function ModelWithHotspots({
       {partsWithPos.map((p) => {
         const isSelected = selectedId === p.id
         const isHovered = hoveredId === p.id
+        const isAdjusted = Boolean(pinOverrides?.[p.id])
         const showRing = isSelected || isHovered
+        // In edit mode every pin should be obviously pickable: same size,
+        // slightly stronger ring, and an outline ring on the one being
+        // adjusted to remind the user that an override is in place.
+        const size = editMode ? 14 : showRing ? 16 : 12
         return (
           <Html
             key={p.id}
@@ -286,17 +327,19 @@ function ModelWithHotspots({
               type="button"
               onClick={(e) => {
                 e.stopPropagation()
-                onSelect(p.id)
+                if (editMode && onPinAdjust) onPinAdjust(p.id)
+                else onSelect(p.id)
               }}
               onMouseEnter={() => onHover(p.id)}
               onMouseLeave={() => onHover(null)}
               data-3d-hotspot={p.id}
+              data-pin-adjusted={isAdjusted ? 'true' : undefined}
               className="block rounded-full transition-transform"
               style={{
-                width: showRing ? 16 : 12,
-                height: showRing ? 16 : 12,
+                width: size,
+                height: size,
                 background: isSelected ? '#0d9488' : isHovered ? '#0f172a' : '#0f172acc',
-                border: '1.5px solid white',
+                border: isAdjusted ? '2px solid #f59e0b' : '1.5px solid white',
                 boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
                 cursor: 'pointer',
                 padding: 0,
@@ -353,6 +396,3 @@ function FollowDot3D({
     </mesh>
   )
 }
-
-// `THREE.CerspectiveCameraLike` placeholder removed — `project()` is typed
-// directly against the existing `useThree` camera instance.

@@ -282,4 +282,10 @@ export const ANATOMY_3D = {
   } satisfies Bilingual,
   showAllParts: { en: 'All parts', zh: '全部结构' } satisfies Bilingual,
   hideAllParts: { en: 'Hide list', zh: '收起列表' } satisfies Bilingual,
+  editingOn: { en: 'Editing', zh: '编辑中' } satisfies Bilingual,
+  editingOff: { en: 'Edit positions', zh: '编辑坐标' } satisfies Bilingual,
+  editHint: {
+    en: 'Pick a pin tab above or click a pin in the model, then drag a slider. Click Copy JSON to grab the { id: [x, y, z] } map for the lesson file.',
+    zh: '在顶部选一个 pin 或点 3D 中的标记，再拖动滑块。点 Copy JSON 复制 { id: [x, y, z] } 格式用于 lesson 文件。',
+  } satisfies Bilingual,
 } as const

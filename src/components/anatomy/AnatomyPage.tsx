@@ -16,6 +16,13 @@ const Anatomy3D = lazy(() =>
  * details and the part list float over it as overlay panels, the way a
  * gallery viewer does. Modelled on the Anatomy Atelier layout — heart
  * centred, fills ~70% of the viewport, no fixed sidebar eating space.
+ *
+ * Includes an Edit mode: the user can flip a toggle, then click a pin
+ * and nudge its [x, y, z] via three sliders, watching the dot move in
+ * real time. When they're happy, "Copy JSON" puts the full set of
+ * overrides on the clipboard, ready to paste into the lesson's TS
+ * file. The lesson's source-of-truth `position3d` is left untouched —
+ * overrides are a session-only view of the work-in-progress.
  */
 export function AnatomyPage() {
   const { subject, slug } = useParams<{ subject: string; slug: string }>()
@@ -66,9 +73,16 @@ function AnatomyView({ lesson, extra }: { lesson: Lesson; extra: HeartAnatomyExt
   const [listOpen, setListOpen] = useState(false)
   const [autoRotate, setAutoRotate] = useState(true)
   const [selectedScreenPos, setSelectedScreenPos] = useState<{ x: number; y: number } | null>(null)
-  // Canvas viewport size in pixels (updated by the canvas resize observer).
   const [viewport, setViewport] = useState<{ w: number; h: number }>({ w: 0, h: 0 })
   const canvasWrapRef = useRef<HTMLDivElement>(null)
+
+  // Edit mode + the per-pin [0,1] overrides the user has dialled in.
+  // Lives here, not in the viewer, so the lesson's `position3d` stays
+  // the source of truth and a refresh wipes the in-progress work.
+  const [editMode, setEditMode] = useState(false)
+  const [pinOverrides, setPinOverrides] = useState<Record<string, [number, number, number]>>({})
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [copyState, setCopyState] = useState<'idle' | 'copied' | 'failed'>('idle')
 
   const selected: AnatomyOrgan | null = useMemo(
     () => parts.find((p) => p.id === selectedId) ?? null,
@@ -88,23 +102,71 @@ function AnatomyView({ lesson, extra }: { lesson: Lesson; extra: HeartAnatomyExt
     return () => ro.disconnect()
   }, [])
 
-  // Keyboard shortcuts: arrow keys step through parts, Esc clears.
+  // Keyboard shortcuts: arrow keys step through parts, Esc clears. Edit
+  // mode suppresses selection-side-effects; arrow keys still cycle which
+  // part is being edited, but callout/leader-line stay quiet so the
+  // sliders stay readable.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        setSelectedId(null)
-        setListOpen(false)
+        if (editMode) {
+          setEditingId(null)
+        } else {
+          setSelectedId(null)
+          setListOpen(false)
+        }
       } else if (e.key === 'ArrowRight' || e.key === ']') {
-        const i = parts.findIndex((p) => p.id === selectedId)
-        setSelectedId(parts[(i + 1) % parts.length]?.id ?? null)
+        const list = editMode && editingId ? [editingId] : parts.map((p) => p.id)
+        const cur = editMode ? editingId : selectedId
+        const i = list.indexOf(cur ?? '')
+        const next = list[(i + 1 + list.length) % list.length]
+        if (next) (editMode ? setEditingId : setSelectedId)(next)
       } else if (e.key === 'ArrowLeft' || e.key === '[') {
-        const i = parts.findIndex((p) => p.id === selectedId)
-        setSelectedId(parts[(i - 1 + parts.length) % parts.length]?.id ?? null)
+        const list = editMode && editingId ? [editingId] : parts.map((p) => p.id)
+        const cur = editMode ? editingId : selectedId
+        const i = list.indexOf(cur ?? '')
+        const next = list[(i - 1 + list.length) % list.length]
+        if (next) (editMode ? setEditingId : setSelectedId)(next)
       }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [parts, selectedId])
+  }, [parts, selectedId, editMode, editingId])
+
+  // Visible position for any part: lesson value, falling back to a
+  // neutral centre if there is none. Used by the editor panel and by
+  // the leader-line target.
+  const effectivePos = (id: string): [number, number, number] => {
+    const ov = pinOverrides[id]
+    if (ov) return ov
+    const part = parts.find((p) => p.id === id)
+    if (part?.position3d) return part.position3d
+    return [0.5, 0.5, 0.5]
+  }
+
+  const handleCopy = async () => {
+    // Bundle every override (and every lesson value the user has
+    // touched) into a single JSON object the user can paste into the
+    // lesson's TS file.
+    const payload: Record<string, [number, number, number]> = {}
+    for (const part of parts) {
+      payload[part.id] = effectivePos(part.id)
+    }
+    const text = JSON.stringify(payload, null, 2)
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopyState('copied')
+      setTimeout(() => setCopyState('idle'), 1800)
+    } catch {
+      setCopyState('failed')
+      setTimeout(() => setCopyState('idle'), 1800)
+    }
+  }
+
+  const handleResetOverrides = () => {
+    setPinOverrides({})
+    setEditingId(null)
+  }
 
   return (
     <div className="relative h-screen w-screen overflow-hidden bg-canvas">
@@ -115,11 +177,21 @@ function AnatomyView({ lesson, extra }: { lesson: Lesson; extra: HeartAnatomyExt
             parts={parts}
             selectedId={selectedId}
             hoveredId={hoveredId}
-            onSelect={setSelectedId}
+            onSelect={(id) => {
+              if (editMode) {
+                setEditingId(id)
+                setSelectedId(null)
+              } else {
+                setSelectedId(id)
+              }
+            }}
             onHover={setHoveredId}
             autoRotate={autoRotate}
             onAutoRotateChange={setAutoRotate}
             onSelectedScreenPos={setSelectedScreenPos}
+            pinOverrides={editMode ? pinOverrides : undefined}
+            editMode={editMode}
+            onPinAdjust={(id) => setEditingId(id)}
           />
         </Suspense>
       </div>
@@ -128,25 +200,34 @@ function AnatomyView({ lesson, extra }: { lesson: Lesson; extra: HeartAnatomyExt
         lesson={lesson}
         onToggleList={() => setListOpen((v) => !v)}
         listOpen={listOpen}
+        editMode={editMode}
+        onToggleEdit={() => {
+          setEditMode((v) => !v)
+          setSelectedId(null)
+          setListOpen(false)
+        }}
+        overrideCount={Object.keys(pinOverrides).length}
+        onCopy={handleCopy}
+        onReset={handleResetOverrides}
+        copyState={copyState}
       />
 
       {/* Floating part list (left). Toggle from the header. */}
       {listOpen && (
         <PartListOverlay
           parts={parts}
-          selectedId={selectedId}
+          selectedId={editMode ? editingId : selectedId}
           onSelect={(id) => {
-            setSelectedId(id)
+            if (editMode) setEditingId(id)
+            else setSelectedId(id)
             setListOpen(false)
           }}
           onClose={() => setListOpen(false)}
         />
       )}
 
-      {/* Floating callout (right of the selected dot) with a leader line
-          drawn to the dot. Hidden when nothing is selected or the dot is
-          off-screen. */}
-      {selected && selectedScreenPos && viewport.w > 0 && (
+      {/* Read-mode callout (right of the selected dot). */}
+      {!editMode && selected && selectedScreenPos && viewport.w > 0 && (
         <Callout
           part={selected}
           parts={parts}
@@ -154,6 +235,28 @@ function AnatomyView({ lesson, extra }: { lesson: Lesson; extra: HeartAnatomyExt
           viewport={viewport}
           onSelect={setSelectedId}
           onClose={() => setSelectedId(null)}
+        />
+      )}
+
+      {/* Edit-mode slider panel (bottom-centre). Stays until the user
+          turns edit mode off or the JSON is copied out. */}
+      {editMode && (
+        <EditPanel
+          parts={parts}
+          editingId={editingId}
+          pinOverrides={pinOverrides}
+          effectivePos={effectivePos}
+          onPickPart={setEditingId}
+          onChangePart={(id, next) =>
+            setPinOverrides((prev) => ({ ...prev, [id]: next }))
+          }
+          onClearPart={(id) => {
+            setPinOverrides((prev) => {
+              const rest = { ...prev }
+              delete rest[id]
+              return rest
+            })
+          }}
         />
       )}
     </div>
@@ -168,10 +271,22 @@ function Header({
   lesson,
   onToggleList,
   listOpen,
+  editMode,
+  onToggleEdit,
+  overrideCount,
+  onCopy,
+  onReset,
+  copyState,
 }: {
   lesson: Lesson
   onToggleList: () => void
   listOpen: boolean
+  editMode: boolean
+  onToggleEdit: () => void
+  overrideCount: number
+  onCopy: () => void
+  onReset: () => void
+  copyState: 'idle' | 'copied' | 'failed'
 }) {
   return (
     <header className="pointer-events-none absolute inset-x-0 top-0 z-20 flex flex-wrap items-start justify-between gap-3 p-4">
@@ -187,16 +302,73 @@ function Header({
         </h1>
       </div>
 
-      <button
-        type="button"
-        onClick={onToggleList}
-        className="pointer-events-auto inline-flex items-center gap-1.5 rounded-full border border-line bg-canvas/85 px-3 py-1.5 text-xs font-medium text-ink-soft shadow-sm backdrop-blur transition-colors hover:bg-surface"
-      >
-        <span aria-hidden="true">☰</span>
-        <span>
-          <T value={listOpen ? ANATOMY_3D.hideAllParts : ANATOMY_3D.showAllParts} />
-        </span>
-      </button>
+      <div className="pointer-events-auto flex items-center gap-2">
+        <button
+          type="button"
+          onClick={onToggleList}
+          className="inline-flex items-center gap-1.5 rounded-full border border-line bg-canvas/85 px-3 py-1.5 text-xs font-medium text-ink-soft shadow-sm backdrop-blur transition-colors hover:bg-surface"
+        >
+          <span aria-hidden="true">☰</span>
+          <span>
+            <T value={listOpen ? ANATOMY_3D.hideAllParts : ANATOMY_3D.showAllParts} />
+          </span>
+        </button>
+
+        {editMode && (
+          <>
+            <button
+              type="button"
+              onClick={onReset}
+              className="inline-flex items-center gap-1.5 rounded-full border border-line bg-canvas/85 px-3 py-1.5 text-xs font-medium text-ink-soft shadow-sm backdrop-blur transition-colors hover:bg-surface"
+              title="Clear all in-progress overrides and start over"
+            >
+              <span aria-hidden="true">↺</span>
+              <span>Reset</span>
+              {overrideCount > 0 && (
+                <span className="rounded-full bg-canvas px-1.5 text-[10px] text-muted">
+                  {overrideCount}
+                </span>
+              )}
+            </button>
+            <button
+              type="button"
+              onClick={onCopy}
+              className={
+                'inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium shadow-sm backdrop-blur transition-colors ' +
+                (copyState === 'copied'
+                  ? 'border-emerald-500 bg-emerald-500 text-white'
+                  : copyState === 'failed'
+                  ? 'border-rose-500 bg-rose-500 text-white'
+                  : 'border-amber-500 bg-amber-500 text-white hover:bg-amber-600')
+              }
+            >
+              <span aria-hidden="true">⧉</span>
+              <span>
+                {copyState === 'copied'
+                  ? 'Copied!'
+                  : copyState === 'failed'
+                  ? 'Copy failed'
+                  : 'Copy JSON'}
+              </span>
+            </button>
+          </>
+        )}
+
+        <button
+          type="button"
+          onClick={onToggleEdit}
+          aria-pressed={editMode}
+          className={
+            'inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium shadow-sm backdrop-blur transition-colors ' +
+            (editMode
+              ? 'border-amber-500 bg-amber-500 text-white'
+              : 'border-line bg-canvas/85 text-ink-soft hover:bg-surface')
+          }
+        >
+          <span aria-hidden="true">{editMode ? '✎' : '✎'}</span>
+          <T value={editMode ? ANATOMY_3D.editingOn : ANATOMY_3D.editingOff} />
+        </button>
+      </div>
     </header>
   )
 }
@@ -211,6 +383,9 @@ function FullScreen3D({
   autoRotate,
   onAutoRotateChange,
   onSelectedScreenPos,
+  pinOverrides,
+  editMode,
+  onPinAdjust,
 }: {
   extra: HeartAnatomyExtra
   parts: AnatomyOrgan[]
@@ -221,6 +396,9 @@ function FullScreen3D({
   autoRotate: boolean
   onAutoRotateChange: (v: boolean) => void
   onSelectedScreenPos: (pos: { x: number; y: number } | null) => void
+  pinOverrides?: Record<string, [number, number, number]> | undefined
+  editMode: boolean
+  onPinAdjust: (id: string) => void
 }) {
   return (
     <Anatomy3D
@@ -235,6 +413,9 @@ function FullScreen3D({
       autoRotate={autoRotate}
       onAutoRotateChange={onAutoRotateChange}
       onSelectedScreenPos={onSelectedScreenPos}
+      pinOverrides={pinOverrides}
+      editMode={editMode}
+      onPinAdjust={onPinAdjust}
     />
   )
 }
@@ -269,15 +450,12 @@ function Callout({
 
   // Position the callout to the right of the dot, but if that would push
   // it off the right edge, flip it to the left. Same for vertical.
-  const rightX = screenPos.x + CALLOUT_GAP + 8 // +8 to clear the dot itself
+  const rightX = screenPos.x + CALLOUT_GAP + 8
   const leftX = screenPos.x - CALLOUT_GAP - 8 - CALLOUT_WIDTH
   const placeRight = rightX + CALLOUT_WIDTH <= viewport.w
   const calloutX = placeRight ? rightX : Math.max(8, leftX)
   const calloutY = Math.max(8, Math.min(screenPos.y - 80, viewport.h - 320))
 
-  // The leader line goes from the dot to the nearest callout edge.
-  // When the callout is to the right of the dot, the line starts from the
-  // callout's left edge; when it's to the left, from the right edge.
   const lineStartX = placeRight ? calloutX : calloutX + CALLOUT_WIDTH
   const lineStartY = Math.max(40, Math.min(screenPos.y, calloutY + 80))
   const lineEndX = screenPos.x
@@ -360,6 +538,106 @@ function Callout({
         </div>
       </aside>
     </>
+  )
+}
+
+function EditPanel({
+  parts,
+  editingId,
+  pinOverrides,
+  effectivePos,
+  onPickPart,
+  onChangePart,
+  onClearPart,
+}: {
+  parts: AnatomyOrgan[]
+  editingId: string | null
+  pinOverrides: Record<string, [number, number, number]>
+  effectivePos: (id: string) => [number, number, number]
+  onPickPart: (id: string) => void
+  onChangePart: (id: string, next: [number, number, number]) => void
+  onClearPart: (id: string) => void
+}) {
+  const partsWithPos = parts.filter((p) => p.position3d)
+  const editingPart = partsWithPos.find((p) => p.id === editingId) ?? partsWithPos[0] ?? null
+  const pos = editingPart ? effectivePos(editingPart.id) : [0.5, 0.5, 0.5]
+  const isOverride = editingPart ? Boolean(pinOverrides[editingPart.id]) : false
+
+  return (
+    <div className="pointer-events-auto absolute bottom-3 left-1/2 z-20 w-[min(720px,calc(100vw-2rem))] -translate-x-1/2 rounded-xl border border-amber-500/40 bg-canvas/95 p-3 shadow-lg backdrop-blur">
+      <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="text-[10px] font-semibold uppercase tracking-wide text-amber-600">
+            Edit
+          </span>
+          {partsWithPos.map((p) => {
+            const active = p.id === editingPart?.id
+            const isO = Boolean(pinOverrides[p.id])
+            return (
+              <button
+                key={p.id}
+                type="button"
+                onClick={() => onPickPart(p.id)}
+                className={
+                  'rounded-md border px-2 py-1 text-xs transition-colors ' +
+                  (active
+                    ? 'border-amber-500 bg-amber-500 text-white'
+                    : isO
+                    ? 'border-amber-500/60 bg-amber-50 text-ink hover:bg-amber-100'
+                    : 'border-line bg-canvas text-ink-soft hover:bg-surface')
+                }
+                data-pin-tab={p.id}
+              >
+                <T value={p.name} />
+              </button>
+            )
+          })}
+        </div>
+        {editingPart && isOverride && (
+          <button
+            type="button"
+            onClick={() => onClearPart(editingPart.id)}
+            className="text-[11px] text-amber-600 hover:underline"
+            title="Drop the override for this pin and use the lesson value"
+          >
+            Clear override
+          </button>
+        )}
+      </div>
+
+      {editingPart ? (
+        <div className="grid gap-2 sm:grid-cols-3">
+          {(['x', 'y', 'z'] as const).map((axis, i) => (
+            <label key={axis} className="block text-xs text-ink-soft">
+              <span className="mb-1 flex items-baseline justify-between font-mono">
+                <span className="uppercase">{axis}</span>
+                <span className="text-muted">{(pos[i] ?? 0).toFixed(3)}</span>
+              </span>
+              <input
+                type="range"
+                min={0}
+                max={1}
+                step={0.005}
+                value={pos[i]}
+                onChange={(e) => {
+                  const next: [number, number, number] = [...pos] as [number, number, number]
+                  next[i] = Number(e.target.value)
+                  onChangePart(editingPart.id, next)
+                }}
+                className="w-full accent-amber-500"
+                data-edit-axis={axis}
+              />
+            </label>
+          ))}
+        </div>
+      ) : (
+        <p className="text-xs text-muted">No part with a 3D position yet.</p>
+      )}
+
+      <p className="mt-2 text-[10px] text-muted">
+        <T value={ANATOMY_3D.editHint} />
+      </p>
+    </div>
   )
 }
 
