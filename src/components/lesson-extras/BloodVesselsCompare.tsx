@@ -1,6 +1,7 @@
 import type { BloodVesselsCompareExtra } from '@/content/types'
 import { T } from '@/components/i18n/T'
 import { BLOOD_VESSELS_COMPARE } from '@/lib/lessonExtrasStrings'
+import { assetUrl } from '@/lib/assetUrl'
 
 /**
  * Three-way compare of artery, capillary and vein.
@@ -35,7 +36,7 @@ function VesselCard({ vessel }: { vessel: BloodVesselsCompareExtra['vessels'][nu
     <article className="overflow-hidden rounded-lg border border-line bg-surface">
       <figure className="m-0 bg-canvas">
         <img
-          src={vessel.image}
+          src={assetUrl(vessel.image)}
           alt={`Cross-section of a ${typeof vessel.name === 'string' ? vessel.name : vessel.name.en}`}
           className="h-40 w-full object-contain"
           loading="lazy"

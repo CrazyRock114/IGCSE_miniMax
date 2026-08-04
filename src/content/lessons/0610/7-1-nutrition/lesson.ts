@@ -2,6 +2,7 @@ import type { Lesson } from '@/content/types'
 import { placementParams } from '@/lib/assignment'
 import { ALL_ITEMS, MAX_TARGETS } from './kernel'
 import narration from './narration'
+import { assetUrl } from '../../../../lib/assetUrl'
 
 const lesson: Lesson = {
   slug: '7-1-nutrition',
@@ -674,7 +675,7 @@ const lesson: Lesson = {
         {
           id: 'rickets',
           term: { en: 'Rickets', zh: '佝偻病' },
-          image: '/figures/g8/7-1-nutrition/image-b5-07.png',
+          image: assetUrl('/figures/g8/7-1-nutrition/image-b5-07.png'),
           imageSource: { en: 'G8 Science · Vitamin D table (Chapter 1.1)', zh: '讲义 Chapter 1.1 维生素 D 表' },
           severity: 'deficiency',
           mechanism: {
@@ -689,7 +690,7 @@ const lesson: Lesson = {
         {
           id: 'scurvy',
           term: { en: 'Scurvy', zh: '坏血症' },
-          image: '/figures/g8/7-1-nutrition/image-b5-07.png',
+          image: assetUrl('/figures/g8/7-1-nutrition/image-b5-07.png'),
           imageSource: { en: 'G8 Science · Vitamin C table (Chapter 1.1)', zh: '讲义 Chapter 1.1 维生素 C 表' },
           severity: 'deficiency',
           mechanism: {
@@ -704,7 +705,7 @@ const lesson: Lesson = {
         {
           id: 'kwashiorkor',
           term: { en: 'Kwashiorkor', zh: '恶性营养不良' },
-          image: '/figures/g8/7-1-nutrition/image-b5-06.png',
+          image: assetUrl('/figures/g8/7-1-nutrition/image-b5-06.png'),
           imageSource: { en: 'G8 Science · p.10, Image B5.06', zh: '讲义 p.10，Image B5.06' },
           severity: 'severe',
           mechanism: {
@@ -719,7 +720,7 @@ const lesson: Lesson = {
         {
           id: 'marasmus',
           term: { en: 'Marasmus', zh: '消瘦症' },
-          image: '/figures/g8/7-1-nutrition/image-b5-06.png',
+          image: assetUrl('/figures/g8/7-1-nutrition/image-b5-06.png'),
           imageSource: { en: 'G8 Science · p.10, severe malnutrition', zh: '讲义 p.10 严重营养不良' },
           severity: 'severe',
           mechanism: {
@@ -734,7 +735,7 @@ const lesson: Lesson = {
         {
           id: 'coronary-heart-disease',
           term: { en: 'Coronary heart disease (CHD)', zh: '冠心病（CHD）' },
-          image: '/figures/g8/7-1-nutrition/image-b5-05.png',
+          image: assetUrl('/figures/g8/7-1-nutrition/image-b5-05.png'),
           imageSource: { en: 'G8 Science · p.8-9, saturated fat & heart disease', zh: '讲义 p.8-9 饱和脂肪与心脏病' },
           severity: 'lifestyle',
           mechanism: {
@@ -749,7 +750,7 @@ const lesson: Lesson = {
         {
           id: 'obesity',
           term: { en: 'Obesity', zh: '肥胖' },
-          image: '/figures/g8/7-1-nutrition/image-b5-05.png',
+          image: assetUrl('/figures/g8/7-1-nutrition/image-b5-05.png'),
           imageSource: { en: 'G8 Science · p.9, Image B5.05', zh: '讲义 p.9，Image B5.05' },
           severity: 'lifestyle',
           mechanism: {

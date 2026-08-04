@@ -4,6 +4,7 @@ import type { AnatomyOrgan, HeartAnatomyExtra, Lesson } from '@/content/types'
 import { findLesson } from '@/lib/registry'
 import { T } from '@/components/i18n/T'
 import { ANATOMY_3D } from '@/lib/lessonExtrasStrings'
+import { assetUrl } from '@/lib/assetUrl'
 
 // Same lazy chunk as the in-lesson 3D tab — only downloads the first time
 // the student opens either the tab or this page.
@@ -436,7 +437,7 @@ function FullScreen3D({
 }) {
   return (
     <Anatomy3D
-      modelUrl={extra.model3d!}
+      modelUrl={assetUrl(extra.model3d!)}
       parts={parts}
       selectedId={selectedId}
       hoveredId={hoveredId}

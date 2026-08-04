@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { T } from '@/components/i18n/T'
 import { useWordBank } from '@/lib/useVocab'
 import { VOCAB } from '@/lib/vocabStrings'
+import { assetUrl } from '@/lib/assetUrl'
 import type { Term } from '@/content/types'
 import type { ConceptEnrichment } from '@/lib/vocabTypes'
 
@@ -85,7 +86,7 @@ export function WordGame({
 
       {correctWithMeta?.enrichment?.image && (
         <img
-          src={correctWithMeta.enrichment.image}
+          src={assetUrl(correctWithMeta.enrichment.image)}
           alt={correct.term.en}
           className="mx-auto h-32 w-full max-w-md rounded object-cover"
         />

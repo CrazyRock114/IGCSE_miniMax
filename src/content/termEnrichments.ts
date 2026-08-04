@@ -13,6 +13,7 @@
  */
 
 import type { ConceptEnrichment } from '@/lib/vocabTypes'
+import { assetUrl } from '../lib/assetUrl'
 
 /**
  * Keyed by `${subject}/${slug}/${term.en.toLowerCase()}`. Slug form
@@ -28,7 +29,7 @@ export const termEnrichments: Record<string, ConceptEnrichment> = {
     termId: 'rickets',
     subject: '0610',
     slug: '7-1-nutrition',
-    image: '/figures/g8/7-1-nutrition/image-b5-07.png',
+    image: assetUrl('/figures/g8/7-1-nutrition/image-b5-07.png'),
     imageSource: 'G8 Science · Vitamin D table',
     mechanism: {
       en: 'Vitamin D is needed for calcium to be absorbed from the gut into the blood. Without it, calcium in the diet passes through unabsorbed. Calcium is what gives bone its hardness — so without it, the bones of a growing child stay soft and bend under the body\'s weight.',
@@ -44,7 +45,7 @@ export const termEnrichments: Record<string, ConceptEnrichment> = {
     termId: 'scurvy',
     subject: '0610',
     slug: '7-1-nutrition',
-    image: '/figures/g8/7-1-nutrition/image-b5-07.png',
+    image: assetUrl('/figures/g8/7-1-nutrition/image-b5-07.png'),
     imageSource: 'G8 Science · Vitamin C table',
     mechanism: {
       en: 'Vitamin C is needed to make collagen, the stretchy protein that holds skin, blood-vessel walls, gums and connective tissue together. Without it, the body cannot maintain these tissues — they become fragile and any wound takes much longer to close.',
@@ -60,7 +61,7 @@ export const termEnrichments: Record<string, ConceptEnrichment> = {
     termId: 'kwashiorkor',
     subject: '0610',
     slug: '7-1-nutrition',
-    image: '/figures/g8/7-1-nutrition/image-b5-06.png',
+    image: assetUrl('/figures/g8/7-1-nutrition/image-b5-06.png'),
     imageSource: 'G8 Science · p.10, Image B5.06',
     mechanism: {
       en: 'A diet that contains enough energy (carbohydrate, fat) but lacks enough protein. The liver cannot make enough of the blood proteins that hold fluid inside blood vessels, so fluid leaks into the tissues — this is why a kwashiorkor child has a swollen belly while still being underweight overall.',
@@ -76,7 +77,7 @@ export const termEnrichments: Record<string, ConceptEnrichment> = {
     termId: 'marasmus',
     subject: '0610',
     slug: '7-1-nutrition',
-    image: '/figures/g8/7-1-nutrition/image-b5-06.png',
+    image: assetUrl('/figures/g8/7-1-nutrition/image-b5-06.png'),
     imageSource: 'G8 Science · p.10, severe malnutrition',
     mechanism: {
       en: 'A diet lacking both protein AND energy (overall starvation). The body, starved of both fuel and building blocks, breaks down its own muscle and fat. Unlike kwashiorkor, fluid balance is preserved — the child just wastes away.',
@@ -106,7 +107,7 @@ export const termEnrichments: Record<string, ConceptEnrichment> = {
     termId: 'obesity',
     subject: '0610',
     slug: '7-1-nutrition',
-    image: '/figures/g8/7-1-nutrition/image-b5-05.png',
+    image: assetUrl('/figures/g8/7-1-nutrition/image-b5-05.png'),
     imageSource: 'G8 Science · p.9, Image B5.05',
     mechanism: {
       en: 'Energy in, energy out. If a person takes in more food energy than they use up, the surplus is stored — mostly as fat under the skin and around the organs. Over months and years this accumulates to a level that is harmful to health.',
@@ -133,7 +134,7 @@ export const termEnrichments: Record<string, ConceptEnrichment> = {
     termId: 'lacteal',
     subject: '0610',
     slug: '7-1-nutrition',
-    image: '/figures/g8/7-1-nutrition/figure-b5-09.png',
+    image: assetUrl('/figures/g8/7-1-nutrition/figure-b5-09.png'),
     imageSource: 'G8 Science · p.16, Figure B5.09',
     mechanism: {
       en: 'A lymph vessel in the centre of a villus. Fatty acids and glycerol, which are not soluble in water and so cannot enter the watery blood, are taken up by the lacteal instead. The lymph eventually drains into the bloodstream near the heart.',
@@ -145,7 +146,7 @@ export const termEnrichments: Record<string, ConceptEnrichment> = {
     termId: 'villus',
     subject: '0610',
     slug: '7-1-nutrition',
-    image: '/figures/g8/7-1-nutrition/figure-b5-09.png',
+    image: assetUrl('/figures/g8/7-1-nutrition/figure-b5-09.png'),
     imageSource: 'G8 Science · p.16, Figure B5.09',
     mechanism: {
       en: 'A finger-like fold of the small intestine wall. Each villus is about 1 mm long and there are millions of them, giving the inside of the small intestine a surface area roughly the size of a tennis court. The wall is one cell thick, with a capillary network and a lacteal inside.',
@@ -159,7 +160,7 @@ export const termEnrichments: Record<string, ConceptEnrichment> = {
     termId: 'red blood cell',
     subject: '0610',
     slug: '9-1-transport-animals',
-    image: '/figures/g8/9-1-transport-animals/figure-b7-11a-rbc.png',
+    image: assetUrl('/figures/g8/9-1-transport-animals/figure-b7-11a-rbc.png'),
     imageSource: 'G8 Science · p.31 — doughnut-shaped red blood cell',
     mechanism: {
       en: 'A doughnut-shaped disc with a dimple on each side and no nucleus. The biconcave shape and the missing nucleus together leave room for more haemoglobin and let the cell bend enough to squeeze through capillaries that are narrower than the cell itself.',
@@ -171,7 +172,7 @@ export const termEnrichments: Record<string, ConceptEnrichment> = {
     termId: 'phagocyte',
     subject: '0610',
     slug: '9-1-transport-animals',
-    image: '/figures/g8/9-1-transport-animals/figure-b7-12.png',
+    image: assetUrl('/figures/g8/9-1-transport-animals/figure-b7-12.png'),
     imageSource: 'G8 Science · p.34 — phagocyte with a lobed nucleus',
     mechanism: {
       en: 'A white blood cell that engulfs and digests pathogens. It changes shape, flows around the bacterium, takes it inside the cell, and breaks it down with enzymes. Pus at a wound site is mostly dead phagocytes that have done this and then died.',
@@ -183,7 +184,7 @@ export const termEnrichments: Record<string, ConceptEnrichment> = {
     termId: 'lymphocyte',
     subject: '0610',
     slug: '9-1-transport-animals',
-    image: '/figures/g8/9-1-transport-animals/figure-b7-12a-lymphocyte.png',
+    image: assetUrl('/figures/g8/9-1-transport-animals/figure-b7-12a-lymphocyte.png'),
     imageSource: 'G8 Science · p.33 — lymphocyte with a large nucleus',
     mechanism: {
       en: 'A white blood cell with a single large round nucleus. Makes antibodies — proteins that recognise specific pathogens and mark them for destruction. Some lymphocytes also remember past infections for decades, which is the basis of vaccination.',
@@ -205,7 +206,7 @@ export const termEnrichments: Record<string, ConceptEnrichment> = {
     termId: 'coronary heart disease',
     subject: '0610',
     slug: '9-1-transport-animals',
-    image: '/figures/g8/9-1-transport-animals/figure-b7-04.png',
+    image: assetUrl('/figures/g8/9-1-transport-animals/figure-b7-04.png'),
     imageSource: 'G8 Science · p.25, Figure B7.04 — coronary artery on the outside of the heart',
     mechanism: {
       en: 'The coronary arteries sit on the outside of the heart and supply the heart muscle itself. If a diet is high in saturated fat and cholesterol, fatty deposits build up on the inside walls of these arteries, making them stiffer and narrower. Less blood gets through, so the heart muscle runs short of oxygen and cannot work properly.',
@@ -217,7 +218,7 @@ export const termEnrichments: Record<string, ConceptEnrichment> = {
     termId: 'double circulation',
     subject: '0610',
     slug: '9-1-transport-animals',
-    image: '/figures/g8/9-1-transport-animals/figure-b7-01.png',
+    image: assetUrl('/figures/g8/9-1-transport-animals/figure-b7-01.png'),
     imageSource: 'G8 Science · p.21, Figure B7.01',
     mechanism: {
       en: 'In a double circulation the blood passes through the heart twice per circuit. Once from the right ventricle to the lungs and back, then again from the left ventricle to the body and back. This means the blood that reaches the body has just been re-pressurised by the left ventricle — it is at high pressure, so oxygen and glucose are delivered fast. Fish have a single circulation: heart → gills → body → heart, and the pressure that the gill capillaries soak up is never replaced, so the body receives the blood slowly.',
@@ -231,7 +232,7 @@ export const termEnrichments: Record<string, ConceptEnrichment> = {
     termId: 'aerobic respiration',
     subject: '0610',
     slug: '11-1-gas-exchange',
-    image: '/figures/g8/11-1-gas-exchange/figure-b8-04.png',
+    image: assetUrl('/figures/g8/11-1-gas-exchange/figure-b8-04.png'),
     imageSource: 'G8 Science · p.39, Figure B8.04 — alveolus with red cells in capillary',
     mechanism: {
       en: 'Glucose is broken down completely — the carbon in it ends up as CO₂, the hydrogen as H₂O, and about 32 ATP per glucose molecule is captured. Aerobic respiration can only happen where oxygen is supplied fast enough to keep up with demand, which is why the heart and breathing rate rise during exercise: they are delivering oxygen to muscle cells at a higher rate.',
@@ -253,7 +254,7 @@ export const termEnrichments: Record<string, ConceptEnrichment> = {
     termId: 'trachea',
     subject: '0610',
     slug: '11-1-gas-exchange',
-    image: '/figures/g8/11-1-gas-exchange/figure-b8-03.png',
+    image: assetUrl('/figures/g8/11-1-gas-exchange/figure-b8-03.png'),
     imageSource: 'G8 Science · p.38, Figure B8.03 — cilia, goblet cell, mucus',
     mechanism: {
       en: 'The main airway from the larynx down to where it splits into the two bronchi. It is held open by C-shaped rings of cartilage — the rings do not form a complete circle because the back of the trachea lies against the oesophagus and needs to give way when food passes down. The lining is ciliated epithelium with goblet cells.',
@@ -265,7 +266,7 @@ export const termEnrichments: Record<string, ConceptEnrichment> = {
     termId: 'mucus',
     subject: '0610',
     slug: '11-1-gas-exchange',
-    image: '/figures/g8/11-1-gas-exchange/figure-b8-03.png',
+    image: assetUrl('/figures/g8/11-1-gas-exchange/figure-b8-03.png'),
     imageSource: 'G8 Science · p.38, Figure B8.03 — yellow blob of mucus on top of a goblet cell',
     mechanism: {
       en: 'A sticky secretion made by goblet cells. It sits in a thin layer on top of the cilia, with dust, soot, bacteria and viruses caught in it. The cilia beat in a synchronised wave that moves this mucus blanket upwards towards the throat, where it is swallowed and the trapped pathogens are destroyed by stomach acid.',
@@ -277,7 +278,7 @@ export const termEnrichments: Record<string, ConceptEnrichment> = {
     termId: 'cilium',
     subject: '0610',
     slug: '11-1-gas-exchange',
-    image: '/figures/g8/11-1-gas-exchange/figure-b8-03.png',
+    image: assetUrl('/figures/g8/11-1-gas-exchange/figure-b8-03.png'),
     imageSource: 'G8 Science · p.38, Figure B8.03 — fine hair-like cilia on the airway cell',
     mechanism: {
       en: 'A tiny hair-like extension on the surface of a ciliated cell. Each ciliated cell in the airway carries dozens of cilia, and they all beat in the same direction, in a synchronised wave. The effect is a moving conveyor belt of mucus — the "mucociliary escalator" — that pushes trapped material up and out of the lungs. Tobacco smoke paralyses the cilia; with the escalator stopped, mucus and the bacteria in it pool in the lungs, and chest infections follow.',
@@ -289,7 +290,7 @@ export const termEnrichments: Record<string, ConceptEnrichment> = {
     termId: 'nicotine',
     subject: '0610',
     slug: '11-1-gas-exchange',
-    image: '/figures/g8/11-1-gas-exchange/figure-b8-07.png',
+    image: assetUrl('/figures/g8/11-1-gas-exchange/figure-b8-07.png'),
     imageSource: 'G8 Science · p.45, Figure B8.07 — what is in cigarette smoke',
     mechanism: {
       en: 'The addictive substance in tobacco. Within seconds of inhaling, nicotine reaches the brain and triggers the release of dopamine — the same reward signal that makes food and social contact feel good. The brain rewires itself around this signal: in its absence the smoker feels irritable, anxious and unable to concentrate, which is why stopping is so hard. Nicotine also narrows small blood vessels and raises blood pressure, putting extra load on the heart.',
@@ -301,7 +302,7 @@ export const termEnrichments: Record<string, ConceptEnrichment> = {
     termId: 'carbon monoxide',
     subject: '0610',
     slug: '11-1-gas-exchange',
-    image: '/figures/g8/11-1-gas-exchange/figure-b8-07.png',
+    image: assetUrl('/figures/g8/11-1-gas-exchange/figure-b8-07.png'),
     imageSource: 'G8 Science · p.45, Figure B8.07 — what is in cigarette smoke',
     mechanism: {
       en: 'A poisonous gas that binds to haemoglobin in red blood cells about 200 times more tightly than oxygen does. A smoker with 10% of their haemoglobin occupied by carbon monoxide is effectively anaemic — their blood cannot carry as much oxygen as it should. During pregnancy, the same effect on the mother\'s blood starves the developing baby of oxygen, leading to low birth weight.',
@@ -313,7 +314,7 @@ export const termEnrichments: Record<string, ConceptEnrichment> = {
     termId: 'emphysema',
     subject: '0610',
     slug: '11-1-gas-exchange',
-    image: '/figures/g8/11-1-gas-exchange/image-b8-03.png',
+    image: assetUrl('/figures/g8/11-1-gas-exchange/image-b8-03.png'),
     imageSource: 'G8 Science · p.46, Image B8.03 — healthy lung (a) vs emphysema lung (b)',
     mechanism: {
       en: 'Long-term exposure to cigarette smoke inflames the alveoli and the enzymes in the inflammatory response slowly digest the alveolar walls. Many small air sacs merge into a few large ones, and the total surface area available for gas exchange drops. The lungs also lose their elastic recoil, so expelling air becomes an effort. The patient gets breathless walking across a room.',
@@ -325,7 +326,7 @@ export const termEnrichments: Record<string, ConceptEnrichment> = {
     termId: 'lung cancer',
     subject: '0610',
     slug: '11-1-gas-exchange',
-    image: '/figures/g8/11-1-gas-exchange/figure-b8-07.png',
+    image: assetUrl('/figures/g8/11-1-gas-exchange/figure-b8-07.png'),
     imageSource: 'G8 Science · p.45, Figure B8.07 — what is in cigarette smoke',
     mechanism: {
       en: 'Tar — the sticky brown residue of cigarette smoke — settles on the lining of the bronchi and contains dozens of chemicals that damage DNA. Most damage is repaired, but a single unrepaired mutation in a gene that controls cell division can start a cell dividing out of control. The resulting tumour grows into the air passage and spreads to other parts of the body. Lung cancer is the leading cause of cancer death in many countries, and the risk is roughly proportional to the number of cigarettes smoked per day.',

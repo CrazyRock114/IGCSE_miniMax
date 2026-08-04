@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { DigestionFlowExtra } from '@/content/types'
 import { T } from '@/components/i18n/T'
 import { DIGESTION_FLOW } from '@/lib/lessonExtrasStrings'
+import { assetUrl } from '@/lib/assetUrl'
 
 /**
  * The whole-journey picture + the six formal syllabus terms.
@@ -17,7 +18,7 @@ export function DigestionFlow({ extra }: { extra: DigestionFlowExtra }) {
     <div className="space-y-4">
       <figure className="m-0 overflow-hidden rounded-lg border border-line bg-canvas">
         <img
-          src="/figures/g8/7-1-nutrition/figure-b5-02.png"
+          src={assetUrl('/figures/g8/7-1-nutrition/figure-b5-02.png')}
           alt="How an animal deals with food — a mammal's four-stage food journey"
           className="h-auto w-full"
           loading="lazy"

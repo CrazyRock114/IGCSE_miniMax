@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import type { AirwayPathwayExtra, AnatomyOrgan } from '@/content/types'
 import { T } from '@/components/i18n/T'
 import { AIRWAY_PATHWAY } from '@/lib/lessonExtrasStrings'
+import { assetUrl } from '@/lib/assetUrl'
 
 /**
  * The human gas-exchange system, in one picture.
@@ -240,7 +241,7 @@ function FigureWithHotspots({
   return (
     <figure className="relative m-0 overflow-hidden rounded-lg border border-line bg-canvas">
       <img
-        src="/figures/g8/11-1-gas-exchange/figure-b8-01.png"
+        src={assetUrl('/figures/g8/11-1-gas-exchange/figure-b8-01.png')}
         alt="Front view of the human thorax showing the gas-exchange system"
         className="block w-full"
         draggable={false}

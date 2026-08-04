@@ -3,6 +3,7 @@ import { T } from '@/components/i18n/T'
 import type { StudyStatus, WordEntry } from '@/lib/vocabTypes'
 import { dueForReview, useWordBank } from '@/lib/useVocab'
 import { VOCAB } from '@/lib/vocabStrings'
+import { assetUrl } from '@/lib/assetUrl'
 
 /**
  * Card-flip study mode.
@@ -144,7 +145,7 @@ function Session({
       >
         {resolved.enrichment?.image && (
           <img
-            src={resolved.enrichment.image}
+            src={assetUrl(resolved.enrichment.image)}
             alt={resolved.term.en}
             className="mx-auto mb-3 h-32 w-full max-w-md rounded object-cover"
           />

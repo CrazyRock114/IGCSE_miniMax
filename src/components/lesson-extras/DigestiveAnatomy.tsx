@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import type { AnatomyOrgan, DigestiveAnatomyExtra } from '@/content/types'
 import { T } from '@/components/i18n/T'
 import { DIGESTIVE_ANATOMY } from '@/lib/lessonExtrasStrings'
+import { assetUrl } from '@/lib/assetUrl'
 
 /**
  * The digestive system as the textbook draws it.
@@ -249,7 +250,7 @@ function FigureWithHotspots({
     <figure className="relative m-0 overflow-hidden rounded-lg border border-line bg-canvas">
       {/* The base image — the textbook figure. */}
       <img
-        src="/figures/g8/7-1-nutrition/figure-b5-08.png"
+        src={assetUrl('/figures/g8/7-1-nutrition/figure-b5-08.png')}
         alt="The human digestive system"
         className="block w-full"
         draggable={false}

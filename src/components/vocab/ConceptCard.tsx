@@ -4,6 +4,7 @@ import type { ConceptEnrichment } from '@/lib/vocabTypes'
 import type { Term } from '@/content/types'
 import { useWordBank } from '@/lib/useVocab'
 import { VOCAB } from '@/lib/vocabStrings'
+import { assetUrl } from '@/lib/assetUrl'
 
 /**
  * The "concept card" — a rich display of a single glossary term.
@@ -71,7 +72,7 @@ export function ConceptCard({
           {enrichment.image && (
             <figure className="m-0 overflow-hidden rounded-lg border border-line bg-canvas">
               <img
-                src={enrichment.image}
+                src={assetUrl(enrichment.image)}
                 alt={term.en}
                 className="h-40 w-full object-cover"
                 loading="lazy"

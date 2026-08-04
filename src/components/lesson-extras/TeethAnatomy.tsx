@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { TeethAnatomyExtra } from '@/content/types'
 import { T } from '@/components/i18n/T'
+import { assetUrl } from '@/lib/assetUrl'
 
 /**
  * Two-part dental view: a labelled tooth diagram and a row of the four tooth
@@ -22,7 +23,7 @@ export function TeethAnatomy({ extra }: { extra: TeethAnatomyExtra }) {
     <div className="space-y-4">
       <figure className="m-0 overflow-hidden rounded-lg border border-line bg-canvas">
         <img
-          src="/figures/g8/7-1-nutrition/figure-b5-04.png"
+          src={assetUrl('/figures/g8/7-1-nutrition/figure-b5-04.png')}
           alt="Longitudinal section of an incisor tooth"
           className="h-auto w-full"
           loading="lazy"

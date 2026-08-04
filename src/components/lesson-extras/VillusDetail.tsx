@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { VillusDetailExtra } from '@/content/types'
 import { T } from '@/components/i18n/T'
+import { assetUrl } from '@/lib/assetUrl'
 
 /**
  * A cross-section of a single villus, with the named structures and where each
@@ -18,7 +19,7 @@ export function VillusDetail({ extra }: { extra: VillusDetailExtra }) {
     <div className="space-y-4">
       <figure className="m-0 overflow-hidden rounded-lg border border-line bg-canvas">
         <img
-          src="/figures/g8/7-1-nutrition/figure-b5-09.png"
+          src={assetUrl('/figures/g8/7-1-nutrition/figure-b5-09.png')}
           alt="Longitudinal section through a villus"
           className="h-auto w-full"
           loading="lazy"
@@ -63,7 +64,7 @@ export function VillusDetail({ extra }: { extra: VillusDetailExtra }) {
       {extra.parts.some((p) => p.id === 'microvilli') && (
         <figure className="m-0 overflow-hidden rounded-lg border border-line bg-canvas">
           <img
-            src="/figures/g8/7-1-nutrition/figure-b5-10.png"
+            src={assetUrl('/figures/g8/7-1-nutrition/figure-b5-10.png')}
             alt="Detail of the surface of a villus — microvilli on each epithelial cell"
             className="h-auto w-full"
             loading="lazy"

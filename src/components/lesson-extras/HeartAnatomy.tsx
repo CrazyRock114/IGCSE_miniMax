@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import type { AnatomyOrgan, HeartAnatomyExtra } from '@/content/types'
 import { T } from '@/components/i18n/T'
 import { HEART_ANATOMY } from '@/lib/lessonExtrasStrings'
+import { assetUrl } from '@/lib/assetUrl'
 
 // The 3D viewer pulls in three.js + @react-three/fiber + drei (~+275 KB
 // gzipped). Loaded only when the student switches to the 3D tab, so lessons
@@ -147,7 +148,7 @@ export function HeartAnatomy({ extra }: { extra: HeartAnatomyExtra }) {
           <div className="relative">
             <Suspense fallback={<ThreeDFallback />}>
               <Anatomy3D
-                modelUrl={extra.model3d!}
+                modelUrl={assetUrl(extra.model3d!)}
                 parts={parts}
                 selectedId={selectedId}
                 hoveredId={hoveredId}
@@ -322,7 +323,7 @@ function FigureWithHotspots({
   return (
     <figure className="relative m-0 overflow-hidden rounded-lg border border-line bg-canvas">
       <img
-        src="/figures/g8/9-1-transport-animals/figure-b7-03.png"
+        src={assetUrl('/figures/g8/9-1-transport-animals/figure-b7-03.png')}
         alt="Vertical section through a human heart"
         className="block w-full"
         draggable={false}
