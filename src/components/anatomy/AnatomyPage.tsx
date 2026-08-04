@@ -187,7 +187,6 @@ function AnatomyView({ lesson, extra }: { lesson: Lesson; extra: HeartAnatomyExt
             }}
             onHover={setHoveredId}
             autoRotate={autoRotate}
-            onAutoRotateChange={setAutoRotate}
             onSelectedScreenPos={setSelectedScreenPos}
             pinOverrides={editMode ? pinOverrides : undefined}
             editMode={editMode}
@@ -210,6 +209,8 @@ function AnatomyView({ lesson, extra }: { lesson: Lesson; extra: HeartAnatomyExt
         onCopy={handleCopy}
         onReset={handleResetOverrides}
         copyState={copyState}
+        autoRotate={autoRotate}
+        onAutoRotateChange={setAutoRotate}
       />
 
       {/* Floating part list (left). Toggle from the header. */}
@@ -277,6 +278,8 @@ function Header({
   onCopy,
   onReset,
   copyState,
+  autoRotate,
+  onAutoRotateChange,
 }: {
   lesson: Lesson
   onToggleList: () => void
@@ -287,29 +290,52 @@ function Header({
   onCopy: () => void
   onReset: () => void
   copyState: 'idle' | 'copied' | 'failed'
+  autoRotate: boolean
+  onAutoRotateChange: (v: boolean) => void
 }) {
   return (
-    <header className="pointer-events-none absolute inset-x-0 top-0 z-20 flex flex-wrap items-start justify-between gap-3 p-4">
-      <div className="pointer-events-auto rounded-lg border border-line bg-canvas/85 px-3 py-2 shadow-sm backdrop-blur">
+    <header className="pointer-events-none absolute inset-x-0 top-0 z-20 flex flex-wrap items-start justify-between gap-2 p-3">
+      <div className="pointer-events-auto max-w-[60%] rounded-lg border border-line bg-canvas/85 px-3 py-1.5 shadow-sm backdrop-blur">
         <Link
           to={`/lesson/${lesson.subject}/${lesson.slug}`}
           className="text-[11px] text-accent hover:underline"
         >
           ← Back to lesson
         </Link>
-        <h1 className="mt-0.5 text-sm font-semibold text-ink">
+        <h1 className="text-sm font-semibold text-ink">
           <T value={lesson.title} />
         </h1>
       </div>
 
-      <div className="pointer-events-auto flex items-center gap-2">
+      {/* Right side: every control the page exposes lives here, in one
+          horizontal row. The 3D viewer no longer renders its own controls
+          — the parent owns the chrome so layout is unambiguous. */}
+      <div className="pointer-events-auto flex flex-wrap items-center gap-1.5">
+        <button
+          type="button"
+          onClick={() => onAutoRotateChange(!autoRotate)}
+          aria-pressed={autoRotate}
+          className={
+            'inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1.5 text-xs font-medium shadow-sm backdrop-blur transition-colors ' +
+            (autoRotate
+              ? 'border-accent bg-accent text-white'
+              : 'border-line bg-canvas/85 text-ink-soft hover:bg-surface')
+          }
+          title="Spin the heart on its own"
+        >
+          <span aria-hidden="true">{autoRotate ? '⏸' : '↻'}</span>
+          <span className="hidden sm:inline">
+            {autoRotate ? ANATOMY_3D.pauseRotate.en : ANATOMY_3D.startRotate.en}
+          </span>
+        </button>
+
         <button
           type="button"
           onClick={onToggleList}
-          className="inline-flex items-center gap-1.5 rounded-full border border-line bg-canvas/85 px-3 py-1.5 text-xs font-medium text-ink-soft shadow-sm backdrop-blur transition-colors hover:bg-surface"
+          className="inline-flex items-center gap-1.5 rounded-full border border-line bg-canvas/85 px-2.5 py-1.5 text-xs font-medium text-ink-soft shadow-sm backdrop-blur transition-colors hover:bg-surface"
         >
           <span aria-hidden="true">☰</span>
-          <span>
+          <span className="hidden sm:inline">
             <T value={listOpen ? ANATOMY_3D.hideAllParts : ANATOMY_3D.showAllParts} />
           </span>
         </button>
@@ -319,11 +345,11 @@ function Header({
             <button
               type="button"
               onClick={onReset}
-              className="inline-flex items-center gap-1.5 rounded-full border border-line bg-canvas/85 px-3 py-1.5 text-xs font-medium text-ink-soft shadow-sm backdrop-blur transition-colors hover:bg-surface"
+              className="inline-flex items-center gap-1.5 rounded-full border border-line bg-canvas/85 px-2.5 py-1.5 text-xs font-medium text-ink-soft shadow-sm backdrop-blur transition-colors hover:bg-surface"
               title="Clear all in-progress overrides and start over"
             >
               <span aria-hidden="true">↺</span>
-              <span>Reset</span>
+              <span className="hidden sm:inline">Reset</span>
               {overrideCount > 0 && (
                 <span className="rounded-full bg-canvas px-1.5 text-[10px] text-muted">
                   {overrideCount}
@@ -334,7 +360,7 @@ function Header({
               type="button"
               onClick={onCopy}
               className={
-                'inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium shadow-sm backdrop-blur transition-colors ' +
+                'inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1.5 text-xs font-medium shadow-sm backdrop-blur transition-colors ' +
                 (copyState === 'copied'
                   ? 'border-emerald-500 bg-emerald-500 text-white'
                   : copyState === 'failed'
@@ -343,7 +369,7 @@ function Header({
               }
             >
               <span aria-hidden="true">⧉</span>
-              <span>
+              <span className="hidden sm:inline">
                 {copyState === 'copied'
                   ? 'Copied!'
                   : copyState === 'failed'
@@ -359,14 +385,16 @@ function Header({
           onClick={onToggleEdit}
           aria-pressed={editMode}
           className={
-            'inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium shadow-sm backdrop-blur transition-colors ' +
+            'inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1.5 text-xs font-medium shadow-sm backdrop-blur transition-colors ' +
             (editMode
               ? 'border-amber-500 bg-amber-500 text-white'
               : 'border-line bg-canvas/85 text-ink-soft hover:bg-surface')
           }
         >
-          <span aria-hidden="true">{editMode ? '✎' : '✎'}</span>
-          <T value={editMode ? ANATOMY_3D.editingOn : ANATOMY_3D.editingOff} />
+          <span aria-hidden="true">✎</span>
+          <span className="hidden sm:inline">
+            <T value={editMode ? ANATOMY_3D.editingOn : ANATOMY_3D.editingOff} />
+          </span>
         </button>
       </div>
     </header>
@@ -381,7 +409,6 @@ function FullScreen3D({
   onSelect,
   onHover,
   autoRotate,
-  onAutoRotateChange,
   onSelectedScreenPos,
   pinOverrides,
   editMode,
@@ -394,7 +421,6 @@ function FullScreen3D({
   onSelect: (id: string) => void
   onHover: (id: string | null) => void
   autoRotate: boolean
-  onAutoRotateChange: (v: boolean) => void
   onSelectedScreenPos: (pos: { x: number; y: number } | null) => void
   pinOverrides?: Record<string, [number, number, number]> | undefined
   editMode: boolean
@@ -411,7 +437,6 @@ function FullScreen3D({
       followStep={-1}
       orderedForFollow={[]}
       autoRotate={autoRotate}
-      onAutoRotateChange={onAutoRotateChange}
       onSelectedScreenPos={onSelectedScreenPos}
       pinOverrides={pinOverrides}
       editMode={editMode}
@@ -563,15 +588,18 @@ function EditPanel({
   const pos = editingPart ? effectivePos(editingPart.id) : [0.5, 0.5, 0.5]
   const isOverride = editingPart ? Boolean(pinOverrides[editingPart.id]) : false
 
-  // Step size: how far one drag tick moves the pin. The bbox is 1.0 wide
-  // in normalised space, so 0.001 = 0.1% (a hair on a 951px image) while
-  // 0.05 = 5% (clearly visible). Default to 0.02 — fast enough to land
-  // on a part in two or three drags, fine enough to read the result.
-  const [step, setStep] = useState(0.02)
+  // Step size: how far one tick of the slider or +/− button moves the
+  // pin. The bbox is 1.0 wide in normalised space, so 0.01 ≈ 1% of the
+  // model width — visible. 0.05 ≈ 5% — clearly visible on a single
+  // tick. 0.20 = 20% — coarse for big jumps. The previous defaults
+  // (0.005 / 0.02) were too fine to be useful on a 951-px heart; the
+  // new default of 0.05 lands the dot somewhere noticeably different
+  // on each tick.
+  const [step, setStep] = useState(0.05)
   const stepOptions: { value: number; label: string }[] = [
-    { value: 0.002, label: 'Fine' },
-    { value: 0.02, label: 'Normal' },
-    { value: 0.05, label: 'Coarse' },
+    { value: 0.01, label: 'Fine' },
+    { value: 0.05, label: 'Normal' },
+    { value: 0.2, label: 'Coarse' },
   ]
 
   return (

@@ -23,8 +23,9 @@ import { ANATOMY_3D } from '@/lib/lessonExtrasStrings'
  * and converted to world space, so the author only ever writes a [0,1]
  * triple regardless of how big the GLB actually is.
  *
- * Optional `autoRotate` and `onAutoRotateChange` add an auto-rotate toggle
- * the fullscreen page shows; the in-lesson tab passes a fixed `false`.
+ * Optional `autoRotate` spins the model. The auto-rotate toggle button
+ * itself is owned by the parent page (in its Header) so the two surfaces
+ * that mount this viewer don't have to coordinate button placement.
  *
  * `onSelectedScreenPos` reports the screen position of the currently
  * selected part every frame, so the parent page can draw a leader line
@@ -51,7 +52,6 @@ export function Anatomy3D({
   followStep = -1,
   orderedForFollow = [],
   autoRotate = false,
-  onAutoRotateChange,
   onSelectedScreenPos,
   pinOverrides,
   editMode = false,
@@ -66,7 +66,6 @@ export function Anatomy3D({
   followStep?: number
   orderedForFollow?: AnatomyOrgan[]
   autoRotate?: boolean
-  onAutoRotateChange?: ((v: boolean) => void) | undefined
   onSelectedScreenPos?: ((pos: { x: number; y: number } | null) => void) | undefined
   pinOverrides?: Record<string, [number, number, number]> | undefined
   editMode?: boolean | undefined
@@ -119,25 +118,10 @@ export function Anatomy3D({
         />
       </Canvas>
 
-      {/* Top-LEFT control — auto-rotate toggle. Top-left so the right edge
-          stays clear for the fullscreen page's List / Reset / Copy / Edit
-          stack. Only shown when the parent passes a setter. */}
-      {onAutoRotateChange && (
-        <button
-          type="button"
-          onClick={() => onAutoRotateChange(!autoRotate)}
-          aria-pressed={autoRotate}
-          className={
-            'absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium shadow-sm transition-colors ' +
-            (autoRotate
-              ? 'border-accent bg-accent text-white'
-              : 'border-line bg-canvas/90 text-ink-soft hover:bg-surface')
-          }
-        >
-          <span aria-hidden="true">{autoRotate ? '⏸' : '↻'}</span>
-          <span>{autoRotate ? ANATOMY_3D.pauseRotate.en : ANATOMY_3D.startRotate.en}</span>
-        </button>
-      )}
+      {/* Auto-rotate and the drag hint both live in the Header overlay
+          (rendered by the parent page). The viewer itself only owns the
+          canvas, so a future mount in a different chrome (lesson tab,
+          quiz prompt, …) doesn't drag the buttons along. */}
 
       <div className="pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-canvas/85 px-3 py-1 text-[11px] text-ink-soft shadow-sm backdrop-blur">
         <T value={ANATOMY_3D.dragHint} />
@@ -255,34 +239,37 @@ function ModelWithHotspots({
     if (autoRotate && groupRef.current) {
       groupRef.current.rotation.y += dt * 0.35
     }
+  })
 
-    // Report the selected part's screen position to the parent (used by
-    // the fullscreen page to draw a leader line from the callout to the
-    // dot). Skipped if the part is behind the camera or out of the viewport.
-    if (onSelectedScreenPos) {
-      if (!selectedId) {
-        onSelectedScreenPos(null)
-      } else {
-        const pin = pinsWithPos.find((p) => p.id === selectedId)
-        if (!pin) {
-          onSelectedScreenPos(null)
-        } else {
-          // World point = group rotation * pin world position
-          const worldPoint = pin.worldPos.clone()
-          if (groupRef.current) worldPoint.applyMatrix4(groupRef.current.matrixWorld)
-          // Project to NDC, then to canvas pixels
-          const ndc = worldPoint.clone().project(camera as THREE.PerspectiveCamera)
-          if (ndc.z > 1 || ndc.z < -1) {
-            onSelectedScreenPos(null)
-          } else {
-            onSelectedScreenPos({
-              x: (ndc.x * 0.5 + 0.5) * size.width,
-              y: (-ndc.y * 0.5 + 0.5) * size.height,
-            })
-          }
-        }
-      }
+  // Report the selected part's screen position to the parent (used by
+  // the fullscreen page to draw a leader line from the callout to the
+  // dot). Skipped if the part is behind the camera or out of the viewport.
+  // Kept as a separate effect so its update frequency is independent of
+  // the auto-rotate's rAF cadence.
+  useFrame(() => {
+    if (!onSelectedScreenPos) return
+    if (!selectedId) {
+      onSelectedScreenPos(null)
+      return
     }
+    const pin = pinsWithPos.find((p) => p.id === selectedId)
+    if (!pin) {
+      onSelectedScreenPos(null)
+      return
+    }
+    // World point = group rotation * pin world position
+    const worldPoint = pin.worldPos.clone()
+    if (groupRef.current) worldPoint.applyMatrix4(groupRef.current.matrixWorld)
+    // Project to NDC, then to canvas pixels
+    const ndc = worldPoint.clone().project(camera as THREE.PerspectiveCamera)
+    if (ndc.z > 1 || ndc.z < -1) {
+      onSelectedScreenPos(null)
+      return
+    }
+    onSelectedScreenPos({
+      x: (ndc.x * 0.5 + 0.5) * size.width,
+      y: (-ndc.y * 0.5 + 0.5) * size.height,
+    })
   })
 
   // Filter to parts that actually have a 3D position (lesson or override).
@@ -358,6 +345,38 @@ function ModelWithHotspots({
           scale={scale}
         />
       )}
+
+      {/* In edit mode, draw a large labelled marker around the selected
+          pin so the user can see *which* dot the sliders are driving.
+          The base pin is 12-14px; this marker is 44px with a dashed ring
+          and the part's name above it — impossible to miss. */}
+      {editMode && selectedId && (() => {
+        const pin = pinsWithPos.find((p) => p.id === selectedId)
+        const part = parts.find((p) => p.id === selectedId)
+        if (!pin || !part) return null
+        return (
+          <Html
+            position={pin.worldPos.toArray()}
+            center
+            distanceFactor={3}
+            zIndexRange={[60, 0]}
+            style={{ pointerEvents: 'none' }}
+          >
+            <div
+              className="relative flex items-center justify-center"
+              data-edit-marker={selectedId}
+            >
+              <div
+                className="absolute h-11 w-11 animate-pulse rounded-full border-2 border-dashed border-amber-500"
+                style={{ animationDuration: '1.6s' }}
+              />
+              <div className="absolute -top-7 whitespace-nowrap rounded-md bg-amber-500 px-2 py-0.5 text-[10px] font-semibold text-white shadow">
+                {part.name.en}
+              </div>
+            </div>
+          </Html>
+        )
+      })()}
     </group>
   )
 }
