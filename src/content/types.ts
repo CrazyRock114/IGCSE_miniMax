@@ -616,6 +616,10 @@ export type LessonExtra =
   | BloodComponentsExtra
   | BloodVesselsCompareExtra
   | DoubleCirculationExtra
+  | RespirationCompareExtra
+  | AirwayPathwayExtra
+  | GasExchangeFeaturesExtra
+  | SmokingEffectsExtra
 
 /** What to show in the side panel when an organ is selected. */
 export interface AnatomyOrgan {
@@ -987,4 +991,111 @@ export interface DoubleCirculationExtra {
   /** Image path for the static figure shown above the flowchart. */
   image: string
   imageSource: Bilingual
+}
+
+// ---------------------------------------------------------------------------
+// 11-1 Gas exchange and respiration — Chapter 3 (B8) extras
+// ---------------------------------------------------------------------------
+
+/**
+ * A side-by-side comparison of aerobic and anaerobic respiration.
+ *
+ * Same shape as `BloodVesselsCompare`: a column per option, with rows for
+ * each comparison axis. Plus the word equations below the table so the
+ * student sees the chemistry, not just the words.
+ */
+export interface RespirationCompareExtra {
+  type: 'respiration-compare'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  /** Rows of the comparison. Each row's `kind` decides how the value renders. */
+  rows: Array<{
+    id: string
+    label: Bilingual
+    aerobic: Bilingual
+    anaerobic: Bilingual
+  }>
+  /** Word equations, one per kind. */
+  equations: Array<{
+    id: string
+    /** 'aerobic' / 'anaerobic-muscle' / 'anaerobic-yeast' */
+    kind: 'aerobic' | 'anaerobic-muscle' | 'anaerobic-yeast'
+    latex: string
+    meaning: Bilingual
+  }>
+  /** Source attribution (e.g. 'G8 Science p.36, Section B8.01'). */
+  source: Bilingual
+}
+
+/**
+ * The airways of the human gas-exchange system, with clickable hotspots
+ * over the G8 Figure B8.01. Each labelled part (larynx, trachea, bronchus,
+ * bronchiole, alveoli, diaphragm, ribs, pleural membranes) becomes a
+ * clickable region with a side panel explaining its job.
+ *
+ * Same shape as `HeartAnatomy` / `DigestiveAnatomy`.
+ */
+export interface AirwayPathwayExtra {
+  type: 'airway-pathway'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  parts: AnatomyOrgan[]
+  initialPart?: string
+}
+
+/**
+ * The four features that make the alveolus a good gas-exchange surface,
+ * one card per feature. Modelled on `DiseaseCards` but applied to a
+ * "good design" story rather than a "bad disease" story.
+ */
+export interface GasExchangeFeatureEntry {
+  id: string
+  term: Bilingual
+  /** The feature itself (e.g. 'thin wall — one cell thick'). */
+  mechanism: Bilingual
+  /** Why it matters for gas exchange. */
+  clinical: Bilingual
+  image: string
+  imageSource: Bilingual
+}
+
+export interface GasExchangeFeaturesExtra {
+  type: 'gas-exchange-features'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  features: GasExchangeFeatureEntry[]
+}
+
+/**
+ * The harm smoking does, in two halves: the substances in the smoke
+ * (nicotine, tar, CO, particulates) as labelled arrows over the G8
+ * Figure B8.07, and the resulting diseases (chronic bronchitis, lung
+ * cancer, emphysema, CHD) with real figures from the G8 PDF.
+ */
+export interface SmokingEffectEntry {
+  id: string
+  term: Bilingual
+  /** What the substance does / what the disease is. */
+  mechanism: Bilingual
+  /** Symptoms or clinical picture. */
+  clinical: Bilingual
+  image: string
+  imageSource: Bilingual
+}
+
+export interface SmokingEffectsExtra {
+  type: 'smoking-effects'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  /** Substance cards (nicotine, tar, CO, particulates). */
+  substances: SmokingEffectEntry[]
+  /** Disease cards (lung cancer, emphysema, chronic bronchitis, CHD). */
+  diseases: SmokingEffectEntry[]
+  /** Optional hero figure — usually the "what's in cigarette smoke" diagram. */
+  heroImage?: string
+  heroImageSource?: Bilingual
 }

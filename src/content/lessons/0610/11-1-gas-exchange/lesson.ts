@@ -115,6 +115,87 @@ const lesson: Lesson = {
       },
       syllabus: ['0610.11.1.11'],
     },
+    {
+      en: 'aerobic respiration',
+      zh: '有氧呼吸',
+      definition: {
+        en: 'Releasing energy from glucose with oxygen. The full reaction — glucose + oxygen → carbon dioxide + water — releases about 32 ATP per glucose, against 2 from anaerobic respiration.',
+        zh: '在有氧条件下从葡萄糖释放能量。完整反应——葡萄糖+氧→二氧化碳+水——每分子葡萄糖释放约 32 个 ATP，而无氧呼吸只产生 2 个。',
+      },
+      syllabus: ['0610.12.1.1', '0610.12.1.2'],
+    },
+    {
+      en: 'trachea',
+      zh: '气管',
+      definition: {
+        en: 'The main airway running from the larynx down to where it splits into the two bronchi. Rings of cartilage keep it open against the pressure changes of breathing.',
+        zh: '从喉部向下到分为两条支气管处的主气道。软骨的环状结构使它在呼吸的压力变化下保持张开。',
+      },
+      syllabus: ['0610.11.1.2'],
+    },
+    {
+      en: 'bronchus',
+      zh: '支气管',
+      definition: {
+        en: 'One of the two airways that branch from the trachea, one to each lung. Each bronchus then branches into smaller and smaller bronchioles.',
+        zh: '从气管分出的两条气道之一，各进入一侧肺。每条支气管再不断分支成越来越小的细支气管。',
+      },
+      syllabus: ['0610.11.1.3'],
+    },
+    {
+      en: 'bronchiole',
+      zh: '细支气管',
+      definition: {
+        en: 'A small airway that branches off a bronchus, ending in a cluster of alveoli. Its wall is mostly smooth muscle and lacks the cartilage rings of the trachea.',
+        zh: '从支气管分出的小气道，末端连接一团肺泡。其管壁主要是平滑肌，没有气管那样的软骨环。',
+      },
+      syllabus: ['0610.11.1.4'],
+    },
+    {
+      en: 'cilium',
+      zh: '纤毛',
+      definition: {
+        en: 'A tiny hair-like extension on the surface of a ciliated cell. Cilia lining the airways beat in a synchronised wave, sweeping the layer of mucus (and the dust and pathogens trapped in it) up towards the throat to be swallowed.',
+        zh: '纤毛细胞表面的微小毛状突起。气道内的纤毛同步摆动，把黏液层（以及被黏液粘住的灰尘和病原体）向上扫向喉咙，然后被吞下。',
+      },
+      syllabus: ['0610.11.1.10'],
+    },
+    {
+      en: 'mucus',
+      zh: '黏液',
+      definition: {
+        en: 'Sticky secretion produced by goblet cells in the airway lining. It traps dust, soot and pathogens from the incoming air so that they can be swept back out by the cilia.',
+        zh: '由气道内衬的杯状细胞分泌的黏性物质。它把吸入空气中的灰尘、煤烟和病原体粘住，再由纤毛扫出去。',
+      },
+      syllabus: ['0610.11.1.9'],
+    },
+    {
+      en: 'nicotine',
+      zh: '烟碱（尼古丁）',
+      definition: {
+        en: 'The addictive stimulant in cigarette smoke. It makes the smoker feel alert, narrows the small blood vessels, raises blood pressure, and is the reason smokers find it so hard to stop.',
+        zh: '香烟烟雾中的成瘾性兴奋剂。它让吸烟者感到警觉，使小血管变窄，升高血压，也是吸烟者戒烟如此困难的原因。',
+      },
+      syllabus: ['0610.11.2.1'],
+    },
+    {
+      en: 'carbon monoxide',
+      zh: '一氧化碳',
+      definition: {
+        en: 'A poisonous gas in cigarette smoke. It binds to haemoglobin in red blood cells and stops it carrying oxygen, which is especially harmful to a developing baby.',
+        zh: '香烟烟雾中的有毒气体。它与红细胞中的血红蛋白结合，使其无法携带氧气，这对发育中的胎儿尤其有害。',
+      },
+      syllabus: ['0610.11.2.3'],
+    },
+    {
+      en: 'emphysema',
+      zh: '肺气肿',
+      definition: {
+        en: 'A lung disease in which the walls of the alveoli break down, so the air spaces merge into fewer, larger ones with less total surface area. Gas exchange becomes inefficient, and a person with emphysema gets out of breath walking across a room.',
+        zh: '一种肺病——肺泡壁破裂，使许多小气腔合并成少数大气腔，总表面积减小。气体交换效率下降，肺气肿患者走几步路就会气喘。',
+      },
+      syllabus: ['0610.11.2.5'],
+    },
   ],
 
   equations: [
@@ -417,6 +498,463 @@ const lesson: Lesson = {
         en: 'This is the enzyme curve again, in a new setting. Respiration is a series of enzyme-controlled reactions, so it has the same optimum and the same collapse.',
         zh: '这又是酶的曲线，只是换了场景。呼吸作用是一系列由酶控制的反应，因此有同样的最适点和同样的骤降。',
       },
+    },
+  ],
+
+  // Visual / interactive learning modules for Chapter 3 (B8 Gas exchange and
+  // respiration). See src/content/types.ts for the `LessonExtra` shape.
+  // Each module uses a real figure extracted from the G8 PDF so the student
+  // sees the textbook picture, not a hand-drawn approximation.
+  extras: [
+    // 1) Aerobic vs anaerobic — side-by-side compare with the three word
+    //    equations underneath. The "32 vs 2 ATP" line is the most-cited fact
+    //    from this chapter and earns its own panel.
+    {
+      type: 'respiration-compare',
+      id: 'respiration',
+      title: { en: 'Aerobic vs anaerobic respiration', zh: '有氧 vs 无氧呼吸' },
+      hint: {
+        en: 'Same idea on both sides: what the cell is doing. The difference is what it has to do it with — and what it has to throw away afterwards.',
+        zh: '两边都是同一个核心问题：细胞在做什么。区别只在于用什么做、做完留下什么。',
+      },
+      rows: [
+        {
+          id: 'oxygen',
+          label: { en: 'Oxygen', zh: '氧气' },
+          aerobic: {
+            en: 'Required. Glucose is broken down completely into CO₂ and water.',
+            zh: '必需。葡萄糖被彻底分解为 CO₂ 和水。',
+          },
+          anaerobic: {
+            en: 'Not used. The cell breaks glucose down only partway, leaving a product that still holds energy (lactic acid in muscle, ethanol in yeast).',
+            zh: '不参与。细胞只把葡萄糖部分分解，产物仍含有能量（肌肉里是乳酸，酵母里是乙醇）。',
+          },
+        },
+        {
+          id: 'atp',
+          label: { en: 'ATP per glucose', zh: '每分子葡萄糖的 ATP' },
+          aerobic: {
+            en: 'About 32. A glucose molecule is fully oxidised, and most of its bond energy is captured.',
+            zh: '约 32。葡萄糖分子被完全氧化，大部分键能被捕获。',
+          },
+          anaerobic: {
+            en: 'About 2. Most of the energy stays locked inside the lactic acid or ethanol — which is why anaerobic respiration has to be "paid back" afterwards (the oxygen debt).',
+            zh: '约 2。大部分能量仍锁在乳酸或乙醇里——这就是为什么无氧呼吸之后需要"偿还"（氧债）。',
+          },
+        },
+        {
+          id: 'products',
+          label: { en: 'Products', zh: '产物' },
+          aerobic: {
+            en: 'Carbon dioxide and water. Both are easy for the body to get rid of.',
+            zh: '二氧化碳和水。两者都易于被身体排出。',
+          },
+          anaerobic: {
+            en: 'Lactic acid in muscle (causes the burn and fatigue), or ethanol and CO₂ in yeast (used in bread and brewing).',
+            zh: '肌肉里是乳酸（造成酸胀和疲劳），酵母里是乙醇和 CO₂（用于面包和酿酒）。',
+          },
+        },
+        {
+          id: 'where',
+          label: { en: 'Where it happens', zh: '发生在哪里' },
+          aerobic: {
+            en: 'In every living cell, all the time — as long as oxygen is being delivered. Mitochondria are the main site.',
+            zh: '在每个活细胞中持续进行——只要有氧送达。线粒体是主要场所。',
+          },
+          anaerobic: {
+            en: 'Only when oxygen cannot keep up: a hard sprint, holding the breath, sudden heavy lifting. Some organisms (yeast, many bacteria) do it all the time.',
+            zh: '只在氧跟不上时发生：全力冲刺、憋气、突发大力举重。有些生物（酵母、许多细菌）则一直进行无氧呼吸。',
+          },
+        },
+        {
+          id: 'atp-use',
+          label: { en: 'What the ATP is for', zh: 'ATP 用来做什么' },
+          aerobic: {
+            en: 'Movement (muscle contraction), active transport, building large molecules, cell division, maintaining body temperature.',
+            zh: '运动（肌肉收缩）、主动运输、合成大分子、细胞分裂、维持体温。',
+          },
+          anaerobic: {
+            en: 'Movement only — the short burst of energy that gets a sprinter off the blocks, for example.',
+            zh: '仅用于运动——例如让短跑选手冲过起跑线的那一刹那的爆发。',
+          },
+        },
+      ],
+      equations: [
+        {
+          id: 'aerobic',
+          kind: 'aerobic',
+          latex: 'C₆H₁₂O₆ + 6 O₂  →  6 CO₂ + 6 H₂O',
+          meaning: {
+            en: 'Aerobic respiration. The reverse of photosynthesis, atom for atom — and about 32 ATP per glucose.',
+            zh: '有氧呼吸。逐个原子来看，正是光合作用的逆过程——每分子葡萄糖约产生 32 个 ATP。',
+          },
+        },
+        {
+          id: 'anaerobic-muscle',
+          kind: 'anaerobic-muscle',
+          latex: 'C₆H₁₂O₆  →  2 C₃H₆O₃',
+          meaning: {
+            en: 'Anaerobic in muscle: glucose → lactic acid. The lactic acid is what makes the muscle burn.',
+            zh: '肌肉中的无氧呼吸：葡萄糖 → 乳酸。乳酸就是肌肉酸胀的来源。',
+          },
+        },
+        {
+          id: 'anaerobic-yeast',
+          kind: 'anaerobic-yeast',
+          latex: 'C₆H₁₂O₆  →  2 C₂H₅OH + 2 CO₂',
+          meaning: {
+            en: 'Anaerobic in yeast: glucose → ethanol + CO₂. The CO₂ makes bread rise and fermenting drinks fizzy.',
+            zh: '酵母中的无氧呼吸：葡萄糖 → 乙醇 + CO₂。CO₂ 让面包蓬松，让发酵中的饮料冒泡。',
+          },
+        },
+      ],
+      source: {
+        en: 'G8 Science · p.50, Section B8.01, the three word equations',
+        zh: 'G8 教材·第 50 页 B8.01 节，三个文字表达式',
+      },
+    },
+
+    // 2) The gas-exchange system in one picture — 12 hotspots over the G8
+    //    Figure B8.01, with "follow the air" mode animating the breath
+    //    through the airways.
+    {
+      type: 'airway-pathway',
+      id: 'airways',
+      title: { en: 'The gas-exchange system, in one picture', zh: '一张图看气体交换系统' },
+      hint: {
+        en: 'Click any part of the breathing system. "Follow the air" animates a breath larynx → trachea → bronchus → bronchiole → alveoli.',
+        zh: '点击呼吸系统任一结构。点"跟着空气走一遍"会动画演示一缕空气从喉→气管→支气管→细支气管→肺泡的旅程。',
+      },
+      initialPart: 'larynx',
+      parts: [
+        {
+          id: 'larynx',
+          name: { en: 'larynx', zh: '喉' },
+          description: {
+            en: 'The "voice box" at the top of the trachea. It contains the vocal cords, which vibrate as air passes through to make sound. It also has a flap (the epiglottis) that closes over the trachea when you swallow, so food goes down the oesophagus and not into the lungs.',
+            zh: '位于气管顶部的"喉头"。内有声带，气流通过时振动发声。还有一片会厌盖，吞咽时盖住气管，让食物进的是食道而不是肺。',
+          },
+          stop: 1,
+        },
+        {
+          id: 'trachea',
+          name: { en: 'trachea (windpipe)', zh: '气管' },
+          description: {
+            en: 'The main airway from the larynx down to where it splits into the two bronchi. C-shaped rings of cartilage keep it open against the pressure changes of breathing; the open back lets the oesophagus bulge in when a bolus of food passes down.',
+            zh: '从喉向下到分为两条支气管处的主气道。C 形软骨环在呼吸压力变化下保持气管张开；背面不封口，让食团通过时食道可以向内凸出。',
+          },
+          stop: 2,
+        },
+        {
+          id: 'left-bronchus',
+          name: { en: 'left bronchus', zh: '左主支气管' },
+          description: {
+            en: 'One of two airways branching from the bottom of the trachea, one to each lung. The right bronchus is wider and more vertical than the left — which is also why an inhaled object usually ends up in the right lung.',
+            zh: '气管底部分出的两条气道之一，各通入一侧肺。右支气管比左支气管更粗、更垂直——这也是误吸的异物通常进入右肺的原因。',
+          },
+          stop: 3,
+        },
+        {
+          id: 'bronchiole',
+          name: { en: 'bronchiole', zh: '细支气管' },
+          description: {
+            en: 'A smaller airway inside the lung, branching off a bronchus. Its wall is mostly smooth muscle, with no cartilage rings, so it can constrict (in an asthma attack, for example) and cut off airflow. Each bronchiole ends in a cluster of alveoli.',
+            zh: '肺内由支气管分出的小气道。管壁以平滑肌为主，没有软骨环，因此会收缩（譬如哮喘发作时）切断气流。每条细支气管末端连着一团肺泡。',
+          },
+          stop: 4,
+        },
+        {
+          id: 'alveoli',
+          name: { en: 'alveoli (air sacs)', zh: '肺泡' },
+          description: {
+            en: 'Hundreds of millions of tiny air sacs at the end of the bronchioles. Their walls are one cell thick and wrapped in capillaries, which is what makes them such an effective gas-exchange surface. The total surface area is roughly the size of a tennis court.',
+            zh: '细支气管末端数亿个微小的气囊。壁仅一个细胞厚，外面缠绕着毛细血管——这正是它们成为高效气体交换表面的原因。肺泡总表面积约有一个网球场大小。',
+          },
+          stop: 5,
+        },
+        {
+          id: 'left-lung',
+          name: { en: 'left lung', zh: '左肺' },
+          description: {
+            en: 'One of the two lungs. The left lung is slightly smaller than the right because the heart sits to the left of the centre line, taking up some of the space. The lung is divided into lobes: two on the left, three on the right.',
+            zh: '两肺之一。由于心脏偏左，左肺比右肺略小。肺由肺叶组成：左肺两叶，右肺三叶。',
+          },
+        },
+        {
+          id: 'ribs',
+          name: { en: 'ribs', zh: '肋骨' },
+          description: {
+            en: 'Twelve pairs of curved bones that form a cage around the heart and lungs. During breathing, the rib cage is pulled upwards and outwards by the external intercostal muscles, increasing the volume of the thorax so air is drawn in.',
+            zh: '围绕心肺的十二对弧形骨骼。呼吸时，肋间外肌把肋骨架向上向外拉，使胸腔容积增大，吸入空气。',
+          },
+        },
+        {
+          id: 'external-intercostal',
+          name: { en: 'external intercostal muscle', zh: '肋间外肌' },
+          description: {
+            en: 'The outer layer of muscle between the ribs. When it contracts, it pulls the rib cage up and out — the start of breathing in.',
+            zh: '肋间的外层肌肉。收缩时把肋骨架向上向外拉——吸气的起点。',
+          },
+        },
+        {
+          id: 'internal-intercostal',
+          name: { en: 'internal intercostal muscle', zh: '肋间内肌' },
+          description: {
+            en: 'The inner layer of muscle between the ribs. When it contracts, it pulls the rib cage down and in — driving forced breathing out. (Quiet breathing out is mostly passive recoil.)',
+            zh: '肋间的内层肌肉。收缩时把肋骨架向下向内拉——驱动用力呼气。（安静呼气主要靠被动回弹。）',
+          },
+        },
+        {
+          id: 'pleural-membranes',
+          name: { en: 'pleural membranes', zh: '胸膜' },
+          description: {
+            en: 'Two thin membranes around each lung, with a thin film of pleural fluid between them. The fluid acts as a lubricant and also makes the two membranes stick together, so the lungs are pulled outwards as the rib cage expands.',
+            zh: '每侧肺外的两层薄膜，两层之间有薄薄一层胸膜液。液体起润滑作用，也让两层膜黏合在一起，于是肋骨架扩张时肺被一起向外拉。',
+          },
+        },
+        {
+          id: 'heart',
+          name: { en: 'heart', zh: '心脏' },
+          description: {
+            en: 'Sits in the middle of the thorax, between the two lungs, slightly to the left. Its right side pumps blood through the lungs to pick up oxygen; its left side pumps that oxygenated blood out to the rest of the body.',
+            zh: '位于胸腔中央、两肺之间，略偏左。右半部分把血泵到肺里取氧，左半部分把含氧血泵往全身。',
+          },
+        },
+        {
+          id: 'diaphragm',
+          name: { en: 'diaphragm', zh: '膈' },
+          description: {
+            en: 'A sheet of muscle below the lungs, dome-shaped at rest. When it contracts, it flattens — and the volume of the thorax increases, drawing air in. Relax, and the dome returns, pushing air out again.',
+            zh: '肺下方一片肌肉，静息时呈穹顶状。收缩时变平——胸腔容积增大，吸入空气。放松后穹顶复原，空气被推出。',
+          },
+        },
+      ],
+    },
+
+    // 3) The four features that make the alveolus a good gas-exchange
+    //    surface, one card per feature, with real figures.
+    {
+      type: 'gas-exchange-features',
+      id: 'features',
+      title: { en: 'Why the alveolus is so good at gas exchange', zh: '为什么肺泡的气体交换效率那么高' },
+      hint: {
+        en: 'Each card names one of the four features the syllabus gives, shows the figure that demonstrates it, and explains why it matters.',
+        zh: '每张卡片讲考纲中点名的四项特征之一，配以图示并说明为何重要。',
+      },
+      features: [
+        {
+          id: 'large-surface-area',
+          term: { en: 'Large surface area', zh: '大表面积' },
+          mechanism: {
+            en: 'Hundreds of millions of alveoli, each a tiny sphere. Spheres have the lowest surface-area-to-volume ratio of any shape — but with hundreds of millions of them, the *total* surface is enormous, roughly the area of a tennis court.',
+            zh: '数亿个微小的球形肺泡。球形是各种形状中表面积/体积比最低的——但几亿个加在一起，*总*表面积巨大，约有一个网球场。',
+          },
+          clinical: {
+            en: 'Any disease that destroys alveolar walls (emphysema) cuts this surface area down and gas exchange suffers. That is why a person with emphysema gets out of breath walking across a room.',
+            zh: '任何破坏肺泡壁的疾病（如肺气肿）都会减少表面积，气体交换因而受损。这就是肺气肿患者走几步路就气喘的原因。',
+          },
+          image: '/figures/g8/11-1-gas-exchange/figure-b8-02.png',
+          imageSource: { en: 'G8 Science · p.37, Figure B8.02 — alveoli at the end of a bronchiole', zh: 'G8 教材·第 37 页图 B8.02——细支气管末端的肺泡' },
+        },
+        {
+          id: 'thin-wall',
+          term: { en: 'Thin wall (one cell thick)', zh: '壁薄（单层细胞）' },
+          mechanism: {
+            en: 'The alveolar wall is just one cell thick, and so is the wall of the capillary wrapped around it. The gas has only two cells to cross — by diffusion, a tiny distance.',
+            zh: '肺泡壁仅一个细胞厚，包裹它的毛细血管壁也只有一个细胞厚。气体只需穿过两层细胞——靠扩散，距离极短。',
+          },
+          clinical: {
+            en: 'Anything that thickens these walls (inflammation, fluid, fibrosis) makes diffusion slower. Pores on the alveolar surface let the surfactant layer spread, which keeps the wall thin in a healthy lung.',
+            zh: '任何让壁变厚的情况（炎症、液体潴留、纤维化）都会让扩散变慢。肺泡表面的孔让表面活性剂层铺开，使健康肺的壁保持薄。',
+          },
+          image: '/figures/g8/11-1-gas-exchange/figure-b8-04.png',
+          imageSource: { en: 'G8 Science · p.39, Figure B8.04 — alveolus with red cells in the capillary', zh: 'G8 教材·第 39 页图 B8.04——肺泡与毛细血管内的红细胞' },
+        },
+        {
+          id: 'good-blood-supply',
+          term: { en: 'Good blood supply', zh: '血液供应充足' },
+          mechanism: {
+            en: 'A dense network of capillaries wraps every alveolus. As soon as a red blood cell gives up its oxygen, another one arrives; the concentration gradient is constantly refreshed, so diffusion never slows down for lack of unsaturated blood.',
+            zh: '致密的毛细血管网包绕每个肺泡。一个红细胞刚交出氧气，新的就到来；浓度梯度不断刷新，扩散不会因为缺少未饱和血而减慢。',
+          },
+          clinical: {
+            en: 'During exercise the heart pumps harder and faster, sending more blood through these capillaries per minute. That is the body\'s way of raising the rate of gas exchange to meet demand.',
+            zh: '运动时心脏泵得更猛更快，每分钟流经这些毛细血管的血量增大。这是身体提高气体交换速率以满足需求的方式。',
+          },
+          image: '/figures/g8/11-1-gas-exchange/figure-b8-04.png',
+          imageSource: { en: 'G8 Science · p.39, Figure B8.04 — red cells in the capillary around the alveolus', zh: 'G8 教材·第 39 页图 B8.04——肺泡周围毛细血管内的红细胞' },
+        },
+        {
+          id: 'moist-surface',
+          term: { en: 'Moist surface', zh: '湿润的表面' },
+          mechanism: {
+            en: 'The alveolar surface is coated with a thin film of moisture. Gases dissolve in this film before they diffuse across — oxygen dissolves on the air side and comes off on the blood side, carbon dioxide the other way around.',
+            zh: '肺泡表面覆有一层薄薄的水膜。气体在扩散前先溶入这层液膜——氧气在空气侧溶入，在血液侧释出；二氧化碳反之。',
+          },
+          clinical: {
+            en: 'A surfactant layer on the inside of the alveolus lowers the surface tension, keeping the alveolus open and the wall thin. Premature babies who have not yet made enough surfactant cannot keep their alveoli open — a condition called neonatal respiratory distress syndrome.',
+            zh: '肺泡内表面的表面活性剂层降低表面张力，使肺泡保持张开、壁保持薄。早产儿因尚未合成足量表面活性剂，无法维持肺泡张开——这就是新生儿呼吸窘迫综合征。',
+          },
+          image: '/figures/g8/11-1-gas-exchange/figure-b8-05.png',
+          imageSource: { en: 'G8 Science · p.40, Figure B8.05 — diffusion across the moist alveolar wall', zh: 'G8 教材·第 40 页图 B8.05——气体穿越湿润的肺泡壁' },
+        },
+      ],
+    },
+
+    // 4) Smoking — substances in the smoke + the diseases they cause.
+    {
+      type: 'smoking-effects',
+      id: 'smoking',
+      title: { en: 'What smoking does to the body', zh: '吸烟对身体的影响' },
+      hint: {
+        en: 'The first half is what is in cigarette smoke. The second half is what those substances do once they reach the body.',
+        zh: '前一部分是香烟烟雾里含什么。后一部分是这些物质进入体内后会做什么。',
+      },
+      heroImage: '/figures/g8/11-1-gas-exchange/figure-b8-07.png',
+      heroImageSource: {
+        en: 'G8 Science · p.45, Figure B8.07 — the four substances in cigarette smoke',
+        zh: 'G8 教材·第 45 页图 B8.07——香烟烟雾中的四种物质',
+      },
+      substances: [
+        {
+          id: 'nicotine',
+          term: { en: 'nicotine', zh: '尼古丁' },
+          mechanism: {
+            en: 'The addictive substance in tobacco. Within seconds of inhaling, nicotine reaches the brain and triggers dopamine release. The brain rewires itself around this reward signal, so absence of nicotine causes withdrawal — irritability, anxiety, poor concentration. Nicotine also narrows small blood vessels and raises blood pressure.',
+            zh: '烟草中的成瘾物质。吸入后几秒内即达脑部，触发多巴胺释放。大脑围绕这一奖赏信号重新布线，缺少尼古丁就出现戒断反应——烦躁、焦虑、注意力下降。尼古丁还会收缩小血管、升高血压。',
+          },
+          clinical: {
+            en: 'A regular smoker feels alert soon after a cigarette and edgy before the next one. The narrowing of blood vessels is what makes fingers and toes feel cold, and over years contributes to coronary heart disease.',
+            zh: '规律吸烟者抽完烟后会感到清醒，到下一次前又会焦躁。血管收缩使手脚冰凉，积年累月则促成冠心病。',
+          },
+          image: '/figures/g8/11-1-gas-exchange/figure-b8-07.png',
+          imageSource: {
+            en: 'G8 Science · p.45, Figure B8.07 — "Nicotine is addictive"',
+            zh: 'G8 教材·第 45 页图 B8.07——"尼古丁令人成瘾"',
+          },
+        },
+        {
+          id: 'tar',
+          term: { en: 'tar', zh: '焦油' },
+          mechanism: {
+            en: 'A sticky brown residue that settles on the lining of the airways. It contains dozens of chemicals that damage DNA, including benzo[a]pyrene — one of the most potent cancer-causing substances known. The cilia that would normally sweep it out are paralysed by it.',
+            zh: '黏稠的褐色残留物，沉积在气道内壁。其中含有数十种损伤 DNA 的化学物质，包括苯并[a]芘——已知最强的致癌物之一。本应把它扫出去的纤毛反被它瘫痪。',
+          },
+          clinical: {
+            en: 'Tar stains the fingers and teeth yellow-brown, and accumulates in the lungs of a smoker as a dark sticky layer. A long-term smoker\'s lungs are visibly blackened on dissection.',
+            zh: '焦油把手指和牙齿染成黄褐色，在吸烟者肺里积成黑色黏层。长期吸烟者的肺在解剖时呈明显黑色。',
+          },
+          image: '/figures/g8/11-1-gas-exchange/figure-b8-07.png',
+          imageSource: {
+            en: 'G8 Science · p.45, Figure B8.07 — "Tar causes lung cancer"',
+            zh: 'G8 教材·第 45 页图 B8.07——"焦油引起肺癌"',
+          },
+        },
+        {
+          id: 'carbon-monoxide',
+          term: { en: 'carbon monoxide', zh: '一氧化碳' },
+          mechanism: {
+            en: 'A poisonous gas that binds to haemoglobin about 200 times more tightly than oxygen does. The haemoglobin occupied by carbon monoxide cannot carry oxygen — so the smoker\'s blood effectively has a lower oxygen-carrying capacity. In pregnancy, the same effect starves the developing baby of oxygen.',
+            zh: '有毒气体，与血红蛋白的结合力约为氧气的 200 倍。被一氧化碳占据的血红蛋白无法运氧——吸烟者的血液实际运氧能力下降。孕期母亲血液的同样效应会让发育中的胎儿缺氧。',
+          },
+          clinical: {
+            en: 'A heavy smoker can have 10% of their haemoglobin occupied by carbon monoxide — equivalent to mild anaemia. Babies of smoking mothers are, on average, born 200 g lighter than those of non-smokers.',
+            zh: '重度吸烟者可能有 10% 的血红蛋白被一氧化碳占据——相当于轻度贫血。吸烟母亲的婴儿平均比不吸烟母亲的轻 200 克。',
+          },
+          image: '/figures/g8/11-1-gas-exchange/figure-b8-07.png',
+          imageSource: {
+            en: 'G8 Science · p.45, Figure B8.07 — "Carbon monoxide reduces the oxygen-carrying capacity"',
+            zh: 'G8 教材·第 45 页图 B8.07——"一氧化碳降低血液的运氧能力"',
+          },
+        },
+        {
+          id: 'particulates',
+          term: { en: 'particulates', zh: '颗粒物' },
+          mechanism: {
+            en: 'Tiny solid particles carried in the smoke. They are small enough to reach the alveoli themselves, where they scratch and inflame the delicate walls, and add to the chemical load that the alveolar macrophages have to clear.',
+            zh: '烟雾中夹带的微小固体颗粒。它们小到能直达肺泡，划伤并刺激脆弱的肺泡壁，加重肺泡巨噬细胞必须清除的化学负荷。',
+          },
+          clinical: {
+            en: 'The chronic inflammation from particulates is part of why smokers cough — the lung is trying to dislodge material it cannot clear. Long term, it contributes to chronic bronchitis and emphysema.',
+            zh: '颗粒物引起的慢性炎症是吸烟者咳嗽的部分原因——肺试图排清它无法清除的物质。长期下来会引发慢性支气管炎和肺气肿。',
+          },
+          image: '/figures/g8/11-1-gas-exchange/figure-b8-07.png',
+          imageSource: {
+            en: 'G8 Science · p.45, Figure B8.07 — "Particulates damage lung surfaces"',
+            zh: 'G8 教材·第 45 页图 B8.07——"颗粒物损伤肺表面"',
+          },
+        },
+      ],
+      diseases: [
+        {
+          id: 'chronic-bronchitis',
+          term: { en: 'chronic bronchitis', zh: '慢性支气管炎' },
+          mechanism: {
+            en: 'Cigarette smoke paralyses the cilia that line the airways and inflames the goblet cells, which respond by secreting more mucus. With the escalator stopped, the mucus pools, and the only way to clear it is by coughing. Persistent coughing that brings up mucus for at least three months a year is chronic bronchitis.',
+            zh: '香烟烟雾让气道纤毛瘫痪、刺激杯状细胞，杯状细胞则以分泌更多黏液应对。自动梯停转后黏液淤积，唯一的清除方式就是咳嗽。每年至少三个月持续咳出黏液，就是慢性支气管炎。',
+          },
+          clinical: {
+            en: 'A persistent, productive cough, especially in the morning. Breathlessness on exertion, frequent chest infections. Lung tissue itself is intact at first, but the chronic inflammation sets the stage for emphysema later.',
+            zh: '持续性、伴有咳痰的咳嗽（尤其在早晨）。活动时气短，胸腔感染反复发作。早期肺组织本身完好，但慢性炎症为日后肺气肿埋下伏笔。',
+          },
+          image: '/figures/g8/11-1-gas-exchange/figure-b8-08.png',
+          imageSource: {
+            en: 'G8 Science · p.47, Figure B8.08 — cilia and mucus in healthy airway',
+            zh: 'G8 教材·第 47 页图 B8.08——健康气道中的纤毛与黏液',
+          },
+        },
+        {
+          id: 'emphysema',
+          term: { en: 'emphysema', zh: '肺气肿' },
+          mechanism: {
+            en: 'The inflammatory response to years of smoke digests the alveolar walls. Many small air sacs merge into a few large ones, so total surface area for gas exchange falls. The lungs also lose their elastic recoil — expelling air becomes a real effort.',
+            zh: '多年烟雾引发的炎症反应消化了肺泡壁。许多小气腔合并为几个大气腔，气体交换的总表面积减少。肺也失去弹性回缩力——呼气变得费力。',
+          },
+          clinical: {
+            en: 'A person with emphysema gets out of breath walking across a room. The chest becomes barrel-shaped — held in the expanded position because the lungs can no longer empty. Under a microscope, the spongy mesh of alveoli is replaced by large empty holes.',
+            zh: '肺气肿患者走几步路就气喘。胸廓变成桶状——因为肺无法再排空而保持在扩张位。显微镜下，原本蜂窝状的肺泡被大空洞取代。',
+          },
+          image: '/figures/g8/11-1-gas-exchange/image-b8-03.png',
+          imageSource: {
+            en: 'G8 Science · p.46, Image B8.03 — (a) healthy lung (b) emphysema lung',
+            zh: 'G8 教材·第 46 页图 B8.03——(a) 健康肺 (b) 肺气肿肺',
+          },
+        },
+        {
+          id: 'lung-cancer',
+          term: { en: 'lung cancer', zh: '肺癌' },
+          mechanism: {
+            en: 'Tar carries dozens of carcinogens onto the lining of the bronchi. Most DNA damage is repaired, but if a mutation in a gene that controls cell division survives, the cell begins to divide out of control. The resulting tumour grows into the airway, can spread to other parts of the body, and is usually fatal if not caught early.',
+            zh: '焦油把数十种致癌物带到支气管内壁。多数 DNA 损伤会被修复，但若控制细胞分裂的某个基因上有一个突变逃过修复，细胞就会失控分裂。形成的肿瘤长入气道，可转移到身体其他部位；除非早期发现，否则通常致命。',
+          },
+          clinical: {
+            en: 'A cough that does not go away, coughing up blood, breathlessness, chest pain, unexplained weight loss. The risk for a smoker is many times that of a non-smoker, and is roughly proportional to the number of cigarettes per day times the number of years smoked.',
+            zh: '久咳不愈、咳血、气短、胸痛、不明原因消瘦。吸烟者的风险是不吸烟者的若干倍，并与"每天支数 × 吸烟年数"大致成正比。',
+          },
+          image: '/figures/g8/11-1-gas-exchange/figure-b8-07.png',
+          imageSource: {
+            en: 'G8 Science · p.45, Figure B8.07 — tar as the cancer-causing substance',
+            zh: 'G8 教材·第 45 页图 B8.07——焦油作为致癌物',
+          },
+        },
+        {
+          id: 'coronary-heart-disease',
+          term: { en: 'coronary heart disease', zh: '冠心病' },
+          mechanism: {
+            en: 'Nicotine narrows the small blood vessels and raises blood pressure. Carbon monoxide reduces the blood\'s oxygen-carrying capacity, so the heart has to work harder to deliver the same oxygen. The damage to the lining of the coronary arteries also lets fatty deposits build up faster. The combination puts smokers at much higher risk of a heart attack than non-smokers.',
+            zh: '尼古丁收缩小血管、升高血压。一氧化碳降低血液运氧能力，心脏必须更努力工作才能输送等量氧气。冠状动脉内壁的损伤也加速脂肪沉积。这些因素叠加，使吸烟者心脏病发作的风险远高于不吸烟者。',
+          },
+          clinical: {
+            en: 'Chest pain on exertion (angina), breathlessness, and — in the worst case — a heart attack when a coronary artery becomes completely blocked. The risk drops within a year of stopping smoking, and after ten years is back close to that of a non-smoker.',
+            zh: '用力时胸痛（心绞痛）、气短，最坏的情况是冠状动脉完全阻塞引发心肌梗塞。戒烟一年内风险即开始下降，十年后接近不吸烟者水平。',
+          },
+          image: '/figures/g8/11-1-gas-exchange/figure-b8-07.png',
+          imageSource: {
+            en: 'G8 Science · p.45, Figure B8.07 — nicotine, tar, and CO all contribute',
+            zh: 'G8 教材·第 45 页图 B8.07——尼古丁、焦油、一氧化碳共同作用',
+          },
+        },
+      ],
     },
   ],
 }

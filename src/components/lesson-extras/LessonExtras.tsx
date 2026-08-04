@@ -14,6 +14,10 @@ import { HeartAnatomy } from './HeartAnatomy'
 import { BloodComponents } from './BloodComponents'
 import { BloodVesselsCompare } from './BloodVesselsCompare'
 import { DoubleCirculation } from './DoubleCirculation'
+import { RespirationCompare } from './RespirationCompare'
+import { AirwayPathway } from './AirwayPathway'
+import { GasExchangeFeatures } from './GasExchangeFeatures'
+import { SmokingEffects } from './SmokingEffects'
 
 /**
  * Dispatches the lesson's `extras` to the right component.
@@ -80,5 +84,13 @@ function renderExtra(extra: LessonExtra) {
       return <BloodVesselsCompare extra={extra} />
     case 'double-circulation':
       return <DoubleCirculation extra={extra} />
+    case 'respiration-compare':
+      return <RespirationCompare extra={extra} />
+    case 'airway-pathway':
+      return <AirwayPathway extra={extra} />
+    case 'gas-exchange-features':
+      return <GasExchangeFeatures extra={extra} />
+    case 'smoking-effects':
+      return <SmokingEffects extra={extra} />
   }
 }
