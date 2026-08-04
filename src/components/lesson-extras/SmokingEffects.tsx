@@ -1,6 +1,7 @@
 import { T } from '@/components/i18n/T'
 import type { SmokingEffectsExtra, SmokingEffectEntry } from '@/content/types'
 import { SMOKING_EFFECTS } from '@/lib/lessonExtrasStrings'
+import { assetUrl } from '@/lib/assetUrl'
 
 /**
  * The harm smoking does, in two halves.
@@ -74,7 +75,7 @@ function EffectCard({ entry }: { entry: SmokingEffectEntry }) {
     >
       <figure className="m-0">
         <img
-          src={entry.image}
+          src={assetUrl(entry.image)}
           alt={entry.term.en}
           className="h-40 w-full bg-canvas object-contain"
           loading="lazy"

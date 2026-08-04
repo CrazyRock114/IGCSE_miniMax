@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { Bilingual, DoubleCirculationExtra } from '@/content/types'
 import { T } from '@/components/i18n/T'
 import { DOUBLE_CIRCULATION } from '@/lib/lessonExtrasStrings'
+import { assetUrl } from '@/lib/assetUrl'
 
 /**
  * The double circulation as two horizontal loops, with a base image above.
@@ -24,7 +25,7 @@ export function DoubleCirculation({ extra }: { extra: DoubleCirculationExtra }) 
   return (
     <div className="space-y-4">
       <figure className="m-0 overflow-hidden rounded-lg border border-line bg-canvas">
-        <img src={extra.image} alt="The double circulation of a human" className="h-auto w-full" loading="lazy" />
+        <img src={assetUrl(extra.image)} alt="The double circulation of a human" className="h-auto w-full" loading="lazy" />
         <figcaption className="border-t border-line bg-canvas px-3 py-1.5 text-[11px] text-muted">
           <T value={extra.imageSource} />
         </figcaption>

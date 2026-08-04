@@ -1,5 +1,6 @@
 import { T } from '@/components/i18n/T'
 import type { DiseaseCardsExtra } from '@/content/types'
+import { assetUrl } from '@/lib/assetUrl'
 
 /**
  * A grid of disease / deficiency cards. Each card is a small clinical
@@ -27,7 +28,7 @@ export function DiseaseCards({ extra }: { extra: DiseaseCardsExtra }) {
         >
           <figure className="m-0">
             <img
-              src={c.image}
+              src={assetUrl(c.image)}
               alt={c.term.en}
               className="h-44 w-full bg-canvas object-cover"
               loading="lazy"

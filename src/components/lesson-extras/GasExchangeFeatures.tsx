@@ -1,6 +1,7 @@
 import { T } from '@/components/i18n/T'
 import type { GasExchangeFeaturesExtra } from '@/content/types'
 import { GAS_EXCHANGE_FEATURES } from '@/lib/lessonExtrasStrings'
+import { assetUrl } from '@/lib/assetUrl'
 
 /**
  * The four features that make the alveolus an efficient gas-exchange
@@ -22,7 +23,7 @@ export function GasExchangeFeatures({ extra }: { extra: GasExchangeFeaturesExtra
         >
           <figure className="m-0">
             <img
-              src={f.image}
+              src={assetUrl(f.image)}
               alt={f.term.en}
               className="h-44 w-full bg-canvas object-contain"
               loading="lazy"

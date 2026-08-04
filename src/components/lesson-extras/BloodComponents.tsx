@@ -1,5 +1,6 @@
 import { T } from '@/components/i18n/T'
 import type { BloodComponentsExtra } from '@/content/types'
+import { assetUrl } from '@/lib/assetUrl'
 
 /**
  * The four components of blood as a 2×2 grid of real-figure cards.
@@ -24,7 +25,7 @@ export function BloodComponents({ extra }: { extra: BloodComponentsExtra }) {
         >
           <figure className="m-0">
             <img
-              src={c.image}
+              src={assetUrl(c.image)}
               alt={c.term.en}
               className="h-44 w-full bg-canvas object-contain"
               loading="lazy"
