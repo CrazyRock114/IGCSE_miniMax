@@ -221,11 +221,25 @@ function ModelWithHotspots({
   }, [camera, size.width, size.height])
 
   // Resolve the effective [0,1] position for each part: lesson value
-  // unless an override is present. Pinned to a memo over both, so the
-  // edit-mode panel can drive live movement without a re-derivation.
-  // Collapse the override map to a primitive key so the dep array stays
-  // a list of plain expressions (react-hooks/exhaustive-deps).
-  const overrideKeys = pinOverrides ? Object.keys(pinOverrides).sort().join('|') : ''
+  // unless an override is present. Pinned to a memo over the actual
+  // values (not just the key set — key-only deps miss value changes
+  // and drei's <Html> won't re-project the dot, so the user sees
+  // "first drag works, subsequent drags freeze" with the dot only
+  // moving when some other state change happens to re-render the tree).
+  // Stringify the relevant slice (≤11 parts × 3 floats) for a cheap
+  // primitive dep that the memo can compare by Object.is.
+  const overrideFingerprint = pinOverrides
+    ? Object.keys(pinOverrides)
+        .sort()
+        .map((k) => {
+          // noUncheckedIndexedAccess flags this as possibly undefined;
+          // the loop is over Object.keys so it can't be, but TS doesn't
+          // know. Help it.
+          const v = pinOverrides[k]
+          return v ? `${k}:${v.join(',')}` : k
+        })
+        .join('|')
+    : ''
   const pinsWithPos = useMemo(
     () =>
       parts
@@ -246,10 +260,11 @@ function ModelWithHotspots({
             ) as THREE.Vector3,
           }
         }),
-    // `overrideKeys` is the only piece of `pinOverrides` that matters for
-    // recomputation: the values themselves are read inside the body.
+    // `overrideFingerprint` covers every value change. The values
+    // themselves are read inside the body but only the fingerprint
+    // string is needed for the dep.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [parts, center, sphereRadius, scale, overrideKeys]
+    [parts, center, sphereRadius, scale, overrideFingerprint]
   )
 
   // Auto-rotate: spin the *group* (not the scene) about Y. Pins are
