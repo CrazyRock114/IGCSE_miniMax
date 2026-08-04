@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { HomePage } from '@/components/HomePage'
 import { LessonPage } from '@/components/lesson/LessonPage'
 import { VocabPage } from '@/pages/VocabPage'
+import { AnatomyPage } from '@/components/anatomy/AnatomyPage'
 import { SelectionTranslator } from '@/components/translator/SelectionTranslator'
 
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/subject/:subject" element={<HomePage />} />
         <Route path="/lesson/:subject/:slug" element={<LessonPage />} />
+        <Route path="/anatomy/:subject/:slug" element={<AnatomyPage />} />
         <Route path="/vocab" element={<VocabPage />} />
         <Route path="*" element={<HomePage />} />
       </Routes>

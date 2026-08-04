@@ -1,4 +1,5 @@
 import { Suspense, lazy, useEffect, useMemo, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import type { AnatomyOrgan, HeartAnatomyExtra } from '@/content/types'
 import { T } from '@/components/i18n/T'
 import { HEART_ANATOMY } from '@/lib/lessonExtrasStrings'
@@ -73,6 +74,7 @@ export function HeartAnatomy({ extra }: { extra: HeartAnatomyExtra }) {
   const [mode, setMode] = useState<'explore' | 'follow'>('explore')
   const [view, setView] = useState<'2d' | '3d'>(has3D ? '3d' : '2d')
   const [followStep, setFollowStep] = useState(0)
+  const { subject, slug } = useParams<{ subject: string; slug: string }>()
 
   // Memoize the ordered list of "follow" parts once.
   const orderedForFollow = useMemo(
@@ -142,21 +144,35 @@ export function HeartAnatomy({ extra }: { extra: HeartAnatomyExtra }) {
         </div>
 
         {view === '3d' && has3D ? (
-          <Suspense fallback={<ThreeDFallback />}>
-            <Anatomy3D
-              modelUrl={extra.model3d!}
-              parts={parts}
-              selectedId={selectedId}
-              hoveredId={hoveredId}
-              onSelect={(id) => {
-                setMode('explore')
-                setSelectedId(id)
-              }}
-              onHover={setHoveredId}
-              followStep={followStep}
-              orderedForFollow={orderedForFollow}
-            />
-          </Suspense>
+          <div className="relative">
+            <Suspense fallback={<ThreeDFallback />}>
+              <Anatomy3D
+                modelUrl={extra.model3d!}
+                parts={parts}
+                selectedId={selectedId}
+                hoveredId={hoveredId}
+                onSelect={(id) => {
+                  setMode('explore')
+                  setSelectedId(id)
+                }}
+                onHover={setHoveredId}
+                followStep={followStep}
+                orderedForFollow={orderedForFollow}
+              />
+            </Suspense>
+            {subject && slug && (
+              <Link
+                to={`/anatomy/${subject}/${slug}`}
+                target="_blank"
+                rel="noopener"
+                className="absolute right-2 top-2 inline-flex items-center gap-1 rounded-md border border-line bg-canvas/90 px-2.5 py-1 text-[11px] font-medium text-ink-soft shadow-sm transition-colors hover:bg-surface hover:text-ink"
+                title="Open the fullscreen 3D viewer in a new tab"
+              >
+                <span aria-hidden="true">⛶</span>
+                <T value={HEART_ANATOMY.openFullscreen} />
+              </Link>
+            )}
+          </div>
         ) : (
           <FigureWithHotspots
             parts={parts}
