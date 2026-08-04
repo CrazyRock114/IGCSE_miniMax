@@ -78,6 +78,14 @@ export function Anatomy3D({
         dpr={[1, 2]}
         gl={{ antialias: true, alpha: true, preserveDrawingBuffer: false }}
         shadows={false}
+        // Force a render every frame. The default 'demand' loop only redraws
+        // when OrbitControls dispatches a change event, which means a slider
+        // drag that mutates `pinOverrides` does NOT trigger a redraw — the
+        // dot only moves on the next frame OrbitControls invalidates. With
+        // 'always' the canvas runs at vsync, so the dot tracks the slider
+        // 1:1. (autoRotate is on by default so this isn't a fresh cost — we
+        // were already rendering every frame.)
+        frameloop="always"
       >
         {/* Four-light setup: hemisphere (sky/ground ambient) + ambient base
             + warm key (upper-right front) + cool fill (lower-left) + cool
