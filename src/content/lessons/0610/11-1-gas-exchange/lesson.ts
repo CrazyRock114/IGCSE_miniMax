@@ -1,6 +1,5 @@
 import type { Lesson } from '@/content/types'
 import narration from './narration'
-import { assetUrl } from '../../../../lib/assetUrl'
 
 const lesson: Lesson = {
   slug: '11-1-gas-exchange',
@@ -754,7 +753,7 @@ const lesson: Lesson = {
             en: 'Any disease that destroys alveolar walls (emphysema) cuts this surface area down and gas exchange suffers. That is why a person with emphysema gets out of breath walking across a room.',
             zh: '任何破坏肺泡壁的疾病（如肺气肿）都会减少表面积，气体交换因而受损。这就是肺气肿患者走几步路就气喘的原因。',
           },
-          image: assetUrl('/figures/g8/11-1-gas-exchange/figure-b8-02.png'),
+          image: '/figures/g8/11-1-gas-exchange/figure-b8-02.png',
           imageSource: { en: 'G8 Science · p.37, Figure B8.02 — alveoli at the end of a bronchiole', zh: 'G8 教材·第 37 页图 B8.02——细支气管末端的肺泡' },
         },
         {
@@ -768,7 +767,7 @@ const lesson: Lesson = {
             en: 'Anything that thickens these walls (inflammation, fluid, fibrosis) makes diffusion slower. Pores on the alveolar surface let the surfactant layer spread, which keeps the wall thin in a healthy lung.',
             zh: '任何让壁变厚的情况（炎症、液体潴留、纤维化）都会让扩散变慢。肺泡表面的孔让表面活性剂层铺开，使健康肺的壁保持薄。',
           },
-          image: assetUrl('/figures/g8/11-1-gas-exchange/figure-b8-04.png'),
+          image: '/figures/g8/11-1-gas-exchange/figure-b8-04.png',
           imageSource: { en: 'G8 Science · p.39, Figure B8.04 — alveolus with red cells in the capillary', zh: 'G8 教材·第 39 页图 B8.04——肺泡与毛细血管内的红细胞' },
         },
         {
@@ -782,7 +781,7 @@ const lesson: Lesson = {
             en: 'During exercise the heart pumps harder and faster, sending more blood through these capillaries per minute. That is the body\'s way of raising the rate of gas exchange to meet demand.',
             zh: '运动时心脏泵得更猛更快，每分钟流经这些毛细血管的血量增大。这是身体提高气体交换速率以满足需求的方式。',
           },
-          image: assetUrl('/figures/g8/11-1-gas-exchange/figure-b8-04.png'),
+          image: '/figures/g8/11-1-gas-exchange/figure-b8-04.png',
           imageSource: { en: 'G8 Science · p.39, Figure B8.04 — red cells in the capillary around the alveolus', zh: 'G8 教材·第 39 页图 B8.04——肺泡周围毛细血管内的红细胞' },
         },
         {
@@ -796,7 +795,7 @@ const lesson: Lesson = {
             en: 'A surfactant layer on the inside of the alveolus lowers the surface tension, keeping the alveolus open and the wall thin. Premature babies who have not yet made enough surfactant cannot keep their alveoli open — a condition called neonatal respiratory distress syndrome.',
             zh: '肺泡内表面的表面活性剂层降低表面张力，使肺泡保持张开、壁保持薄。早产儿因尚未合成足量表面活性剂，无法维持肺泡张开——这就是新生儿呼吸窘迫综合征。',
           },
-          image: assetUrl('/figures/g8/11-1-gas-exchange/figure-b8-05.png'),
+          image: '/figures/g8/11-1-gas-exchange/figure-b8-05.png',
           imageSource: { en: 'G8 Science · p.40, Figure B8.05 — diffusion across the moist alveolar wall', zh: 'G8 教材·第 40 页图 B8.05——气体穿越湿润的肺泡壁' },
         },
       ],
@@ -828,7 +827,7 @@ const lesson: Lesson = {
             en: 'A regular smoker feels alert soon after a cigarette and edgy before the next one. The narrowing of blood vessels is what makes fingers and toes feel cold, and over years contributes to coronary heart disease.',
             zh: '规律吸烟者抽完烟后会感到清醒，到下一次前又会焦躁。血管收缩使手脚冰凉，积年累月则促成冠心病。',
           },
-          image: assetUrl('/figures/g8/11-1-gas-exchange/figure-b8-07.png'),
+          image: '/figures/g8/11-1-gas-exchange/figure-b8-07.png',
           imageSource: {
             en: 'G8 Science · p.45, Figure B8.07 — "Nicotine is addictive"',
             zh: 'G8 教材·第 45 页图 B8.07——"尼古丁令人成瘾"',
@@ -845,7 +844,7 @@ const lesson: Lesson = {
             en: 'Tar stains the fingers and teeth yellow-brown, and accumulates in the lungs of a smoker as a dark sticky layer. A long-term smoker\'s lungs are visibly blackened on dissection.',
             zh: '焦油把手指和牙齿染成黄褐色，在吸烟者肺里积成黑色黏层。长期吸烟者的肺在解剖时呈明显黑色。',
           },
-          image: assetUrl('/figures/g8/11-1-gas-exchange/figure-b8-07.png'),
+          image: '/figures/g8/11-1-gas-exchange/figure-b8-07.png',
           imageSource: {
             en: 'G8 Science · p.45, Figure B8.07 — "Tar causes lung cancer"',
             zh: 'G8 教材·第 45 页图 B8.07——"焦油引起肺癌"',
@@ -862,7 +861,7 @@ const lesson: Lesson = {
             en: 'A heavy smoker can have 10% of their haemoglobin occupied by carbon monoxide — equivalent to mild anaemia. Babies of smoking mothers are, on average, born 200 g lighter than those of non-smokers.',
             zh: '重度吸烟者可能有 10% 的血红蛋白被一氧化碳占据——相当于轻度贫血。吸烟母亲的婴儿平均比不吸烟母亲的轻 200 克。',
           },
-          image: assetUrl('/figures/g8/11-1-gas-exchange/figure-b8-07.png'),
+          image: '/figures/g8/11-1-gas-exchange/figure-b8-07.png',
           imageSource: {
             en: 'G8 Science · p.45, Figure B8.07 — "Carbon monoxide reduces the oxygen-carrying capacity"',
             zh: 'G8 教材·第 45 页图 B8.07——"一氧化碳降低血液的运氧能力"',
@@ -879,7 +878,7 @@ const lesson: Lesson = {
             en: 'The chronic inflammation from particulates is part of why smokers cough — the lung is trying to dislodge material it cannot clear. Long term, it contributes to chronic bronchitis and emphysema.',
             zh: '颗粒物引起的慢性炎症是吸烟者咳嗽的部分原因——肺试图排清它无法清除的物质。长期下来会引发慢性支气管炎和肺气肿。',
           },
-          image: assetUrl('/figures/g8/11-1-gas-exchange/figure-b8-07.png'),
+          image: '/figures/g8/11-1-gas-exchange/figure-b8-07.png',
           imageSource: {
             en: 'G8 Science · p.45, Figure B8.07 — "Particulates damage lung surfaces"',
             zh: 'G8 教材·第 45 页图 B8.07——"颗粒物损伤肺表面"',
@@ -898,7 +897,7 @@ const lesson: Lesson = {
             en: 'A persistent, productive cough, especially in the morning. Breathlessness on exertion, frequent chest infections. Lung tissue itself is intact at first, but the chronic inflammation sets the stage for emphysema later.',
             zh: '持续性、伴有咳痰的咳嗽（尤其在早晨）。活动时气短，胸腔感染反复发作。早期肺组织本身完好，但慢性炎症为日后肺气肿埋下伏笔。',
           },
-          image: assetUrl('/figures/g8/11-1-gas-exchange/figure-b8-08.png'),
+          image: '/figures/g8/11-1-gas-exchange/figure-b8-08.png',
           imageSource: {
             en: 'G8 Science · p.47, Figure B8.08 — cilia and mucus in healthy airway',
             zh: 'G8 教材·第 47 页图 B8.08——健康气道中的纤毛与黏液',
@@ -915,7 +914,7 @@ const lesson: Lesson = {
             en: 'A person with emphysema gets out of breath walking across a room. The chest becomes barrel-shaped — held in the expanded position because the lungs can no longer empty. Under a microscope, the spongy mesh of alveoli is replaced by large empty holes.',
             zh: '肺气肿患者走几步路就气喘。胸廓变成桶状——因为肺无法再排空而保持在扩张位。显微镜下，原本蜂窝状的肺泡被大空洞取代。',
           },
-          image: assetUrl('/figures/g8/11-1-gas-exchange/image-b8-03.png'),
+          image: '/figures/g8/11-1-gas-exchange/image-b8-03.png',
           imageSource: {
             en: 'G8 Science · p.46, Image B8.03 — (a) healthy lung (b) emphysema lung',
             zh: 'G8 教材·第 46 页图 B8.03——(a) 健康肺 (b) 肺气肿肺',
@@ -932,7 +931,7 @@ const lesson: Lesson = {
             en: 'A cough that does not go away, coughing up blood, breathlessness, chest pain, unexplained weight loss. The risk for a smoker is many times that of a non-smoker, and is roughly proportional to the number of cigarettes per day times the number of years smoked.',
             zh: '久咳不愈、咳血、气短、胸痛、不明原因消瘦。吸烟者的风险是不吸烟者的若干倍，并与"每天支数 × 吸烟年数"大致成正比。',
           },
-          image: assetUrl('/figures/g8/11-1-gas-exchange/figure-b8-07.png'),
+          image: '/figures/g8/11-1-gas-exchange/figure-b8-07.png',
           imageSource: {
             en: 'G8 Science · p.45, Figure B8.07 — tar as the cancer-causing substance',
             zh: 'G8 教材·第 45 页图 B8.07——焦油作为致癌物',
@@ -949,7 +948,7 @@ const lesson: Lesson = {
             en: 'Chest pain on exertion (angina), breathlessness, and — in the worst case — a heart attack when a coronary artery becomes completely blocked. The risk drops within a year of stopping smoking, and after ten years is back close to that of a non-smoker.',
             zh: '用力时胸痛（心绞痛）、气短，最坏的情况是冠状动脉完全阻塞引发心肌梗塞。戒烟一年内风险即开始下降，十年后接近不吸烟者水平。',
           },
-          image: assetUrl('/figures/g8/11-1-gas-exchange/figure-b8-07.png'),
+          image: '/figures/g8/11-1-gas-exchange/figure-b8-07.png',
           imageSource: {
             en: 'G8 Science · p.45, Figure B8.07 — nicotine, tar, and CO all contribute',
             zh: 'G8 教材·第 45 页图 B8.07——尼古丁、焦油、一氧化碳共同作用',

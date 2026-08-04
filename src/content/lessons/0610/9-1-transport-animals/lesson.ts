@@ -1,6 +1,5 @@
 import type { Lesson } from '@/content/types'
 import narration from './narration'
-import { assetUrl } from '../../../../lib/assetUrl'
 
 const lesson: Lesson = {
   slug: '9-1-transport-animals',
@@ -558,7 +557,7 @@ const lesson: Lesson = {
         zh: '点击任一心腔、瓣膜或大血管。点"跟着血液走一遍"会动画演示一个红细胞从全身→右心→肺→左心→全身的旅程。切到 3D 可以旋转心脏,在三维空间里点同一组热点。',
       },
       initialPart: 'left-ventricle',
-      model3d: assetUrl('/figures/3d/heart.glb'),
+      model3d: '/figures/3d/heart.glb',
       parts: [
         {
           id: 'vena-cava',
@@ -692,7 +691,7 @@ const lesson: Lesson = {
             en: 'Pale yellow, slightly sticky. Makes up just over half the volume of blood. If you spin a sample in a centrifuge, the cells pile up at the bottom and the plasma stays on top.',
             zh: '淡黄色、略带黏性。占血液容量的略多于一半。把血样放进离心机旋转，细胞沉到底部，血浆留在上层。',
           },
-          image: assetUrl('/figures/g8/9-1-transport-animals/figure-b7-11a-rbc.png'),
+          image: '/figures/g8/9-1-transport-animals/figure-b7-11a-rbc.png',
           imageSource: { en: 'G8 Science · Table B7.03 — plasma as the matrix of blood', zh: 'G8 Science · 表 B7.03 — 血液的基质' },
         },
         {
@@ -706,7 +705,7 @@ const lesson: Lesson = {
             en: 'A small doughnut-shaped disc with a dimple on each side and no nucleus. The biconcave shape and the missing nucleus together leave room for more haemoglobin, and make the cell flexible enough to squeeze through the tiniest capillaries.',
             zh: '小而呈圆饼状、两面凹陷的细胞，没有细胞核。双凹的形状加上无核，既容纳更多血红蛋白，也让细胞足够柔韧，能挤过最窄的毛细血管。',
           },
-          image: assetUrl('/figures/g8/9-1-transport-animals/figure-b7-11a-rbc.png'),
+          image: '/figures/g8/9-1-transport-animals/figure-b7-11a-rbc.png',
           imageSource: { en: 'G8 Science · p.31 — doughnut-shaped red blood cell', zh: 'G8 Science · p.31 — 圆饼状红细胞' },
         },
         {
@@ -720,7 +719,7 @@ const lesson: Lesson = {
             en: 'A round white cell with a single large nucleus that almost fills the cell, leaving only a thin ring of cytoplasm. Smaller than the phagocyte, with a smooth round outline rather than a lobed one.',
             zh: '圆形白细胞，有一个几乎占满整个细胞的大细胞核，细胞质只剩薄薄一圈。比吞噬细胞小，轮廓平滑呈圆形，细胞核不分裂成叶。',
           },
-          image: assetUrl('/figures/g8/9-1-transport-animals/figure-b7-12a-lymphocyte.png'),
+          image: '/figures/g8/9-1-transport-animals/figure-b7-12a-lymphocyte.png',
           imageSource: { en: 'G8 Science · p.33 — lymphocyte with a large nucleus', zh: 'G8 Science · p.33 — 具大核的淋巴细胞' },
         },
         {
@@ -734,7 +733,7 @@ const lesson: Lesson = {
             en: 'An irregularly shaped white cell with a lobed nucleus (usually two to five lobes joined by thin strands). The shape-shifting on the job is what makes them look "blobby" in textbook drawings.',
             zh: '形状不规则的白细胞，细胞核分裂成叶（通常 2-5 片，以细丝相连）。在工作时不断变形，让它们在课本插图中看起来"凹凸不平"。',
           },
-          image: assetUrl('/figures/g8/9-1-transport-animals/figure-b7-12.png'),
+          image: '/figures/g8/9-1-transport-animals/figure-b7-12.png',
           imageSource: { en: 'G8 Science · p.34 — phagocyte with a lobed nucleus', zh: 'G8 Science · p.34 — 具分叶核的吞噬细胞' },
         },
         {
@@ -748,7 +747,7 @@ const lesson: Lesson = {
             en: 'Tiny cell fragments — not full cells, with no nucleus. Made in the bone marrow from larger cells that have broken apart. About a third the size of a red blood cell.',
             zh: '微小的细胞碎片——并非完整的细胞，没有细胞核。在骨髓中由较大的细胞碎裂而成。约为红细胞大小的三分之一。',
           },
-          image: assetUrl('/figures/g8/9-1-transport-animals/figure-b7-11.png'),
+          image: '/figures/g8/9-1-transport-animals/figure-b7-11.png',
           imageSource: { en: 'G8 Science · p.32 — platelets, fragments of cells', zh: 'G8 Science · p.32 — 血小板，细胞碎片' },
         },
       ],
@@ -788,7 +787,7 @@ const lesson: Lesson = {
             en: 'Carries blood away from the heart at high pressure. The elastic wall smooths the surges so the flow is less jerky by the time the blood reaches the capillaries.',
             zh: '把血液以高压从心脏运出。弹性管壁把搏动式血流变得较平稳，让血液到达毛细血管时不再是一股一股的。',
           },
-          image: assetUrl('/figures/g8/9-1-transport-animals/figure-b7-06.png'),
+          image: '/figures/g8/9-1-transport-animals/figure-b7-06.png',
           imageSource: { en: 'G8 Science · p.28, Figure B7.06 (top — thick wall, small lumen)', zh: 'G8 Science · p.28, 图 B7.06（上 —— 厚壁、小腔）' },
         },
         {
@@ -815,7 +814,7 @@ const lesson: Lesson = {
             en: 'The site of exchange. Oxygen and food leave the blood, carbon dioxide and waste enter it. Branch into a dense network so every cell is within a hair\'s breadth of a capillary.',
             zh: '物质交换的场所。氧和食物离开血液，二氧化碳和废物进入血液。它们分支成密集的网络，让每个细胞都距毛细血管不到一根头发直径的距离。',
           },
-          image: assetUrl('/figures/g8/9-1-transport-animals/figure-b7-07.png'),
+          image: '/figures/g8/9-1-transport-animals/figure-b7-07.png',
           imageSource: { en: 'G8 Science · p.28, Figure B7.07 — capillary network', zh: 'G8 Science · p.28, 图 B7.07 — 毛细血管网' },
         },
         {
@@ -842,7 +841,7 @@ const lesson: Lesson = {
             en: 'Returns blood to the heart at low pressure. The valves stop it from flowing backwards between breaths or heartbeats — important in the legs, where the blood has to climb up against gravity.',
             zh: '把血液以低压送回心脏。瓣膜防止血液在呼吸或心跳间歇时倒流——这对腿部尤其重要，那里的血液要逆着重力向上流。',
           },
-          image: assetUrl('/figures/g8/9-1-transport-animals/figure-b7-08.png'),
+          image: '/figures/g8/9-1-transport-animals/figure-b7-08.png',
           imageSource: { en: 'G8 Science · p.29, Figure B7.08 — valves in a vein', zh: 'G8 Science · p.29, 图 B7.08 — 静脉瓣' },
         },
       ],
@@ -857,7 +856,7 @@ const lesson: Lesson = {
         en: 'Two loops: body → right heart → lungs → left heart → body. The heart pumps twice per circuit, which is why the blood in a mammal arrives at the body at high pressure.',
         zh: '两个环：全身 → 右心 → 肺 → 左心 → 全身。心脏每次循环泵两次，这就是哺乳动物的血液到达全身时仍是高压的原因。',
       },
-      image: assetUrl('/figures/g8/9-1-transport-animals/figure-b7-01.png'),
+      image: '/figures/g8/9-1-transport-animals/figure-b7-01.png',
       imageSource: { en: 'G8 Science · p.21, Figure B7.01 — the general layout of the human circulatory system', zh: 'G8 Science · p.21, 图 B7.01 — 人体循环系统总图' },
       stations: [
         {
