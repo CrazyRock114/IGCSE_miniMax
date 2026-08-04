@@ -162,6 +162,7 @@ export const HEART_ANATOMY = {
     en: 'Starting the journey — the first stop will appear on the right in a moment.',
     zh: '旅程即将开始，第一站马上会出现在右侧。',
   } satisfies Bilingual,
+  openFullscreen: { en: 'Open fullscreen', zh: '全屏查看' } satisfies Bilingual,
 } as const
 
 export const BLOOD_VESSELS_COMPARE = {
@@ -260,5 +261,17 @@ export const ANATOMY_3D = {
   dragHint: {
     en: 'Drag to rotate · scroll to zoom · click a pin to read',
     zh: '拖动旋转·滚轮缩放·点击标记查看',
+  } satisfies Bilingual,
+  pageHint: {
+    en: 'Click pins in the model · ← → keys to step · Esc to clear',
+    zh: '点击模型上的标记·← → 键切换·Esc 清除',
+  } satisfies Bilingual,
+  partsHeading: {
+    en: 'All parts',
+    zh: '全部结构',
+  } satisfies Bilingual,
+  listHint: {
+    en: 'Or pick one from the list to highlight it without rotating.',
+    zh: '也可以从这里选一个标记，无需旋转模型。',
   } satisfies Bilingual,
 } as const
