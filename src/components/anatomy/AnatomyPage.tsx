@@ -85,15 +85,6 @@ function AnatomyView({ lesson, extra }: { lesson: Lesson; extra: HeartAnatomyExt
   const [editingId, setEditingId] = useState<string | null>(null)
   const [copyState, setCopyState] = useState<'idle' | 'copied' | 'failed'>('idle')
 
-  // When the user enters edit mode, pause the spin. The whole point of
-  // edit mode is to nudge dots to a precise 3D position — a rotating
-  // model fights that, and worse, the 60 Hz render loop competes with
-  // the slider's pointer events for the main thread, which makes the
-  // slider feel "stuck" after the first drag. Resume when they leave.
-  useEffect(() => {
-    if (editMode) setAutoRotate(false)
-  }, [editMode])
-
   const selected: AnatomyOrgan | null = useMemo(
     () => parts.find((p) => p.id === selectedId) ?? null,
     [parts, selectedId]
@@ -217,7 +208,17 @@ function AnatomyView({ lesson, extra }: { lesson: Lesson; extra: HeartAnatomyExt
         listOpen={listOpen}
         editMode={editMode}
         onToggleEdit={() => {
-          setEditMode((v) => !v)
+          // Toggle edit mode and pause auto-rotate together. The whole
+          // point of edit mode is to nudge pins to a precise 3D position
+          // — a spinning model fights that, and worse, the 60 Hz render
+          // loop competes with the slider's pointer events for the main
+          // thread, which makes the slider feel "stuck" after the first
+          // drag. Symmetric: pause when entering, resume when leaving.
+          // Lint blocks doing this in a useEffect (set-state-in-effect);
+          // toggling inside the click handler is the canonical pattern.
+          const willEnter = !editMode
+          setEditMode(willEnter)
+          setAutoRotate(!willEnter)
           setSelectedId(null)
           setListOpen(false)
         }}
