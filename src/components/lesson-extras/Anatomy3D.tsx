@@ -119,16 +119,16 @@ export function Anatomy3D({
         />
       </Canvas>
 
-      {/* Top-right control — auto-rotate toggle. Only shown when the parent
-          passes a setter (the fullscreen page does, the in-lesson tab does
-          not, because there the page chrome already competes for attention). */}
+      {/* Top-LEFT control — auto-rotate toggle. Top-left so the right edge
+          stays clear for the fullscreen page's List / Reset / Copy / Edit
+          stack. Only shown when the parent passes a setter. */}
       {onAutoRotateChange && (
         <button
           type="button"
           onClick={() => onAutoRotateChange(!autoRotate)}
           aria-pressed={autoRotate}
           className={
-            'absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium shadow-sm transition-colors ' +
+            'absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium shadow-sm transition-colors ' +
             (autoRotate
               ? 'border-accent bg-accent text-white'
               : 'border-line bg-canvas/90 text-ink-soft hover:bg-surface')
