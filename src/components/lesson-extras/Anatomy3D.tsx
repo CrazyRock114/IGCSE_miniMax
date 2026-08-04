@@ -13,9 +13,9 @@ import { ANATOMY_3D } from '@/lib/lessonExtrasStrings'
  * 3D anatomy viewer used both inside the in-lesson 3D tab and on the
  * fullscreen `/anatomy/:subject/:slug` page.
  *
- * The component fills its parent — the parent decides the size:
- * - in-lesson tab: a fixed `h-[460px]` box (to coexist with other lesson
- *   chrome)
+ * The container fills its parent — the parent decides the size:
+ * - in-lesson tab: an `aspect-[4/3] w-full` box (matches the 2D figure's
+ *   visual height on the same page)
  * - fullscreen page: `h-screen w-screen` so the canvas is the entire page
  *
  * The camera fits the model's bounding sphere at load time so the organ
@@ -25,6 +25,11 @@ import { ANATOMY_3D } from '@/lib/lessonExtrasStrings'
  *
  * Optional `autoRotate` and `onAutoRotateChange` add an auto-rotate toggle
  * the fullscreen page shows; the in-lesson tab passes a fixed `false`.
+ *
+ * `onSelectedScreenPos` reports the screen position of the currently
+ * selected part every frame, so the parent page can draw a leader line
+ * from the floating callout to the dot in the model. Set to `undefined`
+ * when no part is selected.
  */
 export function Anatomy3D({
   modelUrl,
@@ -37,6 +42,7 @@ export function Anatomy3D({
   orderedForFollow = [],
   autoRotate = false,
   onAutoRotateChange,
+  onSelectedScreenPos,
 }: {
   modelUrl: string
   parts: AnatomyOrgan[]
@@ -47,10 +53,11 @@ export function Anatomy3D({
   followStep?: number
   orderedForFollow?: AnatomyOrgan[]
   autoRotate?: boolean
-  onAutoRotateChange?: (v: boolean) => void
+  onAutoRotateChange?: ((v: boolean) => void) | undefined
+  onSelectedScreenPos?: ((pos: { x: number; y: number } | null) => void) | undefined
 }) {
   return (
-    <div className="relative h-full w-full overflow-hidden bg-canvas">
+    <div className="relative aspect-[951/564] w-full overflow-hidden bg-canvas">
       <Canvas
         camera={{ position: [0, 0.4, 3.5], fov: 38 }}
         dpr={[1, 2]}
@@ -77,6 +84,7 @@ export function Anatomy3D({
             followStep={followStep}
             orderedForFollow={orderedForFollow}
             autoRotate={autoRotate}
+            onSelectedScreenPos={onSelectedScreenPos}
           />
         </Suspense>
 
@@ -131,6 +139,7 @@ function ModelWithHotspots({
   followStep,
   orderedForFollow,
   autoRotate,
+  onSelectedScreenPos,
 }: {
   modelUrl: string
   parts: AnatomyOrgan[]
@@ -141,9 +150,11 @@ function ModelWithHotspots({
   followStep: number
   orderedForFollow: AnatomyOrgan[]
   autoRotate: boolean
+  onSelectedScreenPos?: ((pos: { x: number; y: number } | null) => void) | undefined
 }) {
   const gltf = useGLTF(modelUrl)
   const scene = useMemo(() => gltf.scene.clone(true), [gltf])
+  const groupRef = useRef<THREE.Group>(null)
 
   // Bounding box + bounding sphere. We use the sphere for camera fit (it
   // gives a perfectly-fitted view from any angle) and the box for hotspot
@@ -163,9 +174,6 @@ function ModelWithHotspots({
   // camera then sits at `1 / tan(fov/2)` units away, which makes the model
   // fill the viewport height. A small multiplier leaves breathing room.
   const scale = useMemo(() => 1 / sphereRadius, [sphereRadius])
-  useEffect(() => {
-    scene.position.set(-center.x * scale, -center.y * scale, -center.z * scale)
-  }, [scene, center, scale])
 
   // Fit the camera to the now-scaled sphere. Sphere radius is 1 in world
   // units after the scale above; the camera is placed on the +Z axis at the
@@ -182,18 +190,67 @@ function ModelWithHotspots({
     camera.updateProjectionMatrix()
   }, [camera, size.width, size.height])
 
-  // Auto-rotate: spin the scene about Y. OrbitControls ignores a model-
-  // level rotation, so this is the only thing moving the model itself
-  // when the user is hands-off. Mutating `scene.rotation` is the right way
-  // to turn a 3D object; react-hooks/immutability flags it but the
-  // mutation is intentional.
-  /* eslint-disable react-hooks/immutability -- Three.js Object3D rotation is the public API for animation */
+  // Pre-compute each part's world-space position (after our normalisation).
+  // Stored as a flat array so the screen-projection loop in useFrame is a
+  // simple lookup, not a re-derivation.
+  const pinsWithPos = useMemo(
+    () =>
+      parts
+        .filter((p) => p.position3d)
+        .map((p) => {
+          const pos = p.position3d!
+          // Convert [0,1] bbox coords to world space (after our centre+scale).
+          const localX = (pos[0] - 0.5) * (sphereRadius * 2) + center.x
+          const localY = (pos[1] - 0.5) * (sphereRadius * 2) + center.y
+          const localZ = (pos[2] - 0.5) * (sphereRadius * 2) + center.z
+          return {
+            id: p.id,
+            name: p.name,
+            worldPos: new THREE.Vector3(
+              (localX - center.x) * scale,
+              (localY - center.y) * scale,
+              (localZ - center.z) * scale
+            ) as THREE.Vector3,
+          }
+        }),
+    [parts, center, sphereRadius, scale]
+  )
+
+  // Auto-rotate: spin the *group* (not the scene) about Y. Pins are
+  // children of the same group, so they rotate with the model.
   useFrame((_, dt) => {
-    if (autoRotate) {
-      scene.rotation.y += dt * 0.35
+    if (autoRotate && groupRef.current) {
+      groupRef.current.rotation.y += dt * 0.35
+    }
+
+    // Report the selected part's screen position to the parent (used by
+    // the fullscreen page to draw a leader line from the callout to the
+    // dot). Skipped if the part is behind the camera or out of the viewport.
+    if (onSelectedScreenPos) {
+      if (!selectedId) {
+        onSelectedScreenPos(null)
+      } else {
+        const pin = pinsWithPos.find((p) => p.id === selectedId)
+        if (!pin) {
+          onSelectedScreenPos(null)
+        } else {
+          // World point = group rotation * pin world position
+          const worldPoint = pin.worldPos.clone()
+          if (groupRef.current) worldPoint.applyMatrix4(groupRef.current.matrixWorld)
+          // Project to NDC, then to canvas pixels
+          const ndc = worldPoint.clone().project(camera as THREE.PerspectiveCamera)
+          if (ndc.z > 1 || ndc.z < -1) {
+            onSelectedScreenPos(null)
+          } else {
+            onSelectedScreenPos({
+              x: (ndc.x * 0.5 + 0.5) * size.width,
+              y: (-ndc.y * 0.5 + 0.5) * size.height,
+            })
+          }
+        }
+      }
     }
   })
-  /* eslint-enable react-hooks/immutability */
 
   // Filter to parts that actually have a 3D position.
   const partsWithPos = useMemo(() => parts.filter((p) => p.position3d), [parts])
@@ -203,30 +260,25 @@ function ModelWithHotspots({
   const followPos3d = followTarget?.position3d
 
   return (
-    <>
-      <primitive object={scene} scale={scale} />
+    <group
+      ref={groupRef}
+      scale={scale}
+      // Recentre the model on the origin so auto-rotate spins around its
+      // visual centre, not its GLB-local centre.
+      position={[-center.x * scale, -center.y * scale, -center.z * scale]}
+    >
+      <primitive object={scene} />
 
       {partsWithPos.map((p) => {
-        const pos = p.position3d!
-        // Convert [0,1] bbox coords to world space (after our centre+scale).
-        const localX = (pos[0] - 0.5) * (sphereRadius * 2) + center.x
-        const localY = (pos[1] - 0.5) * (sphereRadius * 2) + center.y
-        const localZ = (pos[2] - 0.5) * (sphereRadius * 2) + center.z
-        // Then apply our normalisation (which subtracts center then multiplies
-        // by scale), so the pin ends up at the same world point as the model
-        // surface it represents.
-        const worldX = (localX - center.x) * scale
-        const worldY = (localY - center.y) * scale
-        const worldZ = (localZ - center.z) * scale
         const isSelected = selectedId === p.id
         const isHovered = hoveredId === p.id
         const showRing = isSelected || isHovered
         return (
           <Html
             key={p.id}
-            position={[worldX, worldY, worldZ]}
+            position={pinsWithPos.find((q) => q.id === p.id)?.worldPos.toArray() ?? [0, 0, 0]}
             center
-            distanceFactor={4}
+            distanceFactor={5}
             zIndexRange={[40, 0]}
             style={{ pointerEvents: 'auto' }}
           >
@@ -241,11 +293,11 @@ function ModelWithHotspots({
               data-3d-hotspot={p.id}
               className="block rounded-full transition-transform"
               style={{
-                width: showRing ? 28 : 22,
-                height: showRing ? 28 : 22,
-                background: isSelected ? '#0d9488' : isHovered ? '#0f172a' : '#0f172a99',
-                border: '2px solid white',
-                boxShadow: '0 2px 6px rgba(0,0,0,0.35)',
+                width: showRing ? 16 : 12,
+                height: showRing ? 16 : 12,
+                background: isSelected ? '#0d9488' : isHovered ? '#0f172a' : '#0f172acc',
+                border: '1.5px solid white',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
                 cursor: 'pointer',
                 padding: 0,
               }}
@@ -263,7 +315,7 @@ function ModelWithHotspots({
           scale={scale}
         />
       )}
-    </>
+    </group>
   )
 }
 
@@ -290,7 +342,7 @@ function FollowDot3D({
     if (ref.current) {
       const t = clock.getElapsedTime()
       const s = 1 + 0.3 * Math.sin(t * 4)
-      ref.current.scale.setScalar(s * 0.05)
+      ref.current.scale.setScalar(s * 0.04)
     }
   })
 
@@ -301,3 +353,6 @@ function FollowDot3D({
     </mesh>
   )
 }
+
+// `THREE.CerspectiveCameraLike` placeholder removed — `project()` is typed
+// directly against the existing `useThree` camera instance.
