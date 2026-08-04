@@ -225,6 +225,114 @@ export const termEnrichments: Record<string, ConceptEnrichment> = {
     },
     relatedTerms: ['pulmonary circulation', 'systemic circulation', 'single circulation', 'heart'],
   },
+
+  // --- 11-1-gas-exchange: gas exchange + smoking enrichments ---
+  '0610/11-1-gas-exchange/aerobic respiration': {
+    termId: 'aerobic respiration',
+    subject: '0610',
+    slug: '11-1-gas-exchange',
+    image: '/figures/g8/11-1-gas-exchange/figure-b8-04.png',
+    imageSource: 'G8 Science · p.39, Figure B8.04 — alveolus with red cells in capillary',
+    mechanism: {
+      en: 'Glucose is broken down completely — the carbon in it ends up as CO₂, the hydrogen as H₂O, and about 32 ATP per glucose molecule is captured. Aerobic respiration can only happen where oxygen is supplied fast enough to keep up with demand, which is why the heart and breathing rate rise during exercise: they are delivering oxygen to muscle cells at a higher rate.',
+      zh: '葡萄糖被彻底分解——其中的碳变成 CO₂，氢变成 H₂O，每分子葡萄糖捕获约 32 个 ATP。有氧呼吸只能发生在供氧跟得上需求的地方——这也是运动时心率和呼吸频率上升的原因：它们是在以更高速度向肌细胞输送氧气。',
+    },
+    relatedTerms: ['anaerobic respiration', 'oxygen debt', 'alveolus', 'mitochondrion'],
+  },
+  '0610/11-1-gas-exchange/anaerobic respiration': {
+    termId: 'anaerobic respiration',
+    subject: '0610',
+    slug: '11-1-gas-exchange',
+    mechanism: {
+      en: 'When oxygen cannot reach the muscle fast enough — a sprint, holding the breath under water, sudden heavy lifting — the cells fall back on anaerobic respiration. Glucose is split only partway, releasing just 2 ATP per glucose (against 32 for aerobic) and leaving lactic acid behind. The lactic acid is what makes muscles burn and eventually stops them working; the "oxygen debt" is the extra oxygen the body needs afterwards to break that lactic acid down.',
+      zh: '当氧来不及送达肌肉时——冲刺、潜水憋气、突然大力举重——细胞切换到无氧呼吸。葡萄糖只被部分分解，每分子只释放 2 个 ATP（有氧时为 32 个），并留下乳酸。乳酸就是肌肉发酸发烫、最终无法继续工作的原因；"氧债"则是之后身体为分解这些乳酸而额外需要的氧。',
+    },
+    relatedTerms: ['aerobic respiration', 'oxygen debt', 'lactic acid', 'fermentation'],
+  },
+  '0610/11-1-gas-exchange/trachea': {
+    termId: 'trachea',
+    subject: '0610',
+    slug: '11-1-gas-exchange',
+    image: '/figures/g8/11-1-gas-exchange/figure-b8-03.png',
+    imageSource: 'G8 Science · p.38, Figure B8.03 — cilia, goblet cell, mucus',
+    mechanism: {
+      en: 'The main airway from the larynx down to where it splits into the two bronchi. It is held open by C-shaped rings of cartilage — the rings do not form a complete circle because the back of the trachea lies against the oesophagus and needs to give way when food passes down. The lining is ciliated epithelium with goblet cells.',
+      zh: '从喉向下到分为两条支气管处的主气道。它由 C 形软骨环撑开——软骨环不形成完整的圆，因为气管背面贴着食道，要让食物通过时能凹进去。内壁是带纤毛的上皮和杯状细胞。',
+    },
+    relatedTerms: ['bronchus', 'bronchiole', 'cilium', 'mucus', 'larynx'],
+  },
+  '0610/11-1-gas-exchange/mucus': {
+    termId: 'mucus',
+    subject: '0610',
+    slug: '11-1-gas-exchange',
+    image: '/figures/g8/11-1-gas-exchange/figure-b8-03.png',
+    imageSource: 'G8 Science · p.38, Figure B8.03 — yellow blob of mucus on top of a goblet cell',
+    mechanism: {
+      en: 'A sticky secretion made by goblet cells. It sits in a thin layer on top of the cilia, with dust, soot, bacteria and viruses caught in it. The cilia beat in a synchronised wave that moves this mucus blanket upwards towards the throat, where it is swallowed and the trapped pathogens are destroyed by stomach acid.',
+      zh: '由杯状细胞分泌的黏性物质。它在纤毛之上形成薄薄一层，灰尘、煤烟、细菌和病毒都被粘住。纤毛同步摆动，把这层黏液毯向上推往喉咙，最终被吞下，其中困住的病原体被胃酸消灭。',
+    },
+    relatedTerms: ['goblet cell', 'cilium', 'trachea', 'bronchus'],
+  },
+  '0610/11-1-gas-exchange/cilium': {
+    termId: 'cilium',
+    subject: '0610',
+    slug: '11-1-gas-exchange',
+    image: '/figures/g8/11-1-gas-exchange/figure-b8-03.png',
+    imageSource: 'G8 Science · p.38, Figure B8.03 — fine hair-like cilia on the airway cell',
+    mechanism: {
+      en: 'A tiny hair-like extension on the surface of a ciliated cell. Each ciliated cell in the airway carries dozens of cilia, and they all beat in the same direction, in a synchronised wave. The effect is a moving conveyor belt of mucus — the "mucociliary escalator" — that pushes trapped material up and out of the lungs. Tobacco smoke paralyses the cilia; with the escalator stopped, mucus and the bacteria in it pool in the lungs, and chest infections follow.',
+      zh: '纤毛细胞表面的微小毛状突起。气道中每个纤毛细胞都长着几十根纤毛，它们方向一致地同步摆动。其效果是一条移动的黏液传送带——"黏液-纤毛自动梯"——把黏住的东西向上推出肺。烟草烟雾会让纤毛瘫痪；自动梯一旦停转，黏液和其中的细菌就在肺里积聚，胸腔感染随之而来。',
+    },
+    relatedTerms: ['goblet cell', 'mucus', 'trachea', 'nicotine', 'smoking'],
+  },
+  '0610/11-1-gas-exchange/nicotine': {
+    termId: 'nicotine',
+    subject: '0610',
+    slug: '11-1-gas-exchange',
+    image: '/figures/g8/11-1-gas-exchange/figure-b8-07.png',
+    imageSource: 'G8 Science · p.45, Figure B8.07 — what is in cigarette smoke',
+    mechanism: {
+      en: 'The addictive substance in tobacco. Within seconds of inhaling, nicotine reaches the brain and triggers the release of dopamine — the same reward signal that makes food and social contact feel good. The brain rewires itself around this signal: in its absence the smoker feels irritable, anxious and unable to concentrate, which is why stopping is so hard. Nicotine also narrows small blood vessels and raises blood pressure, putting extra load on the heart.',
+      zh: '烟草中的成瘾物质。吸入后几秒钟内，尼古丁就到达大脑，触发多巴胺释放——跟食物和社交带来愉悦感的是同一种奖赏信号。大脑围绕这个信号重新布线：一旦缺失，吸烟者就会烦躁、焦虑、无法集中注意力——这就是戒烟如此困难的原因。尼古丁还会收缩小血管、升高血压，给心脏增添额外负担。',
+    },
+    relatedTerms: ['tar', 'carbon monoxide', 'coronary heart disease', 'lung cancer'],
+  },
+  '0610/11-1-gas-exchange/carbon monoxide': {
+    termId: 'carbon monoxide',
+    subject: '0610',
+    slug: '11-1-gas-exchange',
+    image: '/figures/g8/11-1-gas-exchange/figure-b8-07.png',
+    imageSource: 'G8 Science · p.45, Figure B8.07 — what is in cigarette smoke',
+    mechanism: {
+      en: 'A poisonous gas that binds to haemoglobin in red blood cells about 200 times more tightly than oxygen does. A smoker with 10% of their haemoglobin occupied by carbon monoxide is effectively anaemic — their blood cannot carry as much oxygen as it should. During pregnancy, the same effect on the mother\'s blood starves the developing baby of oxygen, leading to low birth weight.',
+      zh: '一种有毒气体，与血红蛋白的结合力约为氧气的 200 倍。一个吸烟者如果有 10% 的血红蛋白被一氧化碳占据，就相当于贫血——血液运氧能力下降。孕期母亲血液的同样效应会让发育中的胎儿缺氧，导致出生体重偏低。',
+    },
+    relatedTerms: ['nicotine', 'tar', 'red blood cell', 'haemoglobin'],
+  },
+  '0610/11-1-gas-exchange/emphysema': {
+    termId: 'emphysema',
+    subject: '0610',
+    slug: '11-1-gas-exchange',
+    image: '/figures/g8/11-1-gas-exchange/image-b8-03.png',
+    imageSource: 'G8 Science · p.46, Image B8.03 — healthy lung (a) vs emphysema lung (b)',
+    mechanism: {
+      en: 'Long-term exposure to cigarette smoke inflames the alveoli and the enzymes in the inflammatory response slowly digest the alveolar walls. Many small air sacs merge into a few large ones, and the total surface area available for gas exchange drops. The lungs also lose their elastic recoil, so expelling air becomes an effort. The patient gets breathless walking across a room.',
+      zh: '长期吸入香烟烟雾会让肺泡发炎，炎症反应中的酶逐渐消化掉肺泡壁。许多小气腔合并成几个大气腔，气体交换的总表面积下降。肺也失去弹性回缩力，呼气变得吃力。患者走几步路就会气喘。',
+    },
+    relatedTerms: ['alveolus', 'lung cancer', 'nicotine', 'tar', 'chronic bronchitis'],
+  },
+  '0610/11-1-gas-exchange/lung cancer': {
+    termId: 'lung cancer',
+    subject: '0610',
+    slug: '11-1-gas-exchange',
+    image: '/figures/g8/11-1-gas-exchange/figure-b8-07.png',
+    imageSource: 'G8 Science · p.45, Figure B8.07 — what is in cigarette smoke',
+    mechanism: {
+      en: 'Tar — the sticky brown residue of cigarette smoke — settles on the lining of the bronchi and contains dozens of chemicals that damage DNA. Most damage is repaired, but a single unrepaired mutation in a gene that controls cell division can start a cell dividing out of control. The resulting tumour grows into the air passage and spreads to other parts of the body. Lung cancer is the leading cause of cancer death in many countries, and the risk is roughly proportional to the number of cigarettes smoked per day.',
+      zh: '焦油——香烟烟雾中的褐色黏稠残留物——沉积在支气管内壁上，其中含有数十种会损伤 DNA 的化学物质。大多数损伤会被修复，但只要有一个控制细胞分裂的基因没被修好，一个突变就足以让细胞失控分裂。形成的肿瘤长入气道，并扩散到身体其他部位。肺癌在许多国家是癌症死亡的首要原因，其风险大致与每日吸烟量成正比。',
+    },
+    relatedTerms: ['tar', 'nicotine', 'bronchus', 'alveolus', 'smoking'],
+  },
 }
 
 /**

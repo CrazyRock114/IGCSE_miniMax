@@ -193,3 +193,63 @@ export const DOUBLE_CIRCULATION = {
     systemic: { en: 'Systemic loop', zh: '体循环' } satisfies Bilingual,
   },
 } as const
+
+// ---------------------------------------------------------------------------
+// 11-1 Gas exchange and respiration — Chapter 3 (B8) extras
+// ---------------------------------------------------------------------------
+
+export const AIRWAY_PATHWAY = {
+  modeExplore: { en: 'Explore', zh: '探索' } satisfies Bilingual,
+  modeFollow: { en: 'Follow the air', zh: '跟着空气走一遍' } satisfies Bilingual,
+  followPrompt: {
+    en: 'A breath is travelling larynx → trachea → bronchus → bronchiole → alveoli. The right-hand panel follows along.',
+    zh: '一缕空气正从喉→气管→支气管→细支气管→肺泡。右侧面板同步讲解。',
+  } satisfies Bilingual,
+  emptyExplore: {
+    en: 'Click a part of the breathing system in the picture to read what it does.',
+    zh: '点击图中任一呼吸系统结构，查看它的作用。',
+  } satisfies Bilingual,
+  emptyFollow: {
+    en: 'Starting the journey — the first stop will appear on the right in a moment.',
+    zh: '旅程即将开始，第一站马上会出现在右侧。',
+  } satisfies Bilingual,
+} as const
+
+export const RESPIRATION_COMPARE = {
+  heading: { en: 'Aerobic vs anaerobic', zh: '有氧 vs 无氧' } satisfies Bilingual,
+  aerobic: { en: 'Aerobic respiration', zh: '有氧呼吸' } satisfies Bilingual,
+  anaerobic: { en: 'Anaerobic respiration', zh: '无氧呼吸' } satisfies Bilingual,
+  equationsHeading: { en: 'The word equations', zh: '文字表达式' } satisfies Bilingual,
+  anaerobicMuscle: { en: 'Anaerobic in muscle', zh: '肌肉中的无氧呼吸' } satisfies Bilingual,
+  anaerobicYeast: { en: 'Anaerobic in yeast', zh: '酵母中的无氧呼吸' } satisfies Bilingual,
+} as const
+
+export const GAS_EXCHANGE_FEATURES = {
+  featureLabel: { en: 'The feature', zh: '特征' } satisfies Bilingual,
+  whyLabel: { en: 'Why it matters', zh: '为何重要' } satisfies Bilingual,
+} as const
+
+export const SMOKING_EFFECTS = {
+  heroAlt: {
+    en: 'A burning cigarette, with four arrows pointing at the four things in cigarette smoke that cause harm',
+    zh: '一支燃烧的香烟，四支箭头分别指向烟雾中四种有害物质',
+  } satisfies Bilingual,
+  substancesHeading: {
+    en: 'What is in cigarette smoke',
+    zh: '香烟烟雾里有什么',
+  } satisfies Bilingual,
+  substancesIntro: {
+    en: 'Four substances in the smoke. Each one does a different kind of damage — together they cause the diseases below.',
+    zh: '烟雾中有四种物质。各自造成不同损害——共同引发了下面的疾病。',
+  } satisfies Bilingual,
+  diseasesHeading: {
+    en: 'What smoking does to the body',
+    zh: '吸烟对身体的影响',
+  } satisfies Bilingual,
+  diseasesIntro: {
+    en: 'Four diseases the syllabus names. Each card carries a real figure and the mechanism linking the substance above to the disease here.',
+    zh: '考纲点名的四种疾病。每张卡片配以真实图示，以及连接上方物质与下方疾病的机理。',
+  } satisfies Bilingual,
+  mechanismLabel: { en: 'How it harms', zh: '如何伤害' } satisfies Bilingual,
+  clinicalLabel: { en: 'What it looks like', zh: '临床表现' } satisfies Bilingual,
+} as const
