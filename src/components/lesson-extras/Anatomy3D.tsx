@@ -75,7 +75,12 @@ export function Anatomy3D({
     <div className="relative aspect-[951/564] w-full overflow-hidden bg-canvas">
       <Canvas
         camera={{ position: [0, 0.4, 3.5], fov: 38 }}
-        dpr={[1, 2]}
+        // dpr=[1,1.5]: was [1,2]. On a Retina display 2× DPR doubles
+        // fragment-shader work for every pixel, which competes with the
+        // slider's pointer events for the main thread on slower hardware.
+        // 1.5× is visually indistinguishable from 2× for a 4-light lit
+        // organ and halves the GPU cost on heavy scenes.
+        dpr={[1, 1.5]}
         gl={{ antialias: true, alpha: true, preserveDrawingBuffer: false }}
         shadows={false}
         // Force a render every frame. The default 'demand' loop only redraws

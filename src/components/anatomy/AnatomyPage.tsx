@@ -85,6 +85,15 @@ function AnatomyView({ lesson, extra }: { lesson: Lesson; extra: HeartAnatomyExt
   const [editingId, setEditingId] = useState<string | null>(null)
   const [copyState, setCopyState] = useState<'idle' | 'copied' | 'failed'>('idle')
 
+  // When the user enters edit mode, pause the spin. The whole point of
+  // edit mode is to nudge dots to a precise 3D position — a rotating
+  // model fights that, and worse, the 60 Hz render loop competes with
+  // the slider's pointer events for the main thread, which makes the
+  // slider feel "stuck" after the first drag. Resume when they leave.
+  useEffect(() => {
+    if (editMode) setAutoRotate(false)
+  }, [editMode])
+
   const selected: AnatomyOrgan | null = useMemo(
     () => parts.find((p) => p.id === selectedId) ?? null,
     [parts, selectedId]
