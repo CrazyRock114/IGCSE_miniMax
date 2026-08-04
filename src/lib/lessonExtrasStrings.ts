@@ -274,4 +274,12 @@ export const ANATOMY_3D = {
     en: 'Or pick one from the list to highlight it without rotating.',
     zh: '也可以从这里选一个标记，无需旋转模型。',
   } satisfies Bilingual,
+  startRotate: { en: 'Auto-rotate', zh: '自动旋转' } satisfies Bilingual,
+  pauseRotate: { en: 'Pause', zh: '暂停' } satisfies Bilingual,
+  calloutHint: {
+    en: 'Click another pin, or press Esc to close',
+    zh: '点其他标记继续，或按 Esc 关闭',
+  } satisfies Bilingual,
+  showAllParts: { en: 'All parts', zh: '全部结构' } satisfies Bilingual,
+  hideAllParts: { en: 'Hide list', zh: '收起列表' } satisfies Bilingual,
 } as const
