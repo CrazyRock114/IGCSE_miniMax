@@ -311,7 +311,7 @@ function Header({
   onAutoRotateChange: (v: boolean) => void
 }) {
   return (
-    <header className="pointer-events-none absolute inset-x-0 top-0 z-20 flex flex-wrap items-start justify-between gap-2 p-3">
+    <header className="pointer-events-none absolute inset-x-0 top-0 z-[80] flex flex-wrap items-start justify-between gap-2 p-3">
       <div className="pointer-events-auto max-w-[60%] rounded-lg border border-line bg-canvas/85 px-3 py-1.5 shadow-sm backdrop-blur">
         <Link
           to={`/lesson/${lesson.subject}/${lesson.slug}`}
@@ -622,7 +622,7 @@ function EditPanel({
   ]
 
   return (
-    <div className="pointer-events-auto absolute bottom-3 left-1/2 z-20 w-[min(720px,calc(100vw-2rem))] -translate-x-1/2 rounded-xl border border-amber-500/40 bg-canvas/95 p-3 shadow-lg backdrop-blur">
+    <div className="pointer-events-auto absolute bottom-3 left-1/2 z-[80] w-[min(720px,calc(100vw-2rem))] -translate-x-1/2 rounded-xl border border-amber-500/40 bg-canvas/95 p-3 shadow-lg backdrop-blur">
       <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
         <div className="flex flex-wrap items-center gap-1.5">
           <span className="text-[10px] font-semibold uppercase tracking-wide text-amber-600">
