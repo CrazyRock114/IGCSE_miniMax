@@ -32,15 +32,23 @@ interface TProps {
 export function T({ value, as: As = 'span', className, zhClassName }: TProps): ReactNode {
   const [level] = useAssistLevel()
   const hasZh = Boolean(value.zh)
+  // Cast through `React.HTMLAttributes<HTMLElement>` to dodge a polymorphic
+  // `as: ElementType` + `verbatimModuleSyntax` interaction that, with
+  // `@types/react` 19.2+, infers `<As>`'s `children` as `never` and rejects
+  // every child we pass. The runtime behaviour is unchanged: `As` is still
+  // whatever the caller picked. `React.HTMLAttributes<HTMLElement>` already
+  // permits `undefined` per prop, which the `exactOptionalPropertyTypes`
+  // flag demands we acknowledge.
+  const AsAny = As as React.ComponentType<React.HTMLAttributes<HTMLElement>>
 
   if (level === 'inline' && hasZh) {
     return (
-      <As className={className}>
+      <AsAny className={className}>
         <span>{value.en}</span>
         <span className={zhClassName ?? 'zh-scaffold mt-0.5 block'} lang="zh-CN">
           {value.zh}
         </span>
-      </As>
+      </AsAny>
     )
   }
 
@@ -50,7 +58,7 @@ export function T({ value, as: As = 'span', className, zhClassName }: TProps): R
     // get a dotted underline; see HOVER_UNDERLINE_MAX_CHARS for why prose does not.
     const underlined = value.en.length <= HOVER_UNDERLINE_MAX_CHARS
     return (
-      <As
+      <AsAny
         className={`zh-hint ${className ?? ''}`}
         data-zh={value.zh}
         // Deliberately not focusable. Making every scaffolded span a tab stop would put
@@ -64,11 +72,11 @@ export function T({ value, as: As = 'span', className, zhClassName }: TProps): R
         }
       >
         {value.en}
-      </As>
+      </AsAny>
     )
   }
 
-  return <As className={className}>{value.en}</As>
+  return <AsAny className={className}>{value.en}</AsAny>
 }
 
 /**

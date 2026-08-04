@@ -638,6 +638,14 @@ export interface AnatomyOrgan {
    * left out of the timeline.
    */
   stop?: number
+  /**
+   * Normalised 3D position for the hotspot, used when this organ is rendered
+   * inside a 3D model (e.g. the heart in `HeartAnatomy`'s 3D tab). Each
+   * coordinate is in [0, 1] relative to the loaded GLB's bounding box —
+   * 0 is the minimum, 1 the maximum. Ignored by the 2D renderer; absent means
+   * the 3D renderer skips the hotspot for this part.
+   */
+  position3d?: [number, number, number]
 }
 
 export interface DigestiveAnatomyExtra {
@@ -896,13 +904,20 @@ export interface HeartAnatomyExtra {
    * clickable hotspot; the matching side panel describes it.
    *
    * `stop` is used by the "follow the blood" mode to sequence parts along
-   * the pulmonary + systemic loops.
+   * the pulmonary + systemic loops. `position3d` is the 3D tab's hotspot
+   * anchor (see `AnatomyOrgan`).
    */
   parts: AnatomyOrgan[]
   /**
    * Which part to highlight on first render. Optional.
    */
   initialPart?: string
+  /**
+   * Optional path under /public to a `.glb` 3D model. When set, the
+   * `HeartAnatomy` viewer adds a "3D" tab alongside the 2D figure so the
+   * student can rotate the heart and click the same hotspots in 3D.
+   */
+  model3d?: string
 }
 
 /**

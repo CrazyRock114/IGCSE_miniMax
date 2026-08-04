@@ -546,21 +546,24 @@ const lesson: Lesson = {
   // Each module uses a real figure extracted from the G8 PDF so the
   // student sees the textbook picture, not a hand-drawn approximation.
   extras: [
-    // 1) The heart in one picture — 11 hotspots over the G8 Figure B7.03
+    // 1) The heart in one picture — 11 hotspots over the G8 Figure B7.03,
+    //    plus the matching 3D model with the same hotspots anchored in 3D.
     {
       type: 'heart-anatomy',
       id: 'anatomy',
       title: { en: 'The heart, in one picture', zh: '一张图看心脏' },
       hint: {
-        en: 'Click any chamber, valve or great vessel. "Follow the blood" animates a red cell body → right heart → lungs → left heart → body.',
-        zh: '点击任一心腔、瓣膜或大血管。点"跟着血液走一遍"会动画演示一个红细胞从全身→右心→肺→左心→全身的旅程。',
+        en: 'Click any chamber, valve or great vessel. "Follow the blood" animates a red cell body → right heart → lungs → left heart → body. Switch to 3D to rotate the heart and click the same hotspots in space.',
+        zh: '点击任一心腔、瓣膜或大血管。点"跟着血液走一遍"会动画演示一个红细胞从全身→右心→肺→左心→全身的旅程。切到 3D 可以旋转心脏,在三维空间里点同一组热点。',
       },
       initialPart: 'left-ventricle',
+      model3d: '/figures/3d/heart.glb',
       parts: [
         {
           id: 'vena-cava',
           name: { en: 'Vena cava', zh: '腔静脉' },
           stop: 1,
+          position3d: [0.30, 0.85, 0.65],
           description: {
             en: 'The two largest veins in the body. The superior vena cava brings blood back from the head and arms, the inferior from the lower body. Both dump deoxygenated blood into the right atrium.',
             zh: '人体最大的两条静脉。上腔静脉收集来自头和手臂的血液，下腔静脉收集来自下半身的血液。两条都把缺氧血注入右心房。',
@@ -570,6 +573,7 @@ const lesson: Lesson = {
           id: 'right-atrium',
           name: { en: 'Right atrium', zh: '右心房' },
           stop: 2,
+          position3d: [0.35, 0.62, 0.70],
           description: {
             en: 'The thin-walled upper-right chamber. It receives deoxygenated blood from the venae cavae and, when full, contracts to push it down into the right ventricle through the tricuspid valve.',
             zh: '壁薄的上右侧心腔。它接收来自腔静脉的缺氧血，满了之后收缩，把血液经三尖瓣推入右心室。',
@@ -579,6 +583,7 @@ const lesson: Lesson = {
         {
           id: 'tricuspid-valve',
           name: { en: 'Tricuspid (AV) valve', zh: '三尖瓣（房室瓣）' },
+          position3d: [0.40, 0.50, 0.70],
           description: {
             en: 'The one-way valve between the right atrium and the right ventricle. It has three flaps (hence "tri-"). When the right ventricle contracts, the flaps snap shut, preventing blood from being pushed back into the atrium.',
             zh: '位于右心房和右心室之间的单向瓣膜。它有三片瓣叶（故名"三尖"）。右心室收缩时，瓣叶啪地关闭，防止血液被推回心房。',
@@ -588,6 +593,7 @@ const lesson: Lesson = {
           id: 'right-ventricle',
           name: { en: 'Right ventricle', zh: '右心室' },
           stop: 3,
+          position3d: [0.40, 0.32, 0.70],
           description: {
             en: 'The lower-right chamber. Its wall is muscular but thinner than the left ventricle — it only has to pump blood to the lungs, which are right next door. The blood leaves through the pulmonary artery.',
             zh: '右下方的心腔。壁有肌肉但比左心室薄——它只需把血液泵到隔壁的肺。血液从肺动脉离开。',
@@ -597,6 +603,7 @@ const lesson: Lesson = {
           id: 'pulmonary-artery',
           name: { en: 'Pulmonary artery', zh: '肺动脉' },
           stop: 4,
+          position3d: [0.48, 0.88, 0.60],
           description: {
             en: 'The only artery in the body that carries deoxygenated blood. It splits into two, one branch going to each lung. At its start, just after the right ventricle, is the pulmonary semilunar valve.',
             zh: '人体中唯一一条运输缺氧血的动脉。它分成两支，分别进入左肺和右肺。在它起点——紧接右心室之后——是肺动脉半月瓣。',
@@ -606,6 +613,7 @@ const lesson: Lesson = {
           id: 'pulmonary-vein',
           name: { en: 'Pulmonary vein', zh: '肺静脉' },
           stop: 5,
+          position3d: [0.80, 0.82, 0.60],
           description: {
             en: 'The only vein in the body that carries oxygenated blood — it is bringing the blood back from the lungs to the left atrium, freshly loaded with oxygen.',
             zh: '人体中唯一一条运输含氧血的静脉——它把从肺中新鲜充氧的血液送回左心房。',
@@ -615,6 +623,7 @@ const lesson: Lesson = {
           id: 'left-atrium',
           name: { en: 'Left atrium', zh: '左心房' },
           stop: 6,
+          position3d: [0.72, 0.62, 0.70],
           description: {
             en: 'The thin-walled upper-left chamber. It receives oxygenated blood from the pulmonary veins and pushes it down into the left ventricle through the bicuspid (mitral) valve.',
             zh: '壁薄的上左侧心腔。它接收来自肺静脉的含氧血，再通过二尖瓣（僧帽瓣）推入左心室。',
@@ -623,6 +632,7 @@ const lesson: Lesson = {
         {
           id: 'bicuspid-valve',
           name: { en: 'Bicuspid (mitral) valve', zh: '二尖瓣（僧帽瓣）' },
+          position3d: [0.62, 0.50, 0.65],
           description: {
             en: 'The one-way valve between the left atrium and the left ventricle. Two flaps, hence "bi-". Closes with a louder "lub" than the tricuspid — that is the first of the two sounds you hear through a stethoscope.',
             zh: '左心房与左心室之间的单向瓣膜。两片瓣叶，故名"二尖"。关闭时发出的"扑"比三尖瓣响——这正是听诊器听到的第一个心音。',
@@ -632,6 +642,7 @@ const lesson: Lesson = {
           id: 'left-ventricle',
           name: { en: 'Left ventricle', zh: '左心室' },
           stop: 7,
+          position3d: [0.62, 0.30, 0.65],
           description: {
             en: 'The lower-left chamber, and the strongest muscle in the body. Its wall is about three times thicker than the right ventricle — it has to pump blood all the way round the body, not just to the next room. Blood leaves through the aorta.',
             zh: '左下方的心腔，也是人体最强壮的肌肉。其壁厚约为右心室的三倍——它要把血液泵到全身各处，而非仅一墙之隔的肺。血液从主动脉离开。',
@@ -641,6 +652,7 @@ const lesson: Lesson = {
           id: 'aorta',
           name: { en: 'Aorta', zh: '主动脉' },
           stop: 8,
+          position3d: [0.65, 0.88, 0.55],
           description: {
             en: 'The largest artery in the body, leaving the left ventricle and arching over the top of the heart. It carries oxygenated blood at high pressure, and its first branches feed the heart muscle itself (the coronary arteries).',
             zh: '人体最大的动脉，从左心室发出，向上弓形越过心脏顶部。它以高压运输含氧血，第一批分支供应心肌本身（冠状动脉）。',
@@ -649,6 +661,7 @@ const lesson: Lesson = {
         {
           id: 'septum',
           name: { en: 'Septum', zh: '室间隔' },
+          position3d: [0.50, 0.40, 0.50],
           description: {
             en: 'The muscular wall down the middle of the heart. It completely separates the two sides — oxygenated and deoxygenated blood never mix. A hole in the septum (a "hole in the heart") is a congenital defect.',
             zh: '心脏中央的肌肉壁。它把左右两侧完全隔开——含氧血和缺氧血永远不混合。间隔上的孔（"心脏有洞"）是先天缺陷。',
