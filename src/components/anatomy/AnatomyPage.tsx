@@ -563,6 +563,17 @@ function EditPanel({
   const pos = editingPart ? effectivePos(editingPart.id) : [0.5, 0.5, 0.5]
   const isOverride = editingPart ? Boolean(pinOverrides[editingPart.id]) : false
 
+  // Step size: how far one drag tick moves the pin. The bbox is 1.0 wide
+  // in normalised space, so 0.001 = 0.1% (a hair on a 951px image) while
+  // 0.05 = 5% (clearly visible). Default to 0.02 — fast enough to land
+  // on a part in two or three drags, fine enough to read the result.
+  const [step, setStep] = useState(0.02)
+  const stepOptions: { value: number; label: string }[] = [
+    { value: 0.002, label: 'Fine' },
+    { value: 0.02, label: 'Normal' },
+    { value: 0.05, label: 'Coarse' },
+  ]
+
   return (
     <div className="pointer-events-auto absolute bottom-3 left-1/2 z-20 w-[min(720px,calc(100vw-2rem))] -translate-x-1/2 rounded-xl border border-amber-500/40 bg-canvas/95 p-3 shadow-lg backdrop-blur">
       <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
@@ -593,31 +604,51 @@ function EditPanel({
             )
           })}
         </div>
-        {editingPart && isOverride && (
-          <button
-            type="button"
-            onClick={() => onClearPart(editingPart.id)}
-            className="text-[11px] text-amber-600 hover:underline"
-            title="Drop the override for this pin and use the lesson value"
-          >
-            Clear override
-          </button>
-        )}
+        <div className="flex items-center gap-2">
+          {editingPart && isOverride && (
+            <button
+              type="button"
+              onClick={() => onClearPart(editingPart.id)}
+              className="text-[11px] text-amber-600 hover:underline"
+              title="Drop the override for this pin and use the lesson value"
+            >
+              Clear override
+            </button>
+          )}
+          <div className="flex overflow-hidden rounded-md border border-line">
+            {stepOptions.map((opt) => (
+              <button
+                key={opt.value}
+                type="button"
+                onClick={() => setStep(opt.value)}
+                className={
+                  'px-2 py-0.5 text-[10px] font-medium transition-colors ' +
+                  (step === opt.value
+                    ? 'bg-amber-500 text-white'
+                    : 'bg-canvas text-ink-soft hover:bg-surface')
+                }
+                title={`Step ${opt.value} per slider tick`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
       {editingPart ? (
-        <div className="grid gap-2 sm:grid-cols-3">
+        <div className="grid gap-3 sm:grid-cols-3">
           {(['x', 'y', 'z'] as const).map((axis, i) => (
-            <label key={axis} className="block text-xs text-ink-soft">
-              <span className="mb-1 flex items-baseline justify-between font-mono">
+            <div key={axis} className="text-xs text-ink-soft">
+              <div className="mb-1 flex items-baseline justify-between font-mono">
                 <span className="uppercase">{axis}</span>
                 <span className="text-muted">{(pos[i] ?? 0).toFixed(3)}</span>
-              </span>
+              </div>
               <input
                 type="range"
                 min={0}
                 max={1}
-                step={0.005}
+                step={step}
                 value={pos[i]}
                 onChange={(e) => {
                   const next: [number, number, number] = [...pos] as [number, number, number]
@@ -627,7 +658,33 @@ function EditPanel({
                 className="w-full accent-amber-500"
                 data-edit-axis={axis}
               />
-            </label>
+              <div className="mt-1 flex gap-1">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const next: [number, number, number] = [...pos] as [number, number, number]
+                    next[i] = Math.max(0, (pos[i] ?? 0) - step)
+                    onChangePart(editingPart.id, next)
+                  }}
+                  className="flex-1 rounded border border-line bg-canvas px-1 py-0.5 text-[10px] text-ink-soft hover:bg-surface"
+                  aria-label={`Decrement ${axis} by ${step}`}
+                >
+                  −
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const next: [number, number, number] = [...pos] as [number, number, number]
+                    next[i] = Math.min(1, (pos[i] ?? 0) + step)
+                    onChangePart(editingPart.id, next)
+                  }}
+                  className="flex-1 rounded border border-line bg-canvas px-1 py-0.5 text-[10px] text-ink-soft hover:bg-surface"
+                  aria-label={`Increment ${axis} by ${step}`}
+                >
+                  +
+                </button>
+              </div>
+            </div>
           ))}
         </div>
       ) : (
