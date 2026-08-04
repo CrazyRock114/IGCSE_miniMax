@@ -187,7 +187,13 @@ function AnatomyView({ lesson, extra }: { lesson: Lesson; extra: HeartAnatomyExt
             }}
             onHover={setHoveredId}
             autoRotate={autoRotate}
-            onSelectedScreenPos={setSelectedScreenPos}
+            // Skip the per-frame screen-position reporter while in edit
+            // mode: nothing is selected (the editor uses `editingId`),
+            // so the only thing the reporter would do is setState
+            // `null` 60 times a second and storm the parent into
+            // 60 Hz re-renders. That storm is what made the slider
+            // input feel stuck after the first change.
+            onSelectedScreenPos={editMode ? undefined : setSelectedScreenPos}
             pinOverrides={editMode ? pinOverrides : undefined}
             editMode={editMode}
             onPinAdjust={(id) => setEditingId(id)}
@@ -421,7 +427,9 @@ function FullScreen3D({
   onSelect: (id: string) => void
   onHover: (id: string | null) => void
   autoRotate: boolean
-  onSelectedScreenPos: (pos: { x: number; y: number } | null) => void
+  // Optional so edit mode can pass `undefined` and skip the per-frame
+  // screen-position reporter (see AnatomyView for the full reason).
+  onSelectedScreenPos?: ((pos: { x: number; y: number } | null) => void) | undefined
   pinOverrides?: Record<string, [number, number, number]> | undefined
   editMode: boolean
   onPinAdjust: (id: string) => void

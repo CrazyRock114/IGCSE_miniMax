@@ -142,6 +142,12 @@ export function Anatomy3D({
 // Internal: load the GLB, compute the bbox once, render the model + pins.
 // ---------------------------------------------------------------------------
 
+// Stable fallback position for parts without a 3D position. Reusing the
+// same Vector3 reference (instead of a fresh `[0,0,0]` literal) keeps
+// drei's Html prop diffing honest: a different array reference would
+// look like the pin moved to the origin, which it didn't.
+const FALLBACK_POS = new THREE.Vector3(0, 0, 0)
+
 function ModelWithHotspots({
   modelUrl,
   parts,
@@ -254,15 +260,31 @@ function ModelWithHotspots({
   // dot). Skipped if the part is behind the camera or out of the viewport.
   // Kept as a separate effect so its update frequency is independent of
   // the auto-rotate's rAF cadence.
+  //
+  // CRITICAL: bail out when nothing changed. The default behaviour of
+  // setState on a new object reference re-renders the parent, which
+  // re-renders this whole subtree, which re-runs the React render path
+  // for every Html pin — at 60 Hz, that storm drowned out the Edit
+  // panel's slider input. The parent only passes a real callback in
+  // read mode, so edit mode hits the `!onSelectedScreenPos` early
+  // return; this bailout is the second line of defence for read mode
+  // (no rotation, no drag, no selection change → no re-render).
+  const lastReportedPosRef = useRef<{ x: number; y: number } | null>(null)
   useFrame(() => {
     if (!onSelectedScreenPos) return
     if (!selectedId) {
-      onSelectedScreenPos(null)
+      if (lastReportedPosRef.current !== null) {
+        onSelectedScreenPos(null)
+        lastReportedPosRef.current = null
+      }
       return
     }
     const pin = pinsWithPos.find((p) => p.id === selectedId)
     if (!pin) {
-      onSelectedScreenPos(null)
+      if (lastReportedPosRef.current !== null) {
+        onSelectedScreenPos(null)
+        lastReportedPosRef.current = null
+      }
       return
     }
     // World point = group rotation * pin world position
@@ -271,13 +293,24 @@ function ModelWithHotspots({
     // Project to NDC, then to canvas pixels
     const ndc = worldPoint.clone().project(camera as THREE.PerspectiveCamera)
     if (ndc.z > 1 || ndc.z < -1) {
-      onSelectedScreenPos(null)
+      if (lastReportedPosRef.current !== null) {
+        onSelectedScreenPos(null)
+        lastReportedPosRef.current = null
+      }
       return
     }
-    onSelectedScreenPos({
+    const next = {
       x: (ndc.x * 0.5 + 0.5) * size.width,
       y: (-ndc.y * 0.5 + 0.5) * size.height,
-    })
+    }
+    const last = lastReportedPosRef.current
+    // 0.5 px tolerance: a stationary dot or a slider drag below this
+    // resolution would otherwise re-render the parent every frame.
+    if (last && Math.abs(last.x - next.x) < 0.5 && Math.abs(last.y - next.y) < 0.5) {
+      return
+    }
+    lastReportedPosRef.current = next
+    onSelectedScreenPos(next)
   })
 
   // Filter to parts that actually have a 3D position (lesson or override).
@@ -309,10 +342,16 @@ function ModelWithHotspots({
         // slightly stronger ring, and an outline ring on the one being
         // adjusted to remind the user that an override is in place.
         const size = editMode ? 14 : showRing ? 16 : 12
+        // Pass the Vector3 directly (drei accepts Vector3 | [x,y,z]).
+        // Calling `.toArray()` here would allocate a fresh array on
+        // every React render — and parent re-renders happen often in
+        // this tree, so we'd churn the GC and confuse drei's prop
+        // diffing into thinking the pin moved every frame.
+        const pin = pinsWithPos.find((q) => q.id === p.id)
         return (
           <Html
             key={p.id}
-            position={pinsWithPos.find((q) => q.id === p.id)?.worldPos.toArray() ?? [0, 0, 0]}
+            position={pin?.worldPos ?? FALLBACK_POS}
             center
             distanceFactor={5}
             zIndexRange={[40, 0]}
