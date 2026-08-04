@@ -12,19 +12,14 @@ const Anatomy3D = lazy(() =>
 )
 
 /**
- * Fullscreen 3D anatomy viewer. Reached from the in-lesson 3D tab via the
- * "Open in fullscreen" button, or directly from a bookmark.
- *
- * The route is `/anatomy/:subject/:slug`. We look up the lesson and use its
- * first `heart-anatomy` extra to source the model and hotspot data — this
- * way `position3d` lives in one place (the lesson) and both views stay in
- * sync.
+ * Fullscreen 3D anatomy viewer. The whole page is the canvas; the part
+ * details and the part list float over it as overlay panels, the way a
+ * gallery viewer does. Modelled on the Anatomy Atelier layout — heart
+ * centred, fills ~70% of the viewport, no fixed sidebar eating space.
  */
 export function AnatomyPage() {
   const { subject, slug } = useParams<{ subject: string; slug: string }>()
   const lesson = subject && slug ? findLesson(subject, slug) : undefined
-  // Call the lookup hook before any early return so React's hook order is stable
-  // even when the lesson is missing.
   const extra = useMemo(
     () => (lesson ? findAnatomyExtra(lesson) : undefined),
     [lesson]
@@ -68,17 +63,21 @@ function AnatomyView({ lesson, extra }: { lesson: Lesson; extra: HeartAnatomyExt
   const parts = extra.parts
   const [selectedId, setSelectedId] = useState<string | null>(extra.initialPart ?? null)
   const [hoveredId, setHoveredId] = useState<string | null>(null)
+  const [listOpen, setListOpen] = useState(false)
+  const [autoRotate, setAutoRotate] = useState(true)
 
   const selected: AnatomyOrgan | null = useMemo(
     () => parts.find((p) => p.id === selectedId) ?? null,
     [parts, selectedId]
   )
 
-  // Keyboard shortcuts: arrow keys / 1..N to step through parts, Esc to clear.
+  // Keyboard shortcuts: arrow keys step through parts, Esc clears.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setSelectedId(null)
-      else if (e.key === 'ArrowRight' || e.key === ']') {
+      if (e.key === 'Escape') {
+        setSelectedId(null)
+        setListOpen(false)
+      } else if (e.key === 'ArrowRight' || e.key === ']') {
         const i = parts.findIndex((p) => p.id === selectedId)
         setSelectedId(parts[(i + 1) % parts.length]?.id ?? null)
       } else if (e.key === 'ArrowLeft' || e.key === '[') {
@@ -91,35 +90,48 @@ function AnatomyView({ lesson, extra }: { lesson: Lesson; extra: HeartAnatomyExt
   }, [parts, selectedId])
 
   return (
-    <div className="flex h-screen flex-col bg-canvas">
-      <Header lesson={lesson} />
+    <div className="relative h-screen w-screen overflow-hidden bg-canvas">
+      <Suspense fallback={<FullScreen3DFallback />}>
+        <FullScreen3D
+          extra={extra}
+          parts={parts}
+          selectedId={selectedId}
+          hoveredId={hoveredId}
+          onSelect={setSelectedId}
+          onHover={setHoveredId}
+          autoRotate={autoRotate}
+          onAutoRotateChange={setAutoRotate}
+        />
+      </Suspense>
 
-      <div className="grid flex-1 min-h-0 grid-cols-1 lg:grid-cols-[1fr_360px]">
-        <div className="relative min-h-0">
-          <Suspense fallback={<FullScreen3DFallback />}>
-            <FullScreen3D
-              extra={extra}
-              parts={parts}
-              selectedId={selectedId}
-              hoveredId={hoveredId}
-              onSelect={setSelectedId}
-              onHover={setHoveredId}
-            />
-          </Suspense>
+      <Header
+        lesson={lesson}
+        onToggleList={() => setListOpen((v) => !v)}
+        listOpen={listOpen}
+      />
 
-          <div className="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-canvas/85 px-3 py-1.5 text-[11px] text-ink-soft shadow-sm">
-            <T value={ANATOMY_3D.pageHint} />
-          </div>
-        </div>
+      {/* Floating part list (left). Toggle from the header. */}
+      {listOpen && (
+        <PartListOverlay
+          parts={parts}
+          selectedId={selectedId}
+          onSelect={(id) => {
+            setSelectedId(id)
+            setListOpen(false)
+          }}
+          onClose={() => setListOpen(false)}
+        />
+      )}
 
-        <aside className="overflow-y-auto border-l border-line bg-surface p-5">
-          {selected ? (
-            <PartPanel part={selected} parts={parts} onSelect={setSelectedId} />
-          ) : (
-            <PartList parts={parts} onSelect={setSelectedId} />
-          )}
-        </aside>
-      </div>
+      {/* Floating selected-part callout (right). Hidden when nothing selected. */}
+      {selected && (
+        <Callout
+          part={selected}
+          parts={parts}
+          onSelect={setSelectedId}
+          onClose={() => setSelectedId(null)}
+        />
+      )}
     </div>
   )
 }
@@ -128,21 +140,39 @@ function AnatomyView({ lesson, extra }: { lesson: Lesson; extra: HeartAnatomyExt
 // Sub-components
 // ---------------------------------------------------------------------------
 
-function Header({ lesson }: { lesson: Lesson }) {
+function Header({
+  lesson,
+  onToggleList,
+  listOpen,
+}: {
+  lesson: Lesson
+  onToggleList: () => void
+  listOpen: boolean
+}) {
   return (
-    <header className="flex flex-wrap items-baseline justify-between gap-3 border-b border-line bg-surface px-5 py-3">
-      <div className="min-w-0">
+    <header className="pointer-events-none absolute inset-x-0 top-0 z-20 flex flex-wrap items-start justify-between gap-3 p-4">
+      <div className="pointer-events-auto rounded-lg border border-line bg-canvas/85 px-3 py-2 shadow-sm backdrop-blur">
         <Link
           to={`/lesson/${lesson.subject}/${lesson.slug}`}
-          className="text-xs text-accent hover:underline"
+          className="text-[11px] text-accent hover:underline"
         >
           ← Back to lesson
         </Link>
-        <h1 className="mt-1 text-lg font-semibold text-ink">
+        <h1 className="mt-0.5 text-sm font-semibold text-ink">
           <T value={lesson.title} />
-          <span className="ml-2 text-sm font-normal text-muted">· 3D viewer</span>
         </h1>
       </div>
+
+      <button
+        type="button"
+        onClick={onToggleList}
+        className="pointer-events-auto inline-flex items-center gap-1.5 rounded-full border border-line bg-canvas/85 px-3 py-1.5 text-xs font-medium text-ink-soft shadow-sm backdrop-blur transition-colors hover:bg-surface"
+      >
+        <span aria-hidden="true">☰</span>
+        <span>
+          <T value={listOpen ? ANATOMY_3D.hideAllParts : ANATOMY_3D.showAllParts} />
+        </span>
+      </button>
     </header>
   )
 }
@@ -154,6 +184,8 @@ function FullScreen3D({
   hoveredId,
   onSelect,
   onHover,
+  autoRotate,
+  onAutoRotateChange,
 }: {
   extra: HeartAnatomyExtra
   parts: AnatomyOrgan[]
@@ -161,6 +193,8 @@ function FullScreen3D({
   hoveredId: string | null
   onSelect: (id: string) => void
   onHover: (id: string | null) => void
+  autoRotate: boolean
+  onAutoRotateChange: (v: boolean) => void
 }) {
   return (
     <Anatomy3D
@@ -172,6 +206,8 @@ function FullScreen3D({
       onHover={onHover}
       followStep={-1}
       orderedForFollow={[]}
+      autoRotate={autoRotate}
+      onAutoRotateChange={onAutoRotateChange}
     />
   )
 }
@@ -184,19 +220,21 @@ function FullScreen3DFallback() {
   )
 }
 
-function PartPanel({
+function Callout({
   part,
   parts,
   onSelect,
+  onClose,
 }: {
   part: AnatomyOrgan
   parts: AnatomyOrgan[]
   onSelect: (id: string) => void
+  onClose: () => void
 }) {
   const idx = parts.findIndex((p) => p.id === part.id)
   return (
-    <div className="space-y-4">
-      <div className="flex items-baseline justify-between gap-2">
+    <aside className="pointer-events-auto absolute right-4 top-20 z-10 w-[min(380px,calc(100vw-2rem))] rounded-xl border border-line bg-canvas/95 p-4 shadow-lg backdrop-blur">
+      <div className="mb-2 flex items-baseline justify-between gap-2">
         <h2 className="text-base font-semibold text-ink">
           <T value={part.name} />
         </h2>
@@ -210,7 +248,7 @@ function PartPanel({
       </p>
 
       {part.secretions && part.secretions.length > 0 && (
-        <div className="flex flex-wrap gap-1.5">
+        <div className="mt-3 flex flex-wrap gap-1.5">
           {part.secretions.map((s, i) => (
             <span
               key={i}
@@ -222,58 +260,92 @@ function PartPanel({
         </div>
       )}
 
-      <div className="flex gap-2 pt-2">
+      <div className="mt-4 flex items-center gap-2">
         <button
           type="button"
           onClick={() => onSelect(parts[(idx - 1 + parts.length) % parts.length]!.id)}
-          className="flex-1 rounded-md border border-line bg-canvas px-3 py-2 text-xs text-ink-soft hover:bg-surface"
+          className="flex-1 rounded-md border border-line bg-canvas px-2 py-1.5 text-xs text-ink-soft hover:bg-surface"
         >
-          ← Previous
+          ← Prev
         </button>
         <button
           type="button"
           onClick={() => onSelect(parts[(idx + 1) % parts.length]!.id)}
-          className="flex-1 rounded-md border border-line bg-canvas px-3 py-2 text-xs text-ink-soft hover:bg-surface"
+          className="flex-1 rounded-md border border-line bg-canvas px-2 py-1.5 text-xs text-ink-soft hover:bg-surface"
         >
           Next →
         </button>
+        <button
+          type="button"
+          onClick={onClose}
+          className="rounded-md border border-line bg-canvas px-2 py-1.5 text-xs text-ink-soft hover:bg-surface"
+          aria-label="Close"
+        >
+          ✕
+        </button>
       </div>
-    </div>
+
+      <p className="mt-3 text-[10px] text-muted">
+        <T value={ANATOMY_3D.calloutHint} />
+      </p>
+    </aside>
   )
 }
 
-function PartList({
+function PartListOverlay({
   parts,
+  selectedId,
   onSelect,
+  onClose,
 }: {
   parts: AnatomyOrgan[]
+  selectedId: string | null
   onSelect: (id: string) => void
+  onClose: () => void
 }) {
   return (
-    <div className="space-y-3">
-      <h2 className="text-base font-semibold text-ink">
-        <T value={ANATOMY_3D.partsHeading} />
-      </h2>
-      <p className="text-xs text-muted">
+    <aside className="pointer-events-auto absolute left-4 top-20 z-10 w-[min(320px,calc(100vw-2rem))] rounded-xl border border-line bg-canvas/95 p-4 shadow-lg backdrop-blur">
+      <div className="mb-2 flex items-baseline justify-between gap-2">
+        <h2 className="text-sm font-semibold text-ink">
+          <T value={ANATOMY_3D.partsHeading} />
+        </h2>
+        <button
+          type="button"
+          onClick={onClose}
+          className="rounded-md px-1.5 py-0.5 text-xs text-muted hover:bg-canvas"
+          aria-label="Close"
+        >
+          ✕
+        </button>
+      </div>
+      <p className="mb-2 text-[11px] text-muted">
         <T value={ANATOMY_3D.listHint} />
       </p>
-      <ul className="space-y-1.5">
-        {parts.map((p, i) => (
-          <li key={p.id}>
-            <button
-              type="button"
-              onClick={() => onSelect(p.id)}
-              className="w-full rounded-md border border-line bg-canvas px-3 py-2 text-left text-sm text-ink-soft transition-colors hover:border-accent hover:bg-surface"
-            >
-              <span className="mr-2 text-[10px] font-mono text-muted">
-                {String(i + 1).padStart(2, '0')}
-              </span>
-              <T value={p.name} />
-            </button>
-          </li>
-        ))}
+      <ul className="max-h-[60vh] space-y-1 overflow-y-auto pr-1">
+        {parts.map((p, i) => {
+          const isActive = selectedId === p.id
+          return (
+            <li key={p.id}>
+              <button
+                type="button"
+                onClick={() => onSelect(p.id)}
+                className={
+                  'w-full rounded-md border px-2.5 py-1.5 text-left text-sm transition-colors ' +
+                  (isActive
+                    ? 'border-accent bg-accent/10 text-ink'
+                    : 'border-line bg-canvas text-ink-soft hover:border-accent hover:bg-surface')
+                }
+              >
+                <span className="mr-2 text-[10px] font-mono text-muted">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <T value={p.name} />
+              </button>
+            </li>
+          )
+        })}
       </ul>
-    </div>
+    </aside>
   )
 }
 
