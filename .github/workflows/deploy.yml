@@ -22,22 +22,26 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
       - uses: actions/setup-node@v7
         with:
           node-version: 22
-          cache: npm
+          cache: pnpm
 
-      - run: npm ci
+      - run: pnpm install --frozen-lockfile
 
       # The same gates that run locally. A broken kernel or a lesson citing a syllabus
       # statement that does not exist should never reach the published site.
-      - run: npm run lint
-      - run: npm run typecheck
-      - run: npm run test
+      - run: pnpm run lint
+      - run: pnpm run typecheck
+      - run: pnpm run test
 
       - name: Build
         # Project sites are served from /<repo>/, so assets and the router need that base.
-        run: DEPLOY_BASE="/${GITHUB_REPOSITORY#*/}/" npm run build
+        run: DEPLOY_BASE="/${GITHUB_REPOSITORY#*/}/" pnpm run build
 
       # GitHub Pages has no server-side rewrites, so a deep link like
       # /lesson/0625/1-2-motion would 404 on reload. Serving index.html as the 404 page
