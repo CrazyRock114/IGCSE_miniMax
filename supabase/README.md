@@ -9,6 +9,9 @@ Row Level Security.
 
 - `migrations/0001_init.sql` — schema for `profiles`, `word_bank`,
   `mistakes`, `hook_ratings`. Run once in the Supabase SQL Editor.
+- `migrations/0002_statement_progress.sql` — schema for
+  `statement_progress` (per-user, per-syllabus-statement learning
+  state — seen / attempts / wrong counts). Run after 0001.
 
 ## How to set up (one-time)
 
@@ -18,9 +21,11 @@ Row Level Security.
    - Save the database password somewhere safe (you'll need it for the
      SQL editor but the app never sees it)
 
-2. **Run the migration.** Open the SQL Editor in the Supabase dashboard
-   and paste the contents of `migrations/0001_init.sql`. Click "Run".
-   You should see 4 tables created, plus RLS policies.
+2. **Run the migrations in order.** Open the SQL Editor in the
+   Supabase dashboard and paste the contents of each file in
+   `migrations/` (0001, then 0002). Click "Run" after each. You
+   should see 4 tables from 0001 and 1 table from 0002, plus RLS
+   policies for all of them.
 
 3. **Configure Auth.** Project Settings → Authentication:
    - Enable "Email" provider (default)
