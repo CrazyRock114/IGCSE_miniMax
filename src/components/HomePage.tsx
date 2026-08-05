@@ -5,6 +5,7 @@ import { coveredStatementIds, lessons, lessonsForStatement } from '@/lib/registr
 import { T } from '@/components/i18n/T'
 import { LangToggle } from '@/components/i18n/LangToggle'
 import { TranslatorToggle } from '@/components/translator/TranslatorToggle'
+import { UserMenu } from '@/components/auth/UserMenu'
 
 /**
  * The syllabus *is* the home page.
@@ -49,6 +50,7 @@ export function HomePage() {
             </Link>
             <TranslatorToggle />
             <LangToggle />
+            <UserMenu />
           </div>
         </div>
 

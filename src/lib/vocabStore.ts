@@ -1,20 +1,27 @@
 /**
- * Vocab store — localStorage implementation.
+ * Vocab store — localStorage as source of truth, with a Supabase write-through.
  *
- * Single namespace, one JSON blob, atomic writes. The shape is intentionally
- * the same as a future Supabase `words` table: a flat array of `WordEntry`
- * keyed by `termId`. Switching the backend is then a matter of swapping
- * `localStorageStore` for `supabaseStore` in `useVocab`.
+ * Pattern: the UI calls sync `add` / `update` / `remove` / `ensureMany`.
+ * The localStorage write happens first (fast, no network), then the store
+ * fires a `igcse:vocab-changed` window event. The sync layer (see
+ * `lib/syncManager.ts`) listens for that event and pushes the change to
+ * Supabase in the background, if the user is signed in.
  *
- * The whole module is import-side-effect-free; the store is created lazily
- * the first time it's used, so SSR / tests / build-time code never touches
- * `window`.
+ * Why this shape:
+ *   - The localStorage is always populated, so first paint and offline
+ *     use work without any network round-trip.
+ *   - The Supabase write is a write-through cache: it never blocks the
+ *     UI, and a transient network failure only causes the next sign-in
+ *     to be missing the in-flight change, never data loss.
+ *   - The sign-in flow can do a one-time migration of any localStorage
+ *     data the user had before they had a Supabase account.
  */
 
 import type { StudyStatus, VocabStore, WordEntry } from './vocabTypes'
 
 const STORAGE_KEY = 'igcse.vocab.wordbank.v1'
 const SCHEMA_VERSION = 1
+export const VOCAB_CHANGED_EVENT = 'igcse:vocab-changed'
 
 interface Persisted {
   v: number
@@ -52,6 +59,13 @@ function write(words: WordEntry[]): void {
   }
 }
 
+/** Notify the sync layer that localStorage changed. */
+function notify(): void {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new Event(VOCAB_CHANGED_EVENT))
+  }
+}
+
 /**
  * The actual store. Tiny — five methods, all delegating to read/write. Keeping
  * the surface small means swapping the backend is a five-minute job.
@@ -74,6 +88,7 @@ class LocalStorageVocabStore implements VocabStore {
     }
     words.push(created)
     write(words)
+    notify()
     return created
   }
 
@@ -84,11 +99,13 @@ class LocalStorageVocabStore implements VocabStore {
     const next: WordEntry = { ...words[idx]!, ...patch, termId }
     words[idx] = next
     write(words)
+    notify()
     return next
   }
 
   remove(termId: string): void {
     write(read().filter((w) => w.termId !== termId))
+    notify()
   }
 
   ensureMany(terms: Array<{ termId: string; subject: string; slug: string }>): WordEntry[] {
@@ -109,12 +126,16 @@ class LocalStorageVocabStore implements VocabStore {
       })
       changed = true
     }
-    if (changed) write(words)
+    if (changed) {
+      write(words)
+      notify()
+    }
     return words
   }
 
   clear(): void {
     write([])
+    notify()
   }
 }
 

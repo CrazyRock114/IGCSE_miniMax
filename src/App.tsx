@@ -4,12 +4,16 @@ import { LessonPage } from '@/components/lesson/LessonPage'
 import { VocabPage } from '@/pages/VocabPage'
 import { AnatomyPage } from '@/components/anatomy/AnatomyPage'
 import { SelectionTranslator } from '@/components/translator/SelectionTranslator'
+import { SyncManager } from '@/components/auth/SyncManager'
 
 export default function App() {
   return (
     // Vite's base is '/' locally and '/<repo>/' on GitHub Pages; the router has to agree
     // or every in-app link 404s on the deployed site.
     <BrowserRouter basename={import.meta.env.BASE_URL}>
+      {/* SyncManager is a side-effect-only component — it watches auth state
+       * and bridges localStorage ↔ Supabase. Render once near the top. */}
+      <SyncManager />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/subject/:subject" element={<HomePage />} />

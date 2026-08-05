@@ -1,17 +1,15 @@
 /**
- * Mistake store — localStorage implementation. Same shape as
- * `vocabStore.ts`: a single JSON blob, atomic writes, the whole module is
- * import-side-effect-free, the store is created lazily on first use.
- *
- * The contract is in `mistakeTypes.ts`; this file is just the persistence
- * layer. The UI calls `mistakeStore.log(...)` from `QuestionCard` and
- * reads `mistakeStore.list()` from the `/vocab` mistakes tab.
+ * Mistake store — localStorage as source of truth, with a Supabase
+ * write-through. Same pattern as `vocabStore`: every write is sync to
+ * localStorage, then a window event fires and the sync layer picks
+ * it up. See `lib/syncManager.ts` for the actual Supabase push.
  */
 
 import type { Mistake, MistakeStore } from './mistakeTypes'
 
 const STORAGE_KEY = 'igcse.mistakes.v1'
 const SCHEMA_VERSION = 1
+export const MISTAKE_CHANGED_EVENT = 'igcse:mistake-changed'
 
 interface Persisted {
   v: number
@@ -48,6 +46,12 @@ function write(mistakes: Mistake[]): void {
   }
 }
 
+function notify(): void {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new Event(MISTAKE_CHANGED_EVENT))
+  }
+}
+
 class LocalStorageMistakeStore implements MistakeStore {
   list(): Mistake[] {
     return read()
@@ -68,6 +72,7 @@ class LocalStorageMistakeStore implements MistakeStore {
       }
       mistakes.push(created)
       write(mistakes)
+      notify()
       return created
     }
     // Re-attempt: refresh the picked text/index, bump counters, re-open if resolved.
@@ -83,6 +88,7 @@ class LocalStorageMistakeStore implements MistakeStore {
     }
     mistakes[idx] = updated
     write(mistakes)
+    notify()
     return updated
   }
 
@@ -95,11 +101,13 @@ class LocalStorageMistakeStore implements MistakeStore {
     const updated: Mistake = { ...prev, resolved: true, resolvedAt: Date.now() }
     mistakes[idx] = updated
     write(mistakes)
+    notify()
     return updated
   }
 
   clear(): void {
     write([])
+    notify()
   }
 }
 
