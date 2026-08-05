@@ -703,40 +703,6 @@ const lesson: Lesson = {
         },
       ],
     },
-    // Hygiene hypothesis — came out of the 8/5 G8 14-1 lesson discussion of
-    // allergies and the immune system. Why are allergic diseases far more
-    // common in rich, clean cities than in rural, dirtier environments?
-    {
-      type: 'concept-explainer',
-      id: 'hygiene-hypothesis',
-      title: { en: 'Why are allergies rising? The hygiene hypothesis', zh: '过敏为什么越来越多？卫生假说' },
-      hint: {
-        en: 'A single idea that explains why asthma, hay fever and peanut allergies are far more common in rich, clean cities than in farms and villages — and why "a bit of dirt" is part of how a young immune system learns.',
-        zh: '一个想法解释为什么哮喘、过敏性鼻炎、坚果过敏在富裕、干净的城市里远比农场和乡村多——以及为什么"有点脏"恰恰是年幼免疫系统学习的一部分。',
-      },
-      blocks: [
-        {
-          id: 'hygiene',
-          title: { en: 'Allergy is an immune system with too little real work', zh: '过敏是免疫系统"没事干"的副作用' },
-          hook: {
-            en: 'A child raised on a farm, drinking unpasteurised milk and playing in the barn, is much less likely to develop hay fever or asthma than a child raised in a city flat. The two children\'s genes are similar. The difference is what their immune systems met in the first five years of life.',
-            zh: '在农场长大、喝未经巴氏消毒的牛奶、在谷仓里玩耍的孩子，比在城市公寓长大的孩子患花粉症或哮喘的几率低得多。两个人的基因相近，差别在于他们的免疫系统在生命头五年遇到了什么。',
-          },
-          mechanism: {
-            en: 'The immune system has two broad branches: Th1, which fights bacteria and viruses inside cells, and Th2, which fights parasites outside cells. In a modern clean environment, infants meet mostly harmless things (food proteins, pollen, pet dander). Th1 has very little to do, so Th2 stays over-reactive — and over-reactive Th2 is what an allergic response is. In an environment with more microbial exposure, Th1 stays busy, and Th2 stays at a sensible baseline.',
-            zh: '免疫系统有两大分支：Th1 负责对付细胞内的细菌和病毒；Th2 负责对付细胞外的寄生虫。在现代清洁环境中，婴儿接触的大多是无害的东西（食物蛋白、花粉、宠物皮屑）。Th1 没什么事干，Th2 就一直过度活跃——而 Th2 的过度活跃就是过敏反应。在微生物暴露更多的环境里，Th1 一直有活干，Th2 维持在合理基线。',
-          },
-          whyItMatters: {
-            en: 'Allergic diseases — asthma, eczema, hay fever, peanut allergy — have roughly tripled in wealthy countries since the 1980s, and they are still rising. The hygiene hypothesis is the leading explanation. It also predicts that overly sterilised homes, repeated courses of antibiotics in infancy and the absence of older siblings all raise the risk.',
-            zh: '过敏性疾病（哮喘、湿疹、花生过敏、花粉症）在富裕国家自 1980 年代以来大约翻了三倍，且仍在上升。卫生假说是主流解释。它还预测：过度消毒的家居、婴儿期反复使用抗生素、缺少兄弟姐妹，都会抬高风险。',
-          },
-          teacherStory: {
-            en: 'A saying in some cultures — "不干不净，吃了没病" ("a little dirt never hurt anyone") — accidentally captures the core of the hygiene hypothesis. The immune system, like a guard dog, needs real encounters to learn the difference between "stranger" and "threat". Without practice, it overreacts to harmless things.',
-            zh: '中文里一句老话——"不干不净，吃了没病"——恰好抓住了卫生假说的核心。免疫系统像看门狗，需要真实的接触来分辨"陌生人"和"威胁"。没有练习，它会对无害的东西过度反应。',
-          },
-        },
-      ],
-    },
   ],
 }
 
