@@ -6,6 +6,9 @@ import { T } from '@/components/i18n/T'
 import { LangToggle } from '@/components/i18n/LangToggle'
 import { TranslatorToggle } from '@/components/translator/TranslatorToggle'
 import { UserMenu } from '@/components/auth/UserMenu'
+import { ProgressCard } from '@/components/progress/ProgressCard'
+import { useProgressSnapshot } from '@/hooks/useProgressSnapshot'
+import { classify, statementFillClass } from '@/lib/progressTypes'
 
 /**
  * The syllabus *is* the home page.
@@ -21,6 +24,7 @@ export function HomePage() {
 
   const covered = coveredStatementIds()
   const subjectLessons = lessons.filter((l) => l.subject === syllabus.code)
+  const progress = useProgressSnapshot()
 
   const allIds = syllabus.topics.flatMap((t) =>
     t.subtopics.flatMap((s) => s.statements.map((x) => x.id))
@@ -80,28 +84,38 @@ export function HomePage() {
           </nav>
         )}
 
-        <div className="mt-6 rounded-xl border border-line bg-surface p-4">
-          <div className="flex items-baseline justify-between">
-            <span className="text-sm font-medium text-ink-soft">Course coverage</span>
-            <span className="font-mono text-sm text-ink">
-              {coveredCount} / {allIds.length} statements · {pct}%
-            </span>
+        <div className="mt-6 space-y-3">
+          <ProgressCard />
+
+          <div className="rounded-xl border border-line bg-surface p-4">
+            <div className="flex items-baseline justify-between">
+              <span className="text-sm font-medium text-ink-soft">Syllabus coverage</span>
+              <span className="font-mono text-sm text-ink">
+                {coveredCount} / {allIds.length} statements · {pct}%
+              </span>
+            </div>
+            <div className="mt-2 h-2 overflow-hidden rounded-full bg-canvas">
+              <div className="h-full rounded-full bg-teal-600" style={{ width: `${pct}%` }} />
+            </div>
+            <p className="mt-2 text-xs text-muted">
+              How many syllabus statements have a published lesson. This is a
+              developer-side number, not your progress.
+            </p>
+            <p className="mt-1 text-xs text-muted">
+              {subjectLessons.length} lesson{subjectLessons.length === 1 ? '' : 's'} published.
+              Assessment weighting:{' '}
+              {assessmentObjectives.map((ao) => `${ao.code} ${ao.weight}%`).join(' · ')}
+            </p>
           </div>
-          <div className="mt-2 h-2 overflow-hidden rounded-full bg-canvas">
-            <div className="h-full rounded-full bg-teal-600" style={{ width: `${pct}%` }} />
-          </div>
-          <p className="mt-2 text-xs text-muted">
-            {subjectLessons.length} lesson{subjectLessons.length === 1 ? '' : 's'} published.
-            Assessment weighting:{' '}
-            {assessmentObjectives.map((ao) => `${ao.code} ${ao.weight}%`).join(' · ')}
-          </p>
         </div>
 
         {/* The squares below are one per syllabus statement, and nothing on the page says
             so. Without this the map reads as decoration and the only way to find a lesson
-            is to click a 10-pixel square and hope. */}
+            is to click a 10-pixel square and hope. The OUTER ring is the course
+            status (core/supplement/not taught) — the INNER fill is the student's
+            personal progress, layered on top when there's data. */}
         <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted">
-          <span>Each square is one syllabus statement:</span>
+          <span>Each square is one syllabus statement.</span>
           <span className="inline-flex items-center gap-1.5">
             <span className="inline-block size-2.5 rounded-sm bg-teal-600" />
             Core, taught
@@ -110,10 +124,22 @@ export function HomePage() {
             <span className="inline-block size-2.5 rounded-sm bg-violet-500" />
             Supplement, taught
           </span>
-          <span className="inline-flex items-center gap-1.5">
-            <span className="inline-block size-2.5 rounded-sm bg-slate-200" />
-            not yet taught
-          </span>
+          {progress.touchedStatementCount > 0 && (
+            <>
+              <span className="ml-3 inline-flex items-center gap-1.5">
+                <span className="inline-block size-2.5 rounded-sm bg-teal-500" />
+                mastered
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <span className="inline-block size-2.5 rounded-sm bg-teal-300" />
+                practising
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <span className="inline-block size-2.5 rounded-sm bg-rose-300" />
+                struggling
+              </span>
+            </>
+          )}
         </div>
       </header>
 
@@ -172,18 +198,29 @@ export function HomePage() {
                           {sub.statements.map((s) => {
                             const isCovered = covered.has(s.id)
                             const target = lessonsForStatement(s.id)[0]
+                            const userStatus = classify(progress.progressById.get(s.id))
+                            const userFill = statementFillClass(userStatus)
+                            // The outer ring is the course status (core/supplement/none).
+                            // The inner fill is the student's personal status, only shown
+                            // when the user has any data for this statement.
+                            const showUserFill = userStatus !== 'untouched'
+                            const courseBg = isCovered
+                              ? s.tier === 'supplement'
+                                ? 'bg-violet-500'
+                                : 'bg-teal-600'
+                              : 'bg-slate-200'
                             const dot = (
                               <span
                                 title={`${s.id} · ${s.tier === 'supplement' ? 'Supplement' : 'Core'} · ${s.label.en}`}
-                                className={
-                                  'block size-2.5 rounded-sm ' +
-                                  (isCovered
-                                    ? s.tier === 'supplement'
-                                      ? 'bg-violet-500'
-                                      : 'bg-teal-600'
-                                    : 'bg-slate-200')
-                                }
-                              />
+                                className={`relative block size-2.5 rounded-sm ${courseBg}`}
+                              >
+                                {showUserFill && (
+                                  <span
+                                    className={`absolute inset-0.5 rounded-[1px] ${userFill}`}
+                                    aria-hidden="true"
+                                  />
+                                )}
+                              </span>
                             )
                             return target ? (
                               <Link key={s.id} to={`/lesson/${target.subject}/${target.slug}`}>

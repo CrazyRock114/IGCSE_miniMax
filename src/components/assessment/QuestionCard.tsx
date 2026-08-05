@@ -4,10 +4,13 @@ import type { Question } from '@/content/types'
 import { commandWordByName } from '@/content/syllabus/command-words'
 import { T } from '@/components/i18n/T'
 import { mistakeStore } from '@/lib/mistakeStore'
+import { progressStore } from '@/lib/progressStore'
 
 interface QuestionCardProps {
   question: Question
   index: number
+  /** Syllabus statements this question covers. Drives the "Your progress" map. */
+  relatedStatementIds?: string[]
 }
 
 /**
@@ -17,7 +20,7 @@ interface QuestionCardProps {
  * the language of the paper. The command word hint and the examiner's note are where
  * Chinese support lives, because those explain *how to answer*, not *what is asked*.
  */
-export function QuestionCard({ question, index }: QuestionCardProps) {
+export function QuestionCard({ question, index, relatedStatementIds }: QuestionCardProps) {
   const { subject, slug } = useParams<{ subject: string; slug: string }>()
   const [revealed, setRevealed] = useState(false)
   const [picked, setPicked] = useState<number | null>(null)
@@ -33,9 +36,11 @@ export function QuestionCard({ question, index }: QuestionCardProps) {
     if (!isMcq || question.answerIndex === undefined || !subject || !slug) return
     const pickedText = question.options?.[i] ?? ''
     const correctText = question.options?.[question.answerIndex] ?? ''
+    const stmtIds = relatedStatementIds ?? []
     if (i === question.answerIndex) {
       mistakeStore.markResolved(question.id)
       setLoggedAs('right')
+      if (stmtIds.length > 0) progressStore.recordAttempt(subject, stmtIds)
     } else {
       mistakeStore.log({
         questionId: question.id,
@@ -47,6 +52,7 @@ export function QuestionCard({ question, index }: QuestionCardProps) {
         correctText,
       })
       setLoggedAs('wrong')
+      if (stmtIds.length > 0) progressStore.recordWrong(subject, stmtIds)
     }
     window.dispatchEvent(new Event('igcse:vocab-changed'))
   }

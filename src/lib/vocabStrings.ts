@@ -106,4 +106,33 @@ export const VOCAB = {
     en: '{total} logged · {unresolved} still wrong · {resolved} resolved',
     zh: '共 {total} 条 · 未解决 {unresolved} · 已掌握 {resolved}',
   } satisfies Bilingual,
+
+  // Personal progress card on HomePage
+  progressTitle: { en: 'Your study so far', zh: '你的学习进度' } satisfies Bilingual,
+  progressSignedOutBody: {
+    en: 'Sign in to keep your word bank, mistake log, and study map in sync across devices.',
+    zh: '登录后，你的生词本、错题本和学习地图就会在多个设备间同步。',
+  } satisfies Bilingual,
+  progressLastSeen: { en: 'last seen {time}', zh: '最近活动 {time}' } satisfies Bilingual,
+  progressWords: { en: 'Words in bank', zh: '生词本' } satisfies Bilingual,
+  progressMistakes: { en: 'Mistakes logged', zh: '错题数' } satisfies Bilingual,
+  progressStatements: { en: 'Statements touched', zh: '已涉及知识点' } satisfies Bilingual,
+  progressOpenBank: { en: 'Open word bank', zh: '打开生词本' } satisfies Bilingual,
+  progressOpenMistakes: { en: 'Open mistakes', zh: '打开错题' } satisfies Bilingual,
+  progressAllResolved: { en: 'all resolved', zh: '全部掌握' } satisfies Bilingual,
+  progressMastered: { en: 'mastered', zh: '已掌握' } satisfies Bilingual,
+  progressStruggling: { en: 'struggling', zh: '薄弱点' } satisfies Bilingual,
+  progressStillWrong: { en: 'still wrong', zh: '未掌握' } satisfies Bilingual,
+  progressMapLegend: {
+    en: 'Syllabus map:',
+    zh: '课程地图色块:',
+  } satisfies Bilingual,
+  progressHudHint: {
+    en: '{mastered} mastered · {struggling} struggling',
+    zh: '已掌握 {mastered} · 薄弱 {struggling}',
+  } satisfies Bilingual,
+  progressUntouchedHint: {
+    en: 'Open any lesson to start tracking your progress.',
+    zh: '打开任意一节课开始记录进度。',
+  } satisfies Bilingual,
 } as const

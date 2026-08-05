@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import type { Lesson } from '@/content/types'
 import { findKernel, findLesson } from '@/lib/registry'
@@ -16,6 +16,7 @@ import { LessonExtras } from '@/components/lesson-extras/LessonExtras'
 import { QuestionCard } from '@/components/assessment/QuestionCard'
 import { advanceLooping, useAnimationFrame } from '@/lib/useAnimationFrame'
 import { ui } from '@/lib/ui-strings'
+import { progressStore } from '@/lib/progressStore'
 
 /**
  * The generic lesson renderer.
@@ -87,6 +88,14 @@ function LessonView({ lesson }: { lesson: Lesson }) {
       [animate]
     )
   )
+
+  // Mark every syllabus statement this lesson covers as "seen" once on mount.
+  // The store is idempotent within 1s so a route re-mount won't double-count.
+  useEffect(() => {
+    if (lesson.syllabus.length > 0) {
+      progressStore.markSeen(lesson.subject, lesson.syllabus)
+    }
+  }, [lesson.subject, lesson.syllabus])
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
@@ -207,7 +216,7 @@ function LessonView({ lesson }: { lesson: Lesson }) {
               <h2 className="mb-3 text-lg font-semibold text-ink">Check yourself</h2>
               <ol className="space-y-3">
                 {lesson.checkpoints.map((q, i) => (
-                  <QuestionCard key={q.id} question={q} index={i} />
+                  <QuestionCard key={q.id} question={q} index={i} relatedStatementIds={lesson.syllabus} />
                 ))}
               </ol>
             </section>
