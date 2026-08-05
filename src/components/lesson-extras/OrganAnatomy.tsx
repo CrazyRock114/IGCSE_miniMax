@@ -1,7 +1,8 @@
 import { Suspense, lazy, useMemo, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import type { OrganAnatomyExtra, Bilingual } from '@/content/types'
 import { T } from '@/components/i18n/T'
-import { ORGAN_ANATOMY } from '@/lib/lessonExtrasStrings'
+import { HEART_ANATOMY, ORGAN_ANATOMY } from '@/lib/lessonExtrasStrings'
 import { assetUrl } from '@/lib/assetUrl'
 
 const Anatomy3D = lazy(() =>
@@ -23,6 +24,7 @@ export function OrganAnatomy({ extra }: { extra: OrganAnatomyExtra }) {
     extra.initialPart ?? extra.parts[0]?.id ?? null
   )
   const [hoveredId, setHoveredId] = useState<string | null>(null)
+  const { subject, slug } = useParams<{ subject: string; slug: string }>()
 
   const selected = useMemo(
     () => extra.parts.find((p) => p.id === selectedId) ?? null,
@@ -41,7 +43,7 @@ export function OrganAnatomy({ extra }: { extra: OrganAnatomyExtra }) {
       </header>
 
       <div className="grid gap-4 lg:grid-cols-[1fr_300px]">
-        <div className="overflow-hidden rounded-lg border border-line bg-canvas">
+        <div className="relative overflow-hidden rounded-lg border border-line bg-canvas">
           <Suspense
             fallback={
               <div className="flex h-[420px] items-center justify-center text-sm text-muted">
@@ -61,6 +63,18 @@ export function OrganAnatomy({ extra }: { extra: OrganAnatomyExtra }) {
               autoRotate
             />
           </Suspense>
+          {subject && slug && (
+            <Link
+              to={`/anatomy/${subject}/${slug}`}
+              target="_blank"
+              rel="noopener"
+              className="absolute right-2 top-2 inline-flex items-center gap-1 rounded-md border border-line bg-canvas/90 px-2.5 py-1 text-[11px] font-medium text-ink-soft shadow-sm transition-colors hover:bg-surface hover:text-ink"
+              title="Open the fullscreen 3D viewer in a new tab"
+            >
+              <span aria-hidden="true">⛶</span>
+              <T value={HEART_ANATOMY.openFullscreen} />
+            </Link>
+          )}
         </div>
 
         <SidePanel

@@ -1,10 +1,11 @@
 import { Suspense, useMemo, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Html, OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
 import type { DnaHelix3DExtra } from '@/content/types'
 import { T } from '@/components/i18n/T'
-import { DNA_HELIX_3D } from '@/lib/lessonExtrasStrings'
+import { DNA_HELIX_3D, HEART_ANATOMY } from '@/lib/lessonExtrasStrings'
 
 /**
  * A procedurally drawn 3D DNA double helix for Chapter 17 (Inheritance).
@@ -28,14 +29,14 @@ import { DNA_HELIX_3D } from '@/lib/lessonExtrasStrings'
  * Edit-mode calibration flow would work the same way if we ever ship
  * it for procedural models.
  */
-const HELIX_RADIUS = 1
-const HELIX_HEIGHT = 4
-const TURNS = 1.6
+export const HELIX_RADIUS = 1
+export const HELIX_HEIGHT = 4
+export const TURNS = 1.6
 
 // Colour palette. Each base pair is shown with two contrasting colours
 // so the eye can read the helix as two strands, not as a stack of
 // unrelated rungs.
-const PALETTE: Record<string, { a: string; b: string }> = {
+export const DNA_PALETTE: Record<string, { a: string; b: string }> = {
   'A-T': { a: '#ef4444', b: '#1d4ed8' },
   'T-A': { a: '#1d4ed8', b: '#ef4444' },
   'G-C': { a: '#16a34a', b: '#f59e0b' },
@@ -47,8 +48,10 @@ type BasePair = { left: string; right: string }
 /**
  * Deterministic 14-base-pair sequence chosen for a clear visual mix —
  * not random, so the demo is stable across reloads. Half A-T, half G-C.
+ * Exported so the fullscreen AnatomyPage view can fall back to the same
+ * default sequence when the lesson doesn't supply one.
  */
-const DEFAULT_SEQUENCE: BasePair[] = [
+export const DNA_DEFAULT_SEQUENCE: BasePair[] = [
   { left: 'A', right: 'T' },
   { left: 'T', right: 'A' },
   { left: 'G', right: 'C' },
@@ -70,13 +73,14 @@ export function DnaHelix3D({ extra }: { extra: DnaHelix3DExtra }) {
     extra.initialIndex ?? 0
   )
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null)
+  const { subject, slug } = useParams<{ subject: string; slug: string }>()
 
-  const sequence = extra.sequence ?? DEFAULT_SEQUENCE
+  const sequence = extra.sequence ?? DNA_DEFAULT_SEQUENCE
   const selected = selectedIdx != null ? (sequence[selectedIdx] ?? null) : null
   const selectedPair = selected
     ? `${selected.left}-${selected.right}`
     : null
-  const selectedColors = selectedPair ? (PALETTE[selectedPair] ?? null) : null
+  const selectedColors = selectedPair ? (DNA_PALETTE[selectedPair] ?? null) : null
 
   return (
     <article className="rounded-xl border border-line bg-surface p-4">
@@ -90,7 +94,7 @@ export function DnaHelix3D({ extra }: { extra: DnaHelix3DExtra }) {
       </header>
 
       <div className="grid gap-4 lg:grid-cols-[1fr_300px]">
-        <div className="overflow-hidden rounded-lg border border-line bg-canvas">
+        <div className="relative overflow-hidden rounded-lg border border-line bg-canvas">
           <Suspense
             fallback={
               <div className="flex h-[420px] items-center justify-center text-sm text-muted">
@@ -134,6 +138,19 @@ export function DnaHelix3D({ extra }: { extra: DnaHelix3DExtra }) {
           <div className="pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-canvas/85 px-3 py-1 text-[11px] text-ink-soft shadow-sm backdrop-blur">
             <T value={DNA_HELIX_3D.dragHint} />
           </div>
+
+          {subject && slug && (
+            <Link
+              to={`/anatomy/${subject}/${slug}`}
+              target="_blank"
+              rel="noopener"
+              className="absolute right-2 top-2 inline-flex items-center gap-1 rounded-md border border-line bg-canvas/90 px-2.5 py-1 text-[11px] font-medium text-ink-soft shadow-sm transition-colors hover:bg-surface hover:text-ink"
+              title="Open the fullscreen 3D viewer in a new tab"
+            >
+              <span aria-hidden="true">⛶</span>
+              <T value={HEART_ANATOMY.openFullscreen} />
+            </Link>
+          )}
         </div>
 
         <SidePanel
@@ -153,21 +170,26 @@ export function DnaHelix3D({ extra }: { extra: DnaHelix3DExtra }) {
 // Internal: the helix scene
 // ---------------------------------------------------------------------------
 
-function HelixScene({
-  sequence,
-  selectedIdx,
-  hoveredIdx,
-  onSelect,
-  onHover,
-  autoRotate,
-}: {
+/** Public scene component, exported so the AnatomyPage fullscreen view
+ *  can render the same helix at full viewport without duplicating the
+ *  geometry / materials / state plumbing. */
+export type HelixSceneProps = {
   sequence: BasePair[]
   selectedIdx: number | null
   hoveredIdx: number | null
   onSelect: (i: number) => void
   onHover: (i: number | null) => void
   autoRotate: boolean
-}) {
+}
+
+export function HelixScene({
+  sequence,
+  selectedIdx,
+  hoveredIdx,
+  onSelect,
+  onHover,
+  autoRotate,
+}: HelixSceneProps) {
   const groupRef = useFrameRef<THREE.Group>()
 
   useFrame((_, dt) => {
@@ -194,7 +216,7 @@ function HelixScene({
         const isSelected = selectedIdx === i
         const isHovered = hoveredIdx === i
         const pairKey = `${pair.left}-${pair.right}`
-        const colors = PALETTE[pairKey] ?? PALETTE['A-T']!
+        const colors = DNA_PALETTE[pairKey] ?? DNA_PALETTE['A-T']!
 
         return (
           <BasePairRung
