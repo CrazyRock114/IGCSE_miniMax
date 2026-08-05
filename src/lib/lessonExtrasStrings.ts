@@ -550,3 +550,21 @@ export const ORGAN_ANATOMY = {
   loading: { en: 'Loading 3D model…', zh: '正在加载 3D 模型…' } satisfies Bilingual,
   systemLabel: { en: 'Body system', zh: '所属系统' } satisfies Bilingual,
 } as const
+
+export const DNA_HELIX_3D = {
+  loading: { en: 'Drawing the helix…', zh: '正在绘制螺旋…' } satisfies Bilingual,
+  dragHint: {
+    en: 'Drag to rotate · scroll to zoom · click a rung to read the base pair',
+    zh: '拖动旋转 · 滚轮缩放 · 点击碱基对查看说明',
+  } satisfies Bilingual,
+  pairLabel: { en: 'Base pair', zh: '碱基对' } satisfies Bilingual,
+  positionLabel: { en: 'Position', zh: '位置' } satisfies Bilingual,
+  pairDefault: {
+    en: 'Each letter pairs with only one partner: A with T, G with C. The two backbones hold the pairs in a regular helix.',
+    zh: '每个字母只能与一个配对：A 配 T，G 配 C。两条主链把碱基对固定在规则的螺旋中。',
+  } satisfies Bilingual,
+  tapRungHint: {
+    en: 'Click any rung to read the base pair.',
+    zh: '点击任一碱基对查看说明。',
+  } satisfies Bilingual,
+} as const

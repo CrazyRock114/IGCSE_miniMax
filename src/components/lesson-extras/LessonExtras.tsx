@@ -35,6 +35,7 @@ import { PyramidCompare } from './PyramidCompare'
 import { NutrientCycle } from './NutrientCycle'
 import { PopulationCurve } from './PopulationCurve'
 import { OrganAnatomy } from './OrganAnatomy'
+import { DnaHelix3D } from './DnaHelix3D'
 
 /**
  * Dispatches the lesson's `extras` to the right component.
@@ -143,5 +144,7 @@ function renderExtra(extra: LessonExtra) {
       return <PopulationCurve extra={extra} />
     case 'organ-anatomy':
       return <OrganAnatomy extra={extra} />
+    case 'dna-helix-3d':
+      return <DnaHelix3D extra={extra} />
   }
 }

@@ -637,6 +637,7 @@ export type LessonExtra =
   | NutrientCycleExtra
   | PopulationCurveExtra
   | OrganAnatomyExtra
+  | DnaHelix3DExtra
 
 /** What to show in the side panel when an organ is selected. */
 export interface AnatomyOrgan {
@@ -978,6 +979,45 @@ export interface OrganAnatomyExtra {
   parts: AnatomyOrgan[]
   /** Which part to highlight on first render. */
   initialPart?: string
+}
+
+/**
+ * A single base pair in the 3D DNA helix. `name` is the public label
+ * shown in the side panel; `description` is the explanatory text.
+ */
+export interface DnaBaseDescription {
+  name: Bilingual
+  description: Bilingual
+}
+
+/**
+ * Procedurally drawn 3D DNA double helix (Chapter 17, Inheritance).
+ * No GLB — every strand and base pair is a R3F primitive, so the
+ * component ships at <20 KB. The 14-rung demo sequence below gives
+ * a stable, photogenic mix of A-T and G-C pairs.
+ */
+export interface DnaHelix3DExtra {
+  type: 'dna-helix-3d'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  /** Optional one-line caption shown above the canvas. */
+  intro?: Bilingual
+  /**
+   * The base-pair sequence shown along the helix. Defaults to a
+   * 14-pair demo if not provided. Each entry is `{ left, right }` —
+   * the two strands (A always pairs with T, G always with C).
+   */
+  sequence?: { left: string; right: string }[]
+  /**
+   * Per-pair descriptions keyed by `"A-T"`, `"T-A"`, `"G-C"`, `"C-G"`.
+   * Used in the side panel when a rung is selected.
+   */
+  baseDescriptions?: Record<string, DnaBaseDescription>
+  /** Which rung (0-indexed) to highlight on first render. */
+  initialIndex?: number
+  /** Auto-rotate the helix while the user is not interacting. */
+  autoRotate?: boolean
 }
 
 /**

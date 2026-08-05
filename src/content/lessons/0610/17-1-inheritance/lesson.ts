@@ -892,6 +892,59 @@ const lesson: Lesson = {
         },
       ],
     },
+
+    // 5) 3D DNA double helix — a procedural R3F rendering of the
+    //    textbook B-form DNA silhouette. The 2D `DnaToProtein`
+    //    diagram above already shows transcription and translation as
+    //    a flat process; this view is the *shape* of the molecule
+    //    that makes the process possible. The two sugar-phosphate
+    //    backbones are grey tubes, the 14 base pairs are colour-coded
+    //    (A-T red/blue, G-C green/yellow), and each rung is clickable
+    //    so the side panel can read the base pair out loud.
+    {
+      type: 'dna-helix-3d',
+      id: 'dna-helix-3d',
+      title: { en: 'The DNA double helix, in 3D', zh: 'DNA 双螺旋，3D 展示' },
+      hint: {
+        en: 'Drag to rotate. Click any rung to read the base pair. The two grey tubes are the sugar-phosphate backbones; the coloured rungs are the four bases (A, T, G, C) — A always pairs with T, G always with C.',
+        zh: '拖动旋转。点击任一碱基对查看说明。两条灰色管是糖-磷酸主链；彩色横杆是四种碱基（A、T、G、C）——A 必配 T，G 必配 C。',
+      },
+      intro: {
+        en: 'DNA is a double helix — two strands wound around a common axis. Each strand is a chain of sugars and phosphates; the rungs between them are the four bases that carry the genetic code.',
+        zh: 'DNA 是双螺旋——两条链缠绕在同一根轴上。每条链由糖和磷酸组成；连接它们的横杆是携带遗传密码的四种碱基。',
+      },
+      initialIndex: 0,
+      baseDescriptions: {
+        'A-T': {
+          name: { en: 'Adenine — Thymine (A-T)', zh: '腺嘌呤 — 胸腺嘧啶（A-T）' },
+          description: {
+            en: 'Two hydrogen bonds hold the pair together. A and T are the only bases that pair with two bonds; this is what gives A-T pairs their characteristic lower bond count versus G-C.',
+            zh: '两个氢键将它们拉在一起。A 和 T 是唯二以两个氢键配对的碱基；这就是 A-T 对比 G-C 键数更少的原因。',
+          },
+        },
+        'T-A': {
+          name: { en: 'Thymine — Adenine (T-A)', zh: '胸腺嘧啶 — 腺嘌呤（T-A）' },
+          description: {
+            en: 'Same pair as A-T, viewed from the other strand. The pairing is symmetric: an A on one strand always pulls a T across from it on the other.',
+            zh: '与 A-T 同一对，只是从另一条链的视角看。配对是对称的：一条链上的 A 永远与另一条上的 T 相对。',
+          },
+        },
+        'G-C': {
+          name: { en: 'Guanine — Cytosine (G-C)', zh: '鸟嘌呤 — 胞嘧啶（G-C）' },
+          description: {
+            en: 'Three hydrogen bonds hold the pair together. G-C pairs are stronger than A-T pairs; regions of DNA rich in G-C need more energy to separate, which matters when DNA is being unzipped for transcription.',
+            zh: '三个氢键将它们拉在一起。G-C 对比 A-T 更强；富含 G-C 的 DNA 区域需要更多能量才能分开，这在 DNA 解链进行转录时很重要。',
+          },
+        },
+        'C-G': {
+          name: { en: 'Cytosine — Guanine (C-G)', zh: '胞嘧啶 — 鸟嘌呤（C-G）' },
+          description: {
+            en: 'The same G-C pair from the other strand. Three bonds, same strength — the strand you read from does not change the chemistry.',
+            zh: '与 G-C 同一对，只是从另一条链的视角看。三个键，强度相同——从哪条链读，化学性质都不变。',
+          },
+        },
+      },
+    },
   ],
 }
 
