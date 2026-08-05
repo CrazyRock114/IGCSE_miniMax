@@ -945,6 +945,41 @@ const lesson: Lesson = {
         },
       },
     },
+    // 6) Why do our cells age? The telomere, Hayflick limit and HeLa — the
+    //    "wait, that's why" story that came out of the 8/5 G8 17-1 lesson.
+    //    Not on the IGCSE syllabus, but the kind of "cell immortality =
+    //    cancer" connection the student remembers a year later.
+    {
+      type: 'concept-explainer',
+      id: 'telomere-and-immortality',
+      title: { en: 'Why do our cells age? Telomeres, Hayflick, HeLa', zh: '细胞为什么衰老？端粒、Hayflick 上限、HeLa 细胞' },
+      hint: {
+        en: 'A single idea that ties together why we age, why cancer is "immortal" cells, and a real cell line taken from a tumour in 1951 that is still growing in labs today.',
+        zh: '一个想法把"我们为什么会老"、"癌症就是永生的细胞"和 1951 年从一个肿瘤里取出至今仍在实验室生长的细胞系串起来。',
+      },
+      blocks: [
+        {
+          id: 'telomere',
+          title: { en: 'The end of every chromosome wears a cap — the telomere', zh: '每条染色体的末端都戴着一顶"帽子"——端粒' },
+          hook: {
+            en: 'In the 1950s Leonard Hayflick put normal human cells in a dish and watched them divide. They divided about 50 times, then stopped — even with plenty of food and space. The cell\'s internal clock had run out. But cancer cells from the same tissue kept dividing indefinitely.',
+            zh: '20 世纪 50 年代，Leonard Hayflick 把正常人的细胞放进培养皿，看它们分裂。它们大约分裂 50 次后停止——哪怕食物和空间都很充足。细胞的内部时钟走完了。但同一组织来源的癌细胞却无限地分裂下去。',
+          },
+          mechanism: {
+            en: 'A chromosome is a long DNA double helix, and the very last few letters at each end cannot be fully copied — DNA polymerase needs an RNA primer to start, and the primer at the very tip is removed and cannot be replaced. So every division shortens the chromosome a little. The body protects the important genes by adding a long stretch of throwaway repeats (TTAGGG in humans) at each end, called the telomere. When the telomere is gone, the next division damages real genes, and the cell stops dividing — it goes into senescence and dies.',
+            zh: '染色体是一长串 DNA 双螺旋，每条链最末端的几个字母无法被完整复制——DNA 聚合酶需要 RNA 引物才能启动，而最末端的引物会被切掉且无法被补上。所以每分裂一次，染色体就短一点。身体把真正重要的基因用一长串可丢弃的重复序列（人类是 TTAGGG）保护起来，加在每条染色体的末端，这就是端粒。端粒用完后，下一次分裂就会伤到真正的基因，细胞停止分裂——进入衰老并死亡。',
+          },
+          whyItMatters: {
+            en: 'This is the leading theory of ageing at the cellular level. It is also what cancer escapes: most cancer cells switch on an enzyme called telomerase that rebuilds the telomere after every division, so the cap never shortens, and the cell can divide forever.',
+            zh: '这是细胞层面衰老的主流理论之一。也是癌症逃脱的机制：大多数癌细胞会启动一种叫端粒酶的酶，每次分裂后重建端粒，所以"帽子"永远不减，细胞得以无限分裂。',
+          },
+          teacherStory: {
+            en: 'HeLa cells were taken from Henrietta Lacks\' cervical tumour in 1951, and they are still growing in labs around the world today. Her cells "achieved immortality" — a single line of human cells, dividing every 24 hours, for over 70 years and counting.',
+            zh: 'HeLa 细胞是 1951 年从 Henrietta Lacks 的宫颈肿瘤中取出的，至今仍在世界各地的实验室中生长。她的细胞"实现了永生"——同一株人类细胞，每 24 小时分裂一次，已持续 70 多年并还在继续。',
+          },
+        },
+      ],
+    },
   ],
 }
 

@@ -196,6 +196,15 @@ const lesson: Lesson = {
       },
       syllabus: ['0610.11.2.5'],
     },
+    {
+      en: 'asthma',
+      zh: '哮喘',
+      definition: {
+        en: 'A condition in which the small airways (bronchioles) narrow suddenly because the smooth muscle around them contracts. The narrowing is usually triggered by something the person is allergic to, by cold air, or by exercise. A reliever inhaler relaxes the muscle and reopens the airway.',
+        zh: '一种细支气管因周围平滑肌收缩而突然变窄的病症。变窄通常由过敏原、冷空气或运动诱发。缓解型吸入剂能放松平滑肌，重新打开气道。',
+      },
+      syllabus: ['0610.11.1.4'],
+    },
   ],
 
   equations: [
@@ -1056,6 +1065,72 @@ const lesson: Lesson = {
         },
       ],
       initialPart: 'alveoli',
+    },
+    // Air quality — fog vs haze vs PM2.5 vs PM10. Came out of the 8/5
+    // 11-1 lesson discussion of smoking and air pollution. Three blocks
+    // because the four terms are easy to mix up.
+    {
+      type: 'concept-explainer',
+      id: 'air-quality',
+      title: { en: 'What is in the air? Fog, haze, PM2.5 and PM10', zh: '空气里有什么？雾、霾、PM2.5 和 PM10' },
+      hint: {
+        en: 'Four terms that get used interchangeably in weather reports but mean quite different things. One is liquid water, the others are solid particles of different sizes — and the size is what decides whether they reach the alveoli or get trapped higher up.',
+        zh: '天气预报里常被混用的四个词，其实差异很大。一种是液态水，另外三种是不同大小的固体颗粒——正是大小决定了它们是抵达肺泡，还是在更上层就被截住。',
+      },
+      blocks: [
+        {
+          id: 'fog-vs-haze',
+          title: { en: 'Fog and haze look the same — but one is water, the other is solid', zh: '雾和霾看起来一样——一个是水，另一个是固体' },
+          hook: {
+            en: 'A grey-white morning with poor visibility can be either fog (a natural, harmless event) or haze (a pollution event). They look the same to the eye, but the air in each case contains very different things.',
+            zh: '一个灰白、能见度差的早晨，可能是雾（自然、无害的天气现象），也可能是霾（污染事件）。肉眼难分，但两种情况里的空气所含物质非常不同。',
+          },
+          mechanism: {
+            en: 'Fog is liquid: water vapour has condensed onto tiny airborne particles (condensation nuclei) and now drifts as microscopic droplets. Haze is solid: it is solid particulate matter — dust, soot, sulphates, nitrates, organic carbon — small enough to stay suspended. When the air is damp the particles swell with water and look like fog, which is why the two are often confused.',
+            zh: '雾是液体：水蒸气在微小的悬浮颗粒（凝结核）上凝结，形成微米级的水滴漂在空气中。霾是固体：由固体颗粒物——灰尘、烟尘、硫酸盐、硝酸盐、有机碳——组成，小到可以悬浮。当空气潮湿，颗粒吸水胀大，看起来就像雾，所以两者经常被混淆。',
+          },
+          whyItMatters: {
+            en: 'Fog by itself is uncomfortable but mostly harmless. Haze carries solid particles deep into the lungs and is a public-health concern. A weather report saying "fog" and a report saying "haze" do not mean the same risk to a child with asthma or an elderly neighbour.',
+            zh: '雾本身只是不舒服，多数情况下无害。霾则把固体颗粒带入肺的深处，是公共卫生问题。"雾"和"霾"对哮喘孩子或年长邻居意味着完全不同的风险。',
+          },
+        },
+        {
+          id: 'pm25-vs-pm10',
+          title: { en: 'PM2.5 vs PM10 — the size decides where the particle ends up', zh: 'PM2.5 vs PM10——颗粒大小决定它停在气道的哪一层' },
+          hook: {
+            en: 'Air-quality reports show two numbers: PM2.5 and PM10. Both are particles, both look like specks of dust, but the difference in their diameter is the difference between "stuck in the nose" and "deposited in the alveoli".',
+            zh: '空气质量报告里出现两个数：PM2.5 和 PM10。都是颗粒，都像尘屑，但直径的差别就是"卡在鼻腔"和"沉积在肺泡"之间的差别。',
+          },
+          mechanism: {
+            en: 'PM10 means "particulate matter of 10 micrometres or less in diameter". These are caught in the nose and upper airways — sneezed out, coughed up, swallowed. PM2.5 means "of 2.5 micrometres or less". These slip past the upper airways, ride the airflow all the way down to the alveoli, and settle on the gas-exchange surface itself. The smaller the particle, the more surface area it has per unit mass — and the more reactive its chemistry.',
+            zh: 'PM10 指"直径 ≤ 10 微米的颗粒物"。它们被鼻腔和上气道截住——打出喷嚏、咳出、咽下。PM2.5 指"直径 ≤ 2.5 微米"。这些颗粒穿过上气道，随气流一路下到肺泡，沉积在气体交换表面。颗粒越小，单位质量的表面积越大——化学反应活性也越高。',
+          },
+          whyItMatters: {
+            en: 'PM2.5 is the dangerous one. Long-term exposure raises the risk of heart attacks, strokes, lung cancer and chronic lung disease, and short-term spikes drive asthma attacks and acute hospital admissions. China\'s "PM2.5爆表" (off the charts) days in winter are public-health events, not just weather.',
+            zh: 'PM2.5 才是危险的那个。长期暴露提升心梗、中风、肺癌和慢性肺病的风险，短期飙升则诱发哮喘发作和急性住院。冬季中国"PM2.5 爆表"的日子是公共卫生事件，不只是天气。',
+          },
+        },
+        {
+          id: 'gas-exchange-protection',
+          title: { en: 'Why the lung\'s defences struggle against modern air', zh: '为什么肺的防线在现代空气面前力不从心' },
+          hook: {
+            en: 'The lung already has a built-in cleaning system — mucus traps particles, cilia sweep the mucus up and out. On a clean day it does its job. On a heavily polluted day it is overwhelmed, and the particles that get past it lodge in the alveoli and stay there.',
+            zh: '肺本身就有一套清洁系统——黏液捕获颗粒，纤毛把黏液向上扫出体外。在空气干净的日子它干得很好。在重污染的日子它就力不从心，穿过它的颗粒就沉积在肺泡里不走了。',
+          },
+          mechanism: {
+            en: 'Mucociliary clearance moves at a fixed rate; it can clear a normal day\'s worth of particles, but not a polluted one\'s. The particles that get through to the alveoli are removed by macrophages — but macrophages have a limit too. Cigarette smoke, kitchen-oil fumes and chronic PM2.5 exposure all slow cilia and exhaust macrophages. The result is chronic inflammation, eventually the alveolar walls break down (emphysema) and the gas-exchange surface shrinks.',
+            zh: '黏液-纤毛清除系统按固定速率工作——能处理"正常一天"的颗粒量，但处理不了"污染一天"的量。漏过到肺泡的颗粒由巨噬细胞处理——但巨噬细胞也有极限。香烟烟雾、厨房油烟和长期 PM2.5 暴露都会让纤毛变慢、耗尽巨噬细胞。结果是慢性炎症，肺泡壁最终被破坏（肺气肿），气体交换面积缩小。',
+          },
+          whyItMatters: {
+            en: 'This is why the "I smoked my whole life and I\'m fine" anecdote is misleading: it is a survivor, not the median. Long-term exposure drives population-level rises in lung cancer, COPD and cardiovascular deaths. The lungs can take a lot, but they cannot take a modern polluted city forever.',
+            zh: '这就是为什么"我抽了一辈子烟也没事"的故事具有误导性——那是幸存者，不是中位数。长期暴露在群体层面推高肺癌、慢阻肺和心血管病的死亡率。肺能承受很多，但无法永远承受一座现代污染城市。',
+          },
+          teacherStory: {
+            en: 'When air quality alerts are issued for "PM2.5爆表" (off the charts), the responsible advice is to avoid outdoor exercise — your minute ventilation goes up by 5-10x when you exercise, so you dose yourself with proportionally more particles. A walk in a clean park is fine; a run in heavy haze is not.',
+            zh: '"PM2.5 爆表"的日子里，负责任的建议是避免户外运动——运动时每分钟通气量增加 5-10 倍，你按比例吸入更多颗粒。清洁公园里散步可以；重霾下跑步不行。',
+          },
+        },
+      ],
     },
   ],
 }

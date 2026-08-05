@@ -639,6 +639,7 @@ export type LessonExtra =
   | OrganAnatomyExtra
   | DnaHelix3DExtra
   | FoodWeb3DExtra
+  | ConceptExplainerExtra
 
 /** What to show in the side panel when an organ is selected. */
 export interface AnatomyOrgan {
@@ -1043,6 +1044,45 @@ export interface FoodWeb3DExtra {
   edges: FoodWebEdge[]
   /** Auto-rotate the web while the user is not interacting. */
   autoRotate?: boolean
+}
+
+/**
+ * One self-contained block of a `ConceptExplainer` extra: a real-world
+ * hook, the underlying science, why it matters outside the textbook, and
+ * (optionally) a classroom anecdote.
+ *
+ * Designed for "lesson extensions that came out of the teacher's own
+ * classroom" — e.g. the telomere / Hayflick / HeLa story from a
+ * 8/5 17-1 lesson, the hygiene hypothesis from 14-1, the PM2.5 / fog /
+ * haze distinction from 11-1. They are too long to live in a single
+ * `Term` definition and too factual to be a vocab card, but they are
+ * the kind of "wait, that's why" fact the student remembers a year
+ * later.
+ */
+export interface ConceptExplainerBlock {
+  id: string
+  title: Bilingual
+  /** A story, question or fact that pulls the reader in. */
+  hook: Bilingual
+  /** The actual science — what's happening at the molecular / cellular / system level. */
+  mechanism: Bilingual
+  /** Why this matters in real life: clinical, public-health, exam relevance. */
+  whyItMatters: Bilingual
+  /** Optional anecdote from the classroom, a memorable image, a metaphor. */
+  teacherStory?: Bilingual
+}
+
+/**
+ * A vertical stack of concept blocks. Each lesson uses one of these to
+ * package a single "big idea" (one block) or a small family of related
+ * ideas (multiple blocks — e.g. fog vs haze vs PM2.5 vs PM10).
+ */
+export interface ConceptExplainerExtra {
+  type: 'concept-explainer'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  blocks: ConceptExplainerBlock[]
 }
 
 /**
