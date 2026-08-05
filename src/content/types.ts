@@ -638,6 +638,7 @@ export type LessonExtra =
   | PopulationCurveExtra
   | OrganAnatomyExtra
   | DnaHelix3DExtra
+  | FoodWeb3DExtra
 
 /** What to show in the side panel when an organ is selected. */
 export interface AnatomyOrgan {
@@ -1017,6 +1018,30 @@ export interface DnaHelix3DExtra {
   /** Which rung (0-indexed) to highlight on first render. */
   initialIndex?: number
   /** Auto-rotate the helix while the user is not interacting. */
+  autoRotate?: boolean
+}
+
+/**
+ * A 3D, R3F-procedural rendering of a food web for Chapter 19 (Ecosystems).
+ * The same node + edge data shape as the 2D `FoodWeb` extra, but stacked
+ * by trophic level on the Y axis and rotated so the student sees both
+ * the producer floor and the tertiary-consumer ceiling.
+ *
+ * Re-uses `FoodWebNode` / `FoodWebEdge` so the lesson file can keep one
+ * source of truth for the species list.
+ */
+export interface FoodWeb3DExtra {
+  type: 'food-web-3d'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  /** Which species to highlight on first render. */
+  initialSelected?: string
+  /** The species to plot. `x` / `y` are ignored — the 3D version
+   *  re-lays out by trophic level and a stable hash of the id. */
+  nodes: FoodWebNode[]
+  edges: FoodWebEdge[]
+  /** Auto-rotate the web while the user is not interacting. */
   autoRotate?: boolean
 }
 

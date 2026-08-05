@@ -1,5 +1,217 @@
-import type { Lesson } from '@/content/types'
+import type { Lesson, FoodWebNode, FoodWebEdge } from '@/content/types'
 import narration from './narration'
+
+/**
+ * The woodland food-web species list. Shared by the 2D `food-web` extra
+ * and the 3D `food-web-3d` extra so we keep one source of truth for
+ * the network.
+ */
+const FOOD_WEB_NODES: FoodWebNode[] = [
+  // Producers (bottom band)
+  {
+    id: 'oak',
+    shortLabel: 'oak',
+    name: { en: 'oak tree', zh: '橡树' },
+    description: {
+      en: 'A producer — makes its own food by photosynthesis. In a woodland, oaks are the structural backbone: their acorns feed mice, voles, squirrels, and many insects; their leaves and bark feed caterpillars and beetle larvae.',
+      zh: '生产者——通过光合作用自养。在林地里，橡树是结构性骨干：橡子喂养老鼠、田鼠、松鼠及许多昆虫；叶子和树皮喂养毛毛虫和甲虫幼虫。',
+    },
+    trophic: 'producer',
+    eats: [],
+    eatenBy: [
+      { id: 'caterpillar', label: { en: 'caterpillars', zh: '毛毛虫' } },
+      { id: 'mouse', label: { en: 'wood mice', zh: '林鼠' } },
+      { id: 'rabbit', label: { en: 'rabbits (bark)', zh: '兔子（树皮）' } },
+    ],
+    x: 200,
+    y: 380,
+  },
+  {
+    id: 'grass',
+    shortLabel: 'grass',
+    name: { en: 'grass', zh: '草' },
+    description: {
+      en: 'A producer that forms the understorey. Short, fast-growing, eaten constantly by rabbits, voles, and grazing insects.',
+      zh: '构成林地下层植被的生产者。矮小、生长快，被兔子、田鼠和取食昆虫持续啃食。',
+    },
+    trophic: 'producer',
+    eats: [],
+    eatenBy: [
+      { id: 'rabbit', label: { en: 'rabbits', zh: '兔子' } },
+      { id: 'caterpillar', label: { en: 'caterpillars', zh: '毛毛虫' } },
+    ],
+    x: 500,
+    y: 380,
+  },
+  // Primary consumers
+  {
+    id: 'caterpillar',
+    shortLabel: 'caterpillar',
+    name: { en: 'caterpillar', zh: '毛毛虫' },
+    description: {
+      en: 'A primary consumer (herbivore) — eats leaves. Caterpillars are eaten in huge numbers by small birds, especially in spring. The number of caterpillars is what limits how many chicks the woodland can raise.',
+      zh: '初级消费者（植食动物）——以叶为食。毛毛虫被小型鸟类大量捕食，尤其在春季。毛毛虫的数量是林地能养多少雏鸟的限制因素。',
+    },
+    trophic: 'primary',
+    eats: [
+      { id: 'oak', label: { en: 'oak leaves', zh: '橡树叶' } },
+      { id: 'grass', label: { en: 'grass', zh: '草' } },
+    ],
+    eatenBy: [
+      { id: 'robin', label: { en: 'robins', zh: '知更鸟' } },
+      { id: 'shrew', label: { en: 'shrews', zh: '鼩鼱' } },
+    ],
+    x: 80,
+    y: 270,
+  },
+  {
+    id: 'rabbit',
+    shortLabel: 'rabbit',
+    name: { en: 'rabbit', zh: '兔子' },
+    description: {
+      en: 'A primary consumer (herbivore) — grazes grass and gnaws bark. Rabbits reproduce fast; their numbers are limited mostly by predators and disease, not by food.',
+      zh: '初级消费者（植食动物）——啃食青草、咬食树皮。兔子繁殖快，其数量主要由捕食者和疾病限制，而非食物。',
+    },
+    trophic: 'primary',
+    eats: [
+      { id: 'grass', label: { en: 'grass', zh: '草' } },
+      { id: 'oak', label: { en: 'oak bark', zh: '橡树皮' } },
+    ],
+    eatenBy: [
+      { id: 'fox', label: { en: 'foxes', zh: '狐狸' } },
+    ],
+    x: 360,
+    y: 270,
+  },
+  {
+    id: 'mouse',
+    shortLabel: 'mouse',
+    name: { en: 'wood mouse', zh: '林鼠' },
+    description: {
+      en: 'A primary consumer — eats seeds, nuts, and shoots. Mice are the staple diet of owls and foxes in the woodland; without them, the predators would not survive.',
+      zh: '初级消费者——以种子、坚果和嫩芽为食。老鼠是林地中猫头鹰和狐狸的主食；没有它们，捕食者也活不下来。',
+    },
+    trophic: 'primary',
+    eats: [
+      { id: 'oak', label: { en: 'acorns and seeds', zh: '橡子和种子' } },
+    ],
+    eatenBy: [
+      { id: 'fox', label: { en: 'foxes', zh: '狐狸' } },
+      { id: 'owl', label: { en: 'owls', zh: '猫头鹰' } },
+    ],
+    x: 580,
+    y: 270,
+  },
+  // Secondary consumers
+  {
+    id: 'robin',
+    shortLabel: 'robin',
+    name: { en: 'robin', zh: '知更鸟' },
+    description: {
+      en: 'A secondary consumer — eats caterpillars and other insects. Robins are themselves eaten by sparrowhawks.',
+      zh: '次级消费者——捕食毛毛虫和其它昆虫。知更鸟自己又被雀鹰捕食。',
+    },
+    trophic: 'secondary',
+    eats: [
+      { id: 'caterpillar', label: { en: 'caterpillars', zh: '毛毛虫' } },
+    ],
+    eatenBy: [
+      { id: 'hawk', label: { en: 'sparrowhawks', zh: '雀鹰' } },
+    ],
+    x: 120,
+    y: 160,
+  },
+  {
+    id: 'shrew',
+    shortLabel: 'shrew',
+    name: { en: 'shrew', zh: '鼩鼱' },
+    description: {
+      en: 'A small insectivore. Shrews are eaten by owls, foxes, and kestrels. They have such a fast metabolism that they have to eat almost constantly — many die if they go more than a few hours without food.',
+      zh: '小型食虫哺乳动物。鼩鼱被猫头鹰、狐狸和红隼捕食。它们代谢极快，必须不停地吃——几小时不进食就可能死。',
+    },
+    trophic: 'secondary',
+    eats: [
+      { id: 'caterpillar', label: { en: 'caterpillars and insects', zh: '毛毛虫和昆虫' } },
+    ],
+    eatenBy: [
+      { id: 'owl', label: { en: 'owls', zh: '猫头鹰' } },
+      { id: 'fox', label: { en: 'foxes', zh: '狐狸' } },
+    ],
+    x: 280,
+    y: 160,
+  },
+  // Tertiary
+  {
+    id: 'fox',
+    shortLabel: 'fox',
+    name: { en: 'fox', zh: '狐狸' },
+    description: {
+      en: 'A tertiary consumer (top predator) — eats rabbits, mice, and shrews. Foxes have few predators of their own in the woodland, so they are near the top of the web.',
+      zh: '三级消费者（顶级捕食者）——捕食兔子、老鼠和鼩鼱。在林地中狐狸几乎没有天敌，所以它位于食物网接近顶端的位置。',
+    },
+    trophic: 'tertiary',
+    eats: [
+      { id: 'rabbit', label: { en: 'rabbits', zh: '兔子' } },
+      { id: 'mouse', label: { en: 'wood mice', zh: '林鼠' } },
+      { id: 'shrew', label: { en: 'shrews', zh: '鼩鼱' } },
+    ],
+    eatenBy: [],
+    x: 380,
+    y: 60,
+  },
+  {
+    id: 'owl',
+    shortLabel: 'owl',
+    name: { en: 'tawny owl', zh: '灰林鸮' },
+    description: {
+      en: 'A tertiary consumer — nocturnal, hunts mice and shrews. Owls swallow small prey whole and later cough up the bones and fur as a pellet — which is how ecologists find out what they have been eating.',
+      zh: '三级消费者——夜行性，捕食老鼠和鼩鼱。猫头鹰将小型猎物整只吞下，然后把骨头和毛以"食丸"形式吐出——生态学家正是用食丸来研究它们的食性。',
+    },
+    trophic: 'tertiary',
+    eats: [
+      { id: 'mouse', label: { en: 'wood mice', zh: '林鼠' } },
+      { id: 'shrew', label: { en: 'shrews', zh: '鼩鼱' } },
+    ],
+    eatenBy: [],
+    x: 600,
+    y: 60,
+  },
+  {
+    id: 'hawk',
+    shortLabel: 'hawk',
+    name: { en: 'sparrowhawk', zh: '雀鹰' },
+    description: {
+      en: 'A tertiary consumer — eats small birds, especially in the breeding season when it has chicks to feed. Sparrowhawks are adapted to weaving between trees at speed, which is why they can catch robins.',
+      zh: '三级消费者——捕食小型鸟类，尤其在育雏期。雀鹰能高速在树木间穿行，所以能抓到知更鸟这样的灵活小鸟。',
+    },
+    trophic: 'tertiary',
+    eats: [
+      { id: 'robin', label: { en: 'robins and small birds', zh: '知更鸟等小型鸟类' } },
+    ],
+    eatenBy: [],
+    x: 60,
+    y: 60,
+  },
+]
+
+const FOOD_WEB_EDGES: FoodWebEdge[] = [
+  // Producers → primary consumers
+  { from: 'oak', to: 'caterpillar' },
+  { from: 'oak', to: 'mouse' },
+  { from: 'oak', to: 'rabbit' },
+  { from: 'grass', to: 'rabbit' },
+  { from: 'grass', to: 'caterpillar' },
+  // Primary → secondary
+  { from: 'caterpillar', to: 'robin' },
+  { from: 'caterpillar', to: 'shrew' },
+  { from: 'rabbit', to: 'fox' },
+  { from: 'mouse', to: 'fox' },
+  { from: 'mouse', to: 'owl' },
+  // Secondary → tertiary
+  { from: 'robin', to: 'hawk' },
+  { from: 'shrew', to: 'fox' },
+  { from: 'shrew', to: 'owl' },
+]
 
 const lesson: Lesson = {
   slug: '19-1-ecosystems',
@@ -466,211 +678,26 @@ const lesson: Lesson = {
       initialSelected: 'rabbit',
       foxId: 'fox',
       rabbitId: 'rabbit',
-      nodes: [
-        // Producers (bottom band)
-        {
-          id: 'oak',
-          shortLabel: 'oak',
-          name: { en: 'oak tree', zh: '橡树' },
-          description: {
-            en: 'A producer — makes its own food by photosynthesis. In a woodland, oaks are the structural backbone: their acorns feed mice, voles, squirrels, and many insects; their leaves and bark feed caterpillars and beetle larvae.',
-            zh: '生产者——通过光合作用自养。在林地里，橡树是结构性骨干：橡子喂养老鼠、田鼠、松鼠及许多昆虫；叶子和树皮喂养毛毛虫和甲虫幼虫。',
-          },
-          trophic: 'producer',
-          eats: [],
-          eatenBy: [
-            { id: 'caterpillar', label: { en: 'caterpillars', zh: '毛毛虫' } },
-            { id: 'mouse', label: { en: 'wood mice', zh: '林鼠' } },
-            { id: 'rabbit', label: { en: 'rabbits (bark)', zh: '兔子（树皮）' } },
-          ],
-          x: 200,
-          y: 380,
-        },
-        {
-          id: 'grass',
-          shortLabel: 'grass',
-          name: { en: 'grass', zh: '草' },
-          description: {
-            en: 'A producer that forms the understorey. Short, fast-growing, eaten constantly by rabbits, voles, and grazing insects.',
-            zh: '构成林地下层植被的生产者。矮小、生长快，被兔子、田鼠和取食昆虫持续啃食。',
-          },
-          trophic: 'producer',
-          eats: [],
-          eatenBy: [
-            { id: 'rabbit', label: { en: 'rabbits', zh: '兔子' } },
-            { id: 'caterpillar', label: { en: 'caterpillars', zh: '毛毛虫' } },
-          ],
-          x: 500,
-          y: 380,
-        },
-        // Primary consumers
-        {
-          id: 'caterpillar',
-          shortLabel: 'caterpillar',
-          name: { en: 'caterpillar', zh: '毛毛虫' },
-          description: {
-            en: 'A primary consumer (herbivore) — eats leaves. Caterpillars are eaten in huge numbers by small birds, especially in spring. The number of caterpillars is what limits how many chicks the woodland can raise.',
-            zh: '初级消费者（植食动物）——以叶为食。毛毛虫被小型鸟类大量捕食，尤其在春季。毛毛虫的数量是林地能养多少雏鸟的限制因素。',
-          },
-          trophic: 'primary',
-          eats: [
-            { id: 'oak', label: { en: 'oak leaves', zh: '橡树叶' } },
-            { id: 'grass', label: { en: 'grass', zh: '草' } },
-          ],
-          eatenBy: [
-            { id: 'robin', label: { en: 'robins', zh: '知更鸟' } },
-            { id: 'shrew', label: { en: 'shrews', zh: '鼩鼱' } },
-          ],
-          x: 80,
-          y: 270,
-        },
-        {
-          id: 'rabbit',
-          shortLabel: 'rabbit',
-          name: { en: 'rabbit', zh: '兔子' },
-          description: {
-            en: 'A primary consumer (herbivore) — grazes grass and gnaws bark. Rabbits reproduce fast; their numbers are limited mostly by predators and disease, not by food.',
-            zh: '初级消费者（植食动物）——啃食青草、咬食树皮。兔子繁殖快，其数量主要由捕食者和疾病限制，而非食物。',
-          },
-          trophic: 'primary',
-          eats: [
-            { id: 'grass', label: { en: 'grass', zh: '草' } },
-            { id: 'oak', label: { en: 'oak bark', zh: '橡树皮' } },
-          ],
-          eatenBy: [
-            { id: 'fox', label: { en: 'foxes', zh: '狐狸' } },
-          ],
-          x: 360,
-          y: 270,
-        },
-        {
-          id: 'mouse',
-          shortLabel: 'mouse',
-          name: { en: 'wood mouse', zh: '林鼠' },
-          description: {
-            en: 'A primary consumer — eats seeds, nuts, and shoots. Mice are the staple diet of owls and foxes in the woodland; without them, the predators would not survive.',
-            zh: '初级消费者——以种子、坚果和嫩芽为食。老鼠是林地中猫头鹰和狐狸的主食；没有它们，捕食者也活不下来。',
-          },
-          trophic: 'primary',
-          eats: [
-            { id: 'oak', label: { en: 'acorns and seeds', zh: '橡子和种子' } },
-          ],
-          eatenBy: [
-            { id: 'fox', label: { en: 'foxes', zh: '狐狸' } },
-            { id: 'owl', label: { en: 'owls', zh: '猫头鹰' } },
-          ],
-          x: 580,
-          y: 270,
-        },
-        // Secondary consumers
-        {
-          id: 'robin',
-          shortLabel: 'robin',
-          name: { en: 'robin', zh: '知更鸟' },
-          description: {
-            en: 'A secondary consumer — eats caterpillars and other insects. Robins are themselves eaten by sparrowhawks.',
-            zh: '次级消费者——捕食毛毛虫和其它昆虫。知更鸟自己又被雀鹰捕食。',
-          },
-          trophic: 'secondary',
-          eats: [
-            { id: 'caterpillar', label: { en: 'caterpillars', zh: '毛毛虫' } },
-          ],
-          eatenBy: [
-            { id: 'hawk', label: { en: 'sparrowhawks', zh: '雀鹰' } },
-          ],
-          x: 120,
-          y: 160,
-        },
-        {
-          id: 'shrew',
-          shortLabel: 'shrew',
-          name: { en: 'shrew', zh: '鼩鼱' },
-          description: {
-            en: 'A small insectivore. Shrews are eaten by owls, foxes, and kestrels. They have such a fast metabolism that they have to eat almost constantly — many die if they go more than a few hours without food.',
-            zh: '小型食虫哺乳动物。鼩鼱被猫头鹰、狐狸和红隼捕食。它们代谢极快，必须不停地吃——几小时不进食就可能死。',
-          },
-          trophic: 'secondary',
-          eats: [
-            { id: 'caterpillar', label: { en: 'caterpillars and insects', zh: '毛毛虫和昆虫' } },
-          ],
-          eatenBy: [
-            { id: 'owl', label: { en: 'owls', zh: '猫头鹰' } },
-            { id: 'fox', label: { en: 'foxes', zh: '狐狸' } },
-          ],
-          x: 280,
-          y: 160,
-        },
-        // Tertiary
-        {
-          id: 'fox',
-          shortLabel: 'fox',
-          name: { en: 'fox', zh: '狐狸' },
-          description: {
-            en: 'A tertiary consumer (top predator) — eats rabbits, mice, and shrews. Foxes have few predators of their own in the woodland, so they are near the top of the web.',
-            zh: '三级消费者（顶级捕食者）——捕食兔子、老鼠和鼩鼱。在林地中狐狸几乎没有天敌，所以它位于食物网接近顶端的位置。',
-          },
-          trophic: 'tertiary',
-          eats: [
-            { id: 'rabbit', label: { en: 'rabbits', zh: '兔子' } },
-            { id: 'mouse', label: { en: 'wood mice', zh: '林鼠' } },
-            { id: 'shrew', label: { en: 'shrews', zh: '鼩鼱' } },
-          ],
-          eatenBy: [],
-          x: 380,
-          y: 60,
-        },
-        {
-          id: 'owl',
-          shortLabel: 'owl',
-          name: { en: 'tawny owl', zh: '灰林鸮' },
-          description: {
-            en: 'A tertiary consumer — nocturnal, hunts mice and shrews. Owls swallow small prey whole and later cough up the bones and fur as a pellet — which is how ecologists find out what they have been eating.',
-            zh: '三级消费者——夜行性，捕食老鼠和鼩鼱。猫头鹰将小型猎物整只吞下，然后把骨头和毛以"食丸"形式吐出——生态学家正是用食丸来研究它们的食性。',
-          },
-          trophic: 'tertiary',
-          eats: [
-            { id: 'mouse', label: { en: 'wood mice', zh: '林鼠' } },
-            { id: 'shrew', label: { en: 'shrews', zh: '鼩鼱' } },
-          ],
-          eatenBy: [],
-          x: 600,
-          y: 60,
-        },
-        {
-          id: 'hawk',
-          shortLabel: 'hawk',
-          name: { en: 'sparrowhawk', zh: '雀鹰' },
-          description: {
-            en: 'A tertiary consumer — eats small birds, especially in the breeding season when it has chicks to feed. Sparrowhawks are adapted to weaving between trees at speed, which is why they can catch robins.',
-            zh: '三级消费者——捕食小型鸟类，尤其在育雏期。雀鹰能高速在树木间穿行，所以能抓到知更鸟这样的灵活小鸟。',
-          },
-          trophic: 'tertiary',
-          eats: [
-            { id: 'robin', label: { en: 'robins and small birds', zh: '知更鸟等小型鸟类' } },
-          ],
-          eatenBy: [],
-          x: 60,
-          y: 60,
-        },
-      ],
-      edges: [
-        // Producers → primary consumers
-        { from: 'oak', to: 'caterpillar' },
-        { from: 'oak', to: 'mouse' },
-        { from: 'oak', to: 'rabbit' },
-        { from: 'grass', to: 'rabbit' },
-        { from: 'grass', to: 'caterpillar' },
-        // Primary → secondary
-        { from: 'caterpillar', to: 'robin' },
-        { from: 'caterpillar', to: 'shrew' },
-        { from: 'rabbit', to: 'fox' },
-        { from: 'mouse', to: 'fox' },
-        { from: 'mouse', to: 'owl' },
-        // Secondary → tertiary
-        { from: 'robin', to: 'hawk' },
-        { from: 'shrew', to: 'fox' },
-        { from: 'shrew', to: 'owl' },
-      ],
+      nodes: FOOD_WEB_NODES,
+      edges: FOOD_WEB_EDGES,
+    },
+
+    // 1b) 3D version of the same food web. Stacks the species by
+    //     trophic level on the Y axis and rotates so the student sees
+    //     the producer floor and the tertiary-customer ceiling at the
+    //     same time. Re-uses the same node + edge data as the 2D
+    //     `food-web` extra above.
+    {
+      type: 'food-web-3d',
+      id: 'food-web-3d',
+      title: { en: 'The woodland food web, in 3D', zh: '温带林地食物网，3D 展示' },
+      hint: {
+        en: 'Drag to rotate. The four trophic levels stack vertically: producers at the bottom, tertiary consumers at the top. Click any node to read about that species and see what it eats (down) and what eats it (up).',
+        zh: '拖动旋转。四个营养级在垂直方向分层：底层生产者，顶层顶级消费者。点击任一节点查看该物种的说明，并看到它的食物（向下）和天敌（向上）。',
+      },
+      initialSelected: 'rabbit',
+      nodes: FOOD_WEB_NODES,
+      edges: FOOD_WEB_EDGES,
     },
 
     // 2) Three ecological pyramids side by side. Toggling between

@@ -568,3 +568,23 @@ export const DNA_HELIX_3D = {
     zh: '点击任一碱基对查看说明。',
   } satisfies Bilingual,
 } as const
+
+export const FOOD_WEB_3D = {
+  loading: { en: 'Drawing the web…', zh: '正在绘制食物网…' } satisfies Bilingual,
+  dragHint: {
+    en: 'Drag to rotate · scroll to zoom · click a node to read about it',
+    zh: '拖动旋转 · 滚轮缩放 · 点击节点查看说明',
+  } satisfies Bilingual,
+  tapNodeHint: {
+    en: 'Click any node to read about that species.',
+    zh: '点击任一节点查看该物种的说明。',
+  } satisfies Bilingual,
+  eatsLabel: { en: 'Eats', zh: '捕食' } satisfies Bilingual,
+  eatenByLabel: { en: 'Eaten by', zh: '被…捕食' } satisfies Bilingual,
+  trophic: {
+    producer: { en: 'Producer', zh: '生产者' } satisfies Bilingual,
+    primary: { en: 'Primary consumer', zh: '初级消费者' } satisfies Bilingual,
+    secondary: { en: 'Secondary consumer', zh: '次级消费者' } satisfies Bilingual,
+    tertiary: { en: 'Tertiary consumer', zh: '顶级消费者' } satisfies Bilingual,
+  },
+} as const
