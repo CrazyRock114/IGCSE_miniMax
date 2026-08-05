@@ -284,7 +284,7 @@ const S_8_3_NUTRITION: ClassroomStory[] = [
   {
     id: 'wood-shavings-allergy',
     date: '2026-08-03',
-    lesson: '14-1',
+    lesson: '10-1',
     hookName: '树皮刮到皮肤过敏',
     hookNameEn: 'Touching a tree bark and breaking out',
     oneLiner: {
@@ -582,7 +582,7 @@ const S_8_5_CIRCULATION_AND_GAS: ClassroomStory[] = [
   {
     id: 'hygiene-hypothesis-allergy-rise',
     date: '2026-08-05',
-    lesson: '14-1',
+    lesson: '10-1',
     hookName: '卫生假说',
     hookNameEn: 'A bit of dirt is part of training',
     oneLiner: {
