@@ -434,6 +434,160 @@ const lesson: Lesson = {
       },
     },
   ],
+
+  // Visual / interactive learning modules for Chapter 4b (14.3–14.5 — hormones,
+  // homeostasis, tropisms). See src/content/types.ts for the `LessonExtra`
+  // shape. Each module uses a real figure extracted from the G8 PDF so the
+  // student sees the textbook picture, not a hand-drawn approximation.
+  extras: [
+    // 1) Blood glucose regulation — G8 Figure B9.20. The same diagram
+    //    shown in three states: high (after a meal, insulin dominates),
+    //    normal (set point, no signal), low (after exercise, glucagon
+    //    dominates). Click the pancreas, the islets of Langerhans, the
+    //    liver in either role, or the "normal" bubble to see what each
+    //    one does in the active mode.
+    {
+      type: 'glucose-loop',
+      id: 'glucose',
+      title: { en: 'How blood glucose is held at 5 mmol/dm³', zh: '血糖如何被维持在 5 mmol/dm³' },
+      hint: {
+        en: 'Three snapshots of the same loop. The pancreas watches the blood; the liver is the store. Switch modes to see which hormone is firing.',
+        zh: '同一个环的三种状态。胰腺监测血糖，肝脏是仓库。切换模式，看哪种激素在工作。',
+      },
+      parts: [
+        {
+          id: 'pancreas',
+          name: { en: 'pancreas', zh: '胰腺' },
+          description: {
+            en: 'A gland that does two unrelated jobs. Most of it makes pancreatic juice for the duodenum; scattered through it are the islets of Langerhans, which make insulin and glucagon and release them straight into the blood.',
+            zh: '一个腺体干两件不同的事。大部分组织为十二指肠制造胰液；散布其中的胰岛制造胰岛素和胰高血糖素，直接释放入血。',
+          },
+        },
+        {
+          id: 'islets-of-langerhans',
+          name: { en: 'islets of Langerhans', zh: '胰岛' },
+          description: {
+            en: 'Small cell groups inside the pancreas. The β cells make insulin; the α cells make glucagon. They sense the blood glucose concentration directly — there is no separate "detector" organ, the gland is its own sensor.',
+            zh: '胰腺里的小细胞团。β 细胞制造胰岛素；α 细胞制造胰高血糖素。它们直接感受血糖浓度——没有单独的"检测器"器官，腺体本身就是感受器。',
+          },
+        },
+        {
+          id: 'liver-uptake',
+          name: { en: 'liver (taking up glucose)', zh: '肝脏（吸收葡萄糖）' },
+          description: {
+            en: 'When blood glucose is high, insulin tells the liver to take glucose out of the blood and store it as glycogen — an insoluble polysaccharide that can hold many glucose units without drawing water into the cell by osmosis. Glycogen is the body\'s short-term glucose reserve.',
+            zh: '血糖高时，胰岛素命令肝脏把葡萄糖从血液中取出，以糖原形式贮存。糖原是不溶性的多糖——能装下许多葡萄糖单元，又不会因渗透压让水进入细胞。糖原是身体的短期葡萄糖储备。',
+          },
+        },
+        {
+          id: 'liver-release',
+          name: { en: 'liver (releasing glucose)', zh: '肝脏（释放葡萄糖）' },
+          description: {
+            en: 'When blood glucose is low, glucagon tells the liver to break glycogen back down to glucose and release it into the blood. A healthy liver holds enough glycogen to keep blood glucose steady through a night of fasting; in heavy exercise it is gone in a couple of hours.',
+            zh: '血糖低时，胰高血糖素命令肝脏把糖原分解为葡萄糖并释放到血液中。健康肝脏的糖原储备足以让血糖在一夜空腹里保持稳定；剧烈运动时则会在几小时内耗尽。',
+          },
+        },
+        {
+          id: 'normal-bubble',
+          name: { en: 'set point (≈ 5 mmol/dm³)', zh: '设定点（约 5 mmol/dm³）' },
+          description: {
+            en: 'The value the body defends. Above it, the islets secrete insulin and the level falls; below it, they secrete glucagon and the level rises. The pancreas corrects the deviation whichever way the blood has moved — that is negative feedback.',
+            zh: '身体所维持的数值。高过它，胰岛分泌胰岛素，血糖下降；低过它，胰岛分泌胰高血糖素，血糖上升。无论血糖偏向哪一侧，胰腺都把它拉回来——这就是负反馈。',
+          },
+        },
+      ],
+    },
+
+    // 2) Temperature control — G8 Figure B9.17 (skin section) with three
+    //    modes (hot, normal, cold). The skin has four "knobs" the body can
+    //    turn up or down: arterioles, sweat glands, hair + erector
+    //    muscles, and skeletal muscles (shivering). In the cold mode we
+    //    also show G8 Figure B9.18 — the textbook's own diagram of the
+    //    "body too cold" state.
+    {
+      type: 'temperature-control',
+      id: 'temperature',
+      title: { en: 'How the body holds 37 °C', zh: '身体如何把体温维持在 37 °C' },
+      hint: {
+        en: 'Three modes — too hot, normal, too cold. Click any organ to see how the hypothalamus has it set in the active mode.',
+        zh: '三种模式：太热、正常、太冷。点击任一器官，看下丘脑在当前模式下让它怎么工作。',
+      },
+      parts: [
+        {
+          id: 'hypothalamus',
+          name: { en: 'hypothalamus', zh: '下丘脑' },
+          description: {
+            en: 'A small region at the base of the brain. It contains the temperature receptors that monitor the blood running through it, and it sends nerve impulses to the skin, the sweat glands and the muscles. It is the body\'s thermostat — the control centre of the whole feedback loop.',
+            zh: '脑底部的小区域。它含有监测流经血液温度的温度感受器，并向皮肤、汗腺和肌肉发出神经脉冲。它就是身体的恒温器——整个反馈回路的控制中心。',
+          },
+        },
+        {
+          id: 'epidermis',
+          name: { en: 'epidermis', zh: '表皮' },
+          description: {
+            en: 'The outer layer of the skin. Cells at its base divide continuously; the new cells move outwards, fill with keratin, die and form the cornified layer that protects the body. The pigment melanin is made here, and it absorbs UV light that would otherwise damage the cells underneath.',
+            zh: '皮肤外层。基部细胞不断分裂；新细胞向外推移，填满角蛋白，死了之后形成保护身体的角质层。黑色素在这里合成，吸收紫外线以免损伤下面细胞。',
+          },
+        },
+        {
+          id: 'dermis',
+          name: { en: 'dermis', zh: '真皮' },
+          description: {
+            en: 'The lower, thicker layer of the skin. It contains the sweat glands, the hair follicles, the blood vessels and the temperature / pressure / pain receptors. Most of what the body does to control temperature happens here.',
+            zh: '皮肤下层，更厚。包含汗腺、毛囊、血管、温度/压力/痛觉感受器。身体调控温度的大部分动作都发生在这里。',
+          },
+        },
+        {
+          id: 'sweat-gland',
+          name: { en: 'sweat gland', zh: '汗腺' },
+          description: {
+            en: 'A coiled tube deep in the dermis that secretes sweat onto the surface of the skin. The sweat is mostly water, with salts and a little urea. As it evaporates, it takes latent heat from the body — that is the cooling mechanism, and it is the most powerful one the body has.',
+            zh: '真皮深处盘曲的管子，向皮肤表面分泌汗液。汗液主要是水，含盐和少量尿素。蒸发时从身体带走汽化潜热——这就是降温机制，也是身体最强力的降温手段。',
+          },
+        },
+        {
+          id: 'hair-follicle',
+          name: { en: 'hair follicle', zh: '毛囊' },
+          description: {
+            en: 'An infolding of the epidermis that makes a hair. The hair itself is dead keratin, but the follicle has its own small muscles (the erector muscles) that can pull the hair upright. In furry animals this traps a layer of still air next to the skin; in humans, it just makes goose pimples.',
+            zh: '表皮内陷形成的结构，长出毛发。毛发本身是死的角蛋白，但毛囊有自己的小肌肉（立毛肌）能拉毛发立起。在多毛动物身上，这会困住一层贴近皮肤的静止空气；在人身上，只会起鸡皮疙瘩。',
+          },
+        },
+        {
+          id: 'erector-muscle',
+          name: { en: 'erector muscle', zh: '立毛肌' },
+          description: {
+            en: 'A tiny muscle attached to the hair follicle. When it contracts, it pulls the hair upright. In a cold environment the body keeps them contracted, to trap a layer of insulating air next to the skin. In a hot environment they relax and the hairs lie flat.',
+            zh: '连在毛囊上的小肌肉。收缩时把毛发拉起。寒冷环境里身体让它们一直收缩，以困住贴肤的隔热空气；炎热环境里则舒张，毛发平躺。',
+          },
+        },
+        {
+          id: 'arteriole',
+          name: { en: 'arteriole', zh: '小动脉' },
+          description: {
+            en: 'A small artery that controls the flow of blood into a capillary bed. In the skin, the arterioles supplying the surface capillaries can dilate (vasodilation — more blood to the surface, more heat lost) or constrict (vasoconstriction — less blood to the surface, less heat lost). The capillary itself does not move; the vessel feeding it changes width.',
+            zh: '控制血液流入毛细血管床的小动脉。皮肤里，供应表层毛细血管的小动脉可以舒张（血管舒张——更多血流到表面，散失更多热）或收缩（血管收缩——更少血流到表面，散失更少热）。毛细血管本身不动，是供给它的血管变宽变窄。',
+          },
+        },
+        {
+          id: 'blood-capillary',
+          name: { en: 'blood capillary', zh: '毛细血管' },
+          description: {
+            en: 'A network of tiny vessels that loops through the dermis. The blood in them gives up heat to the surface of the skin (which is what we want) and supplies oxygen to the dividing cells at the base of the epidermis. The amount of blood that reaches them is set by the arteriole above.',
+            zh: '真皮里盘绕的微小血管网。其中血液把热量交给皮肤表面（这正是我们想要的），并向表皮基部的分裂细胞供氧。到达这里的血量由上方的小动脉决定。',
+          },
+        },
+        {
+          id: 'temperature-receptor',
+          name: { en: 'temperature receptor', zh: '温度感受器' },
+          description: {
+            en: 'A branched nerve ending in the dermis that fires an electrical impulse when the skin temperature changes. The impulse travels to the hypothalamus, which compares it with the set point of about 37 °C and adjusts the four effectors accordingly.',
+            zh: '真皮里分支状的神经末梢，皮肤温度变化时发出电脉冲。脉冲传到下丘脑，下丘脑把它和约 37 °C 的设定点对比，并相应调节四个效应器。',
+          },
+        },
+      ],
+    },
+  ],
 }
 
 export default lesson

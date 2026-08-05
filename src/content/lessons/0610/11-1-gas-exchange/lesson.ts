@@ -955,6 +955,30 @@ const lesson: Lesson = {
           },
         },
       ],
+      // Closing "the evidence" panel: Doll's UK correlation, 1911–2001.
+      // The graph is what turned suspicion into proof. The 20-year lag
+      // (consumption rises, deaths follow two decades later) is the actual
+      // evidence of causation — it is exactly the pattern a dose-response
+      // curve would predict if smoking caused the cancer.
+      evidence: {
+        image: '/figures/g8/11-1-gas-exchange/figure-b8-09.png',
+        imageSource: {
+          en: 'G8 Science · p.46, Figure B8.09 — lung-cancer deaths and smoking rates in the UK, 1911–2001',
+          zh: 'G8 教材·第 46 页图 B8.09——1911–2001 年英国肺癌死亡与吸烟率',
+        },
+        heading: {
+          en: 'The evidence: a century of data',
+          zh: '证据：一个世纪的数据',
+        },
+        body: {
+          en: 'In the 1950s, the British doctor Richard Doll noticed that lung-cancer cases were rising year on year. He interviewed lung-cancer patients in twenty London hospitals, and almost all of them were smokers. The graph below — annual UK cigarette consumption against annual lung-cancer deaths, 1911 to 2001 — is what settled the question for the rest of the century.',
+          zh: '1950 年代,英国医生 Richard Doll 注意到肺癌病例年年攀升。他在伦敦二十家医院访谈肺癌患者,几乎全是吸烟者。下面这张图——英国每年香烟消耗量与每年肺癌死亡数,1911 至 2001 年——让这个问题在之后的几十年中不再有争议。',
+        },
+        lagNote: {
+          en: 'The lung-cancer curve trails the smoking curve by roughly twenty years. That is the lag between damaging the DNA in a cell and that cell becoming a tumour — the smoking that rose in 1950 became the cancer that was diagnosed in 1970.',
+          zh: '肺癌曲线比吸烟曲线晚约 20 年。这正是 DNA 损伤与肿瘤形成之间的时滞——1950 年上升的吸烟量,要等到 1970 年才表现为被诊断的癌症。',
+        },
+      },
     },
   ],
 }

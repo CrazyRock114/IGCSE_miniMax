@@ -18,6 +18,10 @@ import { RespirationCompare } from './RespirationCompare'
 import { AirwayPathway } from './AirwayPathway'
 import { GasExchangeFeatures } from './GasExchangeFeatures'
 import { SmokingEffects } from './SmokingEffects'
+import { ReflexArc } from './ReflexArc'
+import { EyeAnatomy } from './EyeAnatomy'
+import { GlucoseLoop } from './GlucoseLoop'
+import { TemperatureControl } from './TemperatureControl'
 
 /**
  * Dispatches the lesson's `extras` to the right component.
@@ -92,5 +96,13 @@ function renderExtra(extra: LessonExtra) {
       return <GasExchangeFeatures extra={extra} />
     case 'smoking-effects':
       return <SmokingEffects extra={extra} />
+    case 'reflex-arc':
+      return <ReflexArc extra={extra} />
+    case 'eye-anatomy':
+      return <EyeAnatomy extra={extra} />
+    case 'glucose-loop':
+      return <GlucoseLoop extra={extra} />
+    case 'temperature-control':
+      return <TemperatureControl extra={extra} />
   }
 }

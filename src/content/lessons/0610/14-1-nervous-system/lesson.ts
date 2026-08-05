@@ -375,6 +375,203 @@ const lesson: Lesson = {
       },
     },
   ],
+
+  // Visual / interactive learning modules for Chapter 4a (14.1 + 14.2 — the
+  // nervous system and the eye). See src/content/types.ts for the
+  // `LessonExtra` shape. Each module uses a real figure extracted from the
+  // G8 PDF so the student sees the textbook picture, not a hand-drawn
+  // approximation.
+  extras: [
+    // 1) The reflex arc in one picture — G8 Figure B9.04 (hand on a hot
+    //    plate) with 6 hotspots: pain receptor, sensory neurone, relay
+    //    neurone, motor neurone, effector, spinal cord. "Follow the
+    //    impulse" mode animates a dot through the arc in the right order,
+    //    which is the most-missed fact in the chapter: the reflex turns
+    //    round at the spinal cord, and never visits the brain.
+    {
+      type: 'reflex-arc',
+      id: 'reflex-arc',
+      title: { en: 'A reflex, step by step', zh: '反射，一步步看清' },
+      hint: {
+        en: 'Click any part of the reflex arc on the left. "Follow the impulse" walks through receptor → sensory → relay → motor → effector.',
+        zh: '点击左侧反射弧的任一部分。点"跟着脉冲走"会从感受器→感觉→中间→运动→效应器一步步走完。',
+      },
+      initialPart: 'pain-receptor',
+      parts: [
+        {
+          id: 'pain-receptor',
+          name: { en: 'pain receptor', zh: '痛觉感受器' },
+          description: {
+            en: 'A nerve ending in the skin that responds to a stimulus — heat, in this case. It converts the stimulus into an electrical impulse, which is the only signal a neurone can carry. Most reflexes begin with a receptor like this.',
+            zh: '皮肤里的神经末梢，对刺激（这里是热）作出反应。它把刺激转成电脉冲——这是神经元唯一能传的信号。多数反射都从这里开始。',
+          },
+          stop: 1,
+        },
+        {
+          id: 'sensory-neurone',
+          name: { en: 'sensory neurone', zh: '感觉神经元' },
+          description: {
+            en: 'Carries the impulse from the receptor towards the central nervous system. Its long axon runs in a peripheral nerve. In a reflex arc the impulse goes from the skin, up the arm, into the spinal cord.',
+            zh: '把脉冲从感受器带到中枢神经系统。它的长轴突走行在外周神经里。反射弧中，脉冲从皮肤上行到脊髓。',
+          },
+          stop: 2,
+        },
+        {
+          id: 'relay-neurone',
+          name: { en: 'relay neurone', zh: '中间神经元' },
+          description: {
+            en: 'A short neurone whose cell body sits in the spinal cord. It receives the impulse from the sensory neurone and passes it on to a motor neurone. This is where the impulse turns round — the reflex never visits the brain, which is why it can outrun the sensation of pain.',
+            zh: '细胞体在脊髓里的短神经元。它从感觉神经元接过脉冲，再传给运动神经元。脉冲就在这里折返——反射从不去大脑，这正是它能跑赢痛觉的原因。',
+          },
+          stop: 3,
+        },
+        {
+          id: 'motor-neurone',
+          name: { en: 'motor neurone', zh: '运动神经元' },
+          description: {
+            en: 'Carries the impulse from the central nervous system out to the effector. Its axon runs in a peripheral nerve and ends at a muscle (or, for some reflexes, a gland).',
+            zh: '把脉冲从中枢神经系统带到效应器。它的轴突走行在外周神经里，终止于肌肉（或在某些反射中是腺体）。',
+          },
+          stop: 4,
+        },
+        {
+          id: 'effector',
+          name: { en: 'effector (muscle)', zh: '效应器（肌肉）' },
+          description: {
+            en: 'The muscle that responds to the impulse by contracting. In this example it is the bicep — contracting it bends the arm and pulls the hand off the hot plate. The whole reflex, from stimulus to response, takes a small fraction of a second.',
+            zh: '对脉冲作出反应而收缩的肌肉。例子里是肱二头肌——收缩时弯曲手臂把手拉离热盘。整个反射从刺激到反应，只需不到一秒。',
+          },
+          stop: 5,
+        },
+        {
+          id: 'spinal-cord',
+          name: { en: 'spinal cord', zh: '脊髓' },
+          description: {
+            en: 'Part of the central nervous system. The relay neurone lives inside it, which is why the reflex arc turns round here and not in the brain. The brain is informed a moment later — the conscious "ouch!" is much slower than the hand withdrawal.',
+            zh: '中枢神经系统的一部分。中间神经元就在它里面，所以反射在这里折返，而不去大脑。大脑晚一点才收到信息——有意识的"哎哟"比手缩回来慢得多。',
+          },
+        },
+      ],
+    },
+
+    // 2) The eye in section — G8 Figure B9.06 with 12 hotspots. "Follow
+    //    the light" mode walks cornea → pupil → lens → retina → optic nerve.
+    {
+      type: 'eye-anatomy',
+      id: 'eye',
+      title: { en: 'The eye, in section', zh: '眼的剖面' },
+      hint: {
+        en: 'Click any part of the eye. "Follow the light" traces the path from cornea to optic nerve.',
+        zh: '点击眼的任一部分。点"跟着光走"会从角膜一路追到视神经。',
+      },
+      initialPart: 'cornea',
+      parts: [
+        {
+          id: 'cornea',
+          name: { en: 'cornea', zh: '角膜' },
+          description: {
+            en: 'The transparent front of the eye. It does most of the focusing — about two-thirds of the eye\'s total refractive power — before the light has even reached the lens. Damaged corneas can be replaced by transplant; this is one of the most successful transplant operations.',
+            zh: '眼前端的透明部分。在光线到达晶状体之前，它就完成了眼大约三分之二的屈光。角膜受损可以通过移植替换——这是最成功的移植手术之一。',
+          },
+          stop: 1,
+        },
+        {
+          id: 'aqueous-humour',
+          name: { en: 'aqueous humour', zh: '房水' },
+          description: {
+            en: 'A watery fluid between the cornea and the lens. It keeps the front of the eye inflated and carries nutrients to the lens and cornea, which have no blood supply (blood would block the light).',
+            zh: '角膜与晶状体之间的水样液体。它维持眼前部充盈，并为没有血管的角膜和晶状体提供养分——血管会挡光。',
+          },
+          stop: 2,
+        },
+        {
+          id: 'iris',
+          name: { en: 'iris', zh: '虹膜' },
+          description: {
+            en: 'The coloured ring of muscle that controls how much light enters the eye. It has two sets of muscle fibres — circular (which constrict the pupil) and radial (which dilate it) — and the two are antagonistic.',
+            zh: '控制进光量的有色肌肉环。它有两组肌纤维——环行的（使瞳孔缩小）和辐射状的（使瞳孔放大）——两者是拮抗的。',
+          },
+        },
+        {
+          id: 'pupil',
+          name: { en: 'pupil', zh: '瞳孔' },
+          description: {
+            en: 'The hole in the middle of the iris. It is a hole, not a structure — it cannot itself contract. Its size is set by the iris muscles. In bright light it can be 2 mm across; in the dark, 8 mm. That is a sixteen-fold change in the *area* of the hole.',
+            zh: '虹膜中央的孔。它本身不是一个结构——它自己不会收缩。它的大小由虹膜肌肉决定。强光下约 2 mm，黑暗中约 8 mm。这是孔*面积*的 16 倍变化。',
+          },
+          stop: 3,
+        },
+        {
+          id: 'lens',
+          name: { en: 'lens', zh: '晶状体' },
+          description: {
+            en: 'A flexible, biconvex structure that fine-tunes the focus. The ciliary muscles change its shape — fatter for close objects, thinner for distant ones. With age, the lens stiffens and the near point moves out: that is why older people need reading glasses.',
+            zh: '柔软的凸透镜结构，做精细调焦。睫状肌改变它的形状——看近物时变厚，看远物时变薄。随年龄增长，晶状体变硬，近点后退——这就是老年人需要老花镜的原因。',
+          },
+          stop: 4,
+        },
+        {
+          id: 'ciliary-muscle',
+          name: { en: 'ciliary muscle', zh: '睫状肌' },
+          description: {
+            en: 'A ring of muscle that changes the shape of the lens. When it contracts, the ring gets smaller, the suspensory ligaments slacken, and the lens fattens under its own elasticity. When it relaxes, the ring widens, the ligaments pull the lens thin.',
+            zh: '改变晶状体形状的环形肌肉。收缩时环变小，悬韧带松弛，晶状体在自身弹性下变厚；舒张时环变大，悬韧带把晶状体拉薄。',
+          },
+        },
+        {
+          id: 'suspensory-ligament',
+          name: { en: 'suspensory ligament', zh: '悬韧带' },
+          description: {
+            en: 'Holds the lens in place and transmits the pull of the ciliary muscle. When the ciliary muscle contracts, the ligaments slacken and the lens fattens; when it relaxes, the ligaments pull the lens thin.',
+            zh: '把晶状体固定在位，并把睫状肌的拉力传过去。睫状肌收缩时韧带松弛、晶状体变厚；睫状肌舒张时韧带把晶状体拉薄。',
+          },
+        },
+        {
+          id: 'vitreous-humour',
+          name: { en: 'vitreous humour', zh: '玻璃体' },
+          description: {
+            en: 'A clear jelly that fills the main chamber of the eye and holds the retina against the back wall. Without it, the eye would collapse. The light passes through it on its way to the retina.',
+            zh: '填充主眼室的透明胶状物，把视网膜压向眼球后壁。没有它眼就会塌陷。光穿过它到达视网膜。',
+          },
+          stop: 5,
+        },
+        {
+          id: 'retina',
+          name: { en: 'retina', zh: '视网膜' },
+          description: {
+            en: 'The light-sensitive layer at the back of the eye. It contains the receptor cells — rods (for dim light, no colour) and cones (for colour, need bright light). The image is upside down and back to front here; the brain flips it.',
+            zh: '眼球后壁的光敏层。含感受器细胞——视杆细胞（弱光下工作，无色觉）和视锥细胞（有色觉，需强光）。像在视网膜上是倒置的——是大脑把它翻正的。',
+          },
+          stop: 6,
+        },
+        {
+          id: 'fovea',
+          name: { en: 'fovea', zh: '中央凹' },
+          description: {
+            en: 'The small spot on the retina directly opposite the pupil. Packed with cones and almost free of rods. Gives the sharpest, most colourful vision — which is why you turn your head to look at something rather than just moving your eyes.',
+            zh: '视网膜上正对瞳孔的小区域。密布视锥细胞，几乎没有视杆细胞。提供最清晰、色彩最丰富的视觉——所以你要看某物时会把头转过去，而不是只用眼睛。',
+          },
+        },
+        {
+          id: 'blind-spot',
+          name: { en: 'blind spot', zh: '盲点' },
+          description: {
+            en: 'The place where the optic nerve leaves the eye. There are no receptor cells here, so any light that falls on it produces no signal. You do not notice the gap because the brain fills it in from the other eye.',
+            zh: '视神经离开眼球的地方。这里没有感受器细胞，所以光落上去不产生信号。你感觉不到这个"洞"，因为大脑会用另一只眼的信息把它填上。',
+          },
+        },
+        {
+          id: 'optic-nerve',
+          name: { en: 'optic nerve', zh: '视神经' },
+          description: {
+            en: 'Carries the impulses from the retina to the visual cortex at the back of the brain. The optic nerves from the two eyes meet at the optic chiasma, where fibres from the left half of each retina cross to the right side of the brain, and vice versa.',
+            zh: '把脉冲从视网膜送到大脑后部的视觉皮层。两眼的视神经在视交叉处汇合——每只眼视网膜左半的纤维交叉到大脑右侧，右半交叉到左侧。',
+          },
+          stop: 7,
+        },
+      ],
+    },
+  ],
 }
 
 export default lesson

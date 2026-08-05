@@ -23,7 +23,7 @@ export function SmokingEffects({ extra }: { extra: SmokingEffectsExtra }) {
       {extra.heroImage && (
         <figure className="overflow-hidden rounded-lg border border-line bg-surface">
           <img
-            src={extra.heroImage}
+            src={assetUrl(extra.heroImage)}
             alt={SMOKING_EFFECTS.heroAlt.en}
             className="block w-full bg-canvas"
             loading="lazy"
@@ -63,6 +63,35 @@ export function SmokingEffects({ extra }: { extra: SmokingEffectsExtra }) {
           ))}
         </div>
       </section>
+
+      {extra.evidence && (
+        <section>
+          <h3 className="mb-2 text-sm font-semibold uppercase tracking-wide text-muted">
+            <T value={SMOKING_EFFECTS.evidenceHeading} />
+          </h3>
+          <figure className="overflow-hidden rounded-lg border border-line bg-surface">
+            <img
+              src={assetUrl(extra.evidence.image)}
+              alt={SMOKING_EFFECTS.evidenceHeading.en}
+              className="block w-full bg-canvas"
+              loading="lazy"
+            />
+            {extra.evidence.imageSource && (
+              <figcaption className="border-t border-line bg-canvas px-3 py-1 text-[10px] text-muted">
+                <T value={extra.evidence.imageSource} />
+              </figcaption>
+            )}
+            <figcaption className="space-y-2 border-t border-line bg-canvas px-3 py-3 text-xs text-ink-soft">
+              <p className="leading-relaxed">
+                <T value={SMOKING_EFFECTS.evidenceBody} />
+              </p>
+              <p className="leading-relaxed text-ink">
+                <T value={SMOKING_EFFECTS.evidenceLag} />
+              </p>
+            </figcaption>
+          </figure>
+        </section>
+      )}
     </div>
   )
 }

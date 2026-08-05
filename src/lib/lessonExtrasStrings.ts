@@ -253,6 +253,91 @@ export const SMOKING_EFFECTS = {
   } satisfies Bilingual,
   mechanismLabel: { en: 'How it harms', zh: '如何伤害' } satisfies Bilingual,
   clinicalLabel: { en: 'What it looks like', zh: '临床表现' } satisfies Bilingual,
+  evidenceHeading: {
+    en: 'The evidence: a century of data',
+    zh: '证据：一个世纪的数据',
+  } satisfies Bilingual,
+  evidenceBody: {
+    en: 'In the 1950s, the British doctor Richard Doll noticed that lung-cancer cases were rising year on year. He interviewed lung-cancer patients in twenty London hospitals, and almost all of them were smokers. The graph below — annual UK cigarette consumption against annual lung-cancer deaths, 1911 to 2001 — is what settled the question for the rest of the century.',
+    zh: '1950 年代,英国医生 Richard Doll 注意到肺癌病例年年攀升。他在伦敦二十家医院访谈肺癌患者,几乎全是吸烟者。下面这张图——英国每年香烟消耗量与每年肺癌死亡数,1911 至 2001 年——让这个问题在之后的几十年中不再有争议。',
+  } satisfies Bilingual,
+  evidenceLag: {
+    en: 'The lung-cancer curve trails the smoking curve by roughly twenty years. That is the lag between damaging the DNA in a cell and that cell becoming a tumour — the smoking that rose in 1950 became the cancer that was diagnosed in 1970.',
+    zh: '肺癌曲线比吸烟曲线晚约 20 年。这正是 DNA 损伤与肿瘤形成之间的时滞——1950 年上升的吸烟量,要等到 1970 年才表现为被诊断的癌症。',
+  } satisfies Bilingual,
+} as const
+
+/**
+ * Shared by 14-1 reflex-arc + eye-anatomy. Same idea as AIRWAY_PATHWAY:
+ * an explore mode (free) and a follow mode (animated sequence).
+ */
+export const REFLEX_ARC = {
+  modeExplore: { en: 'Explore', zh: '探索' } satisfies Bilingual,
+  modeFollow: { en: 'Follow the impulse', zh: '跟着脉冲走' } satisfies Bilingual,
+  followPrompt: {
+    en: 'Receptor → sensory neurone → relay neurone → motor neurone → effector. Note what the impulse does *not* visit.',
+    zh: '感受器→感觉神经→中间神经→运动神经→效应器。注意脉冲*不*经过什么。',
+  } satisfies Bilingual,
+  emptyExplore: {
+    en: 'Click any part of the reflex arc on the left. Or press "Follow the impulse" to walk through the reflex step by step.',
+    zh: '点击左侧反射弧的任一部分。或按"跟着脉冲走"逐步走一遍反射。',
+  } satisfies Bilingual,
+  emptyFollow: {
+    en: 'Watch the dot. The reflex turns round at the spinal cord — your hand is off the hot plate before your brain knows you have been hurt.',
+    zh: '看着圆点走。反射在脊髓折返——手离开热盘比大脑知道烫还快。',
+  } satisfies Bilingual,
+} as const
+
+export const EYE_ANATOMY = {
+  empty: {
+    en: 'Click any labelled part of the eye. The cornea and lens focus light on the retina; the iris controls how much.',
+    zh: '点击眼的任一标注部分。角膜和晶状体把光聚焦到视网膜；虹膜控制进光量。',
+  } satisfies Bilingual,
+  followPrompt: {
+    en: 'Light → cornea → aqueous humour → pupil → lens → vitreous humour → retina → optic nerve. The image is upside down and back to front at first — the brain flips it.',
+    zh: '光→角膜→房水→瞳孔→晶状体→玻璃体→视网膜→视神经。最初的像是倒置的——是大脑把它翻正的。',
+  } satisfies Bilingual,
+  modeExplore: { en: 'Explore', zh: '探索' } satisfies Bilingual,
+  modeFollow: { en: 'Follow the light', zh: '跟着光走' } satisfies Bilingual,
+} as const
+
+export const GLUCOSE_LOOP = {
+  modeHigh: { en: 'After a meal (high)', zh: '饭后（血糖高）' } satisfies Bilingual,
+  modeNormal: { en: 'Normal', zh: '正常' } satisfies Bilingual,
+  modeLow: { en: 'After exercise (low)', zh: '运动后（血糖低）' } satisfies Bilingual,
+  intro: {
+    en: 'Three snapshots of the same loop. The pancreas watches the blood glucose concentration; the liver is the store. The arrows that fire depend on which way the level has moved.',
+    zh: '同一个环的三种状态。胰腺监测血糖浓度，肝脏是糖的仓库。哪条箭头动作，取决于血糖是高了还是低了。',
+  } satisfies Bilingual,
+  insulinLabel: { en: 'insulin', zh: '胰岛素' } satisfies Bilingual,
+  glucagonLabel: { en: 'glucagon', zh: '胰高血糖素' } satisfies Bilingual,
+  insulinEffect: {
+    en: 'Insulin is secreted by the islets of Langerhans. It tells the liver to take glucose out of the blood and store it as glycogen. Blood glucose falls.',
+    zh: '胰岛素由胰岛分泌。它告诉肝脏把血糖取走并以糖原形式贮存起来。血糖下降。',
+  } satisfies Bilingual,
+  glucagonEffect: {
+    en: 'Glucagon is also secreted by the islets of Langerhans. It tells the liver to break glycogen back down into glucose and release it into the blood. Blood glucose rises.',
+    zh: '胰高血糖素也由胰岛分泌。它告诉肝脏把糖原分解为葡萄糖并释放到血液中。血糖上升。',
+  } satisfies Bilingual,
+  setPoint: {
+    en: 'Set point ≈ 5 mmol/dm³. The pancreas secretes insulin or glucagon to bring the level back to this value, whichever side of it the blood has moved to.',
+    zh: '设定点约 5 mmol/dm³。无论血糖偏向哪一侧，胰腺都会通过分泌胰岛素或胰高血糖素把它拉回此值。',
+  } satisfies Bilingual,
+} as const
+
+export const TEMPERATURE_CONTROL = {
+  modeHot: { en: 'Body too hot', zh: '太热时' } satisfies Bilingual,
+  modeNormal: { en: 'Normal (≈ 37 °C)', zh: '正常（≈ 37 °C）' } satisfies Bilingual,
+  modeCold: { en: 'Body too cold', zh: '太冷时' } satisfies Bilingual,
+  intro: {
+    en: 'The hypothalamus watches the temperature of the blood running through it. When the temperature moves off the set point, it sends impulses to the skin — and the skin does four things, each one a knob the body can turn up or down.',
+    zh: '下丘脑监测流经它的血液温度。当温度偏离设定点时，它向皮肤发出脉冲——皮肤有四件事可做，每一件都是一个可调旋钮。',
+  } satisfies Bilingual,
+  hypothalamus: { en: 'Hypothalamus (control centre)', zh: '下丘脑（控制中心）' } satisfies Bilingual,
+  arteriole: { en: 'Arterioles in the skin', zh: '皮肤内小动脉' } satisfies Bilingual,
+  sweat: { en: 'Sweat glands', zh: '汗腺' } satisfies Bilingual,
+  hair: { en: 'Hair + erector muscles', zh: '毛发与立毛肌' } satisfies Bilingual,
+  shiver: { en: 'Skeletal muscle (shivering)', zh: '骨骼肌（寒战）' } satisfies Bilingual,
 } as const
 
 // Shared by the 3D anatomy viewer (`Anatomy3D`). One block because the

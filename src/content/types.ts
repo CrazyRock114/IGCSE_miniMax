@@ -620,6 +620,10 @@ export type LessonExtra =
   | AirwayPathwayExtra
   | GasExchangeFeaturesExtra
   | SmokingEffectsExtra
+  | ReflexArcExtra
+  | EyeAnatomyExtra
+  | GlucoseLoopExtra
+  | TemperatureControlExtra
 
 /** What to show in the side panel when an organ is selected. */
 export interface AnatomyOrgan {
@@ -1061,6 +1065,77 @@ export interface AirwayPathwayExtra {
 }
 
 /**
+ * A reflex arc, shown on G8 Figure B9.04 (the hand-on-a-hot-plate diagram).
+ *
+ * Same shape as `AirwayPathway`: a base image with SVG hotspots and a side
+ * panel. The "follow the impulse" mode is a key extra — the impulse must
+ * visit the parts in the right order (receptor → sensory neurone → relay
+ * neurone → motor neurone → effector), and the cycle does *not* go through
+ * the brain. That single fact is the most-missed mark in the chapter.
+ */
+export interface ReflexArcExtra {
+  type: 'reflex-arc'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  parts: AnatomyOrgan[]
+  initialPart?: string
+}
+
+/**
+ * The human eye in section. G8 Figure B9.06 — the same labelled diagram
+ * every IGCSE student has to label in the exam.
+ *
+ * The 12 hotspots are: cornea, aqueous humour, iris, pupil, lens, ciliary
+ * muscle, suspensory ligament, vitreous humour, retina, fovea, blind spot,
+ * optic nerve. The sclera and choroid are intentionally left out — the
+ * syllabus note in G8 says they are "for interest" and don't need to be
+ * labelled.
+ */
+export interface EyeAnatomyExtra {
+  type: 'eye-anatomy'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  parts: AnatomyOrgan[]
+  initialPart?: string
+}
+
+/**
+ * Blood glucose regulation, in one picture. G8 Figure B9.20 — the loop
+ * pancreas ↔ liver ↔ blood, with arrows for "high" (insulin, red) and
+ * "low" (glucagon, blue).
+ *
+ * Three modes: high (after a meal — insulin dominates), normal (set
+ * point), low (after exercise — glucagon dominates). The "active" set of
+ * arrows is highlighted; the rest fade. This is the canonical negative-
+ * feedback example and worth showing in both directions.
+ */
+export interface GlucoseLoopExtra {
+  type: 'glucose-loop'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  parts: AnatomyOrgan[]
+}
+
+/**
+ * Temperature control. The skin (G8 Figure B9.17), with three modes —
+ * body too hot, normal, body too cold — and the four effector responses
+ * that change in each mode: vasodilation / vasoconstriction of skin
+ * arterioles, sweating, hair position, shivering. The "too hot" view also
+ * uses G8 Figure B9.18; the steady-state loop is a separate
+ * `TemperatureLoop` part.
+ */
+export interface TemperatureControlExtra {
+  type: 'temperature-control'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  parts: AnatomyOrgan[]
+}
+
+/**
  * The four features that make the alveolus a good gas-exchange surface,
  * one card per feature. Modelled on `DiseaseCards` but applied to a
  * "good design" story rather than a "bad disease" story.
@@ -1113,4 +1188,19 @@ export interface SmokingEffectsExtra {
   /** Optional hero figure — usually the "what's in cigarette smoke" diagram. */
   heroImage?: string
   heroImageSource?: Bilingual
+  /**
+   * Optional closing "the evidence" panel. G8 Figure B8.09 — Doll's
+   * correlation between annual cigarette consumption and annual lung-cancer
+   * deaths in the UK, 1911–2001, for males and females separately. The card
+   * is what turns the rest of the section from "this is bad" into "this is
+   * measurable", and the lag (consumption rises, then deaths rise 20 years
+   * later) is the actual proof of causation.
+   */
+  evidence?: {
+    image: string
+    imageSource: Bilingual
+    heading: Bilingual
+    body: Bilingual
+    lagNote: Bilingual
+  }
 }
