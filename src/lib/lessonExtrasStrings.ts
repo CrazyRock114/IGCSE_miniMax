@@ -539,3 +539,14 @@ export const POPULATION_CURVE = {
   factorsHeading: { en: 'Key factors', zh: '关键因素' } satisfies Bilingual,
   carryingCapacityLabel: { en: 'Carrying capacity (K)', zh: '环境容纳量 (K)' } satisfies Bilingual,
 } as const
+
+// ---------------------------------------------------------------------------
+// Organ anatomy viewer (3D, shared by 8 organs: lungs, liver, intestine,
+// kidneys, brain, eyeball, pancreas, skin — heart has its own
+// HeartAnatomy with deeper content).
+// ---------------------------------------------------------------------------
+
+export const ORGAN_ANATOMY = {
+  loading: { en: 'Loading 3D model…', zh: '正在加载 3D 模型…' } satisfies Bilingual,
+  systemLabel: { en: 'Body system', zh: '所属系统' } satisfies Bilingual,
+} as const

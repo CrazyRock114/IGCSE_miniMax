@@ -636,6 +636,7 @@ export type LessonExtra =
   | PyramidCompareExtra
   | NutrientCycleExtra
   | PopulationCurveExtra
+  | OrganAnatomyExtra
 
 /** What to show in the side panel when an organ is selected. */
 export interface AnatomyOrgan {
@@ -934,6 +935,49 @@ export interface HeartAnatomyExtra {
    * student can rotate the heart and click the same hotspots in 3D.
    */
   model3d?: string
+}
+
+/**
+ * Which organ model the 3D viewer should load. The slug matches the
+ * filenames under `public/figures/3d/<organ>.glb` and the illustration
+ * set under `public/figures/3d/<organ>/`.
+ */
+export type OrganSlug =
+  | 'heart'
+  | 'brain'
+  | 'lungs'
+  | 'liver'
+  | 'kidneys'
+  | 'eyeball'
+  | 'intestine'
+  | 'pancreas'
+  | 'skin'
+
+/**
+ * The 3D anatomy viewer for any organ with a GLB model. Re-uses the same
+ * R3F viewer that powers `HeartAnatomy`'s 3D tab, but standalone — no
+ * 2D figure needed. The student rotates, zooms, and clicks hotspots.
+ *
+ * The hotspot data is built in `organData.ts` and the lesson.ts file
+ * just selects which organ + which parts to show. The component picks
+ * the matching `system` label (cardiovascular / nervous / etc.) and the
+ * side panel copy for each part.
+ */
+export interface OrganAnatomyExtra {
+  type: 'organ-anatomy'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  /** Which organ model to load. */
+  organ: OrganSlug
+  /** Which body system the organ belongs to (used in the side panel). */
+  system: Bilingual
+  /** Optional one-line caption shown above the canvas. */
+  intro?: Bilingual
+  /** Parts to show as hotspots. Their `position3d` is the 3D anchor. */
+  parts: AnatomyOrgan[]
+  /** Which part to highlight on first render. */
+  initialPart?: string
 }
 
 /**

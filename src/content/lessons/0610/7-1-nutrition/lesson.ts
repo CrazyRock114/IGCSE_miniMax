@@ -823,6 +823,137 @@ const lesson: Lesson = {
         },
       ],
     },
+
+    // 3D anatomy: liver + intestine. The 2D figure shows where these are
+    // in the body; the 3D model lets the student rotate them and click
+    // the parts. Both are core to the chapter but the textbook figure
+    // flattens them — the model shows the shape, the lobes, the folds.
+    {
+      type: 'organ-anatomy',
+      id: 'liver-3d',
+      title: { en: 'The liver, in 3D', zh: '肝脏 3D 解剖' },
+      hint: {
+        en: 'Drag to rotate. The liver has a right lobe that does most of the work, a smaller left lobe, and a green gall bladder tucked underneath that stores bile.',
+        zh: '拖动旋转。肝脏右叶最大，承担大部分工作；左叶较小；下面藏着一个绿色的胆囊储存胆汁。',
+      },
+      intro: {
+        en: 'The liver is the body\'s chemical factory. Everything absorbed from the gut passes through it before entering the general circulation, which is why it sits where the gut empties into the bloodstream.',
+        zh: '肝脏是人体的化工厂。肠道吸收的所有物质都先经过它才进入全身循环，所以它正好位于肠道汇入血液的位置。',
+      },
+      organ: 'liver',
+      system: { en: 'Digestive system', zh: '消化系统' },
+      initialPart: 'right-lobe',
+      parts: [
+        {
+          id: 'right-lobe',
+          name: { en: 'right lobe', zh: '右叶' },
+          description: {
+            en: 'The larger of the two main lobes — about six times the volume of the left. Most of the liver\'s work happens here.',
+            zh: '两叶中较大的，体积约为左叶的六倍。肝脏大部分工作都在这里完成。',
+          },
+          position3d: [-0.75, 0.35, 0.75],
+        },
+        {
+          id: 'left-lobe',
+          name: { en: 'left lobe', zh: '左叶' },
+          description: {
+            en: 'Smaller and flatter. Sits above the stomach.',
+            zh: '更小更扁。趴在胃的上方。',
+          },
+          position3d: [0.85, 0.25, 0.75],
+        },
+        {
+          id: 'gall-bladder',
+          name: { en: 'gall bladder', zh: '胆囊' },
+          description: {
+            en: 'A small green sac tucked under the liver. Stores bile made by liver cells, then releases it when fatty food arrives in the small intestine.',
+            zh: '藏在肝下的绿色小囊。储存肝细胞制造的胆汁，脂肪食物到达小肠时把它挤出去。',
+          },
+          position3d: [-0.6, -0.2, 0.85],
+        },
+        {
+          id: 'hepatic-artery',
+          name: { en: 'hepatic artery', zh: '肝动脉' },
+          description: {
+            en: 'Branches off the aorta and brings oxygen-rich blood to the liver cells.',
+            zh: '由主动脉分出，把富氧血送到肝细胞。',
+          },
+          position3d: [0.4, -0.5, 0.8],
+        },
+        {
+          id: 'portal-vein',
+          name: { en: 'hepatic portal vein', zh: '肝门静脉' },
+          description: {
+            en: 'Carries nutrient-rich blood from the small intestine straight to the liver.',
+            zh: '把小肠富营养的血直接送到肝脏。',
+          },
+          position3d: [0.1, -0.3, 0.82],
+        },
+      ],
+    },
+    {
+      type: 'organ-anatomy',
+      id: 'intestine-3d',
+      title: { en: 'The intestine, in 3D', zh: '肠道 3D 解剖' },
+      hint: {
+        en: 'About 6–7 m long when extended, folded into the central and lower abdomen. The small intestine does most of the absorbing; the colon reclaims water.',
+        zh: '展开时长约 6–7 米，折叠盘曲在中下腹。小肠负责大部分吸收，结肠回收水分。',
+      },
+      intro: {
+        en: 'The intestine is the body\'s inner surface — folded, villous, and home to trillions of bacteria. Most of what you eat ends up being absorbed across this wall.',
+        zh: '肠道是人体的"内表面"——折叠的、绒毛密布的、还住着万亿细菌。你吃的大部分东西最终都从这里被吸收。',
+      },
+      organ: 'intestine',
+      system: { en: 'Digestive system', zh: '消化系统' },
+      initialPart: 'jejunum',
+      parts: [
+        {
+          id: 'duodenum',
+          name: { en: 'duodenum', zh: '十二指肠' },
+          description: {
+            en: 'The first, shortest part of the small intestine — about 25 cm. This is where stomach acid is neutralised and where bile and pancreatic enzymes are added.',
+            zh: '小肠的第一段，最短，约 25 厘米。胃酸在这里被中和，胆汁和胰液中的酶在这里加入食物。',
+          },
+          position3d: [0.6, 0.8, 0.75],
+        },
+        {
+          id: 'jejunum',
+          name: { en: 'jejunum', zh: '空肠' },
+          description: {
+            en: 'The middle section and the main site of nutrient absorption. Its wall is covered in villi, each only about 1 mm tall.',
+            zh: '小肠的中段，营养吸收的主要场所。肠壁上布满绒毛，每根约 1 毫米高。',
+          },
+          position3d: [-0.45, 0.1, 0.82],
+        },
+        {
+          id: 'ileum',
+          name: { en: 'ileum', zh: '回肠' },
+          description: {
+            en: 'The final section of the small intestine. It absorbs vitamin B12 and reclaims bile salts.',
+            zh: '小肠的最后一段。吸收维生素 B12 并回收胆汁盐。',
+          },
+          position3d: [-1.0, -0.6, 0.6],
+        },
+        {
+          id: 'colon',
+          name: { en: 'colon (large intestine)', zh: '结肠（大肠）' },
+          description: {
+            en: 'About 1.5 m long. Reabsorbs water and salts from the undigested food, turning it from liquid into solid faeces.',
+            zh: '约 1.5 米长。从未消化的食物中回收水和盐，把内容物从液态变成固态粪便。',
+          },
+          position3d: [0.75, -0.55, 0.72],
+        },
+        {
+          id: 'rectum',
+          name: { en: 'rectum', zh: '直肠' },
+          description: {
+            en: 'The final straight section. Faeces are stored here until they are expelled.',
+            zh: '最后一段直行部分。粪便在这里储存直至排出。',
+          },
+          position3d: [0.85, -0.95, 0.4],
+        },
+      ],
+    },
   ],
 
   checkpoints: [

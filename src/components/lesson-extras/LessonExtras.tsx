@@ -34,6 +34,7 @@ import { FoodWeb } from './FoodWeb'
 import { PyramidCompare } from './PyramidCompare'
 import { NutrientCycle } from './NutrientCycle'
 import { PopulationCurve } from './PopulationCurve'
+import { OrganAnatomy } from './OrganAnatomy'
 
 /**
  * Dispatches the lesson's `extras` to the right component.
@@ -140,5 +141,7 @@ function renderExtra(extra: LessonExtra) {
       return <NutrientCycle extra={extra} />
     case 'population-curve':
       return <PopulationCurve extra={extra} />
+    case 'organ-anatomy':
+      return <OrganAnatomy extra={extra} />
   }
 }

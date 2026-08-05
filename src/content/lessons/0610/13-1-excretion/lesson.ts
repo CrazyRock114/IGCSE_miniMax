@@ -316,6 +316,75 @@ const lesson: Lesson = {
       },
     },
   ],
+
+  // 3D kidneys — the chapter's primary organ. The textbook figure
+  // flattens them into two beans; the 3D model shows the cortex and
+  // medulla, and where the renal artery and ureter enter.
+  extras: [
+    {
+      type: 'organ-anatomy',
+      id: 'kidneys-3d',
+      title: { en: 'The kidneys, in 3D', zh: '肾脏 3D 解剖' },
+      hint: {
+        en: 'Drag to rotate. Each kidney has an outer cortex where blood is first filtered, an inner medulla where urine is concentrated, and a ureter that carries the urine down to the bladder.',
+        zh: '拖动旋转。每侧肾脏外层是皮质（最初滤过血液），内层是髓质（浓缩尿液），下方有输尿管把尿液送到膀胱。',
+      },
+      intro: {
+        en: 'The kidneys are paired organs that filter blood and form urine. About 20% of the heart\'s output goes through them — that much blood needs to be cleaned.',
+        zh: '肾脏是一对成对器官，负责过滤血液并形成尿液。心输出量的约 20% 经过它们——确实需要清理这么多血。',
+      },
+      organ: 'kidneys',
+      system: { en: 'Urinary system', zh: '泌尿系统' },
+      initialPart: 'cortex',
+      parts: [
+        {
+          id: 'cortex',
+          name: { en: 'renal cortex', zh: '肾皮质' },
+          description: {
+            en: 'The outer layer where blood is first filtered. Grainy and pale; you can see it as a thin band around the outside of the kidney in cross-section.',
+            zh: '肾脏的外层，血液最初被过滤的地方。颗粒状、颜色淡；切片中可见它作为薄薄一层包在肾外。',
+          },
+          position3d: [-0.9, 0.55, 0.7],
+        },
+        {
+          id: 'medulla',
+          name: { en: 'renal medulla', zh: '肾髓质' },
+          description: {
+            en: 'The inner part, organised into cone-shaped pyramids. The tubules here concentrate urine by reabsorbing water.',
+            zh: '内部，由锥形的肾锥体组成。这里的肾小管通过重吸收水分把尿液浓缩。',
+          },
+          position3d: [0.85, 0.2, 0.7],
+        },
+        {
+          id: 'renal-artery',
+          name: { en: 'renal artery', zh: '肾动脉' },
+          description: {
+            en: 'Branches off the abdominal aorta. Carries a fifth of the heart\'s output into the kidney for filtering.',
+            zh: '从腹主动脉分出。把心输出量的五分之一送入肾脏进行过滤。',
+          },
+          position3d: [0.5, -0.05, 0.85],
+        },
+        {
+          id: 'renal-vein',
+          name: { en: 'renal vein', zh: '肾静脉' },
+          description: {
+            en: 'Carries the cleaned blood away from the kidney, back to the inferior vena cava.',
+            zh: '把已清洁的血液从肾脏送走，回到下腔静脉。',
+          },
+          position3d: [-0.5, -0.05, 0.85],
+        },
+        {
+          id: 'ureter',
+          name: { en: 'ureter', zh: '输尿管' },
+          description: {
+            en: 'A muscular tube about 25 cm long that carries urine from the kidney to the bladder. Waves of muscle contraction push the urine down.',
+            zh: '长约 25 厘米的肌肉管道，把尿液从肾运到膀胱。肌肉蠕动波把尿液向下推。',
+          },
+          position3d: [0.4, -1.1, 0.5],
+        },
+      ],
+    },
+  ],
 }
 
 export default lesson
