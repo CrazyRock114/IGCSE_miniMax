@@ -1,10 +1,20 @@
 import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import type { AnatomyOrgan, HeartAnatomyExtra, Lesson } from '@/content/types'
+import type {
+  AnatomyOrgan,
+  DnaHelix3DExtra,
+  FoodWeb3DExtra,
+  HeartAnatomyExtra,
+  Lesson,
+  LessonExtra,
+  OrganAnatomyExtra,
+} from '@/content/types'
 import { findLesson } from '@/lib/registry'
 import { T } from '@/components/i18n/T'
 import { ANATOMY_3D } from '@/lib/lessonExtrasStrings'
 import { assetUrl } from '@/lib/assetUrl'
+import { DnaHelixFullscreen } from './DnaHelixFullscreen'
+import { FoodWebFullscreen } from './FoodWebFullscreen'
 
 // Same lazy chunk as the in-lesson 3D tab — only downloads the first time
 // the student opens either the tab or this page.
@@ -29,7 +39,7 @@ export function AnatomyPage() {
   const { subject, slug } = useParams<{ subject: string; slug: string }>()
   const lesson = subject && slug ? findLesson(subject, slug) : undefined
   const extra = useMemo(
-    () => (lesson ? findAnatomyExtra(lesson) : undefined),
+    () => (lesson ? find3DExtra(lesson) : undefined),
     [lesson]
   )
 
@@ -47,12 +57,12 @@ export function AnatomyPage() {
     )
   }
 
-  if (!extra || !extra.model3d) {
+  if (!extra) {
     return (
       <main className="mx-auto max-w-3xl px-4 py-16">
         <h1 className="text-2xl font-bold">No 3D model for this lesson</h1>
         <p className="mt-2 text-sm text-muted">
-          This lesson doesn't have a GLB viewer wired up yet.
+          This lesson doesn't have a 3D viewer wired up yet.
         </p>
         <Link
           to={`/lesson/${lesson.subject}/${lesson.slug}`}
@@ -64,10 +74,26 @@ export function AnatomyPage() {
     )
   }
 
-  return <AnatomyView lesson={lesson} extra={extra} />
+  // Dispatch by extra type: GLB-based extras share the heart's fullscreen
+  // surface (with Edit mode for pin calibration); procedural 3D extras
+  // (DNA helix, food web) get their own fullscreen views.
+  if (extra.type === 'heart-anatomy' || extra.type === 'organ-anatomy') {
+    return <GLSurfaceView lesson={lesson} extra={extra} />
+  }
+  if (extra.type === 'dna-helix-3d') {
+    return <DnaHelixFullscreen lesson={lesson} extra={extra} />
+  }
+  // food-web-3d
+  return <FoodWebFullscreen lesson={lesson} extra={extra} />
 }
 
-function AnatomyView({ lesson, extra }: { lesson: Lesson; extra: HeartAnatomyExtra }) {
+function GLSurfaceView({
+  lesson,
+  extra,
+}: {
+  lesson: Lesson
+  extra: HeartAnatomyExtra | OrganAnatomyExtra
+}) {
   const parts = extra.parts
   const [selectedId, setSelectedId] = useState<string | null>(extra.initialPart ?? null)
   const [hoveredId, setHoveredId] = useState<string | null>(null)
@@ -174,7 +200,6 @@ function AnatomyView({ lesson, extra }: { lesson: Lesson; extra: HeartAnatomyExt
       <div ref={canvasWrapRef} className="absolute inset-0">
         <Suspense fallback={<FullScreen3DFallback />}>
           <FullScreen3D
-            extra={extra}
             parts={parts}
             selectedId={selectedId}
             hoveredId={hoveredId}
@@ -198,6 +223,7 @@ function AnatomyView({ lesson, extra }: { lesson: Lesson; extra: HeartAnatomyExt
             pinOverrides={editMode ? pinOverrides : undefined}
             editMode={editMode}
             onPinAdjust={(id) => setEditingId(id)}
+            modelUrl={getModelUrl(extra)}
           />
         </Suspense>
       </div>
@@ -419,7 +445,6 @@ function Header({
 }
 
 function FullScreen3D({
-  extra,
   parts,
   selectedId,
   hoveredId,
@@ -430,8 +455,8 @@ function FullScreen3D({
   pinOverrides,
   editMode,
   onPinAdjust,
+  modelUrl,
 }: {
-  extra: HeartAnatomyExtra
   parts: AnatomyOrgan[]
   selectedId: string | null
   hoveredId: string | null
@@ -439,15 +464,16 @@ function FullScreen3D({
   onHover: (id: string | null) => void
   autoRotate: boolean
   // Optional so edit mode can pass `undefined` and skip the per-frame
-  // screen-position reporter (see AnatomyView for the full reason).
+  // screen-position reporter (see GLSurfaceView for the full reason).
   onSelectedScreenPos?: ((pos: { x: number; y: number } | null) => void) | undefined
   pinOverrides?: Record<string, [number, number, number]> | undefined
   editMode: boolean
   onPinAdjust: (id: string) => void
+  modelUrl: string
 }) {
   return (
     <Anatomy3D
-      modelUrl={assetUrl(extra.model3d!)}
+      modelUrl={modelUrl}
       parts={parts}
       selectedId={selectedId}
       hoveredId={hoveredId}
@@ -806,9 +832,34 @@ function PartListOverlay({
 // Helpers
 // ---------------------------------------------------------------------------
 
-/** First `heart-anatomy` extra in a lesson that has a 3D model. */
-function findAnatomyExtra(lesson: Lesson): HeartAnatomyExtra | undefined {
+/** First 3D-capable extra in a lesson. We support four types:
+ *  - `heart-anatomy` (GLB, with Edit-mode pin calibration)
+ *  - `organ-anatomy` (GLB for any of 8 non-heart organs, same Edit mode)
+ *  - `dna-helix-3d` (procedural DNA double helix, no GLB)
+ *  - `food-web-3d` (procedural food web, no GLB)
+ */
+type Fullscreen3DExtra =
+  | HeartAnatomyExtra
+  | OrganAnatomyExtra
+  | DnaHelix3DExtra
+  | FoodWeb3DExtra
+
+function find3DExtra(lesson: Lesson): Fullscreen3DExtra | undefined {
   return lesson.extras?.find(
-    (e): e is HeartAnatomyExtra => e.type === 'heart-anatomy' && Boolean(e.model3d)
+    (e): e is Fullscreen3DExtra => is3DExtra(e)
   )
+}
+
+function is3DExtra(e: LessonExtra): e is Fullscreen3DExtra {
+  if (e.type === 'dna-helix-3d' || e.type === 'food-web-3d') return true
+  if (e.type === 'heart-anatomy') return Boolean(e.model3d)
+  if (e.type === 'organ-anatomy') return true
+  return false
+}
+
+/** Where the GLB lives, by extra type. Heart carries an explicit
+ *  `model3d`; organs are looked up by slug. */
+function getModelUrl(extra: HeartAnatomyExtra | OrganAnatomyExtra): string {
+  if (extra.type === 'heart-anatomy') return assetUrl(extra.model3d!)
+  return assetUrl(`/figures/3d/${extra.organ}.glb`)
 }

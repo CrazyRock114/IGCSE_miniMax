@@ -1,10 +1,11 @@
 import { Suspense, useMemo, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Html, Line, OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
 import type { FoodWeb3DExtra, FoodWebNode } from '@/content/types'
 import { T } from '@/components/i18n/T'
-import { FOOD_WEB_3D } from '@/lib/lessonExtrasStrings'
+import { FOOD_WEB_3D, HEART_ANATOMY } from '@/lib/lessonExtrasStrings'
 
 /**
  * A 3D, R3F-procedural rendering of a food web for Chapter 19 (Ecosystems).
@@ -28,7 +29,7 @@ import { FOOD_WEB_3D } from '@/lib/lessonExtrasStrings'
 // Trophic-level colour palette. Same convention as the 2D `FoodWeb`
 // component so a student looking at the 2D and 3D versions side by
 // side sees the same level in the same colour.
-const TROPHIC_COLOR: Record<FoodWebNode['trophic'], string> = {
+export const TROPHIC_COLOR: Record<FoodWebNode['trophic'], string> = {
   producer: '#86efac',
   primary: '#60a5fa',
   secondary: '#fbbf24',
@@ -37,19 +38,19 @@ const TROPHIC_COLOR: Record<FoodWebNode['trophic'], string> = {
 
 // Trophic-level Y position. Producer at the bottom (-3), tertiary at
 // the top (+3). Tighter than that and the spheres overlap.
-const TROPHIC_Y: Record<FoodWebNode['trophic'], number> = {
+export const TROPHIC_Y: Record<FoodWebNode['trophic'], number> = {
   producer: -3,
   primary: -1,
   secondary: 1,
   tertiary: 3,
 }
 
-const NODE_RADIUS = 0.32
+export const NODE_RADIUS = 0.32
 
 // Pseudo-random but deterministic layout: a 32-bit integer hash mixed
 // from the species id gives each node a stable (x, z) position so the
 // scene is identical on every reload.
-function stablePosition(id: string, slot: number): { x: number; z: number } {
+export function stablePosition(id: string, slot: number): { x: number; z: number } {
   let h = 2166136261
   for (let i = 0; i < id.length; i++) {
     h ^= id.charCodeAt(i)
@@ -69,6 +70,7 @@ export function FoodWeb3D({ extra }: { extra: FoodWeb3DExtra }) {
   const [selectedId, setSelectedId] = useState<string | null>(
     extra.initialSelected ?? extra.nodes[0]?.id ?? null
   )
+  const { subject, slug } = useParams<{ subject: string; slug: string }>()
 
   const positions = useMemo(() => {
     const map: Record<string, THREE.Vector3> = {}
@@ -102,7 +104,7 @@ export function FoodWeb3D({ extra }: { extra: FoodWeb3DExtra }) {
       </header>
 
       <div className="grid gap-4 lg:grid-cols-[1fr_300px]">
-        <div className="overflow-hidden rounded-lg border border-line bg-canvas">
+        <div className="relative overflow-hidden rounded-lg border border-line bg-canvas">
           <Suspense
             fallback={
               <div className="flex h-[460px] items-center justify-center text-sm text-muted">
@@ -162,6 +164,19 @@ export function FoodWeb3D({ extra }: { extra: FoodWeb3DExtra }) {
           <div className="pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-canvas/85 px-3 py-1 text-[11px] text-ink-soft shadow-sm backdrop-blur">
             <T value={FOOD_WEB_3D.dragHint} />
           </div>
+
+          {subject && slug && (
+            <Link
+              to={`/anatomy/${subject}/${slug}`}
+              target="_blank"
+              rel="noopener"
+              className="absolute right-2 top-2 inline-flex items-center gap-1 rounded-md border border-line bg-canvas/90 px-2.5 py-1 text-[11px] font-medium text-ink-soft shadow-sm transition-colors hover:bg-surface hover:text-ink"
+              title="Open the fullscreen 3D viewer in a new tab"
+            >
+              <span aria-hidden="true">⛶</span>
+              <T value={HEART_ANATOMY.openFullscreen} />
+            </Link>
+          )}
         </div>
 
         <SidePanel selected={selected} />
@@ -174,15 +189,10 @@ export function FoodWeb3D({ extra }: { extra: FoodWeb3DExtra }) {
 // Scene
 // ---------------------------------------------------------------------------
 
-function WebScene({
-  nodes,
-  edges,
-  positions,
-  selectedId,
-  connectedIds,
-  onSelect,
-  autoRotate,
-}: {
+/** Public scene component, exported so the AnatomyPage fullscreen view
+ *  can render the same web at full viewport without duplicating the
+ *  geometry / state plumbing. */
+export type WebSceneProps = {
   nodes: FoodWebNode[]
   edges: { from: string; to: string }[]
   positions: Record<string, THREE.Vector3>
@@ -190,7 +200,17 @@ function WebScene({
   connectedIds: Set<string>
   onSelect: (id: string) => void
   autoRotate: boolean
-}) {
+}
+
+export function WebScene({
+  nodes,
+  edges,
+  positions,
+  selectedId,
+  connectedIds,
+  onSelect,
+  autoRotate,
+}: WebSceneProps) {
   const groupRef = useFrameRef<THREE.Group>()
 
   useFrame((_, dt) => {
