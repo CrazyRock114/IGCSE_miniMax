@@ -571,6 +571,138 @@ const lesson: Lesson = {
         },
       ],
     },
+
+    // 3D brain + 3D eyeball. The 2D figures show the structures in
+    // cross-section; the 3D models show their actual 3D shape, which
+    // is the only way to grasp "frontal lobe at the front, occipital
+    // lobe at the back" as actual positions rather than abstract
+    // labels.
+    {
+      type: 'organ-anatomy',
+      id: 'brain-3d',
+      title: { en: 'The brain, in 3D', zh: '大脑 3D 解剖' },
+      hint: {
+        en: 'Drag to rotate. The frontal lobe is at the front, the occipital lobe at the back, the temporal lobes on the sides, and the cerebellum tucked under the back.',
+        zh: '拖动旋转。额叶在前，枕叶在后，颞叶在两侧，小脑蜷在后部下方。',
+      },
+      intro: {
+        en: 'The brain is the body\'s command centre — billions of neurons integrating sensation, memory, emotion and movement.',
+        zh: '大脑是人体的指挥中心——数十亿神经元整合感觉、记忆、情绪与运动。',
+      },
+      organ: 'brain',
+      system: { en: 'Nervous system', zh: '神经系统' },
+      initialPart: 'frontal',
+      parts: [
+        {
+          id: 'frontal',
+          name: { en: 'frontal lobe', zh: '额叶' },
+          description: {
+            en: 'At the front of the brain, behind the forehead. Seat of planning, decision-making, voluntary movement, and personality.',
+            zh: '位于大脑前部，额头之后。是计划、决策、随意运动与人格的所在。',
+          },
+          position3d: [-0.7, 0.65, 0.8],
+        },
+        {
+          id: 'parietal',
+          name: { en: 'parietal lobe', zh: '顶叶' },
+          description: {
+            en: 'At the top of the brain. Seat of body sense — touch, temperature, pain, and awareness of limb position.',
+            zh: '位于大脑顶部。是身体感觉的中枢——触觉、温度、疼痛与肢体位置感知。',
+          },
+          position3d: [0.15, 1.1, 0.65],
+        },
+        {
+          id: 'temporal',
+          name: { en: 'temporal lobe', zh: '颞叶' },
+          description: {
+            en: 'On the side of the brain, behind the temple. Seat of hearing and of forming new memories.',
+            zh: '位于大脑侧部，太阳穴之后。是听觉与新记忆形成的中枢。',
+          },
+          position3d: [0.75, -0.1, 0.82],
+        },
+        {
+          id: 'occipital',
+          name: { en: 'occipital lobe', zh: '枕叶' },
+          description: {
+            en: 'At the back of the brain. Primary visual cortex — the first place that signals from the eyes are interpreted as shapes, colours, and movement.',
+            zh: '位于大脑后部。是初级视觉皮层——来自眼睛的信号最早在这里被解读为形状、颜色与运动。',
+          },
+          position3d: [0.0, -0.95, 0.55],
+        },
+        {
+          id: 'cerebellum',
+          name: { en: 'cerebellum', zh: '小脑' },
+          description: {
+            en: 'Under the back of the brain. Coordinates balance, posture, and the fine timing of movement.',
+            zh: '位于大脑后部下方。协调平衡、姿势与动作的精确计时。',
+          },
+          position3d: [0.72, -0.9, 0.55],
+        },
+      ],
+    },
+    {
+      type: 'organ-anatomy',
+      id: 'eyeball-3d',
+      title: { en: 'The eye, in 3D', zh: '眼睛 3D 解剖' },
+      hint: {
+        en: 'Drag to rotate. The cornea and lens bend the light, the iris controls how much enters, the retina at the back converts it to nerve signals, and the optic nerve carries those signals to the brain.',
+        zh: '拖动旋转。角膜和晶状体屈光，虹膜控制进光量，底部视网膜把光转为神经信号，视神经把信号送入大脑。',
+      },
+      intro: {
+        en: 'The eye is a precision sensory organ — a living camera that converts focused light into neural signals interpreted as vision.',
+        zh: '眼睛是一个精密的感觉器官——一台活的相机，把聚焦的光转化为神经信号，解读为视觉。',
+      },
+      organ: 'eyeball',
+      system: { en: 'Sensory system', zh: '感觉系统' },
+      initialPart: 'cornea',
+      parts: [
+        {
+          id: 'cornea',
+          name: { en: 'cornea', zh: '角膜' },
+          description: {
+            en: 'The clear dome at the front. Does most of the bending of light that focuses an image. Has no blood vessels.',
+            zh: '最前端的透明圆顶。负责把光线会聚成像——这是屈光的大部分工作。没有血管。',
+          },
+          position3d: [-0.94, 0.05, 1.47],
+        },
+        {
+          id: 'iris',
+          name: { en: 'iris', zh: '虹膜' },
+          description: {
+            en: 'The coloured ring. Its muscles change the pupil size — wide in dim light, narrow in bright light.',
+            zh: '彩色环。其肌肉改变瞳孔大小——暗处放大、亮处缩小。',
+          },
+          position3d: [-1.22, -0.53, 1.15],
+        },
+        {
+          id: 'lens',
+          name: { en: 'lens', zh: '晶状体' },
+          description: {
+            en: 'A flexible, transparent disc behind the iris. Tiny muscles change its shape to focus light from near or far objects.',
+            zh: '虹膜后方柔韧透明的盘状结构。睫状肌改变其形状，把远近物体的光聚焦。',
+          },
+          position3d: [-0.5, -0.5, 1.1],
+        },
+        {
+          id: 'retina',
+          name: { en: 'retina', zh: '视网膜' },
+          description: {
+            en: 'The light-sensitive layer at the back. Contains the photoreceptors — cones for colour and detail, rods for dim light.',
+            zh: '眼球后部感光的一层。包含感光细胞——锥体感色与细节，杆体感暗光。',
+          },
+          position3d: [1.0, 0.2, 0.0],
+        },
+        {
+          id: 'optic-nerve',
+          name: { en: 'optic nerve', zh: '视神经' },
+          description: {
+            en: 'A bundle of about a million nerve fibres leaving the back of the eye. Carries the visual signal to the visual cortex.',
+            zh: '眼球后部约一百万根神经纤维组成的束，把视觉信号送到视觉皮层。',
+          },
+          position3d: [1.61, -0.18, 0.54],
+        },
+      ],
+    },
   ],
 }
 

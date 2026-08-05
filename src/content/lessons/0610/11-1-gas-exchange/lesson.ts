@@ -980,6 +980,83 @@ const lesson: Lesson = {
         },
       },
     },
+
+    // 5) 3D lungs — the chapter's primary organ. The figure at the top of
+    //    the page is fine for labelling, but the 3D model is the only way
+    //    to see where the trachea sits relative to the two lungs, and
+    //    what "alveoli" actually means in 3D.
+    {
+      type: 'organ-anatomy',
+      id: 'lungs-3d',
+      title: { en: 'The lungs, in 3D', zh: '肺部 3D 解剖' },
+      hint: {
+        en: 'Drag to rotate, scroll to zoom. Click any part to read about it. The two lungs look like one mirror image but they are not — the right has three lobes, the left only two, with a notch where the heart sits.',
+        zh: '拖动旋转，滚轮缩放。点击任一部分查看说明。两片肺看似镜像但其实不同——右肺三叶，左肺两叶，给心脏让出位置。',
+      },
+      intro: {
+        en: 'The two lungs are where gas exchange happens. They sit inside the ribcage, one on each side of the heart. This is the model used in 3D viewer.',
+        zh: '两片肺是气体交换的场所。它们位于胸腔内，分列心脏两侧。这是 3D 查看器所用的模型。',
+      },
+      organ: 'lungs',
+      system: { en: 'Respiratory system', zh: '呼吸系统' },
+      parts: [
+        {
+          id: 'trachea',
+          name: { en: 'trachea', zh: '气管' },
+          description: {
+            en: 'The windpipe. A rigid tube about 11 cm long held open by C-shaped rings of cartilage. Carries air from the larynx to the two bronchi.',
+            zh: '气管。约 11 厘米长，由 C 形软骨环撑开。把空气从喉部送到左右两条支气管。',
+          },
+          position3d: [0, 1.6, 0.2],
+        },
+        {
+          id: 'right-lung',
+          name: { en: 'right lung', zh: '右肺' },
+          description: {
+            en: 'The larger lung, with three lobes. The extra lobe leaves room above the heart.',
+            zh: '较大的一侧肺，有三叶。多出来的一叶给偏左的心脏让出位置。',
+          },
+          position3d: [-1.2, 0.1, 0.7],
+        },
+        {
+          id: 'left-lung',
+          name: { en: 'left lung', zh: '左肺' },
+          description: {
+            en: 'Smaller, with only two lobes. The cardiac notch on its medial surface is where the heart nestles against it.',
+            zh: '较小，只有两叶。其内侧的"心切迹"是心脏贴靠的凹槽。',
+          },
+          position3d: [1.2, 0.1, 0.7],
+        },
+        {
+          id: 'bronchus',
+          name: { en: 'bronchus', zh: '支气管' },
+          description: {
+            en: 'The two main branches the trachea divides into. Inside each lung they keep branching, eventually ending in tiny bronchioles.',
+            zh: '气管分出的两条主支。在肺内继续反复分支，最终成为细支气管。',
+          },
+          position3d: [-0.03, 0.3, 0.35],
+        },
+        {
+          id: 'alveoli',
+          name: { en: 'alveoli', zh: '肺泡' },
+          description: {
+            en: 'Tiny air sacs wrapped in capillaries. Oxygen diffuses in, carbon dioxide diffuses out. The total surface area is close to that of a tennis court.',
+            zh: '被毛细血管包裹的小气囊。氧气向内扩散，二氧化碳向外扩散。总面积接近一个网球场。',
+          },
+          position3d: [-0.7, -0.6, 0.9],
+        },
+        {
+          id: 'diaphragm',
+          name: { en: 'diaphragm', zh: '膈肌' },
+          description: {
+            en: 'The dome-shaped muscle below the lungs. When it contracts, the chest cavity expands and air is drawn in.',
+            zh: '肺下方的圆顶形肌肉。收缩时胸腔扩大，吸入空气。',
+          },
+          position3d: [0, -1.3, 0],
+        },
+      ],
+      initialPart: 'alveoli',
+    },
   ],
 }
 

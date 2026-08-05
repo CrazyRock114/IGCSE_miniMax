@@ -587,6 +587,146 @@ const lesson: Lesson = {
         },
       ],
     },
+
+    // 3D pancreas + 3D skin. The 2D figures at the top of the lesson
+    // are simplified diagrams; the 3D models show the actual shapes
+    // — the pancreas snaking across the upper abdomen, the layered
+    // structure of the skin with its glands and capillaries.
+    {
+      type: 'organ-anatomy',
+      id: 'pancreas-3d',
+      title: { en: 'The pancreas, in 3D', zh: '胰腺 3D 解剖' },
+      hint: {
+        en: 'Drag to rotate. The pancreas sits behind the stomach, with its head cradled by the duodenum. Most of it makes digestive enzymes; the small islets of Langerhans release insulin and glucagon into the blood.',
+        zh: '拖动旋转。胰腺位于胃后方，胰头嵌在十二指肠中。大部分胰腺分泌消化酶；零散的胰岛释放胰岛素和胰高血糖素入血。',
+      },
+      intro: {
+        en: 'The pancreas is a dual-purpose gland — digestive enzymes into the gut, hormones that steady blood sugar.',
+        zh: '胰腺是一个双重功能腺体——既向肠道分泌消化酶，又向血液释放稳定血糖的激素。',
+      },
+      organ: 'pancreas',
+      system: { en: 'Endocrine system', zh: '内分泌系统' },
+      initialPart: 'islets',
+      parts: [
+        {
+          id: 'head',
+          name: { en: 'head', zh: '胰头' },
+          description: {
+            en: 'The widest part, nestled in the curve of the duodenum. The common bile duct passes through it.',
+            zh: '最宽的部分，嵌在十二指肠的弯中。胆总管从这里穿过。',
+          },
+          position3d: [-1.32, -0.36, 0.55],
+        },
+        {
+          id: 'body',
+          name: { en: 'body', zh: '胰体' },
+          description: {
+            en: 'The middle section, sitting across the spine behind the stomach. Most of the digestive enzymes are made here.',
+            zh: '中间段，横跨脊柱后方、胃后。消化酶主要由这里分泌。',
+          },
+          position3d: [0.05, 0.25, 0.45],
+        },
+        {
+          id: 'tail',
+          name: { en: 'tail', zh: '胰尾' },
+          description: {
+            en: 'The thin end, reaching toward the spleen.',
+            zh: '较细的尾端，向脾脏方向伸去。',
+          },
+          position3d: [1.55, 0.3, 0.35],
+        },
+        {
+          id: 'pancreatic-duct',
+          name: { en: 'pancreatic duct', zh: '胰管' },
+          description: {
+            en: 'Runs the length of the pancreas. Carries the digestive enzymes to the duodenum.',
+            zh: '贯穿胰腺全长，把消化酶送往十二指肠。',
+          },
+          position3d: [-0.61, 0.39, 0.5],
+        },
+        {
+          id: 'islets',
+          name: { en: 'islets of Langerhans', zh: '胰岛' },
+          description: {
+            en: 'Tiny scattered clusters of endocrine cells. Only 2% of the pancreas but vital — they release insulin and glucagon.',
+            zh: '散布的内分泌细胞小簇。只占胰腺 2%，但至关重要——它们释放胰岛素和胰高血糖素。',
+          },
+          position3d: [0.5, -0.05, 0.5],
+        },
+      ],
+    },
+    {
+      type: 'organ-anatomy',
+      id: 'skin-3d',
+      title: { en: 'The skin, in 3D', zh: '皮肤 3D 解剖' },
+      hint: {
+        en: 'Drag to rotate. The skin has three layers — epidermis outside, dermis with glands and nerves, hypodermis (fat) at the bottom. Capillaries in the dermis open and narrow to control how much heat the body loses.',
+        zh: '拖动旋转。皮肤分三层——外层表皮、中层真皮（含腺体和神经）、底层皮下（脂肪）。真皮的毛细血管开合控制散热。',
+      },
+      intro: {
+        en: 'The skin is the body\'s largest organ — a living barrier that senses touch, holds in water, and regulates temperature.',
+        zh: '皮肤是人体最大的器官——活的屏障，能感知触觉、保持水分、调节体温。',
+      },
+      organ: 'skin',
+      system: { en: 'Integumentary system', zh: '皮肤系统' },
+      initialPart: 'epidermis',
+      parts: [
+        {
+          id: 'epidermis',
+          name: { en: 'epidermis', zh: '表皮' },
+          description: {
+            en: 'The outermost layer. Cells are constantly shed and replaced. The deepest layer makes melanin, the pigment that colours skin.',
+            zh: '最外层。细胞不断脱落并从下层新生。最深一层生成黑色素，赋予肤色。',
+          },
+          position3d: [-0.05, 0.88, 1.4],
+        },
+        {
+          id: 'dermis',
+          name: { en: 'dermis', zh: '真皮' },
+          description: {
+            en: 'The thick middle layer. Holds sweat glands, hair follicles, sebaceous glands, blood vessels, and nerve endings.',
+            zh: '厚实的中间层。包含汗腺、毛囊、皮脂腺、血管与神经末梢。',
+          },
+          position3d: [0.29, 0.05, 1.4],
+        },
+        {
+          id: 'hypodermis',
+          name: { en: 'hypodermis', zh: '皮下组织' },
+          description: {
+            en: 'The deepest layer, mostly fat. Cushions against knocks and insulates against cold.',
+            zh: '最深的层，主要是脂肪。缓冲撞击并隔热保暖。',
+          },
+          position3d: [-0.39, -1.15, 1.4],
+        },
+        {
+          id: 'sweat-gland',
+          name: { en: 'sweat gland', zh: '汗腺' },
+          description: {
+            en: 'A coiled tube in the dermis. When body temperature rises, sweat is released and evaporates, taking heat with it.',
+            zh: '真皮里的盘曲管道。体温上升时汗液挤出蒸发，散热。',
+          },
+          position3d: [0.75, 0.55, 1.4],
+        },
+        {
+          id: 'hair-follicle',
+          name: { en: 'hair follicle', zh: '毛囊' },
+          description: {
+            en: 'A tiny pocket in the dermis from which a hair grows. A small muscle pulls the hair upright in the cold — goose bumps.',
+            zh: '真皮中的小袋，毛发由此长出。冷时小肌肉收缩让毛发立起——起鸡皮疙瘩。',
+          },
+          position3d: [0.89, -0.44, 1.4],
+        },
+        {
+          id: 'blood-capillary',
+          name: { en: 'blood capillary', zh: '毛细血管' },
+          description: {
+            en: 'Tiny vessels in the dermis that open or narrow to control how much heat the body loses through the skin.',
+            zh: '真皮中的细小血管，开合控制经皮肤散失多少热量。',
+          },
+          position3d: [-0.75, -0.45, 1.4],
+        },
+      ],
+    },
   ],
 }
 

@@ -636,6 +636,9 @@ export type LessonExtra =
   | PyramidCompareExtra
   | NutrientCycleExtra
   | PopulationCurveExtra
+  | OrganAnatomyExtra
+  | DnaHelix3DExtra
+  | FoodWeb3DExtra
 
 /** What to show in the side panel when an organ is selected. */
 export interface AnatomyOrgan {
@@ -934,6 +937,112 @@ export interface HeartAnatomyExtra {
    * student can rotate the heart and click the same hotspots in 3D.
    */
   model3d?: string
+}
+
+/**
+ * Which organ model the 3D viewer should load. The slug matches the
+ * filenames under `public/figures/3d/<organ>.glb` and the illustration
+ * set under `public/figures/3d/<organ>/`.
+ */
+export type OrganSlug =
+  | 'heart'
+  | 'brain'
+  | 'lungs'
+  | 'liver'
+  | 'kidneys'
+  | 'eyeball'
+  | 'intestine'
+  | 'pancreas'
+  | 'skin'
+
+/**
+ * The 3D anatomy viewer for any organ with a GLB model. Re-uses the same
+ * R3F viewer that powers `HeartAnatomy`'s 3D tab, but standalone — no
+ * 2D figure needed. The student rotates, zooms, and clicks hotspots.
+ *
+ * The hotspot data is built in `organData.ts` and the lesson.ts file
+ * just selects which organ + which parts to show. The component picks
+ * the matching `system` label (cardiovascular / nervous / etc.) and the
+ * side panel copy for each part.
+ */
+export interface OrganAnatomyExtra {
+  type: 'organ-anatomy'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  /** Which organ model to load. */
+  organ: OrganSlug
+  /** Which body system the organ belongs to (used in the side panel). */
+  system: Bilingual
+  /** Optional one-line caption shown above the canvas. */
+  intro?: Bilingual
+  /** Parts to show as hotspots. Their `position3d` is the 3D anchor. */
+  parts: AnatomyOrgan[]
+  /** Which part to highlight on first render. */
+  initialPart?: string
+}
+
+/**
+ * A single base pair in the 3D DNA helix. `name` is the public label
+ * shown in the side panel; `description` is the explanatory text.
+ */
+export interface DnaBaseDescription {
+  name: Bilingual
+  description: Bilingual
+}
+
+/**
+ * Procedurally drawn 3D DNA double helix (Chapter 17, Inheritance).
+ * No GLB — every strand and base pair is a R3F primitive, so the
+ * component ships at <20 KB. The 14-rung demo sequence below gives
+ * a stable, photogenic mix of A-T and G-C pairs.
+ */
+export interface DnaHelix3DExtra {
+  type: 'dna-helix-3d'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  /** Optional one-line caption shown above the canvas. */
+  intro?: Bilingual
+  /**
+   * The base-pair sequence shown along the helix. Defaults to a
+   * 14-pair demo if not provided. Each entry is `{ left, right }` —
+   * the two strands (A always pairs with T, G always with C).
+   */
+  sequence?: { left: string; right: string }[]
+  /**
+   * Per-pair descriptions keyed by `"A-T"`, `"T-A"`, `"G-C"`, `"C-G"`.
+   * Used in the side panel when a rung is selected.
+   */
+  baseDescriptions?: Record<string, DnaBaseDescription>
+  /** Which rung (0-indexed) to highlight on first render. */
+  initialIndex?: number
+  /** Auto-rotate the helix while the user is not interacting. */
+  autoRotate?: boolean
+}
+
+/**
+ * A 3D, R3F-procedural rendering of a food web for Chapter 19 (Ecosystems).
+ * The same node + edge data shape as the 2D `FoodWeb` extra, but stacked
+ * by trophic level on the Y axis and rotated so the student sees both
+ * the producer floor and the tertiary-consumer ceiling.
+ *
+ * Re-uses `FoodWebNode` / `FoodWebEdge` so the lesson file can keep one
+ * source of truth for the species list.
+ */
+export interface FoodWeb3DExtra {
+  type: 'food-web-3d'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  /** Which species to highlight on first render. */
+  initialSelected?: string
+  /** The species to plot. `x` / `y` are ignored — the 3D version
+   *  re-lays out by trophic level and a stable hash of the id. */
+  nodes: FoodWebNode[]
+  edges: FoodWebEdge[]
+  /** Auto-rotate the web while the user is not interacting. */
+  autoRotate?: boolean
 }
 
 /**

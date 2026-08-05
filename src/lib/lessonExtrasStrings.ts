@@ -539,3 +539,52 @@ export const POPULATION_CURVE = {
   factorsHeading: { en: 'Key factors', zh: '关键因素' } satisfies Bilingual,
   carryingCapacityLabel: { en: 'Carrying capacity (K)', zh: '环境容纳量 (K)' } satisfies Bilingual,
 } as const
+
+// ---------------------------------------------------------------------------
+// Organ anatomy viewer (3D, shared by 8 organs: lungs, liver, intestine,
+// kidneys, brain, eyeball, pancreas, skin — heart has its own
+// HeartAnatomy with deeper content).
+// ---------------------------------------------------------------------------
+
+export const ORGAN_ANATOMY = {
+  loading: { en: 'Loading 3D model…', zh: '正在加载 3D 模型…' } satisfies Bilingual,
+  systemLabel: { en: 'Body system', zh: '所属系统' } satisfies Bilingual,
+} as const
+
+export const DNA_HELIX_3D = {
+  loading: { en: 'Drawing the helix…', zh: '正在绘制螺旋…' } satisfies Bilingual,
+  dragHint: {
+    en: 'Drag to rotate · scroll to zoom · click a rung to read the base pair',
+    zh: '拖动旋转 · 滚轮缩放 · 点击碱基对查看说明',
+  } satisfies Bilingual,
+  pairLabel: { en: 'Base pair', zh: '碱基对' } satisfies Bilingual,
+  positionLabel: { en: 'Position', zh: '位置' } satisfies Bilingual,
+  pairDefault: {
+    en: 'Each letter pairs with only one partner: A with T, G with C. The two backbones hold the pairs in a regular helix.',
+    zh: '每个字母只能与一个配对：A 配 T，G 配 C。两条主链把碱基对固定在规则的螺旋中。',
+  } satisfies Bilingual,
+  tapRungHint: {
+    en: 'Click any rung to read the base pair.',
+    zh: '点击任一碱基对查看说明。',
+  } satisfies Bilingual,
+} as const
+
+export const FOOD_WEB_3D = {
+  loading: { en: 'Drawing the web…', zh: '正在绘制食物网…' } satisfies Bilingual,
+  dragHint: {
+    en: 'Drag to rotate · scroll to zoom · click a node to read about it',
+    zh: '拖动旋转 · 滚轮缩放 · 点击节点查看说明',
+  } satisfies Bilingual,
+  tapNodeHint: {
+    en: 'Click any node to read about that species.',
+    zh: '点击任一节点查看该物种的说明。',
+  } satisfies Bilingual,
+  eatsLabel: { en: 'Eats', zh: '捕食' } satisfies Bilingual,
+  eatenByLabel: { en: 'Eaten by', zh: '被…捕食' } satisfies Bilingual,
+  trophic: {
+    producer: { en: 'Producer', zh: '生产者' } satisfies Bilingual,
+    primary: { en: 'Primary consumer', zh: '初级消费者' } satisfies Bilingual,
+    secondary: { en: 'Secondary consumer', zh: '次级消费者' } satisfies Bilingual,
+    tertiary: { en: 'Tertiary consumer', zh: '顶级消费者' } satisfies Bilingual,
+  },
+} as const
