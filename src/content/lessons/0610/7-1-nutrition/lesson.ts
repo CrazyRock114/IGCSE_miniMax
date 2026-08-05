@@ -192,6 +192,42 @@ const lesson: Lesson = {
       },
       syllabus: ['0610.7.1.2'],
     },
+    {
+      en: 'night blindness',
+      zh: '夜盲症',
+      definition: {
+        en: 'Difficulty seeing in dim light. Caused by a lack of vitamin A, which is needed to make the retinal pigment in rod cells of the retina.',
+        zh: '在弱光下看不清东西。原因是缺乏维生素 A——它是视网膜杆状细胞中视紫红质的原料。',
+      },
+      syllabus: ['0610.7.1.4'],
+    },
+    {
+      en: 'dental caries',
+      zh: '蛀牙',
+      definition: {
+        en: 'Decay of tooth enamel caused by acid produced when bacteria in the mouth ferment sugars. The enamel (mostly calcium phosphate) cannot regrow once lost — only a dentist can fill it.',
+        zh: '口腔细菌发酵糖分产生酸，腐蚀牙釉质所致的龋齿。牙釉质（主要成分磷酸钙）一旦损失便不能再生——只能由牙医补。',
+      },
+      syllabus: ['0610.7.3.4'],
+    },
+    {
+      en: 'fatty liver',
+      zh: '脂肪肝',
+      definition: {
+        en: 'Excess fat stored inside liver cells, often from sustained over-nutrition. The liver\'s first role is to store surplus glucose as glycogen; once that fills, the rest is turned into fat. Reversible in early stages by cutting energy intake.',
+        zh: '肝细胞内堆积过多脂肪，常因长期营养过剩。肝脏的首要功能是把多余的葡萄糖以糖原储存；糖原满后，余下的就转成脂肪。早期通过减少能量摄入可以逆转。',
+      },
+      syllabus: ['0610.7.1.5'],
+    },
+    {
+      en: 'gallstone',
+      zh: '胆结石',
+      definition: {
+        en: 'A solid crystal that forms in the gall bladder, usually from cholesterol that has come out of solution in the bile. Can block the bile duct, causing severe pain and poor fat digestion.',
+        zh: '在胆囊内形成的固体结晶，常因胆汁中胆固醇过饱和析出。可阻塞胆管，引起剧痛和脂肪消化不良。',
+      },
+      syllabus: ['0610.7.3.7'],
+    },
   ],
 
   // The content here is a web of one-to-one facts rather than a relationship between

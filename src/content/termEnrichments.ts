@@ -333,6 +333,209 @@ export const termEnrichments: Record<string, ConceptEnrichment> = {
     },
     relatedTerms: ['tar', 'nicotine', 'bronchus', 'alveolus', 'smoking'],
   },
+
+  // --- 13 medical terms added after the 8/3-8/5 classroom transcript review ---
+  // Each is paired with a `Term` in the relevant lesson's `glossary` array.
+
+  // 7-1 nutrition
+  '0610/7-1-nutrition/night blindness': {
+    termId: 'night blindness',
+    subject: '0610',
+    slug: '7-1-nutrition',
+    image: '/figures/g8/7-1-nutrition/image-b5-07.png',
+    imageSource: 'G8 Science · Vitamin A table',
+    mechanism: {
+      en: 'The rod cells at the back of the retina use a pigment called retinal to detect dim light. Retinal is made from vitamin A. Without enough vitamin A, the pigment cannot be regenerated after it absorbs a photon, so the rod cells effectively run out of "ammunition" in dim light.',
+      zh: '视网膜深处的杆状细胞利用一种叫视黄醛的色素感受弱光。视黄醛由维生素 A 转化而来。维生素 A 不足时，色素在吸收光子后就无法再生，杆状细胞在弱光下等于"打光了子弹"。',
+    },
+    clinicalDetails: {
+      en: 'In dim light (dusk, a dark room) vision is poor; in bright light it is normal. A classical public-health marker for vitamin A deficiency in children in low-income countries, where it remains a leading cause of preventable blindness.',
+      zh: '在黄昏、黑暗房间等弱光下视力差；强光下正常。它是低收入国家儿童维生素 A 缺乏的经典公共卫生标志，仍是当地可预防失明的主要原因之一。',
+    },
+    relatedTerms: ['vitamin a', 'rod cell', 'retina', 'scurvy'],
+  },
+  '0610/7-1-nutrition/dental caries': {
+    termId: 'dental caries',
+    subject: '0610',
+    slug: '7-1-nutrition',
+    image: '/figures/g8/7-1-nutrition/figure-b5-08.png',
+    imageSource: 'G8 Science · p.31, Figure B5.08 — tooth structure',
+    mechanism: {
+      en: 'Bacteria in the mouth (especially Streptococcus mutans) ferment sugars from food and release lactic acid as a waste product. The acid dissolves the calcium phosphate of the enamel — once lost, enamel cannot regrow. Below the enamel, the dentine is softer and decays faster, which is why a small surface hole can become a deep cavity quickly.',
+      zh: '口腔细菌（尤其是变形链球菌）发酵食物中的糖，副产物是乳酸。酸溶解牙釉质中的磷酸钙——一旦损失便无法再生。釉质下方的牙本质更软，龋坏更快，所以表面的小洞很快会变成深洞。',
+    },
+    clinicalDetails: {
+      en: 'Brown or black spots on the tooth, then a hole, then pain when the decay reaches the dentine. A deep cavity reaching the pulp causes severe, throbbing pain and risks an abscess at the root tip.',
+      zh: '牙齿上出现棕黑色斑点，然后成洞，龋坏到达牙本质时开始疼痛。深龋累及牙髓会引起剧烈跳痛，并可能在牙根尖形成脓肿。',
+    },
+    relatedTerms: ['enamel', 'dentine', 'pulp', 'calcium', 'fluoride'],
+  },
+  '0610/7-1-nutrition/fatty liver': {
+    termId: 'fatty liver',
+    subject: '0610',
+    slug: '7-1-nutrition',
+    image: '/figures/g8/7-1-nutrition/image-b5-05.png',
+    imageSource: 'G8 Science · p.18, Image B5.05 — coronary heart disease, obesity',
+    mechanism: {
+      en: 'The liver\'s first job with surplus glucose is to store it as glycogen. Once glycogen stores are full, the rest is converted to fat (triglyceride) and stored inside the liver cells themselves. If the surplus is sustained, fat builds up faster than it can be exported, and the liver swells with intracellular fat droplets.',
+      zh: '肝脏处理多余葡萄糖的首要方式是把它存为糖原。糖原库满后，余下的就转成脂肪（甘油三酯）存于肝细胞内。如果长期营养过剩，脂肪堆积的速度超过它被运走的速度，肝细胞内就充满脂肪滴，肝脏肿大。',
+    },
+    clinicalDetails: {
+      en: 'Often silent in early stages — discovered on an ultrasound scan done for other reasons. If sustained, the fat-filled cells become inflamed (steatohepatitis) and may progress to scarring (cirrhosis) over years. Reversible in the early fat-only stage by sustained calorie reduction.',
+      zh: '早期常无症状——做其他检查的超声时偶然发现。若持续，充脂细胞会发炎（脂肪性肝炎），数年内可能进展为纤维化（肝硬化）。早期单纯性脂肪肝通过持续减少热量摄入可以逆转。',
+    },
+    relatedTerms: ['glycogen', 'insulin', 'obesity', 'liver'],
+  },
+  '0610/7-1-nutrition/gallstone': {
+    termId: 'gallstone',
+    subject: '0610',
+    slug: '7-1-nutrition',
+    image: '/figures/g8/7-1-nutrition/figure-b5-08.png',
+    imageSource: 'G8 Science · p.31, Figure B5.08 — tooth / gall bladder context',
+    mechanism: {
+      en: 'Bile is a mixture of bile salts, cholesterol and bilirubin. If the cholesterol rises above what the bile salts can keep dissolved, it comes out of solution as crystals that can grow into stones. Most gallstones are cholesterol stones; a smaller fraction are pigment stones made from bilirubin.',
+      zh: '胆汁是胆盐、胆固醇和胆红素的混合物。当胆固醇浓度超过胆盐能溶解的极限，便析出结晶并长大成结石。多数胆结石是胆固醇结石；少数是胆红素构成的色素结石。',
+    },
+    clinicalDetails: {
+      en: 'Many gallstones cause no symptoms and are found by accident. The dangerous ones lodge in the bile duct and trigger "biliary colic" — a severe, constant pain in the upper right abdomen, often after a fatty meal, sometimes with jaundice if the duct is fully blocked.',
+      zh: '许多胆结石无症状、偶然发现。危险的是卡在胆管里的结石，会诱发"胆绞痛"——右上腹持续剧痛，常在油腻餐后出现；若胆管完全梗阻可伴黄疸。',
+    },
+    relatedTerms: ['bile', 'cholesterol', 'gall bladder', 'liver'],
+  },
+
+  // 9-1 transport
+  '0610/9-1-transport-animals/myocardial infarction': {
+    termId: 'myocardial infarction',
+    subject: '0610',
+    slug: '9-1-transport-animals',
+    image: '/figures/g8/9-1-transport-animals/figure-b7-04.png',
+    imageSource: 'G8 Science · p.53, Figure B7.04 — the heart and its coronary arteries',
+    mechanism: {
+      en: 'A coronary artery is the only blood supply to the heart muscle itself. If a clot forms on top of a cholesterol-rich plaque and blocks the artery, the heart-muscle cells downstream are starved of oxygen. Within 20-30 minutes they start to die, and the dead tissue scars over. Cardiac muscle does not regrow — what is lost is lost.',
+      zh: '冠状动脉是心肌自身的唯一血供。如果胆固醇斑块上形成血栓并阻塞动脉，远端的心肌细胞即缺氧。20-30 分钟内细胞开始死亡，坏死组织随后形成瘢痕。心肌不能再生——损失的就是损失了。',
+    },
+    clinicalDetails: {
+      en: 'A heavy, crushing pain in the centre of the chest that may spread to the left arm, jaw or back, often with sweating, breathlessness and nausea. Many hospitals run a "chest pain centre" that fast-tracks these patients because every minute of delay kills more heart muscle.',
+      zh: '胸前正中沉重、压榨样疼痛，可放射至左臂、下颌或背部，常伴出汗、气短、恶心。许多医院设有"胸痛中心"对这类患者优先抢救——每延迟一分钟就损失更多心肌。',
+    },
+    relatedTerms: ['coronary artery', 'coronary heart disease', 'platelet', 'cholesterol'],
+  },
+  '0610/9-1-transport-animals/cerebral infarction': {
+    termId: 'cerebral infarction',
+    subject: '0610',
+    slug: '9-1-transport-animals',
+    image: '/figures/g8/9-1-transport-animals/figure-b7-01.png',
+    imageSource: 'G8 Science · p.49, Figure B7.01 — double circulation',
+    mechanism: {
+      en: 'A cerebral artery is blocked, usually by a clot that has formed in the heart or a major neck artery and travelled to the brain. The brain cells in the territory served by that artery are starved of glucose and oxygen. Neurons start to die within minutes and — unlike many other cells — cannot be replaced.',
+      zh: '脑动脉被阻塞，多因心脏或颈部大动脉形成的血栓随血流到达脑部。该动脉供血区内的脑细胞因缺糖缺氧而受损。神经元几分钟内开始死亡——而且不像许多其他细胞，它们不能被替代。',
+    },
+    clinicalDetails: {
+      en: 'Sudden weakness or numbness on one side of the body, slurred speech, loss of vision in one eye, sudden severe headache with no cause, or loss of balance. The exact symptoms depend on which artery is blocked. Time to treatment is the single biggest determinant of how much function is recovered.',
+      zh: '突然出现单侧肢体无力或麻木、口齿不清、单眼失明、突发剧烈头痛或平衡失调。具体症状取决于哪条动脉被堵。从发病到治疗的时间是决定功能恢复程度的最重要因素。',
+    },
+    relatedTerms: ['coronary heart disease', 'platelet', 'neurone', 'cerebral artery'],
+  },
+  '0610/9-1-transport-animals/varicose vein': {
+    termId: 'varicose vein',
+    subject: '0610',
+    slug: '9-1-transport-animals',
+    image: '/figures/g8/9-1-transport-animals/figure-b7-10.png',
+    imageSource: 'G8 Science · p.55, Figure B7.10 — vein valves',
+    mechanism: {
+      en: 'Veins in the legs carry blood back up to the heart against gravity. They do this with one-way valves every few centimetres, plus the pumping action of the surrounding calf muscles. If a valve fails, blood falls back through the gap with each beat, pools below it, and stretches the vein. The stretched valve cannot close any more, and the damage spreads down the leg.',
+      zh: '腿部静脉要克服重力把血液送回心脏。每隔几厘米有一组单向瓣膜，配合小腿肌肉的挤压来推动血流。如果某个瓣膜失效，血液会随每次搏动倒流回下方，淤积在瓣膜之下，并把这段静脉撑大。撑大的瓣膜无法再合拢，损害会沿腿向下蔓延。',
+    },
+    clinicalDetails: {
+      en: 'Buldging, twisted veins visible under the skin of the calf; the leg feels heavy and aches after standing. In advanced cases the skin over the veins becomes thin and discoloured, and a minor scratch can bleed heavily or ulcerate.',
+      zh: '小腿皮下可见鼓起、扭曲的静脉；站立后腿部沉重、酸痛。重症时表面皮肤变薄、变色，轻微划伤即可大量出血或形成溃疡。',
+    },
+    relatedTerms: ['vein', 'valve', 'capillary', 'blood pressure'],
+  },
+  '0610/9-1-transport-animals/anaemia': {
+    termId: 'anaemia',
+    subject: '0610',
+    slug: '9-1-transport-animals',
+    image: '/figures/g8/9-1-transport-animals/figure-b7-11.png',
+    imageSource: 'G8 Science · p.56, Figure B7.11 — red blood cells',
+    mechanism: {
+      en: 'The red cells carry oxygen, and they do it via haemoglobin — a protein whose active site is a single iron atom. If the diet is short of iron, the body cannot make enough haemoglobin; the red cells produced are small and pale, and each one carries less oxygen. The blood\'s oxygen capacity falls and the body tires easily.',
+      zh: '红细胞通过血红蛋白运氧——每个血红蛋白分子的活性中心是一个铁原子。饮食缺铁时，身体造不出足够的血红蛋白；产生的红细胞小而色淡，每个携带的氧气也更少。血液运氧能力下降，人容易疲倦。',
+    },
+    clinicalDetails: {
+      en: 'Tiredness, breathlessness on exertion, pale inner eyelids and nail beds, dizziness on standing. In children, iron-deficiency anaemia impairs learning. Most common cause worldwide is dietary iron shortage; in women of reproductive age, menstrual blood loss is a major contributor.',
+      zh: '疲倦、劳力性气促、眼睑内面和甲床苍白、起立性头晕。儿童缺铁性贫血会影响学习。全球最常见的原因是膳食铁不足；育龄女性月经失血是另一大主因。',
+    },
+    relatedTerms: ['red blood cell', 'haemoglobin', 'iron', 'diet'],
+  },
+
+  // 11-1 gas exchange
+  '0610/11-1-gas-exchange/asthma': {
+    termId: 'asthma',
+    subject: '0610',
+    slug: '11-1-gas-exchange',
+    image: '/figures/g8/11-1-gas-exchange/figure-b8-03.png',
+    imageSource: 'G8 Science · p.41, Figure B8.03 — trachea, bronchi, bronchioles',
+    mechanism: {
+      en: 'In asthma, the smooth muscle wrapped around the bronchioles is hyper-reactive. When triggered (commonly by an allergen, cold air, exercise or infection), that muscle contracts hard, the airway narrows sharply, and air whistles as it forces through. The lining of the airway also swells and produces extra mucus, which makes things worse.',
+      zh: '哮喘患者细支气管周围的平滑肌反应性过高。受诱因（常为过敏原、冷空气、运动或感染）刺激时，平滑肌强烈收缩，气道急剧变窄，气流强行通过时发出哮鸣音。气道黏膜同时水肿并分泌过多黏液，使情况更糟。',
+    },
+    clinicalDetails: {
+      en: 'Recurrent episodes of wheezing, chest tightness, breathlessness and cough — often at night or in the early morning. A reliever inhaler (salbutamol / albuterol) relaxes the muscle and reopens the airway within minutes; a preventer inhaler (low-dose steroid) calms the underlying inflammation over days and weeks.',
+      zh: '反复发作的喘鸣、胸闷、气促和咳嗽——常在夜间或清晨出现。缓解型吸入剂（沙丁胺醇）数分钟内放松平滑肌、打开气道；预防型吸入剂（小剂量激素）需数日到数周才能平息底层炎症。',
+    },
+    relatedTerms: ['bronchiole', 'mucus', 'cilium', 'allergen'],
+  },
+
+  // 14-3 homeostasis
+  '0610/14-3-homeostasis/diabetes mellitus': {
+    termId: 'diabetes mellitus',
+    subject: '0610',
+    slug: '14-3-homeostasis',
+    image: '/figures/g8/14-3-homeostasis/figure-b9-17.png',
+    imageSource: 'G8 Science · p.78, Figure B9.17 — glucose regulation',
+    mechanism: {
+      en: 'Blood glucose is held within a tight range by two pancreatic hormones working in opposition: insulin, which makes cells take up glucose and store it as glycogen, and glucagon, which makes the liver release glucose from its glycogen stores back into the blood. Diabetes is what happens when this two-way control breaks down.',
+      zh: '血糖由胰腺分泌的两种激素在相反方向上共同维持稳定：胰岛素促使细胞摄取葡萄糖并以糖原形式储存；胰高血糖素促使肝脏把糖原分解为葡萄糖释放入血。糖尿病正是这种双向调节失灵的结果。',
+    },
+    clinicalDetails: {
+      en: 'Persistent high blood glucose. In Type 1 the immune system destroys the insulin-producing cells, so insulin must be injected. In Type 2 the body\'s cells stop responding to insulin properly; it usually starts in middle age and is linked to being overweight. Both, uncontrolled for years, damage the eyes, kidneys and nerves.',
+      zh: '血糖持续偏高。1 型是免疫系统破坏产胰岛素细胞，须注射胰岛素。2 型是体细胞对胰岛素反应迟钝；多在中年起病，与超重相关。两者若长期失控，都会损伤眼睛、肾脏和神经。',
+    },
+    relatedTerms: ['insulin', 'glucagon', 'pancreas', 'glycogen', 'liver'],
+  },
+  '0610/14-3-homeostasis/hyperthyroidism': {
+    termId: 'hyperthyroidism',
+    subject: '0610',
+    slug: '14-3-homeostasis',
+    image: '/figures/g8/14-3-homeostasis/figure-b9-18.png',
+    imageSource: 'G8 Science · p.79, Figure B9.18 — thyroid',
+    mechanism: {
+      en: 'The thyroid gland in the neck releases thyroxine, a hormone that sets the body\'s baseline metabolic rate — the speed at which all the cells tick over when you are at rest. In hyperthyroidism, too much thyroxine is released. Every cell runs hot: heart beats faster, the body burns more energy, the person loses weight without trying.',
+      zh: '颈部的甲状腺分泌甲状腺素（thyroxine），它设定身体的基础代谢率——即静息时所有细胞运转的"怠速"。甲亢时甲状腺素分泌过多，每个细胞都"高转"：心跳加快、能耗增加，人不刻意也会消瘦。',
+    },
+    clinicalDetails: {
+      en: 'Resting heart rate noticeably high (over 90), tremor in the hands, weight loss despite eating well, anxiety, heat intolerance, and a visible swelling in the front of the neck (goitre). The most common cause is Graves\' disease, where antibodies wrongly stimulate the thyroid.',
+      zh: '静息心率明显升高（>90 次/分）、手抖、吃得多反而消瘦、焦虑、怕热、颈前可见肿大（甲状腺肿）。最常见的原因是格雷夫斯病——抗体错误地持续刺激甲状腺。',
+    },
+    relatedTerms: ['thyroid', 'thyroxine', 'metabolic rate', 'goitre', 'iodine'],
+  },
+  '0610/14-3-homeostasis/hypothyroidism': {
+    termId: 'hypothyroidism',
+    subject: '0610',
+    slug: '14-3-homeostasis',
+    image: '/figures/g8/14-3-homeostasis/figure-b9-18.png',
+    imageSource: 'G8 Science · p.79, Figure B9.18 — thyroid',
+    mechanism: {
+      en: 'Too little thyroxine — the opposite of hyperthyroidism. The body\'s idle speed drops. Cells burn less fuel, the heart beats slower, the person feels cold, sluggish and mentally dull. In childhood, untreated hypothyroidism causes cretinism: stunted growth and severe developmental delay.',
+      zh: '甲状腺素分泌过少——与甲亢相反。身体"怠速"降低：细胞耗能减少、心跳变慢、人怕冷、迟钝、精神不振。儿童期若未治疗，可致呆小症：身材矮小、智力严重落后。',
+    },
+    clinicalDetails: {
+      en: 'Tiredness, weight gain, feeling cold, constipation, dry skin, slow heart rate, depression. In iodine-deficient inland regions of the world it remains common. Treatment is straightforward — daily thyroxine tablets — and the symptoms reverse.',
+      zh: '疲倦、体重增加、怕冷、便秘、皮肤干燥、心率慢、抑郁。在缺碘的内陆地区仍较常见。治疗简单——每日服用甲状腺素片——症状即可逆转。',
+    },
+    relatedTerms: ['thyroid', 'thyroxine', 'iodine', 'goitre', 'cretinism'],
+  },
 }
 
 /**

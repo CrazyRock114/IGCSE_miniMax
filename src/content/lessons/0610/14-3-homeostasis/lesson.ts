@@ -130,6 +130,33 @@ const lesson: Lesson = {
       },
       syllabus: ['0610.14.5.1', '0610.14.5.2'],
     },
+    {
+      en: 'diabetes mellitus',
+      zh: '糖尿病',
+      definition: {
+        en: 'A condition in which blood glucose cannot be kept within the normal range. In Type 1 the pancreas stops making insulin; in Type 2 the body\'s cells stop responding to it properly. Both leave glucose climbing in the blood, with long-term damage to eyes, kidneys and nerves.',
+        zh: '血糖无法维持在正常范围的病症。1 型是胰腺停止分泌胰岛素；2 型是体细胞对胰岛素反应迟钝。两者都使血糖升高，长期损伤眼睛、肾脏和神经。',
+      },
+      syllabus: ['0610.14.3.3'],
+    },
+    {
+      en: 'hyperthyroidism',
+      zh: '甲亢',
+      definition: {
+        en: 'Over-activity of the thyroid gland: too much thyroxine is released, so the body\'s "idle speed" runs too fast. Resting heart rate is high, the person loses weight despite eating well, and feels restless and hot.',
+        zh: '甲状腺功能亢进：分泌的甲状腺激素过多，身体的"怠速"过高。静息心率快、食欲正常却消瘦、烦躁怕热。',
+      },
+      syllabus: ['0610.14.3.4'],
+    },
+    {
+      en: 'hypothyroidism',
+      zh: '甲减',
+      definition: {
+        en: 'Under-activity of the thyroid gland: too little thyroxine, so the body\'s "idle speed" runs too slow. The person feels cold, sluggish and mentally dull, and in childhood causes the growth failure called cretinism.',
+        zh: '甲状腺功能减退：甲状腺激素不足，身体的"怠速"过低。患者怕冷、迟钝、精神不振；儿童期发病会引起呆小症。',
+      },
+      syllabus: ['0610.14.3.4'],
+    },
   ],
 
   equations: [

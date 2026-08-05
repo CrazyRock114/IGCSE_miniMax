@@ -37,6 +37,7 @@ import { PopulationCurve } from './PopulationCurve'
 import { OrganAnatomy } from './OrganAnatomy'
 import { DnaHelix3D } from './DnaHelix3D'
 import { FoodWeb3D } from './FoodWeb3D'
+import { ConceptExplainer } from './ConceptExplainer'
 
 /**
  * Dispatches the lesson's `extras` to the right component.
@@ -149,5 +150,7 @@ function renderExtra(extra: LessonExtra) {
       return <DnaHelix3D extra={extra} />
     case 'food-web-3d':
       return <FoodWeb3D extra={extra} />
+    case 'concept-explainer':
+      return <ConceptExplainer extra={extra} />
   }
 }

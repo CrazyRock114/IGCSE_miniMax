@@ -588,3 +588,17 @@ export const FOOD_WEB_3D = {
     tertiary: { en: 'Tertiary consumer', zh: '顶级消费者' } satisfies Bilingual,
   },
 } as const
+
+// ---------------------------------------------------------------------------
+// Concept explainer — a vertical stack of "hook → mechanism → why-it-matters"
+// blocks. Used for the lesson extensions that came out of the G8 classroom
+// transcripts: telomere / Hayflick / HeLa (17-1), the hygiene hypothesis
+// (14-1), and the fog / haze / PM2.5 distinction (11-1).
+// ---------------------------------------------------------------------------
+
+export const CONCEPT_EXPLAINER = {
+  sectionHook: { en: 'The hook', zh: '开场故事' } satisfies Bilingual,
+  sectionMechanism: { en: 'The science', zh: '科学原理' } satisfies Bilingual,
+  sectionWhy: { en: 'Why it matters', zh: '为什么重要' } satisfies Bilingual,
+  sectionStory: { en: 'Classroom story', zh: '课堂故事' } satisfies Bilingual,
+} as const

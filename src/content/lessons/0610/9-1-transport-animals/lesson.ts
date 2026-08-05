@@ -223,6 +223,42 @@ const lesson: Lesson = {
       },
       syllabus: ['0610.9.4.6'],
     },
+    {
+      en: 'myocardial infarction',
+      zh: '心肌梗死',
+      definition: {
+        en: 'Death of heart-muscle cells from a blocked coronary artery. The part of the heart muscle downstream of the blockage is starved of oxygen and dies — "a heart attack". Time is muscle: every minute of delay loses more cardiac cells that do not regrow.',
+        zh: '因冠状动脉阻塞而导致的心肌细胞死亡。阻塞远端的心肌因缺氧而死亡——俗称"心梗"。时间就是心肌：每延迟一分钟就损失更多不能再生心肌细胞。',
+      },
+      syllabus: ['0610.9.3.6'],
+    },
+    {
+      en: 'cerebral infarction',
+      zh: '脑梗死',
+      definition: {
+        en: 'Death of brain cells from a blocked artery in the brain — one of the two kinds of "stroke". The brain cells lost do not regrow, so the abilities those cells carried (movement, speech, memory) may be lost permanently. The other kind of stroke is haemorrhagic, where a vessel bursts.',
+        zh: '因脑内动脉阻塞而导致的脑细胞死亡——"中风"的两类之一。损失的脑细胞不能再生，所以它们负责的功能（运动、语言、记忆）可能永久丧失。另一类中风是出血性，由血管破裂引起。',
+      },
+      syllabus: ['0610.9.3.6'],
+    },
+    {
+      en: 'varicose vein',
+      zh: '静脉曲张',
+      definition: {
+        en: 'A vein whose internal valves no longer close properly, so blood falls back down under gravity and pools. Common in the legs, where blood has to climb back to the heart against gravity. The vein bulges, the leg aches, and slow-flowing blood can clot.',
+        zh: '瓣膜无法正常闭合的静脉，血液在重力作用下回流、淤积。多见于腿部，因为下肢血液要克服重力回到心脏。静脉鼓起、腿部酸痛，缓慢流动的血液还可能形成血栓。',
+      },
+      syllabus: ['0610.9.3.4'],
+    },
+    {
+      en: 'anaemia',
+      zh: '贫血',
+      definition: {
+        en: 'A reduced capacity of the blood to carry oxygen, usually from too little haemoglobin or too few red blood cells. The most common cause worldwide is iron deficiency — iron is the atom at the centre of each haemoglobin molecule that actually grips the oxygen.',
+        zh: '血液运氧能力下降，通常是血红蛋白不足或红细胞过少所致。全球最常见的原因是缺铁——铁是每个血红蛋白分子中央真正抓住氧气的那个原子。',
+      },
+      syllabus: ['0610.9.4.1'],
+    },
   ],
 
   equations: [
