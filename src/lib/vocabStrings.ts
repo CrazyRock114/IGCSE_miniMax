@@ -80,4 +80,30 @@ export const VOCAB = {
 
   // Filters
   filterAll: { en: 'All subjects', zh: '全部学科' } satisfies Bilingual,
+
+  // Mistake log tab
+  tabMistakes: { en: 'Your mistakes', zh: '错题' } satisfies Bilingual,
+  mistakesEmpty: {
+    en: 'No wrong answers logged yet. Get a question wrong in any lesson\'s "Check yourself" section, and it will appear here for review.',
+    zh: '还没有错题记录。在任意课程的"自测"中答错一题，就会出现在这里。',
+  } satisfies Bilingual,
+  mistakesNoneUnresolved: {
+    en: 'You\'re all caught up. No unresolved mistakes right now — come back when you next miss one.',
+    zh: '已清空。暂时没有未解决的错题——下次再答错时回来。',
+  } satisfies Bilingual,
+  mistakesLast5Days: { en: 'Last 5 days', zh: '近 5 天' } satisfies Bilingual,
+  mistakesAllTime: { en: 'All time', zh: '全部' } satisfies Bilingual,
+  mistakesFilterUnresolved: { en: 'Still wrong', zh: '未解决' } satisfies Bilingual,
+  mistakesFilterResolved: { en: 'Resolved', zh: '已掌握' } satisfies Bilingual,
+  mistakesResolve: { en: 'Mark resolved', zh: '标为掌握' } satisfies Bilingual,
+  mistakesRemove: { en: 'Remove', zh: '删除' } satisfies Bilingual,
+  mistakesClearAll: { en: 'Clear all', zh: '清空全部' } satisfies Bilingual,
+  mistakesAttemptCount: { en: 'attempts', zh: '次' } satisfies Bilingual,
+  mistakesYouPicked: { en: 'You picked', zh: '你选了' } satisfies Bilingual,
+  mistakesCorrect: { en: 'Correct', zh: '正确答案' } satisfies Bilingual,
+  mistakesGoToLesson: { en: 'Open lesson', zh: '打开这节课' } satisfies Bilingual,
+  mistakesSummary: {
+    en: '{total} logged · {unresolved} still wrong · {resolved} resolved',
+    zh: '共 {total} 条 · 未解决 {unresolved} · 已掌握 {resolved}',
+  } satisfies Bilingual,
 } as const

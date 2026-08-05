@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import { useParams } from 'react-router-dom'
 import type { Question } from '@/content/types'
 import { commandWordByName } from '@/content/syllabus/command-words'
 import { T } from '@/components/i18n/T'
+import { mistakeStore } from '@/lib/mistakeStore'
 
 interface QuestionCardProps {
   question: Question
@@ -16,12 +18,44 @@ interface QuestionCardProps {
  * Chinese support lives, because those explain *how to answer*, not *what is asked*.
  */
 export function QuestionCard({ question, index }: QuestionCardProps) {
+  const { subject, slug } = useParams<{ subject: string; slug: string }>()
   const [revealed, setRevealed] = useState(false)
   const [picked, setPicked] = useState<number | null>(null)
   const [hintOpen, setHintOpen] = useState(false)
+  const [loggedAs, setLoggedAs] = useState<'right' | 'wrong' | null>(null)
 
   const cw = commandWordByName.get(question.commandWord)
   const isMcq = Array.isArray(question.options)
+
+  const handlePick = (i: number) => {
+    if (picked !== null) return
+    setPicked(i)
+    if (!isMcq || question.answerIndex === undefined || !subject || !slug) return
+    const pickedText = question.options?.[i] ?? ''
+    const correctText = question.options?.[question.answerIndex] ?? ''
+    if (i === question.answerIndex) {
+      mistakeStore.markResolved(question.id)
+      setLoggedAs('right')
+    } else {
+      mistakeStore.log({
+        questionId: question.id,
+        subject,
+        slug,
+        pickedIndex: i,
+        pickedText,
+        correctIndex: question.answerIndex,
+        correctText,
+      })
+      setLoggedAs('wrong')
+    }
+    window.dispatchEvent(new Event('igcse:vocab-changed'))
+  }
+
+  const handleMarkResolved = () => {
+    mistakeStore.markResolved(question.id)
+    setLoggedAs('right')
+    window.dispatchEvent(new Event('igcse:vocab-changed'))
+  }
 
   return (
     <li className="rounded-xl border border-line bg-surface p-4">
@@ -78,7 +112,7 @@ export function QuestionCard({ question, index }: QuestionCardProps) {
                 <button
                   type="button"
                   disabled={picked !== null}
-                  onClick={() => setPicked(i)}
+                  onClick={() => handlePick(i)}
                   className={
                     'w-full rounded-lg border px-3 py-2 text-left text-sm transition-colors ' +
                     (show && isAnswer
@@ -104,6 +138,25 @@ export function QuestionCard({ question, index }: QuestionCardProps) {
       >
         {revealed ? 'Hide mark scheme' : 'Show mark scheme'}
       </button>
+
+      {picked !== null && loggedAs === 'wrong' && (
+        <div className="mt-2 flex items-center gap-2 rounded-md border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-900">
+          <span>✗ Logged to your mistake list.</span>
+          <button
+            type="button"
+            onClick={handleMarkResolved}
+            className="ml-auto rounded-md border border-rose-300 bg-white px-2 py-0.5 text-xs font-medium text-rose-700 hover:bg-rose-100"
+          >
+            Mark as resolved
+          </button>
+        </div>
+      )}
+
+      {picked !== null && loggedAs === 'right' && (
+        <p className="mt-2 rounded-md border border-teal-200 bg-teal-50 px-3 py-2 text-sm text-teal-900">
+          ✓ Correct — removed from your mistake list.
+        </p>
+      )}
 
       {revealed && (
         <div className="mt-2 rounded-lg border border-line bg-canvas p-3">

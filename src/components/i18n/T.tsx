@@ -17,6 +17,21 @@ interface TProps {
   className?: string
   /** Class applied to the Chinese scaffold block in `inline` mode. */
   zhClassName?: string
+  /**
+   * Optional template variables, replaced into `{name}` placeholders in both
+   * the English and Chinese strings. Used for count-bearing messages like
+   * "5 lessons in this chapter" or "12 attempts".
+   */
+  params?: Record<string, string | number>
+}
+
+/** Substitute `{name}` placeholders with values from `params`. */
+function interpolate(template: string, params?: Record<string, string | number>): string {
+  if (!params) return template
+  return template.replace(/\{(\w+)\}/g, (match, name: string) => {
+    if (name in params) return String(params[name])
+    return match
+  })
 }
 
 /**
@@ -29,7 +44,7 @@ interface TProps {
  * English is always in the DOM, so search, copy-paste and screen readers get the
  * exam language regardless of the setting.
  */
-export function T({ value, as: As = 'span', className, zhClassName }: TProps): ReactNode {
+export function T({ value, as: As = 'span', className, zhClassName, params }: TProps): ReactNode {
   const [level] = useAssistLevel()
   const hasZh = Boolean(value.zh)
   // Cast through `React.HTMLAttributes<HTMLElement>` to dodge a polymorphic
@@ -44,9 +59,9 @@ export function T({ value, as: As = 'span', className, zhClassName }: TProps): R
   if (level === 'inline' && hasZh) {
     return (
       <AsAny className={className}>
-        <span>{value.en}</span>
+        <span>{interpolate(value.en, params)}</span>
         <span className={zhClassName ?? 'zh-scaffold mt-0.5 block'} lang="zh-CN">
-          {value.zh}
+          {interpolate(value.zh!, params)}
         </span>
       </AsAny>
     )
@@ -71,12 +86,12 @@ export function T({ value, as: As = 'span', className, zhClassName }: TProps): R
             : undefined
         }
       >
-        {value.en}
+        {interpolate(value.en, params)}
       </AsAny>
     )
   }
 
-  return <AsAny className={className}>{value.en}</AsAny>
+  return <AsAny className={className}>{interpolate(value.en, params)}</AsAny>
 }
 
 /**

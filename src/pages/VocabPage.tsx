@@ -7,6 +7,7 @@ import { ConceptCard } from '@/components/vocab/ConceptCard'
 import { WordBank } from '@/components/vocab/WordBank'
 import { StudyMode } from '@/components/vocab/StudyMode'
 import { WordGame } from '@/components/vocab/WordGame'
+import { MistakeList } from '@/components/vocab/MistakeList'
 import { lessons } from '@/lib/registry'
 import { useWordBank } from '@/lib/useVocab'
 import { SYLLABUSES } from '@/content/syllabus'
@@ -28,7 +29,7 @@ import { VOCAB } from '@/lib/vocabStrings'
  * page uses, so adding a new lesson automatically makes its terms appear
  * here — no central list to maintain.
  */
-type Tab = 'all' | 'bank' | 'study' | 'game'
+type Tab = 'all' | 'bank' | 'study' | 'game' | 'mistakes'
 
 export function VocabPage() {
   const [tab, setTab] = useState<Tab>('all')
@@ -146,6 +147,8 @@ export function VocabPage() {
       {tab === 'study' && <StudyMode resolve={resolve} />}
 
       {tab === 'game' && <WordGame resolve={resolve} pool={pool} />}
+
+      {tab === 'mistakes' && <MistakeList />}
 
       <WordBankSeeder />
     </main>
