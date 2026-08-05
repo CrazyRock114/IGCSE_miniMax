@@ -26,6 +26,10 @@ import { ReproductiveAnatomy } from './ReproductiveAnatomy'
 import { SpermVsEgg } from './SpermVsEgg'
 import { FertilisationJourney } from './FertilisationJourney'
 import { PlacentaExchange } from './PlacentaExchange'
+import { DnaToProtein } from './DnaToProtein'
+import { MitosisVsMeiosis } from './MitosisVsMeiosis'
+import { PunnettGrid } from './PunnettGrid'
+import { PedigreeTrace } from './PedigreeTrace'
 
 /**
  * Dispatches the lesson's `extras` to the right component.
@@ -116,5 +120,13 @@ function renderExtra(extra: LessonExtra) {
       return <FertilisationJourney extra={extra} />
     case 'placenta-exchange':
       return <PlacentaExchange extra={extra} />
+    case 'dna-to-protein':
+      return <DnaToProtein extra={extra} />
+    case 'mitosis-vs-meiosis':
+      return <MitosisVsMeiosis extra={extra} />
+    case 'punnett-grid':
+      return <PunnettGrid extra={extra} />
+    case 'pedigree-trace':
+      return <PedigreeTrace extra={extra} />
   }
 }

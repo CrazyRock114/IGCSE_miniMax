@@ -628,6 +628,10 @@ export type LessonExtra =
   | SpermVsEggExtra
   | FertilisationJourneyExtra
   | PlacentaExchangeExtra
+  | DnaToProteinExtra
+  | MitosisVsMeiosisExtra
+  | PunnettGridExtra
+  | PedigreeTraceExtra
 
 /** What to show in the side panel when an organ is selected. */
 export interface AnatomyOrgan {
@@ -1303,4 +1307,129 @@ export interface SmokingEffectsExtra {
     body: Bilingual
     lagNote: Bilingual
   }
+}
+
+// ---------------------------------------------------------------------------
+// Chapter 6 (17 Inheritance) extras
+//
+// G8 has no real PDF figures for this chapter in the unit's PDF — the
+// 2026-2027 G8 textbook covers up to B11 (Reproduction) only. The
+// extras therefore use hand-built SVG diagrams driven by data, the same
+// data-driven approach used by `MitosisVsMeiosis` and `PunnettGrid`.
+// ---------------------------------------------------------------------------
+
+/** Single labelled region in a DNA-to-protein scene. */
+export interface DnaToProteinPart {
+  id: string
+  name: Bilingual
+  description: Bilingual
+}
+
+/** One stage of the central-dogma diagram. */
+export interface DnaToProteinStage {
+  /** Title shown above the diagram. */
+  title: Bilingual
+  /** Short caption shown in the side panel when nothing is selected. */
+  intro: Bilingual
+  parts: DnaToProteinPart[]
+}
+
+export interface DnaToProteinExtra {
+  type: 'dna-to-protein'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  initialStage: 'transcription' | 'translation'
+  transcription: DnaToProteinStage
+  translation: DnaToProteinStage
+}
+
+/** A single row in the mitosis vs meiosis comparison. */
+export interface MitosisVsMeiosisRow {
+  id: string
+  label: Bilingual
+  mitosis: Bilingual
+  meiosis: Bilingual
+}
+
+export interface MitosisVsMeiosisExtra {
+  type: 'mitosis-vs-meiosis'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  intro: Bilingual
+  mitosis: {
+    heading: Bilingual
+    /** Short outcome description shown under the diagram. */
+    outcome: Bilingual
+  }
+  meiosis: {
+    heading: Bilingual
+    outcome: Bilingual
+  }
+  rows: MitosisVsMeiosisRow[]
+}
+
+/**
+ * The genotype codes a parent can carry, depending on the cross.
+ * For autosomal crosses: AA, Aa, aa.
+ * For sex-linked: XY, Xy, XX, Xx, xx (mother contributes one X; father
+ * contributes an X or a Y).
+ */
+export type PunnettParentGenotype =
+  | 'AA' | 'Aa' | 'aa'
+  | 'XY' | 'Xy' | 'XX' | 'Xx' | 'xx'
+
+export type PunnettCross = 'monohybrid' | 'codominant' | 'sex-linked'
+
+/** A single gamete written as a short string. */
+export type PunnettGamete = 'A' | 'a' | 'X' | 'Y' | 'x'
+
+export interface PunnettGridExtra {
+  type: 'punnett-grid'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  intro: Bilingual
+  initialCross: PunnettCross
+  initialFather: PunnettParentGenotype
+  initialMother: PunnettParentGenotype
+}
+
+/** A person on a pedigree chart. */
+export interface PedigreeIndividual {
+  id: string
+  /** Display name shown in the side panel. */
+  name: Bilingual
+  /** Short description of what is known about this person. */
+  description: Bilingual
+  /**
+   * The reasoning that fixes this person's genotype. For the autosomal
+   * recessive case, the deduction chain is "if two unaffected parents
+   * have an affected child, both parents must be carriers, etc."
+   */
+  deduction: Bilingual
+  /** 'male' → square, 'female' → circle. */
+  sex: 'male' | 'female'
+  /** Generation tag shown in the side panel (I, II, III). */
+  generation: 'I' | 'II' | 'III'
+  /** Status in the autosomal recessive case. */
+  autosomalStatus: 'affected' | 'carrier' | 'unaffected' | 'unknown'
+  /** SVG x coordinate. */
+  x: number
+  /** SVG y coordinate. */
+  y: number
+  /** Optional small letter drawn inside the symbol (e.g. 'A'). */
+  label?: string
+}
+
+export interface PedigreeTraceExtra {
+  type: 'pedigree-trace'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  intro: Bilingual
+  initialMode: 'autosomal' | 'sex-linked'
+  initialSelected?: string
+  individuals: PedigreeIndividual[]
 }

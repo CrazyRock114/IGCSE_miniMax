@@ -422,3 +422,69 @@ export const ANATOMY_3D = {
     zh: '在顶部选一个 pin 或点 3D 中的标记，再拖动滑块。点 Copy JSON 复制 { id: [x, y, z] } 格式用于 lesson 文件。',
   } satisfies Bilingual,
 } as const
+
+// ---------------------------------------------------------------------------
+// Chapter 6 (17 Inheritance) extras
+// ---------------------------------------------------------------------------
+
+export const DNA_TO_PROTEIN = {
+  transcriptionLabel: { en: 'Transcription', zh: '转录' } satisfies Bilingual,
+  translationLabel: { en: 'Translation', zh: '翻译' } satisfies Bilingual,
+} as const
+
+export const MITOSIS_VS_MEIOSIS = {
+  mitosisShort: { en: 'Mitosis', zh: '有丝分裂' } satisfies Bilingual,
+  meiosisShort: { en: 'Meiosis', zh: '减数分裂' } satisfies Bilingual,
+} as const
+
+export const PUNNETT_GRID = {
+  crossLabel: { en: 'Cross type', zh: '杂交类型' } satisfies Bilingual,
+  fatherLabel: { en: 'Father', zh: '父亲' } satisfies Bilingual,
+  motherLabel: { en: 'Mother', zh: '母亲' } satisfies Bilingual,
+  monohybrid: { en: 'Monohybrid (dominant / recessive)', zh: '单基因（显/隐）' } satisfies Bilingual,
+  codominant: { en: 'Codominant (both alleles show)', zh: '共显性（两等位基因都表达）' } satisfies Bilingual,
+  sexLinked: { en: 'Sex-linked (X chromosome)', zh: '伴性（X 染色体）' } satisfies Bilingual,
+  gridHeading: { en: 'Punnett square', zh: '棋盘格' } satisfies Bilingual,
+  summaryHeading: { en: 'Offspring ratios', zh: '子代比例' } satisfies Bilingual,
+  // Parent genotype option labels — the actual Punnett calculations
+  // also need the genotype string itself, so we keep both.
+  autosomalParents: {
+    AA: { en: 'AA (homozygous dominant)', zh: 'AA（纯合显性）' } satisfies Bilingual,
+    Aa: { en: 'Aa (heterozygous)', zh: 'Aa（杂合）' } satisfies Bilingual,
+    aa: { en: 'aa (homozygous recessive)', zh: 'aa（纯合隐性）' } satisfies Bilingual,
+  },
+  sexLinkedParents: {
+    XY: { en: 'XY — male (no allele on Y)', zh: 'XY——男性（Y 上无等位基因）' } satisfies Bilingual,
+    XX: { en: 'XX — female, two Xs', zh: 'XX——女性，两条 X' } satisfies Bilingual,
+    Xy: { en: 'Xy — affected male (X carries the allele)', zh: 'Xy——患病男性（X 携带该等位基因）' } satisfies Bilingual,
+    Xx: { en: 'Xx — carrier female', zh: 'Xx——携带者女性' } satisfies Bilingual,
+    xx: { en: 'xx — affected female (rare)', zh: 'xx——患病女性（罕见）' } satisfies Bilingual,
+  },
+  subtitleMonohybrid: {
+    en: 'Monohybrid cross — capital letter is dominant',
+    zh: '单基因杂交——大写字母为显性',
+  } satisfies Bilingual,
+  subtitleCodominant: {
+    en: 'Codominance — both alleles visible in the heterozygote',
+    zh: '共显性——两个等位基因都在杂合体中表现出来',
+  } satisfies Bilingual,
+  subtitleSexLinked: {
+    en: 'X-linked recessive — the Y has no allele to mask it',
+    zh: 'X 伴性隐性——Y 上无等位基因来掩盖',
+  } satisfies Bilingual,
+} as const
+
+export const PEDIGREE_TRACE = {
+  autosomalLabel: { en: 'Autosomal recessive', zh: '常染色体隐性' } satisfies Bilingual,
+  sexLinkedLabel: { en: 'Sex-linked recessive (X)', zh: 'X 伴性隐性' } satisfies Bilingual,
+  deductionHeading: { en: 'Deduction', zh: '推断' } satisfies Bilingual,
+  statusAffected: { en: 'Affected (homozygous, aa)', zh: '患病（纯合 aa）' } satisfies Bilingual,
+  statusCarrier: { en: 'Carrier (heterozygous, Aa)', zh: '携带者（杂合 Aa）' } satisfies Bilingual,
+  statusUnaffected: { en: 'Unaffected (AA or Aa)', zh: '未患病（AA 或 Aa）' } satisfies Bilingual,
+  statusUnknown: { en: 'Unknown genotype', zh: '基因型未知' } satisfies Bilingual,
+  /** Deduction shown for an affected male in sex-linked mode. */
+  sexLinkedAffectedMale: {
+    en: 'A male has only one X. If that X carries the allele, the condition shows — there is no second X to mask it.',
+    zh: '男性只有一条 X。那条 X 若携带该等位基因，症状就表现出来——没有第二条 X 来掩盖。',
+  } satisfies Bilingual,
+} as const
