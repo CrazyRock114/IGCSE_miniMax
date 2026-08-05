@@ -22,6 +22,10 @@ import { ReflexArc } from './ReflexArc'
 import { EyeAnatomy } from './EyeAnatomy'
 import { GlucoseLoop } from './GlucoseLoop'
 import { TemperatureControl } from './TemperatureControl'
+import { ReproductiveAnatomy } from './ReproductiveAnatomy'
+import { SpermVsEgg } from './SpermVsEgg'
+import { FertilisationJourney } from './FertilisationJourney'
+import { PlacentaExchange } from './PlacentaExchange'
 
 /**
  * Dispatches the lesson's `extras` to the right component.
@@ -104,5 +108,13 @@ function renderExtra(extra: LessonExtra) {
       return <GlucoseLoop extra={extra} />
     case 'temperature-control':
       return <TemperatureControl extra={extra} />
+    case 'reproductive-anatomy':
+      return <ReproductiveAnatomy extra={extra} />
+    case 'sperm-vs-egg':
+      return <SpermVsEgg extra={extra} />
+    case 'fertilisation-journey':
+      return <FertilisationJourney extra={extra} />
+    case 'placenta-exchange':
+      return <PlacentaExchange extra={extra} />
   }
 }

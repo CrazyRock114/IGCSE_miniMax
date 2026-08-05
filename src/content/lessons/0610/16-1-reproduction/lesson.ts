@@ -462,6 +462,415 @@ const lesson: Lesson = {
       },
     },
   ],
+
+  // Visual / interactive learning modules for Chapter 5 (16.1 —
+  // reproduction, with most of the chapter on humans, plus a section
+  // on flower reproduction at the start). See src/content/types.ts
+  // for the `LessonExtra` shape. Each module uses a real figure
+  // extracted from the G8 PDF so the student sees the textbook picture,
+  // not a hand-drawn approximation.
+  extras: [
+    // 1) The human reproductive systems, in two tabs. The figures are
+    //    different sizes and the labelled parts are on different sides,
+    //    so each tab keeps its own hotspot coordinate space.
+    {
+      type: 'reproductive-anatomy',
+      id: 'reproductive-anatomy',
+      title: { en: 'The human reproductive systems', zh: '人体生殖系统' },
+      hint: {
+        en: 'Two tabs. Click any labelled part to read about it. Female on the left, male on the right — the figures cannot share coordinates because the body is mirrored.',
+        zh: '两个 tab。点击任一标注部分查看说明。左侧女性，右侧男性——因为身体是镜像的，两张图不能共用坐标。',
+      },
+      initialTab: 'female',
+      initialPart: 'oviduct-fallopian-tube',
+      female: {
+        image: '/figures/g8/16-1-reproduction/figure-b11-01.png',
+        imageSource: {
+          en: 'G8 Science · p.61, Figure B11.01 — the female reproductive organs',
+          zh: 'G8 教材·第 61 页图 B11.01——女性生殖器官',
+        },
+        parts: [
+          {
+            id: 'oviduct-fallopian-tube',
+            name: { en: 'oviduct (Fallopian tube)', zh: '输卵管' },
+            description: {
+              en: 'A tube from the ovary to the uterus. The egg is released into the funnel-shaped end and is moved along by cilia and peristalsis. Fertilisation happens here — usually within the first day after ovulation.',
+              zh: '从卵巢通向子宫的管道。卵子被释放到其漏斗状开口端，靠纤毛与蠕动被送往子宫。受精发生在这里——通常在排卵后第一天内。',
+            },
+          },
+          {
+            id: 'ovary',
+            name: { en: 'ovary', zh: '卵巢' },
+            description: {
+              en: 'Stores and develops the eggs. A baby girl is born with all the eggs she will ever have — about a million in each ovary — and only about 400 of them are ever released, one at a time each month from puberty to the menopause.',
+              zh: '卵子的储存与发育场所。女婴出生时已带有终其一生的全部卵子——每侧卵巢约一百万个——但其中只有约 400 个会真正排出，从青春期到绝经，每月一个。',
+            },
+          },
+          {
+            id: 'uterus-wall',
+            name: { en: 'uterus wall (myometrium)', zh: '子宫壁（肌层）' },
+            description: {
+              en: 'The thick muscular outer wall. During childbirth it contracts powerfully to push the baby out. It is the same muscle layer that, when it contracts during menstruation, is what causes the cramping some people feel.',
+              zh: '厚而有力的肌肉外壁。分娩时强烈收缩，把婴儿推出体外。它也是月经期收缩的肌肉——有些人经期痉挛就是它在收缩。',
+            },
+          },
+          {
+            id: 'uterus-lining-endometrium',
+            name: { en: 'uterus lining (endometrium)', zh: '子宫内膜' },
+            description: {
+              en: 'The inner lining. It thickens in the first half of the menstrual cycle under the influence of oestrogen, ready to receive an embryo. If no embryo implants, the lining is shed in the next period. If one does implant, the lining is maintained by progesterone and becomes the decidua.',
+              zh: '子宫内壁。在月经周期的前半段受雌激素作用增厚，准备接受胚胎。若无胚胎植入，它就在下次月经中脱落；若胚胎植入，孕激素会维持它，并变成蜕膜。',
+            },
+          },
+          {
+            id: 'cervix',
+            name: { en: 'cervix', zh: '子宫颈' },
+            description: {
+              en: 'The narrow opening at the lower end of the uterus, opening into the vagina. It is usually closed, but dilates during childbirth. Cells at its surface are sampled in a cervical smear test for early signs of cancer.',
+              zh: '子宫下端通向阴道的窄开口。平时是闭合的，分娩时会扩张。子宫颈表面的细胞可经"宫颈涂片"取样筛查早期癌变。',
+            },
+          },
+          {
+            id: 'vagina',
+            name: { en: 'vagina', zh: '阴道' },
+            description: {
+              en: 'The muscular tube leading from the cervix to the outside. It is the birth canal and the route by which sperm enter the female reproductive tract. Its lining is kept moist and acidic by mucus, which also acts as a barrier to infection.',
+              zh: '从子宫颈通向体外的肌肉管道。它是产道，也是精子进入女性生殖道的通道。其内壁靠黏液保持湿润与酸性，黏液也是阻挡感染的屏障。',
+            },
+          },
+        ],
+      },
+      male: {
+        image: '/figures/g8/16-1-reproduction/figure-b11-03.png',
+        imageSource: {
+          en: 'G8 Science · p.62, Figure B11.03 — the male reproductive organs',
+          zh: 'G8 教材·第 62 页图 B11.03——男性生殖器官',
+        },
+        parts: [
+          {
+            id: 'bladder',
+            name: { en: 'bladder', zh: '膀胱' },
+            description: {
+              en: 'Stores urine. It is in the diagram as a landmark — the urethra passes through the prostate gland just below it. The reproductive and urinary tracts share the last few centimetres of the urethra in males, but not in females.',
+              zh: '储存尿液。图中作为定位标志——尿道正好从它下方的前列腺穿过。在男性中，生殖道与泌尿道共用尿道末端最后几厘米，女性则不然。',
+            },
+          },
+          {
+            id: 'urethra',
+            name: { en: 'urethra', zh: '尿道' },
+            description: {
+              en: 'Carries urine from the bladder, and semen from the reproductive tract, out of the body. A ring of muscle (the sphincter) controls when urine can pass; during ejaculation, the sphincter closes so that urine and semen do not mix.',
+              zh: '将尿液从膀胱、将精液从生殖道排出体外。一圈肌肉（括约肌）控制何时排尿；射精时括约肌闭合，尿液与精液不会混合。',
+            },
+          },
+          {
+            id: 'prostate-gland',
+            name: { en: 'prostate gland', zh: '前列腺' },
+            description: {
+              en: 'Adds a milky alkaline fluid to the sperm as they pass through the urethra. The fluid activates the sperm and neutralises the acidity of the female tract so the sperm can survive long enough to swim.',
+              zh: '在精子穿过尿道时给它加入乳白色的碱性液体。这份液体激活精子，并中和女性生殖道的酸性，让精子能存活足够久来游动。',
+            },
+          },
+          {
+            id: 'sperm-duct',
+            name: { en: 'sperm duct (vas deferens)', zh: '输精管' },
+            description: {
+              en: 'Carries sperm from the epididymis up into the body and around the bladder, where it joins the urethra. It is the tube that is cut in a vasectomy — the snip is what makes a man unable to father children.',
+              zh: '把精子从附睾送入体内、绕过膀胱、汇入尿道。输精管结扎术切断的正是这条管——这就是男性绝育手术。',
+            },
+          },
+          {
+            id: 'epididymis',
+            name: { en: 'epidymis', zh: '附睾' },
+            description: {
+              en: 'A long coiled tube on the outside of each testis where sperm mature and become motile. Sperm take about a week to pass through it; if they are not released, they are reabsorbed.',
+              zh: '附在每侧睾丸外的一条长而盘曲的管道，精子在这里成熟并获得运动能力。精子通过附睾约需一周；若未被排出，则被重新吸收。',
+            },
+          },
+          {
+            id: 'testis',
+            name: { en: 'testis', zh: '睾丸' },
+            description: {
+              en: 'Produces sperm — millions of them every day from puberty onwards. Also produces the hormone testosterone, which is what brings on the secondary sexual characteristics at puberty. The testis hangs outside the body because sperm production needs a temperature slightly below core body temperature.',
+              zh: '生成精子——从青春期开始每天数百万。同时分泌睾酮，引发青春期第二性征。睾丸位于体外，是因为精子生成需要略低于核心体温的温度。',
+            },
+          },
+          {
+            id: 'scrotum',
+            name: { en: 'scrotum', zh: '阴囊' },
+            description: {
+              en: 'The pouch of skin that holds the testes outside the body. It is a temperature regulator — the muscle fibres in its wall contract in the cold to pull the testes closer to the body for warmth, and relax in the heat to let them hang lower and cool down.',
+              zh: '挂在体外的容纳睾丸的皮囊。它是一个温度调节器——壁上的肌肉纤维遇冷收缩把睾丸拉近身体保暖，遇热舒张让它们垂得更低来降温。',
+            },
+          },
+          {
+            id: 'penis',
+            name: { en: 'penis', zh: '阴茎' },
+            description: {
+              en: 'Deposits semen inside the female reproductive tract. The erectile tissue inside it fills with blood during sexual arousal, making the penis rigid — that is what allows it to enter the vagina and place the sperm as close to the cervix as possible.',
+              zh: '将精液送入女性生殖道。内部的勃起组织在性兴奋时充血，让阴茎变硬——这才能进入阴道，并尽量把精子送到靠近宫颈的位置。',
+            },
+          },
+          {
+            id: 'erectile-tissue',
+            name: { en: 'erectile tissue', zh: '勃起组织' },
+            description: {
+              en: 'Spongy tissue with a rich blood supply. During sexual arousal the arteries supplying it dilate and the veins draining it constrict, so it fills with blood and becomes rigid. The "erection" is a hydraulic event, not a muscular one.',
+              zh: '富于血液供应的海绵状组织。性兴奋时，供应它的动脉舒张、引流它的静脉收缩，于是它充血变硬。"勃起"是一个液压事件，不是肌肉事件。',
+            },
+          },
+        ],
+      },
+    },
+
+    // 2) Sperm vs egg, side by side. The figures are the real G8
+    //    B11.04 (egg) and B11.05 (sperm); the comparison rows below
+    //    are the syllabus-defined differences, paired across the table
+    //    so the asymmetry is visible at a glance.
+    {
+      type: 'sperm-vs-egg',
+      id: 'sperm-vs-egg',
+      title: { en: 'Sperm and egg, side by side', zh: '精子与卵细胞：左右对比' },
+      hint: {
+        en: 'Each row is one feature, with the sperm on the left and the egg on the right. The two gametes are built for opposite jobs — and almost everything about them shows it.',
+        zh: '每一行是一项特征，左侧精子，右侧卵细胞。两种配子为相反的工作而生——它们几乎每个细节都体现出这一点。',
+      },
+      spermImage: '/figures/g8/16-1-reproduction/figure-b11-05.png',
+      spermImageSource: {
+        en: 'G8 Science · p.64, Figure B11.05 — a human sperm cell',
+        zh: 'G8 教材·第 64 页图 B11.05——人类精子',
+      },
+      eggImage: '/figures/g8/16-1-reproduction/figure-b11-04.png',
+      eggImageSource: {
+        en: 'G8 Science · p.63, Figure B11.04 — a human egg cell',
+        zh: 'G8 教材·第 63 页图 B11.04——人类卵细胞',
+      },
+      rows: [
+        {
+          id: 'size',
+          feature: { en: 'Size', zh: '大小' },
+          sperm: {
+            en: 'Small — about 50 µm long including the tail. Tiny enough to be propelled by a single flagellum.',
+            zh: '很小——含尾约 50 µm 长。足够小，可被一根鞭毛推动。',
+          },
+          egg: {
+            en: 'Large — about 0.1 mm across, visible to the naked eye. Big because it must carry the food store for the early embryo.',
+            zh: '很大——直径约 0.1 mm，肉眼可见。之所以大，是因为它要为早期胚胎携带营养储备。',
+          },
+        },
+        {
+          id: 'motility',
+          feature: { en: 'Motility', zh: '运动能力' },
+          sperm: {
+            en: 'A long tail (flagellum) that whips back and forth, propelling the sperm at about 4 mm/min. Movement is the sperm\'s whole reason to exist.',
+            zh: '长尾（鞭毛）来回摆动，每分钟推动精子约 4 mm。运动是精子存在的全部意义。',
+          },
+          egg: {
+            en: 'Does not move itself. It is swept along the oviduct by cilia and peristalsis; it just sits and waits to be fertilised.',
+            zh: '自己不会动。它靠纤毛与蠕动沿输卵管被动前进；只是静静等待受精。',
+          },
+        },
+        {
+          id: 'cytoplasm',
+          feature: { en: 'Cytoplasm', zh: '细胞质' },
+          sperm: {
+            en: 'Almost none — the streamlined head and tail are mostly nucleus and flagellum, with a thin mitochondrial sheath in the midpiece to power the tail.',
+            zh: '几乎没有——流线型的头和尾主要是细胞核和鞭毛，中段有一圈薄薄的线粒体鞘为尾巴供能。',
+          },
+          egg: {
+            en: 'Lots — packed with organelles, ribosomes, mRNA, and a large food store. The volume is what supports the embryo for its first few days of divisions.',
+            zh: '很多——装满细胞器、核糖体、mRNA 和一大份营养储备。正是这份体积支撑胚胎最初几天的分裂。',
+          },
+        },
+        {
+          id: 'food',
+          feature: { en: 'Food store', zh: '营养储备' },
+          sperm: {
+            en: 'None. The sperm is built for one job — get there first. It does not need to feed anything.',
+            zh: '没有。精子只为做一件事而生——先到。它不需要养活任何东西。',
+          },
+          egg: {
+            en: 'Plenty of yolk and other reserves, used by the embryo before it implants in the uterus lining. A human egg has less yolk than a bird\'s, but the principle is the same.',
+            zh: '大量卵黄和其他储备，供胚胎在植入子宫内膜之前使用。人类卵子的卵黄比鸟类的少，但原理相同。',
+          },
+        },
+        {
+          id: 'acrosome',
+          feature: { en: 'Acrosome', zh: '顶体' },
+          sperm: {
+            en: 'Present — a cap at the very front of the head holding enzymes that digest a path through the outer layers of the egg. Without it the sperm cannot get in.',
+            zh: '有——位于头顶前端，内含能消化卵细胞外层、开辟通路的酶。没有它精子进不去。',
+          },
+          egg: {
+            en: 'No acrosome. The egg is the destination, not the destroyer. Its outer layer is what the sperm\'s acrosome is built to attack.',
+            zh: '没有顶体。卵细胞是目的地，不是破坏者。它的外层正是精子顶体要攻击的对象。',
+          },
+        },
+        {
+          id: 'numbers',
+          feature: { en: 'Numbers made', zh: '产出数量' },
+          sperm: {
+            en: 'In huge numbers — hundreds of millions per day after puberty. Most never reach an egg; the redundancy is the point.',
+            zh: '数量极大——青春期后每天数亿个。多数到不了卵子，冗余正是目的。',
+          },
+          egg: {
+            en: 'One at a time, usually — about one a month from puberty to the menopause, in alternation between the two ovaries. About 400 in a lifetime.',
+            zh: '通常一次一个——青春期到绝经之间每月一个，两侧卵巢交替。一生约 400 个。',
+          },
+        },
+      ],
+    },
+
+    // 3) The three stages from intercourse to implantation. Same
+    //    figures the G8 textbook uses, stacked so the student can
+    //    compare them at a glance.
+    {
+      type: 'fertilisation-journey',
+      id: 'fertilisation-journey',
+      title: { en: 'From intercourse to implantation', zh: '从受精到着床' },
+      hint: {
+        en: 'Three snapshots in the order they happen. Click any figure or step number to jump to it.',
+        zh: '按发生顺序排列的三个时刻。点击任一图或步骤号即可跳到该步。',
+      },
+      steps: [
+        {
+          id: 'swim',
+          image: '/figures/g8/16-1-reproduction/figure-b11-06.png',
+          imageSource: {
+            en: 'G8 Science · p.65, Figure B11.06 — how sperm get to the egg',
+            zh: 'G8 教材·第 65 页图 B11.06——精子如何到达卵细胞',
+          },
+          title: { en: '1. Sperm swim up the female tract', zh: '1. 精子沿女性生殖道上行' },
+          body: {
+            en: 'Sperm are deposited in the vagina, close to the cervix. They have to swim the full length of the uterus and most of the way up the oviduct to reach the egg — about 15 cm, which at 4 mm/min takes around 30 to 60 minutes for the fastest sperm. Most never make it.',
+            zh: '精子被排在阴道里，靠近宫颈。它们必须游过整个子宫、穿过大部分输卵管才能到达卵细胞——约 15 cm，按 4 mm/分钟计，最快的精子也要 30 到 60 分钟。多数精子到不了。',
+          },
+        },
+        {
+          id: 'fertilisation',
+          image: '/figures/g8/16-1-reproduction/figure-b11-07.png',
+          imageSource: {
+            en: 'G8 Science · p.65, Figure B11.07 — fertilisation',
+            zh: 'G8 教材·第 65 页图 B11.07——受精',
+          },
+          title: { en: '2. The acrosome reaction and fusion', zh: '2. 顶体反应与融合' },
+          body: {
+            en: 'When a sperm meets the outer layer of the egg (the zona pellucida), its acrosome releases enzymes that digest a path through. The sperm\'s nucleus then enters the egg, the two nuclei fuse, and a fertilised egg — a zygote — is formed. The zona pellucida then hardens, so no other sperm can get in.',
+            zh: '当精子遇到卵细胞外层（透明带），顶体释放酶把外层消化开路。精子的细胞核进入卵子，两个核融合，形成受精卵（合子）。之后透明带硬化，阻止其他精子再进入。',
+          },
+        },
+        {
+          id: 'implantation',
+          image: '/figures/g8/16-1-reproduction/figure-b11-08.png',
+          imageSource: {
+            en: 'G8 Science · p.66, Figure B11.08 — implantation',
+            zh: 'G8 教材·第 66 页图 B11.08——着床',
+          },
+          title: { en: '3. Implantation in the uterus lining', zh: '3. 在子宫内膜着床' },
+          body: {
+            en: 'The zygote divides to form a ball of cells, which is pushed down the oviduct by cilia and peristalsis. About a week after fertilisation it reaches the uterus and embeds itself in the thickened lining, where it will develop through the next nine months. The lining is maintained by progesterone from the corpus luteum — which is why no period comes.',
+            zh: '合子分裂成一团细胞团，靠纤毛与蠕动被推下输卵管。约在受精一周后到达子宫，嵌入已增厚的内膜，开始接下来九个月的发育。内膜由黄体分泌的孕激素维持——所以没有月经来潮。',
+          },
+        },
+      ],
+    },
+
+    // 4) The placenta and the substances that cross it. The figure is
+    //    G8 B11.09, with hotspots on the maternal and fetal sides plus
+    //    the umbilical vessels. Below the figure, a two-column card
+    //    shows what passes in each direction — and a closing note
+    //    explains why the two bloods must not mix.
+    {
+      type: 'placenta-exchange',
+      id: 'placenta',
+      title: { en: 'What crosses the placenta', zh: '胎盘上的物质交换' },
+      hint: {
+        en: 'Click any part of the placenta. Below the figure, a two-column card lists what passes to the fetus and what passes to the mother.',
+        zh: '点击胎盘的任一部分。下方有一个双栏卡片，分别列出哪些物质从母体到胎儿、哪些从胎儿到母体。',
+      },
+      image: '/figures/g8/16-1-reproduction/figure-b11-09.png',
+      imageSource: {
+        en: 'G8 Science · p.67, Figure B11.09 — part of the placenta',
+        zh: 'G8 教材·第 67 页图 B11.09——胎盘局部',
+      },
+      parts: [
+        {
+          id: 'lining-of-uterus',
+          name: { en: 'lining of uterus (maternal side)', zh: '子宫内膜（母体侧）' },
+          description: {
+            en: 'The part of the uterus that holds the placenta. It is rich in maternal blood vessels, which break down to form the space on the maternal side of the placenta. The lining is maintained by progesterone so it is not shed during pregnancy.',
+            zh: '容纳胎盘的子宫部分。它有丰富的母体血管，这些血管破裂形成胎盘母体侧的血窦。整个内膜由孕激素维持，所以妊娠期间不会脱落。',
+          },
+        },
+        {
+          id: 'maternal-blood-space',
+          name: { en: 'space filled with the mother\'s blood', zh: '充满母体血液的血窦' },
+          description: {
+            en: 'Not a vessel — a space, inside the placenta, where maternal blood pools and bathes the fetal capillaries. The blood is at the higher maternal arterial pressure. From this space, oxygen and nutrients diffuse into the fetal blood.',
+            zh: '不是血管——是胎盘内的一片空腔，母体血液汇集其中，浸浴着胎儿毛细血管。压力较高（与母体动脉压一致）。氧与营养物质从这片血窦扩散进入胎儿血液。',
+          },
+        },
+        {
+          id: 'fetal-capillaries',
+          name: { en: 'fetal capillaries', zh: '胎儿毛细血管' },
+          description: {
+            en: 'Tiny vessels branching off the umbilical cord into the placenta. Their wall is the thin membrane across which all the exchange happens — one cell thick. They carry fetal blood at the lower fetal pressure, so the two bloods do not push into each other.',
+            zh: '由脐带分支进入胎盘的微小血管。它们的壁就是发生交换的那层薄膜——只有一个细胞厚。血管内流动的是胎儿血液，压力比母体低，所以两套血液不会互相冲击。',
+          },
+        },
+        {
+          id: 'placental-wall',
+          name: { en: 'thin wall of placenta', zh: '胎盘薄膜' },
+          description: {
+            en: 'A single layer of cells separating fetal blood from maternal blood. All exchange happens by diffusion across this wall. The thinner it stays, the more efficient the exchange — and the easier it is for oxygen to get across.',
+            zh: '把胎儿血液与母体血液隔开的单层细胞。所有的物质交换都靠穿过这层薄膜进行扩散。它越薄，交换效率越高，氧也越容易穿过。',
+          },
+        },
+        {
+          id: 'umbilical-cord',
+          name: { en: 'umbilical cord', zh: '脐带' },
+          description: {
+            en: 'A flexible tube about 50 cm long linking the fetus to the placenta. It carries two umbilical arteries (carrying deoxygenated blood from the fetus to the placenta) and one umbilical vein (carrying oxygenated blood back). The cord is cut at birth — what is left becomes the belly button.',
+            zh: '长约 50 cm 的柔韧管子，把胎儿与胎盘连起来。内有两条脐动脉（从胎儿向胎盘运去氧合低的血）和一条脐静脉（把含氧血送回胎儿）。出生时被剪断，残留部分就是肚脐。',
+          },
+        },
+        {
+          id: 'umbilical-artery',
+          name: { en: 'umbilical artery', zh: '脐动脉' },
+          description: {
+            en: 'Carries deoxygenated, waste-laden blood from the fetus to the placenta. The two umbilical arteries are the only arteries in the body that carry deoxygenated blood — the reverse of everywhere else, because the fetus is sending blood to be re-oxygenated, not to be delivered to tissues.',
+            zh: '把含氧低、含废物多的血从胎儿送到胎盘。这两条脐动脉是人体中唯一运缺氧血的动脉——与其他地方相反，因为胎儿送血是为了"再加氧"，不是送去给组织用氧。',
+          },
+        },
+        {
+          id: 'umbilical-vein',
+          name: { en: 'umbilical vein', zh: '脐静脉' },
+          description: {
+            en: 'Carries oxygenated, nutrient-rich blood from the placenta to the fetus. It is the only vein in the body that carries oxygenated blood — the reverse of everywhere else, for the same reason as the umbilical arteries.',
+            zh: '把含氧高、营养丰富的血从胎盘送回胎儿。这是人体中唯一运富氧血的静脉——同样因为方向相反。',
+          },
+        },
+      ],
+      toFetus: [
+        { en: 'oxygen', zh: '氧气' },
+        { en: 'glucose', zh: '葡萄糖' },
+        { en: 'amino acids', zh: '氨基酸' },
+        { en: 'minerals (e.g. iron, calcium)', zh: '矿物质（如铁、钙）' },
+        { en: 'water', zh: '水' },
+        { en: 'antibodies (passive immunity)', zh: '抗体（被动免疫）' },
+      ],
+      toMother: [
+        { en: 'carbon dioxide', zh: '二氧化碳' },
+        { en: 'urea', zh: '尿素' },
+        { en: 'other metabolic wastes', zh: '其他代谢废物' },
+        { en: 'water', zh: '水' },
+      ],
+      exchangeNote: {
+        en: 'The two bloods do not mix — that would risk agglutination (the mother and fetus can have different blood groups), and the higher maternal blood pressure would damage the fetal vessels. Substances cross the placenta by diffusion through the thin placental wall, in the direction of their concentration gradient. The placenta also acts as a barrier — most bacteria and many viruses cannot cross it, which is why the fetus is partly protected.',
+        zh: '两套血液并不混合——一旦混合会有凝集风险（母体和胎儿血型可能不同），且母体血压更高会损伤胎儿血管。物质靠扩散穿过胎盘薄膜，按浓度梯度方向移动。胎盘也是一道屏障——多数细菌和许多病毒不能穿过，所以胎儿受到部分保护。',
+      },
+    },
+  ],
 }
 
 export default lesson

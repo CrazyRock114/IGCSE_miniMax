@@ -624,6 +624,10 @@ export type LessonExtra =
   | EyeAnatomyExtra
   | GlucoseLoopExtra
   | TemperatureControlExtra
+  | ReproductiveAnatomyExtra
+  | SpermVsEggExtra
+  | FertilisationJourneyExtra
+  | PlacentaExchangeExtra
 
 /** What to show in the side panel when an organ is selected. */
 export interface AnatomyOrgan {
@@ -1133,6 +1137,102 @@ export interface TemperatureControlExtra {
   title: Bilingual
   hint: Bilingual
   parts: AnatomyOrgan[]
+}
+
+/**
+ * The male and female human reproductive systems, side by side. Two tabs
+ * (female / male), each with its own G8 figure (B11.01 / B11.03) and its
+ * own set of labelled parts as hotspots. The side panel describes the
+ * selected part.
+ *
+ * The two figures cannot share coordinates — the layouts are different
+ * and the body silhouette is on opposite sides — so each tab keeps its
+ * own `HOTSPOTS` map inside the component.
+ */
+export interface ReproductiveAnatomyExtra {
+  type: 'reproductive-anatomy'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  initialTab?: 'female' | 'male'
+  initialPart?: string
+  female: { image: string; imageSource: Bilingual; parts: AnatomyOrgan[] }
+  male: { image: string; imageSource: Bilingual; parts: AnatomyOrgan[] }
+}
+
+/**
+ * The human sperm and egg, side by side. The two figures (G8 B11.04 egg,
+ * B11.05 sperm) are real and the differences between them are what the
+ * syllabus asks for: the cell biology of the gametes and how each is
+ * shaped for its function.
+ *
+ * A side-by-side card grid: each row is one feature, with a left
+ * (sperm) and right (egg) cell. The feature list comes from the lesson
+ * — size, motility, cytoplasm, food store, acrosome, production rate.
+ */
+export interface SpermVsEggExtra {
+  type: 'sperm-vs-egg'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  spermImage: string
+  spermImageSource: Bilingual
+  eggImage: string
+  eggImageSource: Bilingual
+  rows: Array<{
+    id: string
+    feature: Bilingual
+    sperm: Bilingual
+    egg: Bilingual
+  }>
+}
+
+/**
+ * The journey from intercourse to implantation, in three G8 figures.
+ * Step 1 (G8 B11.06): how sperm get to the egg — the long swim up the
+ * female tract. Step 2 (G8 B11.07): fertilisation — the sperm reaches
+ * the egg, the acrosome releases enzymes, the nuclei fuse. Step 3
+ * (G8 B11.08): implantation — the embryo embeds in the uterus lining.
+ *
+ * The figures stay on screen the whole time, but only the active one is
+ * highlighted; the others fade. The student reads the matching
+ * description in the side panel.
+ */
+export interface FertilisationJourneyExtra {
+  type: 'fertilisation-journey'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  steps: Array<{
+    id: string
+    image: string
+    imageSource: Bilingual
+    title: Bilingual
+    body: Bilingual
+  }>
+}
+
+/**
+ * The placenta and exchange between mother and fetus (G8 B11.09).
+ *
+ * Hotspots on the figure label the maternal and fetal sides (the lining
+ * of the uterus, the space filled with the mother's blood, the fetal
+ * capillaries, the umbilical cord) and the side panel describes each
+ * one. A separate "what crosses the placenta" card lists the substances
+ * that pass in each direction — the part most students lose marks on
+ * in the exam.
+ */
+export interface PlacentaExchangeExtra {
+  type: 'placenta-exchange'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  image: string
+  imageSource: Bilingual
+  parts: AnatomyOrgan[]
+  toFetus: Bilingual[]
+  toMother: Bilingual[]
+  exchangeNote: Bilingual
 }
 
 /**

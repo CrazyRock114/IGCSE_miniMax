@@ -340,6 +340,54 @@ export const TEMPERATURE_CONTROL = {
   shiver: { en: 'Skeletal muscle (shivering)', zh: '骨骼肌（寒战）' } satisfies Bilingual,
 } as const
 
+export const REPRODUCTIVE_ANATOMY = {
+  tabFemale: { en: 'Female', zh: '女性' } satisfies Bilingual,
+  tabMale: { en: 'Male', zh: '男性' } satisfies Bilingual,
+  emptyFemale: {
+    en: 'Click any labelled part of the female reproductive system. The egg is made in the ovary; fertilisation happens in the oviduct; the fetus develops in the uterus.',
+    zh: '点击女性生殖系统的任一标注部分。卵子在卵巢中产生，受精发生在输卵管，胎儿在子宫中发育。',
+  } satisfies Bilingual,
+  emptyMale: {
+    en: 'Click any labelled part of the male reproductive system. Sperm are made in the testes, mature in the epididymis, and travel out through the sperm duct and urethra.',
+    zh: '点击男性生殖系统的任一标注部分。精子在睾丸中产生，在附睾中成熟，经输精管和尿道排出。',
+  } satisfies Bilingual,
+} as const
+
+export const SPERM_VS_EGG = {
+  heading: { en: 'How the two gametes differ', zh: '两种配子的不同之处' } satisfies Bilingual,
+  spermHeading: { en: 'Sperm', zh: '精子' } satisfies Bilingual,
+  eggHeading: { en: 'Egg', zh: '卵细胞' } satisfies Bilingual,
+  featureLabel: { en: 'Feature', zh: '特征' } satisfies Bilingual,
+  spermSizeLabel: { en: 'Size', zh: '大小' } satisfies Bilingual,
+  spermMotilityLabel: { en: 'Motility', zh: '运动能力' } satisfies Bilingual,
+  spermCytoplasmLabel: { en: 'Cytoplasm', zh: '细胞质' } satisfies Bilingual,
+  spermFoodLabel: { en: 'Food store', zh: '营养储备' } satisfies Bilingual,
+  spermAcrosomeLabel: { en: 'Acrosome', zh: '顶体' } satisfies Bilingual,
+  spermCountLabel: { en: 'Numbers made', zh: '产出数量' } satisfies Bilingual,
+} as const
+
+export const FERTILISATION_JOURNEY = {
+  intro: {
+    en: 'Three snapshots, in the order they happen. Each figure is the textbook one; the highlight moves from step to step.',
+    zh: '三个时刻按发生顺序排列。每张图都是教材原图，高亮随步骤切换。',
+  } satisfies Bilingual,
+  stepLabel: { en: 'Step', zh: '第' } satisfies Bilingual,
+  ofLabel: { en: 'of', zh: '共' } satisfies Bilingual,
+} as const
+
+export const PLACENTA_EXCHANGE = {
+  intro: {
+    en: 'Click any part of the placenta. The two blood supplies never mix; they only come close enough to exchange materials by diffusion.',
+    zh: '点击胎盘的任一部分。两套血液系统从不混合——只靠扩散隔着薄膜交换物质。',
+  } satisfies Bilingual,
+  toFetusHeading: { en: 'What passes to the fetus', zh: '哪些物质从母体到胎儿' } satisfies Bilingual,
+  toMotherHeading: { en: 'What passes to the mother', zh: '哪些物质从胎儿到母体' } satisfies Bilingual,
+  exchangeNote: {
+    en: 'The two bloods do not mix — that would risk agglutination and the higher maternal pressure would damage fetal vessels. Substances cross the placenta by diffusion through a thin membrane, in the direction of their concentration gradient.',
+    zh: '两套血液并不混合——一旦混合会有凝集风险，且母体血压更高会损伤胎儿血管。物质靠扩散穿过薄膜，按浓度梯度方向移动。',
+  } satisfies Bilingual,
+} as const
+
 // Shared by the 3D anatomy viewer (`Anatomy3D`). One block because the
 // component is the only consumer; if more 3D scenes appear, split it.
 export const ANATOMY_3D = {
