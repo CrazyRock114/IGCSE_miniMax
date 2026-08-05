@@ -632,6 +632,10 @@ export type LessonExtra =
   | MitosisVsMeiosisExtra
   | PunnettGridExtra
   | PedigreeTraceExtra
+  | FoodWebExtra
+  | PyramidCompareExtra
+  | NutrientCycleExtra
+  | PopulationCurveExtra
 
 /** What to show in the side panel when an organ is selected. */
 export interface AnatomyOrgan {
@@ -1432,4 +1436,136 @@ export interface PedigreeTraceExtra {
   initialMode: 'autosomal' | 'sex-linked'
   initialSelected?: string
   individuals: PedigreeIndividual[]
+}
+
+// ---------------------------------------------------------------------------
+// Chapter 7 (19 Organisms and their environment) extras
+// ---------------------------------------------------------------------------
+
+/** A short label in the food-web diagram (e.g. "oak", "rabbit"). */
+export type FoodWebLabel = { id: string; label: Bilingual }
+
+export interface FoodWebNode {
+  id: string
+  shortLabel: string
+  name: Bilingual
+  description: Bilingual
+  trophic: 'producer' | 'primary' | 'secondary' | 'tertiary'
+  /** What this organism eats (empty for producers). */
+  eats: FoodWebLabel[]
+  /** What eats this organism (empty for top predators). */
+  eatenBy: FoodWebLabel[]
+  x: number
+  y: number
+}
+
+export interface FoodWebEdge {
+  from: string
+  to: string
+}
+
+export interface FoodWebExtra {
+  type: 'food-web'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  intro: Bilingual
+  initialSelected?: string
+  /** Ids of the species that drive the two "remove a species" scenarios. */
+  foxId: string
+  rabbitId: string
+  nodes: FoodWebNode[]
+  edges: FoodWebEdge[]
+}
+
+/** One bar in a pyramid of numbers / biomass / energy. */
+export interface PyramidLevel {
+  /** Trophic-level label, e.g. "Tertiary consumers" or "Primary consumers". */
+  label: string
+  /** Numeric value, drawn proportionally to the max value across the chart. */
+  value: number
+  /** Fill colour for the bar. */
+  color: string
+}
+
+export interface PyramidData {
+  title: Bilingual
+  /** Unit shown next to the value, e.g. "individuals", "kg", "kJ m⁻² yr⁻¹". */
+  unit: string
+  caption: Bilingual
+  whyUseful: Bilingual
+  /** What the chart can't show — usually a caveat for the syllabus. */
+  limit: Bilingual
+  levels: PyramidLevel[]
+}
+
+export interface PyramidCompareExtra {
+  type: 'pyramid-compare'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  intro: Bilingual
+  initialActive: 'numbers' | 'biomass' | 'energy'
+  pyramids: {
+    numbers: PyramidData
+    biomass: PyramidData
+    energy: PyramidData
+  }
+}
+
+export interface NutrientReservoir {
+  id: string
+  label: Bilingual
+  /** Stock description, e.g. "≈ 65 000 Gt as atmospheric CO₂". */
+  stock: Bilingual
+  x: number
+  y: number
+  color: string
+}
+
+export interface NutrientProcess {
+  id: string
+  label: Bilingual
+  description: Bilingual
+  /** Optional concrete example (e.g. "burning coal at 1 Gt C/yr"). */
+  example?: Bilingual
+  from: string
+  to: string
+  color: string
+  /** Dashed if it's a slower / less direct process. */
+  dashed?: boolean
+}
+
+export interface NutrientCycleExtra {
+  type: 'nutrient-cycle'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  intro: Bilingual
+  initialSelected?: string
+  reservoirs: NutrientReservoir[]
+  processes: NutrientProcess[]
+}
+
+export interface PopulationPoint {
+  phase: 'lag' | 'exponential' | 'stationary' | 'decline'
+  label: Bilingual
+  description: Bilingual
+  factors?: Bilingual[]
+  x: number
+  y: number
+}
+
+export interface PopulationCurveExtra {
+  type: 'population-curve'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  intro: Bilingual
+  initialPhase?: PopulationPoint['phase']
+  xAxisLabel: string
+  yAxisLabel: string
+  /** Optional y-value to draw the carrying-capacity line at. */
+  carryingCapacity?: number
+  points: PopulationPoint[]
 }

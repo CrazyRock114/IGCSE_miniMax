@@ -30,6 +30,10 @@ import { DnaToProtein } from './DnaToProtein'
 import { MitosisVsMeiosis } from './MitosisVsMeiosis'
 import { PunnettGrid } from './PunnettGrid'
 import { PedigreeTrace } from './PedigreeTrace'
+import { FoodWeb } from './FoodWeb'
+import { PyramidCompare } from './PyramidCompare'
+import { NutrientCycle } from './NutrientCycle'
+import { PopulationCurve } from './PopulationCurve'
 
 /**
  * Dispatches the lesson's `extras` to the right component.
@@ -128,5 +132,13 @@ function renderExtra(extra: LessonExtra) {
       return <PunnettGrid extra={extra} />
     case 'pedigree-trace':
       return <PedigreeTrace extra={extra} />
+    case 'food-web':
+      return <FoodWeb extra={extra} />
+    case 'pyramid-compare':
+      return <PyramidCompare extra={extra} />
+    case 'nutrient-cycle':
+      return <NutrientCycle extra={extra} />
+    case 'population-curve':
+      return <PopulationCurve extra={extra} />
   }
 }

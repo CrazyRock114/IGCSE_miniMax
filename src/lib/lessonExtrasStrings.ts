@@ -488,3 +488,54 @@ export const PEDIGREE_TRACE = {
     zh: '男性只有一条 X。那条 X 若携带该等位基因，症状就表现出来——没有第二条 X 来掩盖。',
   } satisfies Bilingual,
 } as const
+
+// ---------------------------------------------------------------------------
+// Chapter 7 (19 Organisms and their environment) extras
+// ---------------------------------------------------------------------------
+
+export const FOOD_WEB = {
+  empty: {
+    en: 'Click any organism in the web to see its trophic level, what it eats, and what eats it.',
+    zh: '点击食物网中的任一生物，查看其营养级、它的食物和它的天敌。',
+  } satisfies Bilingual,
+  normal: { en: 'Web intact', zh: '完整食物网' } satisfies Bilingual,
+  removeFox: { en: 'Remove the fox', zh: '去掉狐狸' } satisfies Bilingual,
+  removeRabbit: { en: 'Remove the rabbit', zh: '去掉兔子' } satisfies Bilingual,
+  trophicProducer: { en: 'Producer', zh: '生产者' } satisfies Bilingual,
+  trophicPrimary: { en: 'Primary consumer', zh: '初级消费者' } satisfies Bilingual,
+  trophicSecondary: { en: 'Secondary consumer', zh: '次级消费者' } satisfies Bilingual,
+  trophicTertiary: { en: 'Tertiary consumer', zh: '三级消费者' } satisfies Bilingual,
+  eatsHeading: { en: 'Eats', zh: '食物' } satisfies Bilingual,
+  eatenByHeading: { en: 'Eaten by', zh: '天敌' } satisfies Bilingual,
+  eatsNothing: { en: '— (producer)', zh: '——（生产者）' } satisfies Bilingual,
+  eatenByNothing: { en: '— (top predator)', zh: '——（顶级捕食者）' } satisfies Bilingual,
+  affectedNote: {
+    en: 'Affected by the removal — its food source is gone, or its predator has been removed.',
+    zh: '受移除影响——它失去了食物来源，或它的捕食者被去掉了。',
+  } satisfies Bilingual,
+} as const
+
+export const PYRAMID_COMPARE = {
+  numbers: { en: 'Pyramid of numbers', zh: '数量金字塔' } satisfies Bilingual,
+  biomass: { en: 'Pyramid of biomass', zh: '生物量金字塔' } satisfies Bilingual,
+  energy: { en: 'Pyramid of energy', zh: '能量金字塔' } satisfies Bilingual,
+} as const
+
+export const NUTRIENT_CYCLE = {
+  empty: {
+    en: 'Click any arrow to see which process it shows and an example of where it happens.',
+    zh: '点击任一箭头查看它代表的过程及发生的具体例子。',
+  } satisfies Bilingual,
+  showReservoirs: { en: 'Show carbon stocks', zh: '显示碳储量' } satisfies Bilingual,
+  hideReservoirs: { en: 'Hide carbon stocks', zh: '隐藏碳储量' } satisfies Bilingual,
+  exampleHeading: { en: 'Example', zh: '实例' } satisfies Bilingual,
+} as const
+
+export const POPULATION_CURVE = {
+  empty: {
+    en: 'Click any dot on the curve to see what is happening in that phase.',
+    zh: '点击曲线上的任一点查看该阶段的情况。',
+  } satisfies Bilingual,
+  factorsHeading: { en: 'Key factors', zh: '关键因素' } satisfies Bilingual,
+  carryingCapacityLabel: { en: 'Carrying capacity (K)', zh: '环境容纳量 (K)' } satisfies Bilingual,
+} as const

@@ -441,6 +441,557 @@ const lesson: Lesson = {
       },
     },
   ],
+
+  // Visual / interactive learning modules for Chapter 7 (19.1 —
+  // organisms and their environment). The G8 PDF available in this
+  // project covers only B5–B11, so the diagrams here are hand-built
+  // SVG. Each module is data-driven.
+  extras: [
+    // 1) A food web for a temperate woodland, with two "remove a
+    //    species" scenarios. Clicking any node shows trophic level,
+    //    prey, and predators; removing the fox or rabbit propagates
+    //    the effect through the rest of the web.
+    {
+      type: 'food-web',
+      id: 'food-web',
+      title: { en: 'A woodland food web', zh: '温带林地食物网' },
+      hint: {
+        en: 'Click any organism to see its trophic level, what it eats, and what eats it. Toggle the scenarios above to see what happens when a top predator or a primary consumer is removed.',
+        zh: '点击任一生物查看其营养级、食物和天敌。切换上方的场景，观察去掉顶级捕食者或初级消费者时，食物网其它部分会怎么变化。',
+      },
+      intro: {
+        en: 'A food web is several food chains joined together — the same organism can be eaten by more than one predator, and can eat more than one prey. Arrows show the direction of energy flow: from the eaten to the eater.',
+        zh: '食物网是若干条食物链交织在一起——同一生物可能被多种捕食者吃，也可能吃多种猎物。箭头表示能量流动的方向：被捕食者指向捕食者。',
+      },
+      initialSelected: 'rabbit',
+      foxId: 'fox',
+      rabbitId: 'rabbit',
+      nodes: [
+        // Producers (bottom band)
+        {
+          id: 'oak',
+          shortLabel: 'oak',
+          name: { en: 'oak tree', zh: '橡树' },
+          description: {
+            en: 'A producer — makes its own food by photosynthesis. In a woodland, oaks are the structural backbone: their acorns feed mice, voles, squirrels, and many insects; their leaves and bark feed caterpillars and beetle larvae.',
+            zh: '生产者——通过光合作用自养。在林地里，橡树是结构性骨干：橡子喂养老鼠、田鼠、松鼠及许多昆虫；叶子和树皮喂养毛毛虫和甲虫幼虫。',
+          },
+          trophic: 'producer',
+          eats: [],
+          eatenBy: [
+            { id: 'caterpillar', label: { en: 'caterpillars', zh: '毛毛虫' } },
+            { id: 'mouse', label: { en: 'wood mice', zh: '林鼠' } },
+            { id: 'rabbit', label: { en: 'rabbits (bark)', zh: '兔子（树皮）' } },
+          ],
+          x: 200,
+          y: 380,
+        },
+        {
+          id: 'grass',
+          shortLabel: 'grass',
+          name: { en: 'grass', zh: '草' },
+          description: {
+            en: 'A producer that forms the understorey. Short, fast-growing, eaten constantly by rabbits, voles, and grazing insects.',
+            zh: '构成林地下层植被的生产者。矮小、生长快，被兔子、田鼠和取食昆虫持续啃食。',
+          },
+          trophic: 'producer',
+          eats: [],
+          eatenBy: [
+            { id: 'rabbit', label: { en: 'rabbits', zh: '兔子' } },
+            { id: 'caterpillar', label: { en: 'caterpillars', zh: '毛毛虫' } },
+          ],
+          x: 500,
+          y: 380,
+        },
+        // Primary consumers
+        {
+          id: 'caterpillar',
+          shortLabel: 'caterpillar',
+          name: { en: 'caterpillar', zh: '毛毛虫' },
+          description: {
+            en: 'A primary consumer (herbivore) — eats leaves. Caterpillars are eaten in huge numbers by small birds, especially in spring. The number of caterpillars is what limits how many chicks the woodland can raise.',
+            zh: '初级消费者（植食动物）——以叶为食。毛毛虫被小型鸟类大量捕食，尤其在春季。毛毛虫的数量是林地能养多少雏鸟的限制因素。',
+          },
+          trophic: 'primary',
+          eats: [
+            { id: 'oak', label: { en: 'oak leaves', zh: '橡树叶' } },
+            { id: 'grass', label: { en: 'grass', zh: '草' } },
+          ],
+          eatenBy: [
+            { id: 'robin', label: { en: 'robins', zh: '知更鸟' } },
+            { id: 'shrew', label: { en: 'shrews', zh: '鼩鼱' } },
+          ],
+          x: 80,
+          y: 270,
+        },
+        {
+          id: 'rabbit',
+          shortLabel: 'rabbit',
+          name: { en: 'rabbit', zh: '兔子' },
+          description: {
+            en: 'A primary consumer (herbivore) — grazes grass and gnaws bark. Rabbits reproduce fast; their numbers are limited mostly by predators and disease, not by food.',
+            zh: '初级消费者（植食动物）——啃食青草、咬食树皮。兔子繁殖快，其数量主要由捕食者和疾病限制，而非食物。',
+          },
+          trophic: 'primary',
+          eats: [
+            { id: 'grass', label: { en: 'grass', zh: '草' } },
+            { id: 'oak', label: { en: 'oak bark', zh: '橡树皮' } },
+          ],
+          eatenBy: [
+            { id: 'fox', label: { en: 'foxes', zh: '狐狸' } },
+          ],
+          x: 360,
+          y: 270,
+        },
+        {
+          id: 'mouse',
+          shortLabel: 'mouse',
+          name: { en: 'wood mouse', zh: '林鼠' },
+          description: {
+            en: 'A primary consumer — eats seeds, nuts, and shoots. Mice are the staple diet of owls and foxes in the woodland; without them, the predators would not survive.',
+            zh: '初级消费者——以种子、坚果和嫩芽为食。老鼠是林地中猫头鹰和狐狸的主食；没有它们，捕食者也活不下来。',
+          },
+          trophic: 'primary',
+          eats: [
+            { id: 'oak', label: { en: 'acorns and seeds', zh: '橡子和种子' } },
+          ],
+          eatenBy: [
+            { id: 'fox', label: { en: 'foxes', zh: '狐狸' } },
+            { id: 'owl', label: { en: 'owls', zh: '猫头鹰' } },
+          ],
+          x: 580,
+          y: 270,
+        },
+        // Secondary consumers
+        {
+          id: 'robin',
+          shortLabel: 'robin',
+          name: { en: 'robin', zh: '知更鸟' },
+          description: {
+            en: 'A secondary consumer — eats caterpillars and other insects. Robins are themselves eaten by sparrowhawks.',
+            zh: '次级消费者——捕食毛毛虫和其它昆虫。知更鸟自己又被雀鹰捕食。',
+          },
+          trophic: 'secondary',
+          eats: [
+            { id: 'caterpillar', label: { en: 'caterpillars', zh: '毛毛虫' } },
+          ],
+          eatenBy: [
+            { id: 'hawk', label: { en: 'sparrowhawks', zh: '雀鹰' } },
+          ],
+          x: 120,
+          y: 160,
+        },
+        {
+          id: 'shrew',
+          shortLabel: 'shrew',
+          name: { en: 'shrew', zh: '鼩鼱' },
+          description: {
+            en: 'A small insectivore. Shrews are eaten by owls, foxes, and kestrels. They have such a fast metabolism that they have to eat almost constantly — many die if they go more than a few hours without food.',
+            zh: '小型食虫哺乳动物。鼩鼱被猫头鹰、狐狸和红隼捕食。它们代谢极快，必须不停地吃——几小时不进食就可能死。',
+          },
+          trophic: 'secondary',
+          eats: [
+            { id: 'caterpillar', label: { en: 'caterpillars and insects', zh: '毛毛虫和昆虫' } },
+          ],
+          eatenBy: [
+            { id: 'owl', label: { en: 'owls', zh: '猫头鹰' } },
+            { id: 'fox', label: { en: 'foxes', zh: '狐狸' } },
+          ],
+          x: 280,
+          y: 160,
+        },
+        // Tertiary
+        {
+          id: 'fox',
+          shortLabel: 'fox',
+          name: { en: 'fox', zh: '狐狸' },
+          description: {
+            en: 'A tertiary consumer (top predator) — eats rabbits, mice, and shrews. Foxes have few predators of their own in the woodland, so they are near the top of the web.',
+            zh: '三级消费者（顶级捕食者）——捕食兔子、老鼠和鼩鼱。在林地中狐狸几乎没有天敌，所以它位于食物网接近顶端的位置。',
+          },
+          trophic: 'tertiary',
+          eats: [
+            { id: 'rabbit', label: { en: 'rabbits', zh: '兔子' } },
+            { id: 'mouse', label: { en: 'wood mice', zh: '林鼠' } },
+            { id: 'shrew', label: { en: 'shrews', zh: '鼩鼱' } },
+          ],
+          eatenBy: [],
+          x: 380,
+          y: 60,
+        },
+        {
+          id: 'owl',
+          shortLabel: 'owl',
+          name: { en: 'tawny owl', zh: '灰林鸮' },
+          description: {
+            en: 'A tertiary consumer — nocturnal, hunts mice and shrews. Owls swallow small prey whole and later cough up the bones and fur as a pellet — which is how ecologists find out what they have been eating.',
+            zh: '三级消费者——夜行性，捕食老鼠和鼩鼱。猫头鹰将小型猎物整只吞下，然后把骨头和毛以"食丸"形式吐出——生态学家正是用食丸来研究它们的食性。',
+          },
+          trophic: 'tertiary',
+          eats: [
+            { id: 'mouse', label: { en: 'wood mice', zh: '林鼠' } },
+            { id: 'shrew', label: { en: 'shrews', zh: '鼩鼱' } },
+          ],
+          eatenBy: [],
+          x: 600,
+          y: 60,
+        },
+        {
+          id: 'hawk',
+          shortLabel: 'hawk',
+          name: { en: 'sparrowhawk', zh: '雀鹰' },
+          description: {
+            en: 'A tertiary consumer — eats small birds, especially in the breeding season when it has chicks to feed. Sparrowhawks are adapted to weaving between trees at speed, which is why they can catch robins.',
+            zh: '三级消费者——捕食小型鸟类，尤其在育雏期。雀鹰能高速在树木间穿行，所以能抓到知更鸟这样的灵活小鸟。',
+          },
+          trophic: 'tertiary',
+          eats: [
+            { id: 'robin', label: { en: 'robins and small birds', zh: '知更鸟等小型鸟类' } },
+          ],
+          eatenBy: [],
+          x: 60,
+          y: 60,
+        },
+      ],
+      edges: [
+        // Producers → primary consumers
+        { from: 'oak', to: 'caterpillar' },
+        { from: 'oak', to: 'mouse' },
+        { from: 'oak', to: 'rabbit' },
+        { from: 'grass', to: 'rabbit' },
+        { from: 'grass', to: 'caterpillar' },
+        // Primary → secondary
+        { from: 'caterpillar', to: 'robin' },
+        { from: 'caterpillar', to: 'shrew' },
+        { from: 'rabbit', to: 'fox' },
+        { from: 'mouse', to: 'fox' },
+        { from: 'mouse', to: 'owl' },
+        // Secondary → tertiary
+        { from: 'robin', to: 'hawk' },
+        { from: 'shrew', to: 'fox' },
+        { from: 'shrew', to: 'owl' },
+      ],
+    },
+
+    // 2) Three ecological pyramids side by side. Toggling between
+    //    them shows the difference in shape (oak tree has an
+    //    inverted pyramid of numbers but a normal pyramid of biomass
+    //    and energy).
+    {
+      type: 'pyramid-compare',
+      id: 'pyramid-compare',
+      title: { en: 'Three pyramids, one ecosystem', zh: '三种金字塔，同一生态系统' },
+      hint: {
+        en: 'Same ecosystem, three different ways to measure. The pyramid of numbers for an oak tree is unusual — one tree supports half a million insects, so the count stands on its point. The other two pyramids stay the right way up.',
+        zh: '同一生态系统，三种不同的测量方法。橡树的数量金字塔比较特别——一棵树养活五十万只昆虫，所以数字上小下大倒立。其它两种金字塔则保持正立。',
+      },
+      intro: {
+        en: 'The shape of the pyramid depends on what you measure. Numbers, biomass, and energy all tell different stories — the G8 syllabus asks for all three because each one is useful in a different situation.',
+        zh: '金字塔的形状取决于你量什么。数量、生物量、能量讲的是不同的故事——G8 教学大纲要求三种都要会，因为每种在不同情境下都有用。',
+      },
+      initialActive: 'numbers',
+      pyramids: {
+        numbers: {
+          title: { en: 'Pyramid of numbers — oak woodland', zh: '数量金字塔——橡树林' },
+          unit: 'individuals',
+          caption: {
+            en: 'One tree at the base, half a million insects above it, then a few small birds, then a single sparrowhawk at the top.',
+            zh: '底部一棵树，上方是五十万只昆虫，再往上是少数小型鸟类，顶部一只雀鹰。',
+          },
+          whyUseful: {
+            en: 'Easiest to count in the field. But the numbers can be misleading — one oak can support 500 000 caterpillars.',
+            zh: '在野外最容易清点。但数字可能误导——一棵橡树能养活 50 万只毛毛虫。',
+          },
+          limit: {
+            en: 'Tells you nothing about the size or mass of the organisms. A parasite and an oak count equally.',
+            zh: '看不出生物的大小或质量。寄生虫和橡树在数量上同等计。',
+          },
+          levels: [
+            { label: 'Tertiary (sparrowhawk)', value: 1, color: '#fef3c7' },
+            { label: 'Secondary (robin)', value: 4, color: '#dcfce7' },
+            { label: 'Primary (caterpillar)', value: 500000, color: '#dbeafe' },
+            { label: 'Producer (oak)', value: 1, color: '#fce7f3' },
+          ],
+        },
+        biomass: {
+          title: { en: 'Pyramid of biomass — oak woodland', zh: '生物量金字塔——橡树林' },
+          unit: 'kg',
+          caption: {
+            en: 'Weighed dry, the oak is many tonnes of carbon, the caterpillars far less, the robins and the sparrowhawk even less.',
+            zh: '以干重计算，橡树有几吨碳，毛毛虫远少，知更鸟和雀鹰更少。',
+          },
+          whyUseful: {
+            en: 'Measures the actual amount of living material at each level. Biomass is what a forest fire would burn.',
+            zh: '测量每一营养级的活物质总量。生物量就是一场林火能烧掉多少。',
+          },
+          limit: {
+            en: 'Hard to measure (you have to dry and weigh samples). Does not show how fast the biomass is being replaced — a tree stands for a century, a caterpillar for a week.',
+            zh: '难以测量（必须烘干称重）。看不出生物量被替换的速度——一棵树能立一百年，一只毛毛虫只活一周。',
+          },
+          levels: [
+            { label: 'Tertiary', value: 2, color: '#fef3c7' },
+            { label: 'Secondary', value: 10, color: '#dcfce7' },
+            { label: 'Primary', value: 800, color: '#dbeafe' },
+            { label: 'Producer', value: 30000, color: '#fce7f3' },
+          ],
+        },
+        energy: {
+          title: { en: 'Pyramid of energy — any ecosystem', zh: '能量金字塔——任何生态系统' },
+          unit: 'kJ m⁻² yr⁻¹',
+          caption: {
+            en: 'Roughly 10% of the energy at one trophic level is passed on to the next. The rest is lost as heat in respiration, in undigested waste, and in movement.',
+            zh: '一个营养级大约只有 10% 的能量传递到下一级。其余以呼吸的废热、未被消化的废物和运动的形式损失。',
+          },
+          whyUseful: {
+            en: 'Never inverted — energy must decrease at every step because of the second law of thermodynamics. This is the only one of the three pyramids that is always the right shape.',
+            zh: '永不会倒立——根据热力学第二定律，能量在每一步必然减少。这是三种金字塔中唯一形状永远正确的。',
+          },
+          limit: {
+            en: 'Hardest to measure (you have to account for respiration, egestion, and death, not just biomass).',
+            zh: '最难测量（必须把呼吸、排遗、死亡都算进去，不只是生物量）。',
+          },
+          levels: [
+            { label: 'Tertiary', value: 5, color: '#fef3c7' },
+            { label: 'Secondary', value: 50, color: '#dcfce7' },
+            { label: 'Primary', value: 500, color: '#dbeafe' },
+            { label: 'Producer', value: 5000, color: '#fce7f3' },
+          ],
+        },
+      },
+    },
+
+    // 3) The carbon cycle. Four reservoirs (atmosphere, plants,
+    //    animals, fossil fuels), with the processes that move carbon
+    //    between them. Optional "show stocks" toggle shows
+    //    approximate carbon amounts.
+    {
+      type: 'nutrient-cycle',
+      id: 'nutrient-cycle',
+      title: { en: 'The carbon cycle', zh: '碳循环' },
+      hint: {
+        en: 'Click any arrow to see what process it shows. Toggle "Show carbon stocks" to see how much carbon sits in each reservoir.',
+        zh: '点击任一箭头查看它代表的过程。切换"显示碳储量"查看每个储库的碳含量。',
+      },
+      intro: {
+        en: 'Carbon moves between four main reservoirs — the atmosphere, living things, the ocean (omitted here for clarity), and fossil fuels. Burning fossil fuels adds carbon to the atmosphere faster than photosynthesis can remove it, which is why atmospheric CO₂ is rising.',
+        zh: '碳在四个主要储库之间流动——大气、生物、海洋（为简洁此处省略）和化石燃料。燃烧化石燃料向大气释放碳的速度比光合作用吸收的速度快，所以大气 CO₂ 在上升。',
+      },
+      initialSelected: 'photosynthesis',
+      reservoirs: [
+        {
+          id: 'atmosphere',
+          label: { en: 'Atmosphere', zh: '大气' },
+          stock: { en: '≈ 870 Gt C as CO₂', zh: '≈ 870 Gt 碳（以 CO₂ 形式）' },
+          x: 360,
+          y: 80,
+          color: '#dbeafe',
+        },
+        {
+          id: 'plants',
+          label: { en: 'Plants (producers)', zh: '植物（生产者）' },
+          stock: { en: '≈ 560 Gt C', zh: '≈ 560 Gt 碳' },
+          x: 130,
+          y: 240,
+          color: '#dcfce7',
+        },
+        {
+          id: 'animals',
+          label: { en: 'Animals (consumers)', zh: '动物（消费者）' },
+          stock: { en: '≈ 2 Gt C', zh: '≈ 2 Gt 碳' },
+          x: 580,
+          y: 240,
+          color: '#fce7f3',
+        },
+        {
+          id: 'fossil-fuels',
+          label: { en: 'Fossil fuels', zh: '化石燃料' },
+          stock: { en: '≈ 10 000 Gt C (locked)', zh: '≈ 10 000 Gt 碳（封存）' },
+          x: 360,
+          y: 390,
+          color: '#fef3c7',
+        },
+      ],
+      processes: [
+        {
+          id: 'photosynthesis',
+          label: { en: 'photosynthesis', zh: '光合作用' },
+          description: {
+            en: 'Plants take CO₂ from the atmosphere and use the energy of sunlight to make glucose. The carbon is now part of the plant. This is the only process that removes carbon from the atmosphere on a large scale.',
+            zh: '植物从大气中吸收 CO₂，利用太阳能合成葡萄糖。碳由此进入植物体内。这是大规模把碳从大气中移走的唯一过程。',
+          },
+          example: {
+            en: '≈ 120 Gt C/yr absorbed by land plants + ocean algae',
+            zh: '陆地植物 + 海洋藻类每年吸收约 120 Gt 碳',
+          },
+          from: 'atmosphere',
+          to: 'plants',
+          color: '#15803d',
+        },
+        {
+          id: 'feeding',
+          label: { en: 'feeding', zh: '取食' },
+          description: {
+            en: 'Animals eat plants (or other animals). Carbon moves from one trophic level to the next as glucose, proteins, and fats in the food.',
+            zh: '动物吃植物（或其它动物）。碳以食物中葡萄糖、蛋白质和脂肪的形式从一个营养级进入下一个。',
+          },
+          example: {
+            en: 'A caterpillar eating a leaf transfers that leaf\'s carbon into the caterpillar\'s body',
+            zh: '毛毛虫吃叶片，把叶中的碳转移到自己体内',
+          },
+          from: 'plants',
+          to: 'animals',
+          color: '#15803d',
+        },
+        {
+          id: 'respiration',
+          label: { en: 'respiration', zh: '呼吸' },
+          description: {
+            en: 'All living things respire — they break down glucose to release energy, and release CO₂ back to the atmosphere as a waste product. Respiration happens in plants, animals, and decomposers.',
+            zh: '所有生物都呼吸——分解葡萄糖释放能量，并把 CO₂ 作为废物排回大气。植物、动物、分解者都进行呼吸。',
+          },
+          example: {
+            en: '≈ 60 Gt C/yr released by land plants and animals combined',
+            zh: '陆地动植物每年合计释放约 60 Gt 碳',
+          },
+          from: 'plants',
+          to: 'atmosphere',
+          color: '#b91c1c',
+        },
+        {
+          id: 'animal-respiration',
+          label: { en: 'animal respiration', zh: '动物呼吸' },
+          description: {
+            en: 'Animals respire too — they release CO₂ back to the atmosphere. This is the counterpart to "feeding" in the cycle.',
+            zh: '动物也呼吸——把 CO₂ 排回大气。这是循环中"取食"的反向过程。',
+          },
+          from: 'animals',
+          to: 'atmosphere',
+          color: '#b91c1c',
+        },
+        {
+          id: 'death-decay',
+          label: { en: 'death and decay', zh: '死亡与分解' },
+          description: {
+            en: 'When plants and animals die, decomposers (bacteria and fungi) break down their bodies. Most of the carbon returns to the atmosphere as CO₂ through the decomposers\' respiration.',
+            zh: '动植物死亡后，分解者（细菌和真菌）分解它们的遗体。大部分碳通过分解者的呼吸以 CO₂ 形式回到大气。',
+          },
+          from: 'animals',
+          to: 'atmosphere',
+          color: '#b91c1c',
+          dashed: true,
+        },
+        {
+          id: 'burial',
+          label: { en: 'burial (over millions of years)', zh: '埋藏（数百万年）' },
+          description: {
+            en: 'Some dead organisms did not fully decompose — they were buried under sediment and, over millions of years, turned into coal, oil, and natural gas. The carbon stayed locked underground.',
+            zh: '部分死亡生物没有完全分解——被沉积物埋藏，经数百万年变成煤、石油和天然气。碳被封存在地下。',
+          },
+          from: 'plants',
+          to: 'fossil-fuels',
+          color: '#92400e',
+          dashed: true,
+        },
+        {
+          id: 'burning',
+          label: { en: 'burning fossil fuels', zh: '燃烧化石燃料' },
+          description: {
+            en: 'Humans burn coal, oil, and gas for energy. The carbon that was locked underground for hundreds of millions of years is released back to the atmosphere in a few centuries. This is faster than photosynthesis can remove it.',
+            zh: '人类燃烧煤、石油和天然气获取能量。封存数亿年的碳在几百年的时间里被释放回大气，速度超过光合作用的吸收。',
+          },
+          example: {
+            en: '≈ 10 Gt C/yr — net addition to the atmosphere',
+            zh: '每年约 10 Gt 碳——净增到大气',
+          },
+          from: 'fossil-fuels',
+          to: 'atmosphere',
+          color: '#b91c1c',
+        },
+      ],
+    },
+
+    // 4) The sigmoid population growth curve. Click any of the
+    //    four phases to read the textbook description and the
+    //    factors driving the change.
+    {
+      type: 'population-curve',
+      id: 'population-curve',
+      title: { en: 'The sigmoid growth curve', zh: 'S 形增长曲线' },
+      hint: {
+        en: 'A typical population starts slowly, accelerates, then levels off at the carrying capacity. Click any dot to read what is happening in that phase.',
+        zh: '典型的种群先缓慢增长，然后加速，最后稳定在环境容纳量附近。点击任一点查看该阶段的情况。',
+      },
+      intro: {
+        en: 'In a closed system with limited resources, a population does not grow exponentially forever. It follows a sigmoid (S-shaped) curve: slow start, fast middle, then a plateau at the carrying capacity K.',
+        zh: '在资源有限的封闭系统中，种群不会永远指数增长。它遵循 S 形曲线：起始缓慢，中期加速，最终在环境容纳量 K 附近稳定下来。',
+      },
+      initialPhase: 'exponential',
+      xAxisLabel: 'Time',
+      yAxisLabel: 'Population size (N)',
+      carryingCapacity: 1000,
+      points: [
+        {
+          phase: 'lag',
+          label: { en: 'lag', zh: '停滞期' },
+          description: {
+            en: 'A few individuals have arrived in a new habitat. They are still adjusting — finding food, finding mates, establishing territory. Reproduction is slow.',
+            zh: '少量个体刚到达新栖息地。它们仍在适应——寻找食物、寻找配偶、建立领地。繁殖较慢。',
+          },
+          factors: [
+            { en: 'Few individuals', zh: '个体数少' },
+            { en: 'Still acclimatising', zh: '仍在适应' },
+          ],
+          x: 1,
+          y: 20,
+        },
+        {
+          phase: 'exponential',
+          label: { en: 'exponential', zh: '指数期' },
+          description: {
+            en: 'Resources are abundant, predators and disease are rare, and the population grows faster and faster — each generation has more potential parents than the last.',
+            zh: '资源充足，捕食者和疾病较少，种群增长越来越快——每代潜在的父母数量比上一代多。',
+          },
+          factors: [
+            { en: 'Plentiful food', zh: '食物充足' },
+            { en: 'Few predators', zh: '捕食者少' },
+            { en: 'Low disease', zh: '疾病少' },
+          ],
+          x: 4,
+          y: 600,
+        },
+        {
+          phase: 'stationary',
+          label: { en: 'stationary', zh: '稳定期' },
+          description: {
+            en: 'The population has reached the carrying capacity K. Birth rate ≈ death rate, so the size stays roughly constant. Resources are tight, competition is high.',
+            zh: '种群已达到环境容纳量 K。出生率 ≈ 死亡率，因此数量大致恒定。资源紧张，竞争激烈。',
+          },
+          factors: [
+            { en: 'Food becomes limiting', zh: '食物成为限制因素' },
+            { en: 'More predators and disease', zh: '捕食者和疾病增多' },
+            { en: 'Competition for space', zh: '空间竞争' },
+          ],
+          x: 8,
+          y: 980,
+        },
+        {
+          phase: 'decline',
+          label: { en: 'decline', zh: '衰退期' },
+          description: {
+            en: 'If the environment changes (a drought, a new disease, an introduced predator) the carrying capacity can drop. The population may then fall below the new K.',
+            zh: '如果环境发生变化（旱灾、新疾病、外来捕食者），环境容纳量可能下降。种群数量可能跌破新的 K。',
+          },
+          factors: [
+            { en: 'Habitat change', zh: '栖息地变化' },
+            { en: 'New disease', zh: '新疾病' },
+            { en: 'Resource collapse', zh: '资源崩溃' },
+          ],
+          x: 10,
+          y: 700,
+        },
+      ],
+    },
+  ],
 }
 
 export default lesson
