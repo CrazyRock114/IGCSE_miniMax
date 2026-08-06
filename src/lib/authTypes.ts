@@ -11,6 +11,9 @@ export interface AuthSession {
   email: string
   displayName: string
   emoji: string
+  /** Whether this user has teacher privileges (read-only access to all
+   *  students' learning data). Set via the UserMenu toggle. */
+  isTeacher: boolean
 }
 
 /** What the user typed into the sign-up form. */

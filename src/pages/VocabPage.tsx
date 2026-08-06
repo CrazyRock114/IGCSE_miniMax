@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { T } from '@/components/i18n/T'
 import { LangToggle } from '@/components/i18n/LangToggle'
 import { TranslatorToggle } from '@/components/translator/TranslatorToggle'
@@ -33,8 +33,33 @@ import { HOOKS } from '@/lib/hooksStrings'
  */
 type Tab = 'all' | 'bank' | 'study' | 'game' | 'mistakes' | 'hooks'
 
+const VALID_TABS: ReadonlySet<Tab> = new Set<Tab>([
+  'all',
+  'bank',
+  'study',
+  'game',
+  'mistakes',
+  'hooks',
+])
+
 export function VocabPage() {
-  const [tab, setTab] = useState<Tab>('all')
+  // `tab` is mirrored to the URL so a deep link like
+  // `/vocab?tab=mistakes` lands on the right tab. Unknown values fall
+  // back to 'all' rather than rendering nothing.
+  const [searchParams, setSearchParams] = useSearchParams()
+  const urlTab = searchParams.get('tab')
+  const tab: Tab = urlTab && VALID_TABS.has(urlTab as Tab) ? (urlTab as Tab) : 'all'
+  const setTab = (next: Tab) => {
+    setSearchParams(
+      (prev) => {
+        const out = new URLSearchParams(prev)
+        if (next === 'all') out.delete('tab')
+        else out.set('tab', next)
+        return out
+      },
+      { replace: true }
+    )
+  }
   const [subject, setSubject] = useState<string>('all')
 
   // Flatten every term from every lesson into a row with subject+slug+en

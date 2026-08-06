@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { T } from '@/components/i18n/T'
 import { AUTH } from '@/lib/authStrings'
+import { TEACHER } from '@/lib/teacherStrings'
 import { useCurrentUser } from '@/hooks/useCurrentUser'
-import { signOut } from '@/lib/authStore'
+import { signOut, updateProfile, emitAuthChanged } from '@/lib/authStore'
+import { setTeacherMode } from '@/lib/teacher'
 import { SignInDialog } from './SignInDialog'
 
 /**
  * Header widget — "Sign in" pill when no session, emoji + dropdown when
- * signed in. The dropdown currently has sign-out only; profile-edit /
- * sync-now live as future features.
+ * signed in. The dropdown has the teacher-mode toggle, a link to the
+ * teacher dashboard, and sign-out.
  *
  * The button is intentionally small. Auth should not dominate the page.
  */
@@ -29,7 +32,6 @@ export function UserMenu() {
   }, [open])
 
   if (!ready) {
-    // Avoid a "Sign in → Signed in" flicker while the network refresh runs.
     return <div className="h-8 w-20 animate-pulse rounded-full bg-canvas" aria-hidden="true" />
   }
 
@@ -48,6 +50,20 @@ export function UserMenu() {
     )
   }
 
+  const toggleTeacher = async () => {
+    const next = !session.isTeacher
+    // Optimistic UI: flip local cache first, then hit Supabase.
+    updateProfile({ isTeacher: next })
+    const r = await setTeacherMode(next)
+    if (!r.ok) {
+      // Roll back on failure.
+      updateProfile({ isTeacher: !next })
+      console.warn('setTeacherMode failed:', r.error)
+    }
+    // Force a refresh so any components reading the auth cache re-render.
+    emitAuthChanged()
+  }
+
   return (
     <div className="relative" data-user-menu>
       <button
@@ -64,12 +80,36 @@ export function UserMenu() {
       {open && (
         <div
           role="menu"
-          className="absolute right-0 top-full z-50 mt-1 w-56 overflow-hidden rounded-lg border border-line bg-surface shadow-lg"
+          className="absolute right-0 top-full z-50 mt-1 w-60 overflow-hidden rounded-lg border border-line bg-surface shadow-lg"
         >
           <div className="border-b border-line bg-canvas px-3 py-2">
             <p className="truncate text-xs font-medium text-ink">{session.displayName}</p>
             <p className="truncate text-[10px] text-muted">{session.email}</p>
           </div>
+
+          <label className="flex cursor-pointer items-center gap-2 border-b border-line px-3 py-2 text-sm hover:bg-canvas">
+            <input
+              type="checkbox"
+              checked={session.isTeacher}
+              onChange={() => void toggleTeacher()}
+              className="size-4 accent-teal-600"
+            />
+            <span className="text-ink-soft">
+              <T value={session.isTeacher ? TEACHER.teacherModeOn : TEACHER.teacherModeOff} />
+            </span>
+          </label>
+
+          {session.isTeacher && (
+            <Link
+              to="/teacher"
+              onClick={() => setOpen(false)}
+              className="block border-b border-line px-3 py-2 text-sm text-ink-soft hover:bg-canvas"
+              role="menuitem"
+            >
+              <T value={TEACHER.teacherDashboardLink} /> →
+            </Link>
+          )}
+
           <button
             type="button"
             onClick={async () => {

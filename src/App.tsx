@@ -1,10 +1,13 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom'
 import { HomePage } from '@/components/HomePage'
 import { LessonPage } from '@/components/lesson/LessonPage'
 import { VocabPage } from '@/pages/VocabPage'
 import { AnatomyPage } from '@/components/anatomy/AnatomyPage'
 import { SelectionTranslator } from '@/components/translator/SelectionTranslator'
 import { SyncManager } from '@/components/auth/SyncManager'
+import { TeacherGate } from '@/components/teacher/TeacherGate'
+import { TeacherDashboard } from '@/components/teacher/TeacherDashboard'
+import { StudentDetail } from '@/components/teacher/StudentDetail'
 
 export default function App() {
   return (
@@ -20,6 +23,22 @@ export default function App() {
         <Route path="/lesson/:subject/:slug" element={<LessonPage />} />
         <Route path="/anatomy/:subject/:slug" element={<AnatomyPage />} />
         <Route path="/vocab" element={<VocabPage />} />
+        <Route
+          path="/teacher"
+          element={
+            <TeacherGate>
+              <TeacherDashboard />
+            </TeacherGate>
+          }
+        />
+        <Route
+          path="/teacher/:userId"
+          element={
+            <TeacherGate>
+              <StudentDetailWrapper />
+            </TeacherGate>
+          }
+        />
         <Route path="*" element={<HomePage />} />
       </Routes>
       {/* The translator is page-level chrome, not part of any route — it lives
@@ -27,4 +46,15 @@ export default function App() {
       <SelectionTranslator />
     </BrowserRouter>
   )
+}
+
+/**
+ * Wrapper that re-mounts StudentDetail on every userId change so the
+ * component's local state (loading skeleton, fetched data) is fresh
+ * and we don't show a previous student's data while the new one loads.
+ */
+function StudentDetailWrapper() {
+  const { userId } = useParams<{ userId: string }>()
+  if (!userId) return null
+  return <StudentDetail key={userId} />
 }

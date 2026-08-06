@@ -23,6 +23,7 @@ interface CachedSession {
   email: string
   displayName: string
   emoji: string
+  isTeacher: boolean
 }
 
 function readCache(): AuthSession | null {
@@ -70,13 +71,14 @@ export const SESSION_EVENT = SESSION_CHANGED_EVENT
 function profileToSession(
   userId: string,
   email: string,
-  profile: { display_name: string; emoji: string } | null
+  profile: { display_name: string; emoji: string; is_teacher: boolean } | null
 ): AuthSession {
   return {
     userId,
     email,
     displayName: profile?.display_name ?? email.split('@')[0] ?? 'User',
     emoji: profile?.emoji ?? '👤',
+    isTeacher: profile?.is_teacher ?? false,
   }
 }
 
@@ -100,7 +102,7 @@ export async function loadSession(): Promise<AuthSession | null> {
   // The on-signup trigger creates a profile row; read it.
   const { data: profile } = await supabase
     .from('profiles')
-    .select('display_name, emoji')
+    .select('display_name, emoji, is_teacher')
     .eq('id', userId)
     .maybeSingle()
   const s = profileToSession(userId, email, profile)
@@ -169,16 +171,22 @@ export async function signOut(): Promise<void> {
 }
 
 /** Update the user's display name and emoji. */
-export async function updateProfile(patch: { displayName?: string; emoji?: string }): Promise<{ ok: boolean; error?: string }> {
+export async function updateProfile(patch: { displayName?: string; emoji?: string; isTeacher?: boolean }): Promise<{ ok: boolean; error?: string }> {
   const session = readCache()
   if (!session) return { ok: false, error: 'Not signed in' }
-  const db: Record<string, string> = {}
+  const db: Record<string, string | boolean> = {}
   if (patch.displayName !== undefined) db.display_name = patch.displayName
   if (patch.emoji !== undefined) db.emoji = patch.emoji
+  if (patch.isTeacher !== undefined) db.is_teacher = patch.isTeacher
   const { error } = await supabase.from('profiles').update(db).eq('id', session.userId)
   if (error) return { ok: false, error: error.message }
   // Refresh the cache.
-  const next = { ...session, ...(patch.displayName !== undefined ? { displayName: patch.displayName } : {}), ...(patch.emoji !== undefined ? { emoji: patch.emoji } : {}) }
+  const next: AuthSession = {
+    ...session,
+    ...(patch.displayName !== undefined ? { displayName: patch.displayName } : {}),
+    ...(patch.emoji !== undefined ? { emoji: patch.emoji } : {}),
+    ...(patch.isTeacher !== undefined ? { isTeacher: patch.isTeacher } : {}),
+  }
   writeCache(next)
   emitAuthChanged()
   return { ok: true }
