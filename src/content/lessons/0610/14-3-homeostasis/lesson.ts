@@ -754,7 +754,100 @@ const lesson: Lesson = {
         },
       ],
     },
-  ],
+
+    // Negative feedback as a pattern — the one concept that ties
+    // temperature and glucose together. The textbook ends the
+    // temperature section with "this process is called negative
+    // feedback" but the site has no dedicated explainer; the term
+    // appears only in the glucose-loop blurb. This block makes the
+    // pattern explicit and applies it to both examples.
+    {
+      type: 'concept-explainer',
+      id: 'negative-feedback',
+      title: { en: 'Negative feedback — the body\'s thermostat pattern', zh: '负反馈——身体的恒温器套路' },
+      hint: {
+        en: 'A single pattern shows up twice in this chapter — once in body temperature, once in blood glucose. The same shape: a set point, a sensor, an effector, and a signal that runs the effector the OTHER way when the value moves away. Recognise the pattern once and you can predict the body\'s response to any new perturbation.',
+        zh: '这一章里有同一个套路出现两次——一次在体温，一次在血糖。形状一样：设定值、感受器、效应器、以及一个"反方向作用"的信号。认一次套路，就能预测身体对任何新扰动的反应。',
+      },
+      blocks: [
+        {
+          id: 'pattern',
+          title: { en: 'The four-part shape of every negative-feedback loop', zh: '每一个负反馈回路都有的四段式' },
+          hook: {
+            en: 'A central-heating boiler does the same job as the human thermostat — and the wiring diagram is almost the same. A temperature sensor compares the room to the set point. If the room is too cold, the boiler is turned on. Once the room reaches the set point, the boiler is turned off. The pattern is: detect → correct → stop.',
+            zh: '一台中央暖气锅炉和人体恒温器干的是同一件事——电路图也几乎一样。一个温度传感器把房间温度和设定值比较。如果太冷，锅炉开；到了设定值，锅炉关。套路是：检测→修正→停止。',
+          },
+          mechanism: {
+            en: 'Every negative-feedback loop has four parts. (1) A set point — the value the body defends (37 °C for core temperature, 5 mmol/L-ish for blood glucose). (2) A sensor that detects the current value (temperature receptors in the hypothalamus, alpha and beta cells in the islets of Langerhans). (3) An effector that can push the value up or down (sweat glands and skin blood vessels; liver and muscle). (4) A signal that runs the effector the OPPOSITE way to the deviation — too hot → make cooler; too cold → make warmer; too high glucose → make lower; too low → make higher. The "negative" in negative feedback is the sign of the correction: it opposes the change, not the value itself.',
+            zh: '每一个负反馈回路都包含四部分。(1) 设定值——身体要保卫的目标（核心温度 37°C，血糖约 5 mmol/L）。(2) 感受当前值的传感器（下丘脑的温度感受器，胰岛的 α 和 β 细胞）。(3) 可以上调或下调值的效应器（汗腺和皮肤血管；肝脏和肌肉）。(4) 与偏差**反方向**作用的信号——太热→降温；太冷→升温；血糖太高→降低；太低→升高。"负反馈"的"负"指的是修正的方向：它对抗变化本身，而不是否定数值。',
+          },
+          whyItMatters: {
+            en: 'Most medical problems are a feedback loop that has gone wrong. Diabetes is a glucose loop that cannot bring the value back. Fever is a temperature loop that has been deliberately re-set higher (by the immune system) to fight infection — the loop is working, just at the wrong set point. Recognising the pattern lets you predict treatment: insulin for the broken glucose loop, antipyretics only when the immune system\'s new set point is no longer useful.',
+            zh: '大多数医学问题都是某个反馈回路出了故障。糖尿病就是一个无法把血糖拉回来的回路。发烧则是温度回路被免疫系统**主动**重设到更高位置（为了抗感染）——回路是正常的，只是设定值错了。识别这个套路有助于判断治疗：胰岛素给坏掉的血糖回路用；退烧药只在免疫系统的新设定值已经不再必要时才用。',
+        },
+        teacherStory: {
+          en: 'A useful classroom demo: take a small desk lamp and a thermometer. Turn the lamp on (heat source) and watch the temperature rise — it does not stabilise, it just keeps climbing. Now imagine a person with a fan: the lamp turns on when the thermometer reads below 37 °C and the fan turns on when it reads above. The temperature settles near 37 °C. The lamp-and-fan demo is a tiny version of the body. The fan is negative feedback: it opposes the change the lamp is trying to make.',
+            zh: '一个有用的课堂演示：小台灯（热源）+ 温度计。只开台灯，温度会一直上升，不会稳定。假设再加一台电扇：低于 37°C 开台灯，高于 37°C 开电扇。温度就会稳定在 37°C 附近。台灯-电扇的组合就是身体的小模型。电扇就是负反馈：它对抗台灯想要造成的变化。',
+        },
+      },
+      {
+        id: 'glucose-application',
+        title: { en: 'How blood glucose is a textbook negative-feedback loop', zh: '血糖就是教科书式的负反馈回路' },
+        hook: {
+          en: 'A teenager eats a large bowl of rice. Blood glucose rises. Within an hour, it is back to normal. The body did not just let the value stay high — it detected the rise and acted against it. The same loop runs in reverse when she skips lunch: glucose falls, and the body acts to raise it back. Both directions use the same wiring.',
+            zh: '一个少年吃了一碗大米饭。血糖升高。一小时内，血糖回到正常。身体不是让血糖就那么高着——它检测到升高，并反向修正。如果她跳过午饭，血糖下降，身体会反向把它拉回。升高和降低两个方向用的是同一套回路。',
+        },
+        mechanism: {
+          en: 'The islets of Langerhans contain alpha cells (which make glucagon) and beta cells (which make insulin). Both cell types monitor blood glucose all the time. When glucose rises, beta cells fire faster and alpha cells go quiet. Insulin tells liver and muscle to take glucose out of the blood. The value falls. As it approaches the set point, the insulin signal weakens. If it overshoots — glucose falls slightly below normal — alpha cells now fire, glucagon is released, and the liver releases glucose back into the blood. The set point is the only number either cell knows; the body does not "want" a particular direction, it just wants the value back where it was.',
+            zh: '胰岛里有 α 细胞（分泌胰高血糖素）和 β 细胞（分泌胰岛素）。两种细胞一直监测血糖。血糖升高时 β 细胞加速分泌胰岛素，α 细胞沉默。胰岛素让肝和肌肉把血糖收走。血糖下降。接近设定值时胰岛素信号减弱。如果"过冲"——血糖降到设定值以下——α 细胞开始活跃，释放胰高血糖素，肝脏把葡萄糖释放回血液。两种细胞只认设定值这一个数；身体不"想要"哪个方向，只想让数值回到原位。',
+        },
+        whyItMatters: {
+          en: 'This is exactly why the Cambridge mark scheme keeps emphasising "the response opposes the change". The word "negative" describes the SIGN of the correction, not the value. In an exam, a one-sentence answer that names the pattern and applies it to a specific example is worth three marks; a description of what insulin does in isolation is worth one.',
+            zh: '这正是考纲一直强调"反应对抗变化"的原因。"负"描述的是修正的**方向**，不是数值。在考试里，写一句点名这个套路并应用到具体例子的答案值 3 分；单独描述胰岛素作用的，值 1 分。',
+        },
+      },
+    ],
+  },
+
+    // Adrenaline and the fight-or-flight response — B9.04. The site
+    // has the term and a checkpoint question, but no dedicated
+    // explainer. The textbook emphasises the WHOLE-BODY set of
+    // changes (heart, lungs, blood, pupils, digestion, sweat) which
+    // is exactly the kind of "name a chain of effects" question that
+    // students lose points on.
+    {
+      type: 'concept-explainer',
+      id: 'adrenaline',
+      title: { en: 'Adrenaline — the body\'s "be ready" hormone', zh: '肾上腺素——身体的"准备战斗或逃跑"激素' },
+      hint: {
+        en: 'The adrenal glands sit on top of the kidneys. They dump adrenaline into the blood when the brain detects danger. The hormone does not pick one target — it raises the heart rate, the breathing rate, the blood pressure, the blood sugar, the pupil size and the sweat rate, all at once. The whole body tilts into "now" mode.',
+        zh: '肾上腺在肾脏顶上。大脑察觉到危险时，它们把肾上腺素倒进血液。这种激素不是针对单一目标——它同时加快心率、呼吸率、升高血压、提高血糖、放大瞳孔、加速出汗。整个身体瞬间进入"现在"模式。',
+      },
+      blocks: [
+        {
+          id: 'fight-or-flight',
+          title: { en: 'Adrenaline is a one-hormone chain reaction', zh: '肾上腺素是一个激素拉一串反应' },
+          hook: {
+            en: 'A student is walking home from school and a dog runs at them barking. Three seconds later her heart is pounding, her breathing is fast, her hands are shaking, and her pupils are wide. None of this took any decision on her part — the brain stem sent a signal to her adrenal glands and they did the rest.',
+            zh: '一个学生放学回家路上，一只狗冲过来朝她叫。三秒钟后她心跳加速、呼吸变快、手在抖、瞳孔放大。这一切都不是她主动决定的——脑干向她的肾上腺发了个信号，肾上腺把剩下的事都干了。',
+          },
+          mechanism: {
+            en: 'The adrenal glands sit on top of each kidney. Each gland has two parts. The outer part (cortex) makes cortisol and aldosterone — slow hormones involved in long-term balance. The inner part (medulla) makes adrenaline — the fast one. When the brain stem detects threat, it sends a nerve signal down the splanchnic nerve to the medulla. The medulla dumps adrenaline into the blood within a second or two. Adrenaline then binds to receptors on almost every organ: heart (beats faster and harder), lungs (bronchioles widen), liver (releases glucose), skeletal muscle arterioles (dilate — more blood flow), skin and gut arterioles (constrict — less blood to non-essential organs), pupils (dilate), sweat glands (switch on). The body has been told "now, not later".',
+            zh: '肾上腺位于两个肾脏的顶部。每个腺体分两部分。外层（皮质）分泌皮质醇和醛固酮——参与长期平衡的慢激素。内层（髓质）分泌肾上腺素——快的那一种。脑干察觉到威胁时，沿内脏大神经向下发出神经信号到髓质。髓质在一两秒内把肾上腺素倒进血液。然后肾上腺素与几乎所有器官的受体结合：心脏（跳得更快更用力）、肺（细支气管扩张）、肝脏（释放葡萄糖）、骨骼肌小动脉（舒张——更多血流）、皮肤和消化道小动脉（收缩——非关键器官少分点血）、瞳孔（放大）、汗腺（启动）。身体被告知："现在，不是等会儿"。',
+          },
+          whyItMatters: {
+            en: 'The Cambridge mark scheme for "explain how adrenaline prepares the body for vigorous activity" expects FIVE or six named effects. Stating "it increases heart rate" alone is worth one mark. The full list — heart rate, breathing rate, blood pressure, blood glucose, pupils, sweat, blood diverted to muscles — is what scores the question. Adrenaline is also the body\'s short-term override of the glucose feedback loop: it makes the liver dump glucose even when blood glucose is already normal, so the muscles have fuel for a fight or a sprint that the body did not plan for.',
+            zh: '考纲"解释肾上腺素如何为剧烈活动做准备"的标答要求列 5-6 项具体作用。只写"加快心率"得 1 分。完整列表——心率、呼吸率、血压、血糖、瞳孔、出汗、血流转向肌肉——才是得分答案。肾上腺素还是身体对血糖反馈环的短期"覆盖"：它让肝脏在血糖已经正常的情况下也释放葡萄糖，这样肌肉就有了燃料，去应付一次没有预料到的战斗或冲刺。',
+        },
+        teacherStory: {
+          en: 'The textbook framing is "fight or flight", which works for our ancestors. The modern equivalent is "deadline or interview" — the same chemical is dumping into the blood, the same heart is pounding, but the threat is a clock, not a predator. The cost of frequent adrenaline surges is high blood pressure, blood-sugar spikes the pancreas has to chase with extra insulin, and a chronically tensed body. The reaction is built for short, sharp, physical emergencies. Modern life is full of long, dull, psychological ones — and the body cannot tell the difference.',
+          zh: '教材里把它叫做"战或逃"，对老祖先来说是合理的。现代的对应是"赶 deadline 或面试"——同样的化学物质倒进血液，同样的心跳加速，但威胁是一只时钟而不是一只猎手。频繁释放肾上腺素的代价是：高血压、血糖尖峰让胰腺额外分泌胰岛素去追、长期紧张的躯体。这套反应是为短促的、猛烈的、身体上的紧急情况设计的。现代生活充满了漫长的、沉闷的、心理上的紧急——而身体分不清这两者的区别。',
+        },
+      },
+    ],
+  },
+]
+
 }
 
 export default lesson

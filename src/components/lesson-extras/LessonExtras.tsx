@@ -38,6 +38,7 @@ import { OrganAnatomy } from './OrganAnatomy'
 import { DnaHelix3D } from './DnaHelix3D'
 import { FoodWeb3D } from './FoodWeb3D'
 import { ConceptExplainer } from './ConceptExplainer'
+import { VisualIllusions } from './VisualIllusions'
 
 /**
  * Dispatches the lesson's `extras` to the right component.
@@ -152,5 +153,7 @@ function renderExtra(extra: LessonExtra) {
       return <FoodWeb3D extra={extra} />
     case 'concept-explainer':
       return <ConceptExplainer extra={extra} />
+    case 'visual-illusions':
+      return <VisualIllusions extra={extra} />
   }
 }

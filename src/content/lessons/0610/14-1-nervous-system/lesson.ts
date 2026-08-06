@@ -703,7 +703,173 @@ const lesson: Lesson = {
         },
       ],
     },
-  ],
+
+    // The pupil reflex — a one-shot reflex arc that lives in the eye
+    // itself, no brain involvement. The textbook mentions it indirectly
+    // (B9.04 notes that adrenaline widens the pupil) but does not spell
+    // out the actual reflex pathway. The site has no dedicated
+    // explainer, so we add one here, right next to the eye anatomy.
+    // (Negative feedback: the iris adjusts how much light enters.)
+  {
+    type: 'concept-explainer',
+    id: 'pupil-reflex',
+    title: { en: 'The pupil reflex — the eye adjusting its own aperture', zh: '瞳孔反射——眼睛自己调光圈' },
+    hint: {
+      en: 'The iris is a ring of muscle that changes the size of the pupil without you thinking about it. Bright light → pupil shrinks. Dim light → pupil widens. It is one of the few reflex arcs that has nothing to do with the spinal cord or the brain.',
+      zh: '虹膜是一圈肌肉，在你不知不觉中改变瞳孔大小。强光下瞳孔缩小，暗光下瞳孔放大。它是少有的不经过脊髓或大脑的反射弧之一。',
+    },
+    blocks: [
+      {
+        id: 'reflex',
+        title: { en: 'A reflex arc that lives entirely in the brainstem', zh: '整条反射弧都在脑干里' },
+        hook: {
+          en: 'Walk out of a dark cinema into bright sunlight and your eyes do not blow out with white — they tighten within a second. Walk back inside and they dilate again. None of this is voluntary. The iris is doing the equivalent of an automatic camera aperture, and the wiring is one of the fastest reflexes in the body.',
+          zh: '从黑漆漆的电影院走到阳光刺眼的走廊，眼睛不会瞬间被白光打瞎——一秒钟内瞳孔就收紧了。再走回影院，瞳孔又放大。这一切都不是你主动控制的。虹膜相当于一台相机的自动光圈，整套电路是人体最快的反射之一。',
+        },
+        mechanism: {
+          en: 'Bright light entering the eye hits the retina. A small region of the midbrain called the pretectal area senses the light level via the optic nerve. It sends signals to the sphincter pupillae muscle in the iris, which contracts and shrinks the pupil. The round trip — light in, pupil smaller — happens in about 0.3 seconds. In dim light the same pathway runs the other way, activating the dilator pupillae muscle instead, and the pupil widens. Both branches use the same set of nerve cells, so the same wiring handles both directions.',
+          zh: '强光进入眼睛，照射到视网膜。中脑一个叫"顶盖前区"的小区域通过视神经感知亮度，再把信号发给虹膜里的瞳孔括约肌，让它收缩、瞳孔缩小。从光进入，到瞳孔变小，整个回路大约 0.3 秒。暗光下同一通路反向运行，激活瞳孔开大肌，瞳孔放大。两路用同一组神经元，所以同一套电路同时负责放大和缩小。',
+        },
+        whyItMatters: {
+          en: 'This is one of the few reflex arcs the doctor checks with a penlight. A pupil that does not constrict to light is a sign of serious brainstem damage — a key test in an emergency room. Adrenaline overrides the reflex: in a "fight-or-flight" moment the pupil widens regardless of light, because seeing more of the surroundings is more useful than seeing sharply. The two systems (reflex and hormonal) work at different speeds and on different timescales.',
+          zh: '这是医生用小手电检查的少数反射之一。瞳孔对光不收缩，是脑干严重受损的信号——急诊室里的关键检查项目。肾上腺素会"覆盖"这个反射：战或逃的瞬间，无论光线如何瞳孔都放大，因为看清更多周围比看清细节更重要。两套系统（反射和激素）速度不同、作用时间尺度也不同。',
+        },
+        teacherStory: {
+          en: 'A quick in-class check: shine a phone flashlight into one eye and watch the other pupil constrict too — the consensual light reflex. Both pupils are wired to the same pretectal area, so shining light in one eye sends the constrict signal to both. This is why doctors check both pupils: a difference between them is a clinical sign of trouble.',
+          zh: '一个快速的课堂检查：把手机闪光灯照进一只眼睛，看另一只瞳孔也同时收缩——这就是"同感性对光反射"。两只瞳孔都连到同一个顶盖前区，所以照一只眼睛时收缩信号会同时传给两只。这也是医生为什么要同时检查两只瞳孔——两侧反应不一致就是临床异常信号。',
+        },
+      },
+    ],
+  },
+
+
+  // Why your eyes play tricks on you — visual illusions. This is
+  // supplementary material (not in the textbook) but the user asked
+  // for it explicitly: classic illusion images plus 2-3 interactive
+  // experiments with explanations of the underlying principle.
+  {
+    type: 'visual-illusions',
+    id: 'visual-illusions',
+    title: { en: 'Why your eyes play tricks on you', zh: '为什么眼睛会骗你' },
+    hint: {
+      en: 'Five classic visual illusions and three hands-on experiments. None of them are about bad eyesight — they reveal how the visual cortex fills in, makes assumptions, and shortcuts the work of "seeing".',
+      zh: '五个经典视觉错觉加三个可动手的小实验。都不是眼睛有问题——它们揭示了视觉皮层在"填补"、在"假设"、在"走捷径"地看见世界。',
+    },
+    illusions: [
+      // 1. Hermann grid — gray dots at the intersections of black bars
+      {
+        id: 'hermann-grid',
+        title: { en: 'Hermann grid — phantom dots you cannot unsee', zh: '赫尔曼栅格——你无法不看见的幽灵黑点' },
+        image: { en: '/figures/illusions/hermann-grid.svg', zh: '/figures/illusions/hermann-grid.svg' },
+        whatYouSee: {
+          en: 'A grid of thick black bars on a white background. Grey blobs appear at the intersections — but only when you are NOT looking directly at them. The instant you fixate on one, it disappears.',
+          zh: '白底上的黑色粗线栅格。在每个交叉点都能看到灰色斑点——但只有在你没直接盯着它的时候。你一盯，斑点就消失。',
+        },
+        why: {
+          en: 'The phenomenon is called "lateral inhibition". Each retinal ganglion cell reports how much light is at the centre of its receptive field versus the surrounding ring. At a black-bar intersection, the surrounding ring is mostly black, so the cell reports a smaller-than-it-should signal. At a non-intersection (a black bar between two white gaps), the surrounding ring has a lot of white, so the cell reports a larger signal. The brain subtracts: intersection cells look DIMMER than non-intersection cells. The illusion is your brain doing its job, not failing at it.',
+          zh: '这叫"侧抑制"。每个视网膜神经节细胞都报告自己感受野中心 vs 周围一圈的光强差。在黑色交叉点，周围一圈大半是黑的，所以细胞报告的信号偏小；在普通黑条位置（两头都是白），周围一圈有不少白，信号偏大。大脑做减法：交叉点的细胞比非交叉点的看起来更暗。错觉是大脑在好好工作，而不是出了错。',
+        },
+      },
+      // 2. Müller-Lyer — two lines, same length, look different
+      {
+        id: 'muller-lyer',
+        title: { en: 'Müller-Lyer — same length, different arrows', zh: '缪勒-莱尔错觉——等长的两条线' },
+        image: { en: '/figures/illusions/muller-lyer.svg', zh: '/figures/illusions/muller-lyer.svg' },
+        whatYouSee: {
+          en: 'Two vertical lines of identical length. The one with inward-pointing arrows (><) looks shorter; the one with outward-pointing arrows (<>) looks longer.',
+          zh: '两条等长的竖线。箭头朝内（><）的看起来短，箭头朝外（<>）的看起来长。',
+        },
+        why: {
+          en: 'The arrows are depth cues. The inward arrows make the line look like the inside corner of a room (concave, far away); the outward arrows make it look like the outside corner of a building (convex, close). The brain applies size constancy — distant things must be bigger on the retina to be the same size in the world — so the "far" line is judged longer. The illusion is automatic, cross-cultural, and hard to suppress even with a ruler in your hand.',
+          zh: '箭头是深度线索。箭头朝内看上去像房间的内墙角（凹面，远处），箭头朝外像建筑的外墙角（凸面，近处）。大脑用"大小恒常性"——远处的东西要在视网膜上更大，才算"实际一样大"——所以"远"的那条被判得更长。这个错觉自动出现，跨文化一致，哪怕你手里拿着尺子也压不住。',
+        },
+      },
+      // 3. Ponzo — two equal circles look different sizes
+      {
+        id: 'ponzo',
+        title: { en: 'Ponzo — equal circles, unequal sizes', zh: '庞氏错觉——两个一样大的圆' },
+        image: { en: '/figures/illusions/ponzo.svg', zh: '/figures/illusions/ponzo.svg' },
+        whatYouSee: {
+          en: 'Two identical circles sitting between two converging lines. The upper circle looks bigger than the lower one.',
+          zh: '两个完全相同的圆放在两条向远处汇聚的线之间。上面的圆看上去比下面的大。',
+        },
+        why: {
+          en: 'Converging lines are a strong depth cue for "the upper one is further away". Size constancy again: if two retinal images are the same size, the brain decides the "further" one is bigger in the world. The illusion goes away instantly if you remove the converging lines.',
+          zh: '汇聚的线条是一个很强的深度线索——"上面的圆更远"。又是大小恒常性在起作用：两个视网膜上的像一样大，大脑就判断"更远"的那个在世界里更大。把汇聚线去掉，错觉立刻消失。',
+        },
+      },
+      // 4. Ebbinghaus — two equal circles, different surround
+      {
+        id: 'ebbinghaus',
+        title: { en: 'Ebbinghaus — same circle, smaller-feeling inside big circles', zh: '艾宾浩斯错觉——同一个圆，周围都是大圆时显得小' },
+        image: { en: '/figures/illusions/ebbinghaus.svg', zh: '/figures/illusions/ebbinghaus.svg' },
+        whatYouSee: {
+          en: 'Two identical orange circles. The one surrounded by big purple circles looks smaller than the one surrounded by small purple circles.',
+          zh: '两个完全相同的橙色圆。周围都是大紫色圆的，看起来比周围都是小紫色圆的小。',
+        },
+        why: {
+          en: 'Pure relative-size judgment. The brain does not measure "absolute size" of a circle, it compares to its neighbours. Big neighbours make the centre look small; small neighbours make it look big. This is the same machinery that lets you tell whether a friend in the distance is an adult or a child — you compare to the lamp post next to them.',
+          zh: '纯粹的相对大小判断。大脑不是量"绝对大小"，而是跟邻居比。邻居大，中心就显得小；邻居小，中心就显得大。同一套机制让你能判断远处站着的那个朋友是大人还是小孩——你拿他旁边的路灯当参照。',
+        },
+      },
+      // 5. Color afterimage — stare and see the opposite
+      {
+        id: 'afterimage',
+        title: { en: 'Afterimage — stare, then look at white', zh: '后像——盯住看，然后看白色' },
+        image: { en: '/figures/illusions/afterimage.svg', zh: '/figures/illusions/afterimage.svg' },
+        whatYouSee: {
+          en: 'A solid red square. Stare at the dot in its centre for 30 seconds without moving your eyes, then look at a blank white wall. A cyan-blue square of the same size floats in front of you for a few seconds.',
+          zh: '一个纯红色的方块。盯住中心黑点 30 秒眼睛别动，然后看一面白墙。一个同尺寸的青蓝色方块会在你眼前漂浮几秒钟。',
+        },
+        why: {
+          en: 'The retina has three types of colour photoreceptor — red, green, and blue cones. Staring at a red field tires out the red cones, so they temporarily stop firing. When you then look at a white wall, the wall sends red, green AND blue signals — but the red signal is muted. The brain compares: red−0, green−100, blue−100. The leftover green+blue reads as cyan. The afterimage fades as the red cones recover, in a few seconds.',
+          zh: '视网膜有三种色觉感光细胞——红、绿、蓝锥体细胞。盯着红色看会让红锥体疲劳，短暂停止工作。这时再看白墙，白墙发来红、绿、蓝三种信号，但红的减弱了。大脑做减法：红−0，绿−100，蓝−100。剩下的绿+蓝就读作青蓝。几秒钟后红锥体恢复，后像消失。',
+        },
+      },
+    ],
+    experiments: [
+      // 1. Blind spot test
+      {
+        id: 'blind-spot',
+        title: { en: 'Experiment 1: Find your blind spot', zh: '实验 1：找你的盲点' },
+        instructions: {
+          en: 'Close your LEFT eye. With your RIGHT eye, fixate on the ✕ at the left. The dot to the right will disappear when it lands on your blind spot. To find the exact distance, slowly move the page (or your head) towards and away from the screen. The dot will vanish at one specific distance and reappear if you go closer or further.',
+          zh: '闭上左眼。用右眼盯住左边的 ✕。右边的圆点会消失——它正好落在你的盲点上。要找到准确距离，慢慢让页面（或你的头）前后移动。在某个特定距离圆点会消失，离屏幕更近或更远时又会重新出现。',
+        },
+        principle: {
+          en: 'Every retina has a small region with no photoreceptors — the place where the optic nerve fibres exit the eyeball on their way to the brain. Light landing there produces no signal at all. We never notice the gap because (a) the corresponding region in the OTHER eye covers it, and (b) the brain fills in the missing spot with whatever pattern surrounds it. Close one eye and the brain can no longer hide it.',
+          zh: '每只视网膜都有一小块没有感光细胞的区域——视神经纤维离开眼球走向大脑的那个点。光落在这里根本不产生信号。我们平时注意不到这个洞，因为：(a) 另一只眼的对应区域会补上，(b) 大脑用周围的图案把缺失的点"补全"。闭上一只眼，大脑就藏不住了。',
+        },
+      },
+      // 2. Müller-Lyer interactive length-match
+      {
+        id: 'muller-lyer-match',
+        title: { en: 'Experiment 2: Beat the Müller-Lyer', zh: '实验 2：打败缪勒-莱尔' },
+        instructions: {
+          en: 'The LEFT line has inward arrows (><). The RIGHT line has outward arrows (<>). They are EXACTLY the same length. Drag the slider to make the right line as long as the left — and watch how badly your visual system guesses.',
+          zh: '左边线是箭头朝内（><），右边线是箭头朝外（<>）。两条线**完全等长**。拖动滑块让右边的线和左边一样长——看看你的视觉系统会错得有多离谱。',
+        },
+        principle: {
+          en: 'Even when you know the lines are the same, the arrows push your perception of length up or down by 10-20%. Children under 10 are not yet fooled — the illusion develops as the brain learns to apply size constancy. The point: knowing is not seeing. Cognitive knowledge and visual perception are separate systems, and the visual one usually wins.',
+          zh: '即使你明知道两条线一样长，箭头依然能让你的长度判断偏差 10-20%。10 岁以下的孩子还不会被骗——错觉是随着大脑学会应用大小恒常性才出现的。重点是："知道"不等于"看见"。认知知识和视觉感知是两套系统，而视觉那套通常赢。',
+        },
+      },
+      // 3. Afterimage demo
+      {
+        id: 'afterimage-demo',
+        title: { en: 'Experiment 3: Make a coloured afterimage', zh: '实验 3：造一个彩色后像' },
+        instructions: {
+          en: 'Stare at the dot in the centre of the coloured square for 30 seconds without moving your eyes. When the square turns grey, look at the centre of the grey square. A faint image in the COMPLEMENTARY colour will float on the grey for a few seconds. Red → cyan. Green → magenta. Blue → yellow.',
+          zh: '盯住彩色方块中心的黑点 30 秒，眼睛别动。方块变灰时看灰方块的中心。一个淡淡的、**互补色**的图像会在灰色上漂浮几秒钟。红 → 青。绿 → 品红。蓝 → 黄。',
+        },
+        principle: {
+          en: 'Prolonged staring tires out the photoreceptors of one colour (e.g. the red cones for a red image). When the image turns grey, all three cone types are stimulated equally by the white background — but the tired red cones fire less. Your brain subtracts: red − muted red = cyan. The illusion is the visual system reporting the difference, not the absolute signal. Same mechanism as the Hermann grid, just at a different stage of the visual pipeline.',
+          zh: '长时间盯着看会让某一种颜色的感光细胞疲劳（红方块就让红锥体疲劳）。图像变灰时，白背景均匀地刺激三种锥体，但疲劳的那一组反应弱。大脑做减法：红−减弱的红=青。和赫尔曼栅格错觉是同一类机制，只是发生在视觉通路的另一个环节。',
+        },
+      },
+    ],
+  },
+]
 }
 
 export default lesson

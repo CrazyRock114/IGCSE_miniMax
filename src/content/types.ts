@@ -640,6 +640,7 @@ export type LessonExtra =
   | DnaHelix3DExtra
   | FoodWeb3DExtra
   | ConceptExplainerExtra
+  | VisualIllusionsExtra
 
 /** What to show in the side panel when an organ is selected. */
 export interface AnatomyOrgan {
@@ -1083,6 +1084,40 @@ export interface ConceptExplainerExtra {
   title: Bilingual
   hint: Bilingual
   blocks: ConceptExplainerBlock[]
+}
+
+/**
+ * A gallery of classic visual illusions plus a few hands-on
+ * experiments. Used in 14-1 (eye section) as supplementary material
+ * — the textbook doesn't cover this, but the user asked for it
+ * because it makes the lesson's "the eye is a real measurement
+ * device, not a camera" point land.
+ */
+export interface VisualIllusion {
+  id: string
+  title: Bilingual
+  /** Reference to the SVG file under /public/figures/illusions/. */
+  image: { en: string; zh: string }
+  whatYouSee: Bilingual
+  why: Bilingual
+}
+
+export interface VisualIllusionExperiment {
+  id: string
+  title: Bilingual
+  /** The user-facing instructions, 1-2 short sentences. */
+  instructions: Bilingual
+  /** The vision-science principle the experiment demonstrates. */
+  principle: Bilingual
+}
+
+export interface VisualIllusionsExtra {
+  type: 'visual-illusions'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  illusions: VisualIllusion[]
+  experiments: VisualIllusionExperiment[]
 }
 
 /**
