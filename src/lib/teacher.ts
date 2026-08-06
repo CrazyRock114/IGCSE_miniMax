@@ -2,9 +2,15 @@
  * Teacher data layer.
  *
  * Wraps a handful of Supabase queries that the RLS policies in
- * `migrations/0003_teacher_role.sql` make accessible to users whose
- * `profiles.is_teacher = true`. Every function here is read-only —
- * the teacher can inspect but never modify a student's data.
+ * `migrations/0004_teacher_by_email.sql` make accessible only to the
+ * user whose `auth.users.email` matches `TEACHER_EMAIL` below. Every
+ * function here is read-only — the teacher can inspect but never
+ * modify a student's data.
+ *
+ * Important: the teacher's identity is fixed in this file and in the
+ * migration SQL (0004). It is NOT a self-toggleable flag. A user can
+ * no longer promote themselves to teacher; the database refuses
+ * cross-user reads for any non-matching email.
  *
  * All queries assume the caller is authenticated. The TeacherGate
  * component is the canonical check; if you call these from anywhere
@@ -17,6 +23,13 @@
  */
 
 import { supabase } from './supabase'
+
+/**
+ * The single email that gets teacher (read-all) access. Must match
+ * the literal in `migrations/0004_teacher_by_email.sql`. Change both
+ * together when adding / rotating the teacher.
+ */
+export const TEACHER_EMAIL = 'crazyrock2021@qq.com'
 
 export interface StudentSummary {
   id: string
@@ -121,7 +134,7 @@ function rowToTs(value: string | null | undefined): number {
 export async function listStudents(): Promise<StudentSummary[]> {
   const { data: profiles, error } = await supabase
     .from('profiles')
-    .select('id, email_unused, display_name, emoji, is_teacher')
+    .select('id, display_name, emoji')
   if (error) {
     console.warn('listStudents profiles failed:', error.message)
     return []
@@ -207,7 +220,7 @@ export async function listStudents(): Promise<StudentSummary[]> {
       email: '',
       displayName: (p.display_name as string) ?? '(no name)',
       emoji: (p.emoji as string) ?? '👤',
-      isTeacher: Boolean(p.is_teacher),
+      isTeacher: false,
       ...a,
     }
   })
@@ -222,7 +235,7 @@ export async function getStudentDetail(userId: string): Promise<StudentDetail | 
     await Promise.all([
       supabase
         .from('profiles')
-        .select('id, display_name, emoji, is_teacher')
+        .select('id, display_name, emoji')
         .eq('id', userId)
         .maybeSingle(),
       supabase
@@ -252,7 +265,7 @@ export async function getStudentDetail(userId: string): Promise<StudentDetail | 
       email: '',
       displayName: (profile.display_name as string) ?? '(no name)',
       emoji: (profile.emoji as string) ?? '👤',
-      isTeacher: Boolean(profile.is_teacher),
+      isTeacher: false,
     },
     wordBank: (words ?? []).map((r) => {
       const entry: StudentWordEntry = {
@@ -372,22 +385,4 @@ export async function getHookRatingsSummary(): Promise<HookRatingSummary[]> {
       net: a.up - a.down,
     }))
     .sort((x, y) => y.net - x.net)
-}
-
-// ---------------------------------------------------------------------------
-// Self-toggle
-// ---------------------------------------------------------------------------
-
-/**
- * Flip is_teacher on the current user's profile. Returns the new value.
- * RLS already permits a user to UPDATE their own profiles row, so this
- * is a single `update` call with no special privilege.
- */
-export async function setTeacherMode(on: boolean): Promise<{ ok: boolean; error?: string }> {
-  const { error } = await supabase
-    .from('profiles')
-    .update({ is_teacher: on })
-    .eq('id', (await supabase.auth.getUser()).data.user?.id ?? '')
-  if (error) return { ok: false, error: error.message }
-  return { ok: true }
 }

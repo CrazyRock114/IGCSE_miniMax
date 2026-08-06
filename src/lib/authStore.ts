@@ -15,6 +15,7 @@
 
 import type { AuthSession, SignUpInput } from './authTypes'
 import { supabase } from './supabase'
+import { TEACHER_EMAIL } from './teacher'
 
 const SESSION_CACHE_KEY = 'igcse.auth.cached.v1'
 
@@ -71,14 +72,17 @@ export const SESSION_EVENT = SESSION_CHANGED_EVENT
 function profileToSession(
   userId: string,
   email: string,
-  profile: { display_name: string; emoji: string; is_teacher: boolean } | null
+  profile: { display_name: string; emoji: string } | null
 ): AuthSession {
   return {
     userId,
     email,
     displayName: profile?.display_name ?? email.split('@')[0] ?? 'User',
     emoji: profile?.emoji ?? '👤',
-    isTeacher: profile?.is_teacher ?? false,
+    // Teacher status is decided by the JWT email claim, not a stored
+    // column. See migrations/0004_teacher_by_email.sql for the RLS
+    // counterpart — both must agree.
+    isTeacher: email === TEACHER_EMAIL,
   }
 }
 
@@ -100,9 +104,11 @@ export async function loadSession(): Promise<AuthSession | null> {
   const userId = session.user.id
   const email = session.user.email ?? ''
   // The on-signup trigger creates a profile row; read it.
+  // Note: we deliberately do NOT read is_teacher — that column is gone
+  // (see 0004). Teacher status is decided by the JWT email claim.
   const { data: profile } = await supabase
     .from('profiles')
-    .select('display_name, emoji, is_teacher')
+    .select('display_name, emoji')
     .eq('id', userId)
     .maybeSingle()
   const s = profileToSession(userId, email, profile)
@@ -171,21 +177,20 @@ export async function signOut(): Promise<void> {
 }
 
 /** Update the user's display name and emoji. */
-export async function updateProfile(patch: { displayName?: string; emoji?: string; isTeacher?: boolean }): Promise<{ ok: boolean; error?: string }> {
+export async function updateProfile(patch: { displayName?: string; emoji?: string }): Promise<{ ok: boolean; error?: string }> {
   const session = readCache()
   if (!session) return { ok: false, error: 'Not signed in' }
-  const db: Record<string, string | boolean> = {}
+  const db: Record<string, string> = {}
   if (patch.displayName !== undefined) db.display_name = patch.displayName
   if (patch.emoji !== undefined) db.emoji = patch.emoji
-  if (patch.isTeacher !== undefined) db.is_teacher = patch.isTeacher
   const { error } = await supabase.from('profiles').update(db).eq('id', session.userId)
   if (error) return { ok: false, error: error.message }
-  // Refresh the cache.
+  // Refresh the cache. isTeacher is left as-is because it's derived
+  // from the JWT email and only changes when the user signs in/out.
   const next: AuthSession = {
     ...session,
     ...(patch.displayName !== undefined ? { displayName: patch.displayName } : {}),
     ...(patch.emoji !== undefined ? { emoji: patch.emoji } : {}),
-    ...(patch.isTeacher !== undefined ? { isTeacher: patch.isTeacher } : {}),
   }
   writeCache(next)
   emitAuthChanged()

@@ -12,6 +12,12 @@ Row Level Security.
 - `migrations/0002_statement_progress.sql` — schema for
   `statement_progress` (per-user, per-syllabus-statement learning
   state — seen / attempts / wrong counts). Run after 0001.
+- `migrations/0003_teacher_role.sql` — adds `profiles.is_teacher`
+  flag + RLS policies. **Superseded by 0004.**
+- `migrations/0004_teacher_by_email.sql` — replaces the self-toggle
+  is_teacher flag with a hard-coded email check. The teacher's
+  email lives in this file and in `src/lib/teacher.ts` as
+  `TEACHER_EMAIL`; both must agree. Run after 0003.
 
 ## How to set up (one-time)
 
@@ -23,9 +29,9 @@ Row Level Security.
 
 2. **Run the migrations in order.** Open the SQL Editor in the
    Supabase dashboard and paste the contents of each file in
-   `migrations/` (0001, then 0002). Click "Run" after each. You
-   should see 4 tables from 0001 and 1 table from 0002, plus RLS
-   policies for all of them.
+   `migrations/` (0001 → 0002 → 0003 → 0004). Click "Run" after each.
+   You should see 4 tables from 0001, 1 from 0002; 0003 and 0004
+   just replace policies and one column.
 
 3. **Configure Auth.** Project Settings → Authentication:
    - Enable "Email" provider (default)
