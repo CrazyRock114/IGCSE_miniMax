@@ -8,6 +8,7 @@ import { WordBank } from '@/components/vocab/WordBank'
 import { StudyMode } from '@/components/vocab/StudyMode'
 import { WordGame } from '@/components/vocab/WordGame'
 import { MistakeList } from '@/components/vocab/MistakeList'
+import { HooksTab } from '@/components/hooks/HooksTab'
 import { lessons } from '@/lib/registry'
 import { useWordBank } from '@/lib/useVocab'
 import { SYLLABUSES } from '@/content/syllabus'
@@ -15,6 +16,7 @@ import type { Term } from '@/content/types'
 import type { ConceptEnrichment } from '@/lib/vocabTypes'
 import { getEnrichment } from '@/content/termEnrichments'
 import { VOCAB } from '@/lib/vocabStrings'
+import { HOOKS } from '@/lib/hooksStrings'
 
 /**
  * The vocabulary page.
@@ -29,7 +31,7 @@ import { VOCAB } from '@/lib/vocabStrings'
  * page uses, so adding a new lesson automatically makes its terms appear
  * here — no central list to maintain.
  */
-type Tab = 'all' | 'bank' | 'study' | 'game' | 'mistakes'
+type Tab = 'all' | 'bank' | 'study' | 'game' | 'mistakes' | 'hooks'
 
 export function VocabPage() {
   const [tab, setTab] = useState<Tab>('all')
@@ -101,6 +103,8 @@ export function VocabPage() {
             { id: 'bank', label: VOCAB.tabBank },
             { id: 'study', label: VOCAB.tabStudy },
             { id: 'game', label: VOCAB.tabGame },
+            { id: 'mistakes', label: VOCAB.tabMistakes },
+            { id: 'hooks', label: HOOKS.tabHooks },
           ] as const
         ).map((t) => (
           <button
@@ -149,6 +153,8 @@ export function VocabPage() {
       {tab === 'game' && <WordGame resolve={resolve} pool={pool} />}
 
       {tab === 'mistakes' && <MistakeList />}
+
+      {tab === 'hooks' && <HooksTab />}
 
       <WordBankSeeder />
     </main>
