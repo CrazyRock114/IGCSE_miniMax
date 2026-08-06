@@ -132,6 +132,14 @@ function rowToTs(value: string | null | undefined): number {
 // ---------------------------------------------------------------------------
 
 export async function listStudents(): Promise<StudentSummary[]> {
+  // Pull the current user id up front so we can filter the teacher's own
+  // profile out of the list. The teacher RLS lets us read every row, but
+  // the teacher's own row is not a student — including it makes the
+  // dashboard confusing (clicking it lands on a "no data" detail page
+  // that looks like a bug instead of an empty account).
+  const { data: sessionData } = await supabase.auth.getUser()
+  const currentUserId = sessionData.user?.id ?? null
+
   const { data: profiles, error } = await supabase
     .from('profiles')
     .select('id, display_name, emoji')
@@ -141,7 +149,9 @@ export async function listStudents(): Promise<StudentSummary[]> {
   }
   // `email` lives on auth.users, not profiles. We can't SELECT across
   // auth.users from the client (RLS denies), so we display name only.
-  const ids = (profiles ?? []).map((p) => p.id as string)
+  const ids = (profiles ?? [])
+    .map((p) => p.id as string)
+    .filter((id) => id !== currentUserId)
   if (ids.length === 0) return []
 
   // Pull mistakes + statement_progress + word_bank in three parallel calls
@@ -231,33 +241,53 @@ export async function listStudents(): Promise<StudentSummary[]> {
 // ---------------------------------------------------------------------------
 
 export async function getStudentDetail(userId: string): Promise<StudentDetail | null> {
-  const [{ data: profile }, { data: words }, { data: mistakes }, { data: progress }, { data: ratings }] =
-    await Promise.all([
-      supabase
-        .from('profiles')
-        .select('id, display_name, emoji')
-        .eq('id', userId)
-        .maybeSingle(),
-      supabase
-        .from('word_bank')
-        .select('term_id, subject, slug, status, note, added_at, last_reviewed, review_count')
-        .eq('user_id', userId),
-      supabase
-        .from('mistakes')
-        .select(
-          'id, question_id, subject, slug, picked_index, picked_text, correct_index, correct_text, first_seen, last_seen, attempt_count, resolved, resolved_at'
-        )
-        .eq('user_id', userId),
-      supabase
-        .from('statement_progress')
-        .select(
-          'statement_id, subject, first_seen_at, last_seen_at, seen_count, attempts, wrong_count, last_attempt_at, last_wrong_at'
-        )
-        .eq('user_id', userId),
-      supabase.from('hook_ratings').select('hook_id, rating, rated_at').eq('user_id', userId),
-    ])
+  const [
+    { data: profile, error: profileErr },
+    { data: words, error: wordsErr },
+    { data: mistakes, error: mistakesErr },
+    { data: progress, error: progressErr },
+    { data: ratings, error: ratingsErr },
+  ] = await Promise.all([
+    supabase
+      .from('profiles')
+      .select('id, display_name, emoji')
+      .eq('id', userId)
+      .maybeSingle(),
+    supabase
+      .from('word_bank')
+      .select('term_id, subject, slug, status, note, added_at, last_reviewed, review_count')
+      .eq('user_id', userId),
+    supabase
+      .from('mistakes')
+      .select(
+        'id, question_id, subject, slug, picked_index, picked_text, correct_index, correct_text, first_seen, last_seen, attempt_count, resolved, resolved_at'
+      )
+      .eq('user_id', userId),
+    supabase
+      .from('statement_progress')
+      .select(
+        'statement_id, subject, first_seen_at, last_seen_at, seen_count, attempts, wrong_count, last_attempt_at, last_wrong_at'
+      )
+      .eq('user_id', userId),
+    supabase.from('hook_ratings').select('hook_id, rating, rated_at').eq('user_id', userId),
+  ])
 
-  if (!profile) return null
+  // Surface any RLS / network / query errors to the UI. The earlier
+  // version dropped these silently and returned `null`, which the
+  // StudentDetail page rendered as an indefinite loading state.
+  const errs = [profileErr, wordsErr, mistakesErr, progressErr, ratingsErr].filter(Boolean)
+  if (errs.length > 0) {
+    const msg = errs.map((e) => e!.message).join('; ')
+    throw new Error(`Teacher query failed: ${msg}`)
+  }
+
+  if (!profile) {
+    // The row really doesn't exist (or RLS hid it without an error code,
+    // which is the common case for RLS-denied reads in PostgREST).
+    // Either way, returning null here would loop the UI in a loading
+    // state, so we throw instead.
+    throw new Error(`Profile not found for userId ${userId}`)
+  }
 
   return {
     profile: {
