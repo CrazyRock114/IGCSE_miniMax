@@ -1066,6 +1066,44 @@ const lesson: Lesson = {
       ],
       initialPart: 'alveoli',
     },
+    // The mucociliary escalator — the one place where the textbook's
+    // goblet cell / mucus / cilia story lives as a single connected
+    // narrative. The narration has a one-liner and the term cards each
+    // have their own mechanism text, but a student who only reads the
+    // lesson narrative misses the connection. This block makes the
+    // connection explicit, with a real hook from the 8/5 class.
+    {
+      type: 'concept-explainer',
+      id: 'mucociliary-escalator',
+      title: { en: 'How the lungs clean themselves', zh: '肺是怎么给自己"打扫卫生"的' },
+      hint: {
+        en: 'Your lungs take in roughly 10,000 litres of dirty air every day. Without a built-in cleaning system, they would be full of dust within hours. There is one — a thin conveyor belt of sticky mucus, kept moving by millions of tiny beating hairs.',
+        zh: '你的肺每天大约要"吸进"一万升脏空气。如果没有一套内置清洁系统，肺几个小时就会被灰尘填满。系统其实有——一层薄薄的黏液传送带，由数百万根微小纤毛不停地摆动来推动。',
+      },
+      blocks: [
+        {
+          id: 'escalator',
+          title: { en: 'Goblet cells, mucus, cilia — the escalator in three lines', zh: '杯状细胞、黏液、纤毛——三行讲完"自动梯"' },
+          hook: {
+            en: 'After a long day in a city, you cough up grey phlegm. Where did it come from? The air you breathed in carried dust, soot and bacteria; some of it was trapped in a thin layer of mucus on the inside of your airways, and that layer has been steadily moving up to your throat ever since.',
+            zh: '在城里待了一整天，你会咳出灰色的痰。它从哪儿来？你吸入的空气里有灰尘、烟尘、细菌；其中一部分被气道内壁薄薄的一层黏液抓住，而那层黏液从你吸入第一口空气起就在不停地向上移动，目的地是咽喉。',
+          },
+          mechanism: {
+            en: 'The airway lining has three cell types doing three jobs. (1) Goblet cells secrete sticky mucus — a thin film that sits on top of the cells. (2) Particles in the incoming air (dust, soot, bacteria, viruses) get caught in this mucus the moment they touch it. (3) Ciliated cells next to the goblet cells have hair-like cilia on their surface, and every cilium beats in the same direction, in a synchronised wave. The wave moves the mucus blanket upwards — about a centimetre a minute — and at the top of the trachea it is swallowed. Stomach acid then kills anything that was caught. This is why textbooks call it the mucociliary escalator.',
+            zh: '气道内壁有三种细胞各司其职。(1) 杯状细胞分泌黏液——在细胞表面形成一层薄薄的膜。(2) 吸入的颗粒（灰尘、烟尘、细菌、病毒）碰到这层黏液就被粘住。(3) 杯状细胞旁的纤毛细胞表面长着毛状的纤毛，所有纤毛方向一致地同步摆动，像波浪一样推动黏液向上走——大约每分钟一厘米——到了气管顶端就被吞下。胃酸随后杀死被粘住的任何东西。教材把这一套叫做"黏液-纤毛自动梯"。',
+          },
+          whyItMatters: {
+            en: 'The escalator is the first line of defence for the lungs. On a clean day it clears everything that lands in the airways. The moment it slows down — whether from cigarette smoke, kitchen-oil fumes, chronic PM2.5 exposure, or anaesthesia during surgery — mucus pools, pathogens multiply in the puddle, and chest infections follow. Smokers cough not because the cough "creates" mucus, but because the broken escalator leaves the body no other way to clear it.',
+            zh: '自动梯是肺的第一道防线。在空气干净的日子，它把所有进入气道的颗粒清扫干净。一旦它慢下来——无论是香烟烟雾、厨房油烟、长期 PM2.5 暴露，还是手术麻醉——黏液就会淤积，病原体在淤积的黏液里繁殖，胸腔感染随之而来。吸烟者咳嗽不是因为咳嗽"造出了"黏液，而是因为坏掉的自动梯让身体除了咳嗽再无他法把黏液清走。',
+          },
+          teacherStory: {
+            en: 'A small experiment that fits in a single lesson: a student breathes on a cold mirror and watches the fog. The droplets in that fog are mostly water from the upper airway. The reason a single breath is enough to fog the mirror is that the lung has already moved tens of thousands of litres of air through it today, and almost all of the dust, soot and bacteria that came with that air is sitting in your stomach by lunchtime, courtesy of the escalator.',
+            zh: '一节课就能做的小实验：一个同学对着冷镜面哈气，看着镜面起雾。雾里的水滴主要来自上气道。一次哈气就能让镜面起雾，说明到这一节课为止，你的肺已经处理了上万升空气，而其中几乎所有的灰尘、烟尘、细菌，到午饭时都已经被自动梯送进你的胃里了。',
+          },
+        },
+      ],
+    },
+
     // Air quality — fog vs haze vs PM2.5 vs PM10. Came out of the 8/5
     // 11-1 lesson discussion of smoking and air pollution. Three blocks
     // because the four terms are easy to mix up.

@@ -610,6 +610,33 @@ const S_8_5_CIRCULATION_AND_GAS: ClassroomStory[] = [
     relatedTermIds: ['asthma', 'bronchiole'],
   },
   {
+    id: 'mucociliary-escalator-phlegm',
+    date: '2026-08-05',
+    lesson: '11-1',
+    hookName: '咳出来的灰痰',
+    hookNameEn: 'Where the grey phlegm comes from',
+    oneLiner: {
+      en: 'After a long day in Beijing traffic, a student coughs up a grey blob and asks where it came from. The answer is the mucociliary escalator: a thin layer of sticky mucus on the airway lining has been moving all day, sweeping up dust and soot and bacteria, and at the top of the trachea it is swallowed. The grey colour is the day\'s pollution, trapped and removed.',
+      zh: '在北京的街头走了一整天，一个学生咳出一团灰痰，问它从哪儿来。答案是"黏液-纤毛自动梯"：气道内壁那层黏液一整天都在向上移动，把灰尘、烟尘、细菌扫到气管顶端，然后被咽下。灰色就是当天吸入的污染物，被抓住、被清出来了。',
+    },
+    transcriptRef: {
+      date: '2026-08-05',
+      approxLine: 145,
+      excerpt: '……黏液-纤毛自动梯……像传送带一样……往上推',
+    },
+    quality: 'A',
+    topicTags: ['mucociliary-escalator', 'goblet-cell', 'cilium', 'mucus', 'pollution', 'first-person'],
+    relatedTermIds: ['goblet cell', 'mucus', 'cilium', 'trachea'],
+    whatItReplaces: {
+      en: 'The abstract "lungs have a cleaning system". With the coughing-up-grey-phlegm image, the student sees the escalator as something with a real product you can hold in a tissue. The mechanism (goblet cell → mucus → cilia → throat) stops being a list of glossary words and becomes a thing that explains a moment they have lived.',
+      zh: '抽象的"肺有一套清洁系统"。有了"咳出灰痰"的画面，自动梯变成了一张真的能用纸巾接住的东西。机制（杯状细胞→黏液→纤毛→喉咙）不再是一串生词，而能解释他们自己经历过的一个具体瞬间。',
+    },
+    source: {
+      en: 'G8 Science · p.38, Section B8.02, Goblet cells paragraph — "cilia beat in a synchronised wave, sweeping the mucus up toward the back of the throat"',
+      zh: 'G8 教材·第 38 页 B8.02 节，杯状细胞段——"纤毛同步摆动，把黏液向上扫到咽喉"',
+    },
+  },
+  {
     id: 'insulin-glucagon-pendulum',
     date: '2026-08-05',
     lesson: '14-3',
