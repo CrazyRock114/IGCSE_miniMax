@@ -89,6 +89,11 @@ export function StudentList() {
                   <div className="flex items-center gap-2">
                     <span className="text-lg leading-none">{s.emoji}</span>
                     <span className="font-medium text-ink">{s.displayName}</span>
+                    {s.isSelf && (
+                      <span className="rounded-full border border-violet-300 bg-violet-50 px-1.5 py-0.5 text-[10px] font-semibold text-violet-800">
+                        <T value={TEACHER.selfBadge} />
+                      </span>
+                    )}
                     {s.isTeacher && (
                       <span className="rounded-full border border-teal-300 bg-teal-50 px-1.5 py-0.5 text-[10px] font-semibold text-teal-800">
                         <T value={TEACHER.teacherBadge} />

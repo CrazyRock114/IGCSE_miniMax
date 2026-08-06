@@ -32,6 +32,12 @@ export const TEACHER = {
   colAttempts: { en: 'Attempts', zh: '答题数' } satisfies Bilingual,
   colWrongRate: { en: 'Wrong rate', zh: '错题率' } satisfies Bilingual,
   teacherBadge: { en: 'teacher', zh: '教师' } satisfies Bilingual,
+  /**
+   * Tag on the teacher's own row in the student list, so it is obvious
+   * that "Open" is going to load the teacher's own study data, not a
+   * separate student. Same wording in both languages — short, neutral.
+   */
+  selfBadge: { en: 'you', zh: '你' } satisfies Bilingual,
   never: { en: 'never', zh: '从未' } satisfies Bilingual,
   openStudent: { en: 'Open', zh: '打开' } satisfies Bilingual,
 

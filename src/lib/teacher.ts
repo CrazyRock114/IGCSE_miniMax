@@ -37,6 +37,14 @@ export interface StudentSummary {
   displayName: string
   emoji: string
   isTeacher: boolean
+  /**
+   * True if this row is the currently signed-in teacher's own account.
+   * Many teachers use their own account to take the lessons themselves,
+   * so the dashboard shows the teacher's row alongside any real
+   * students — but with a "you" tag so it is clearly not an unknown
+   * student row.
+   */
+  isSelf: boolean
   /** Max of last_seen across all of this student's data sources. */
   lastActivityAt: number
   mistakeCount: number
@@ -132,11 +140,12 @@ function rowToTs(value: string | null | undefined): number {
 // ---------------------------------------------------------------------------
 
 export async function listStudents(): Promise<StudentSummary[]> {
-  // Pull the current user id up front so we can filter the teacher's own
-  // profile out of the list. The teacher RLS lets us read every row, but
-  // the teacher's own row is not a student — including it makes the
-  // dashboard confusing (clicking it lands on a "no data" detail page
-  // that looks like a bug instead of an empty account).
+  // Pull the current user id up front so the UI can mark the teacher's
+  // own row as "you". We do NOT filter the teacher out — many teachers
+  // use their own account to take the same lessons as their students,
+  // and that data is useful in the same dashboard. The student list
+  // then shows every profile, with a small "you" tag on the teacher's
+  // own row so it doesn't look like an unknown student.
   const { data: sessionData } = await supabase.auth.getUser()
   const currentUserId = sessionData.user?.id ?? null
 
@@ -149,9 +158,7 @@ export async function listStudents(): Promise<StudentSummary[]> {
   }
   // `email` lives on auth.users, not profiles. We can't SELECT across
   // auth.users from the client (RLS denies), so we display name only.
-  const ids = (profiles ?? [])
-    .map((p) => p.id as string)
-    .filter((id) => id !== currentUserId)
+  const ids = (profiles ?? []).map((p) => p.id as string)
   if (ids.length === 0) return []
 
   // Pull mistakes + statement_progress + word_bank in three parallel calls
@@ -171,23 +178,22 @@ export async function listStudents(): Promise<StudentSummary[]> {
       .in('user_id', ids),
   ])
 
-  type Agg = Omit<StudentSummary, 'id' | 'email' | 'displayName' | 'emoji' | 'isTeacher'>
+  type Agg = Omit<StudentSummary, 'id' | 'email' | 'displayName' | 'emoji' | 'isTeacher' | 'isSelf'>
   const agg = new Map<string, Agg>()
   const ensure = (uid: string): Agg => {
-    let a = agg.get(uid)
-    if (!a) {
-      a = {
-        lastActivityAt: 0,
-        mistakeCount: 0,
-        unresolvedMistakeCount: 0,
-        wordBankCount: 0,
-        statementTouchedCount: 0,
-        totalAttempts: 0,
-        totalWrong: 0,
-      }
-      agg.set(uid, a)
+    const existing = agg.get(uid)
+    if (existing) return existing
+    const created: Agg = {
+      lastActivityAt: 0,
+      mistakeCount: 0,
+      unresolvedMistakeCount: 0,
+      wordBankCount: 0,
+      statementTouchedCount: 0,
+      totalAttempts: 0,
+      totalWrong: 0,
     }
-    return a
+    agg.set(uid, created)
+    return created
   }
 
   for (const r of mistakes ?? []) {
@@ -231,6 +237,7 @@ export async function listStudents(): Promise<StudentSummary[]> {
       displayName: (p.display_name as string) ?? '(no name)',
       emoji: (p.emoji as string) ?? '👤',
       isTeacher: false,
+      isSelf: id === currentUserId,
       ...a,
     }
   })
@@ -296,6 +303,11 @@ export async function getStudentDetail(userId: string): Promise<StudentDetail | 
       displayName: (profile.display_name as string) ?? '(no name)',
       emoji: (profile.emoji as string) ?? '👤',
       isTeacher: false,
+      // The detail view does not need the isSelf flag — the surrounding
+      // dashboard already labels the row — so we hardcode false here.
+      // If the teacher opens their own detail page, the page itself
+      // still works; the label is just not repeated inside the detail.
+      isSelf: false,
     },
     wordBank: (words ?? []).map((r) => {
       const entry: StudentWordEntry = {
