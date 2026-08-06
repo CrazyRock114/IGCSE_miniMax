@@ -699,6 +699,225 @@ const S_8_5_CIRCULATION_AND_GAS: ClassroomStory[] = [
 ]
 
 // ---------------------------------------------------------------------------
+// 11-1 review + 14-1 nervous system + eye + visual — 8/6 lesson
+// ---------------------------------------------------------------------------
+
+const S_8_6_NERVOUS_AND_VISION: ClassroomStory[] = [
+  {
+    id: 'back-of-hand-electricity',
+    date: '2026-08-06',
+    lesson: '14-1',
+    hookName: '用手背去摸电门',
+    hookNameEn: 'Touch a live wire with the back of your hand',
+    oneLiner: {
+      en: 'If you grip a live wire, the reflex arc contracts your fingers tighter and you cannot let go. If you brush it with the back of your hand, the reflex contracts the extensors and snaps you away. A reflex arc is fast — too fast to override — so the safety rule is to use the back of the hand, not the palm.',
+      zh: '握住带电的电线时，反射弧会让手指越抓越紧，你根本松不开。但若用手背蹭到，反射会让伸肌收缩，手自动弹开。反射弧反应快到你来不及控制——所以安全原则是用手背摸，不是用掌心。',
+    },
+    transcriptRef: {
+      date: '2026-08-06',
+      approxLine: 348,
+      excerpt: '如果你手背触了电，你马上就收回来。但如果你是这样子去抓，那就是一把抓住以后你是不受控制的',
+    },
+    quality: 'A',
+    topicTags: ['reflex-arc', 'antagonistic-muscles', 'safety', 'real-world'],
+    relatedTermIds: ['reflex action', 'motor neurone', 'effector'],
+    whatItReplaces: {
+      en: 'The textbook "reflex is fast" line. With the live-wire example, the student sees that the same speed that protects you from a hotplate can also lock you onto a live wire — and that the choice of which side of the hand to use is a literal life-safety decision.',
+      zh: '教材"反射很快"那句笼统的总结。带电电线的例子让学生看到：保护你远离热盘的速度，也可能让你死死抓在电线上——用哪面手去摸，是真真切切的生死选择。',
+    },
+    source: {
+      en: 'Teacher anecdote, G8 classroom 8/6',
+      zh: '老师口述，G8 课堂 8/6',
+    },
+  },
+  {
+    id: 'invisible-gorilla',
+    date: '2026-08-06',
+    lesson: '14-1',
+    hookName: '看不见的大猩猩',
+    hookNameEn: 'The invisible gorilla',
+    oneLiner: {
+      en: 'In Simons & Chabris\' 1999 experiment, viewers count basketball passes between players in white shirts. About half miss a person in a gorilla suit walking through the middle of the game, thumping their chest. The "I would have seen it" instinct is wrong — attention is a spotlight, and what is outside the spotlight does not enter consciousness at all.',
+      zh: '1999 年 Simons 与 Chabris 的实验：让观众数白队球员之间的传球次数。大约一半的人完全没看见一个穿大猩猩戏服的人从赛场中央走过、拍打胸脯。"我肯定会看到"只是一种直觉——注意力是一束聚光灯，聚光灯之外的东西根本进不了意识。',
+    },
+    transcriptRef: {
+      date: '2026-08-06',
+      approxLine: 413,
+      excerpt: '这个视频当中里面有两支球队，他们白队一共传了几次球？... 你发现了什么... 你注意到黑队有一名队员离场了',
+    },
+    quality: 'A',
+    topicTags: ['selective-attention', 'change-blindness', 'visual-perception', 'classic-experiment'],
+    relatedTermIds: ['visual perception', 'cerebral cortex'],
+    whatItReplaces: {
+      en: '"The eye sees everything that is in front of it". The gorilla experiment shows that attention is a resource with a narrow spotlight — what falls outside it is invisible even when it is in plain view.',
+      zh: '"眼睛把面前所有东西都看到了"。大猩猩实验说明，注意力是带宽有限的聚光灯——落在光圈之外的东西，就算在视野正中央，也完全看不见。',
+    },
+    source: {
+      en: 'Simons, D. J., & Chabris, C. F. (1999). "Gorillas in our midst", Perception, played in class 8/6',
+      zh: 'Simons, D. J., & Chabris, C. F. (1999). "Gorillas in our midst", Perception, 课堂播放于 8/6',
+    },
+  },
+  {
+    id: 'missing-puzzle-piece-on-face',
+    date: '2026-08-06',
+    lesson: '14-1',
+    hookName: '拼图缺块就贴在脸上',
+    hookNameEn: 'The missing piece is on her face',
+    oneLiner: {
+      en: 'A puzzle shows a woman sitting in a chair. The student is told one piece is missing. They search for five minutes, then give up. The piece was on the woman\'s face — large, right in the centre, the size of a hand. The brain knows the shape of a face, so it skips the discrepancy and "completes" what should be there. This is change blindness at its most embarrassing.',
+      zh: '一张拼图：一位女士坐在椅子上。提示少了一块。学生找五分钟，放弃。那块就在女士脸上——又大、又在正中央、有一个巴掌那么大。但大脑"知道"脸长什么样，自动把缺失的部分"补"了出来。这就是变化盲最让人尴尬的样子。',
+    },
+    transcriptRef: {
+      date: '2026-08-06',
+      approxLine: 419,
+      excerpt: '请你在哪里... 我找了5分钟，我都没找到在哪里... 他那个眼霜正好是大块，但我始终，我从来都没有发现',
+    },
+    quality: 'A',
+    topicTags: ['change-blindness', 'visual-completion', 'selective-attention'],
+    relatedTermIds: ['visual perception', 'cerebral cortex'],
+    whatItReplaces: {
+      en: 'The abstract "the brain fills in missing information". The face-puzzle example makes the cost concrete: you can stare straight at a missing piece and never see it, because the brain\'s pattern-completion is faster than your conscious inspection.',
+      zh: '"大脑会把缺失的信息补全"——抽象描述。脸拼图的例子把这个代价讲清楚了：你可能直直盯着缺失的那块看，但根本看不见，因为大脑的"模式补全"比你自觉的检查快得多。',
+    },
+  },
+  {
+    id: 'corpus-callosotomy-epilepsy',
+    date: '2026-08-06',
+    lesson: '14-1',
+    hookName: '把左右脑切一刀人还活着',
+    hookNameEn: 'Cut the brain in half — the patient lives',
+    oneLiner: {
+      en: 'For severe epilepsy, surgeons in the mid-20th century severed the corpus callosum — the thick bundle of fibres that lets the two hemispheres talk. The seizures stopped, the patient walked out of hospital, and personality tests later showed that the two halves of the brain were now thinking independently. The operation revealed, by accident, that the brain is two cooperating organs, not one.',
+      zh: '上世纪中叶，对严重的癫痫，外科医生切断胼胝体——连接两个大脑半球的那束粗大纤维。癫痫停了，病人走出医院，事后人格测试发现：两个半球已经在独立思考。这个手术意外地揭示了一件事：大脑其实是两个互相配合的器官，不是一个。',
+    },
+    transcriptRef: {
+      date: '2026-08-06',
+      approxLine: 405,
+      excerpt: '大脑左右半球当中连接的那个通路给它切掉，就硬生生直接给它切掉... 这个人还是活的好好的',
+    },
+    quality: 'A',
+    topicTags: ['brain-hemispheres', 'corpus-callosum', 'epilepsy', 'neurosurgery', 'cortical-plasticity'],
+    relatedTermIds: ['cerebrum', 'cerebral hemisphere'],
+    whatItReplaces: {
+      en: '"The brain is one organ". The split-brain story replaces this with the more accurate "the brain is two cooperating organs that we now know are partly independent — and which half of the brain handles a task depends on the task".',
+      zh: '"大脑是一个器官"。裂脑实验把它换成更准确的"大脑是互相配合的两个器官，我们现在知道它们部分是独立的——具体哪一半负责什么，取决于任务"。',
+    },
+    source: {
+      en: 'Sperry, R. & Gazzaniga, M., split-brain studies 1960s',
+      zh: 'Sperry, R. 与 Gazzaniga, M. 1960 年代裂脑研究',
+    },
+  },
+  {
+    id: 'brainport-tongue-sees',
+    date: '2026-08-06',
+    lesson: '14-1',
+    hookName: '舌头能看见',
+    hookNameEn: 'A tongue can learn to "see"',
+    oneLiner: {
+      en: 'BrainPort, a device from the 2000s, puts a camera on a blind person\'s forehead and routes the image to a small electrode array on the tongue. The pixels arrive as tiny tingles; the blind person\'s brain learns to read the tingles as a low-resolution picture within days — and uses it to navigate around obstacles. The eye is not magic; the brain is plastic.',
+      zh: '2000 年代的 BrainPort 设备，把摄像头装在盲人额头，把图像转成舌面上一片小电极的微弱电刺激。盲人的大脑几天之内就学会把"舌尖上的麻点"读成一张低分辨率图像——并用它避开障碍。眼睛没有魔法；大脑是可塑的。',
+    },
+    transcriptRef: {
+      date: '2026-08-06',
+      approxLine: 285,
+      excerpt: '在在舌头下面。查一些电极... 对于那些盲人，在你头上装个摄像头... 能够感知到空间当中的障碍物',
+    },
+    quality: 'A',
+    topicTags: ['brain-computer-interface', 'cortical-plasticity', 'vision', 'neural-implant'],
+    relatedTermIds: ['cerebral cortex', 'neurone'],
+    whatItReplaces: {
+      en: '"Vision is in the eye". BrainPort replaces this with "vision is in the brain — the eye is one possible input, but any signal the brain can learn to interpret will do, including tingles on the tongue".',
+      zh: '"视觉是眼睛的事"。BrainPort 把它换成"视觉是大脑的事——眼睛只是众多可能的输入之一，任何大脑能学会解读的信号都可以，包括舌尖的麻点"。',
+    },
+    source: {
+      en: 'BrainPort vision prosthesis, Wicab Inc., 2000s; teacher recalled a visit to an Israeli research lab',
+      zh: 'BrainPort 视觉假体，Wicab 公司，2000 年代；老师回忆一次以色列研究机构访问',
+    },
+  },
+  {
+    id: 'shanghai-chopstick-shadow',
+    date: '2026-08-06',
+    lesson: '14-1',
+    hookName: '上海的筷子永远有影子',
+    hookNameEn: 'A chopstick in Shanghai always has a shadow',
+    oneLiner: {
+      en: 'The Earth\'s axis tilts at 23.5° (the "obliquity"). The Tropic of Cancer sits at 23.5° N — anywhere north of it, the sun never reaches the zenith. Stick a chopstick vertically into the ground in Shanghai (~31° N): it always has a shadow at noon. Only between the two tropics does a vertical pole briefly cast no shadow at all — twice a year, on the equinox-ish days.',
+      zh: '地球自转轴倾斜 23.5°（"黄赤交角"）。北回归线就在北纬 23.5°——比这更北的地方，太阳永远到不了天顶。在上海（约北纬 31°）立一根垂直的筷子，正午永远有影子。只有南北回归线之间的地带，垂直的杆子一年里才会有两三天完全没有影子。',
+    },
+    transcriptRef: {
+      date: '2026-08-06',
+      approxLine: 19,
+      excerpt: '我们上海是在北纬30~31度附近，它是超过北回归线... 你树一根垂直于地面的筷子，它是完全没有影子的',
+    },
+    quality: 'A',
+    topicTags: ['axial-tilt', 'seasons', 'sun', 'tropic-of-cancer', 'earth-geometry'],
+    relatedTermIds: ['sun', 'seasons'],
+    whatItReplaces: {
+      en: '"The Earth is tilted, that is why we have seasons" — usually taught as a fact without a daily-life consequence. The chopstick line turns it into something the student can actually check: tomorrow at noon, take a chopstick outside.',
+      zh: '"地球是斜的，所以才有四季"——平时只作为事实讲授，没有落到日常。筷子这一句把它变成学生真能验证的事：明早正午，拿根筷子出门。',
+    },
+    source: {
+      en: 'G8 classroom 8/6, axial tilt = 23.5°',
+      zh: 'G8 课堂 8/6，黄赤交角 = 23.5°',
+    },
+  },
+  {
+    id: 'right-bronchus-wider',
+    date: '2026-08-06',
+    lesson: '11-1',
+    hookName: '右边气管更粗更直',
+    hookNameEn: 'The right bronchus is wider and straighter',
+    oneLiner: {
+      en: 'An inhaled peanut almost always ends up in the right lung, not the left. Three reasons stack up: the right lung has three lobes vs the left\'s two, so the right bronchus gets more "slots"; the right main bronchus is wider; and it is more vertical — it is the path of least resistance for a falling object. Food "going down the wrong way" lands in the right lung about 7 times out of 10.',
+      zh: '误吸的花生几乎总落在右肺而不是左肺。三条原因叠在一起：右肺三叶左肺两叶，右支气管"分到的位置"更多；右主支气管更粗；而且更垂直——是下落物体的最小阻力路径。食物"呛到气管"约 10 次有 7 次落在右肺。',
+    },
+    transcriptRef: {
+      date: '2026-08-06',
+      approxLine: 233,
+      excerpt: '右边有3片，左边有两片... 这根管子呢，又粗又垂直... 它掉的话，是不是更容易掉到这个垂直的关节',
+    },
+    quality: 'A',
+    topicTags: ['airway-anatomy', 'aspiration', 'choking', 'right-vs-left'],
+    relatedTermIds: ['bronchus', 'lung'],
+    whatItReplaces: {
+      en: '"Foreign bodies go into the lungs" without further detail. With the right-vs-left detail, the student sees anatomy explaining a daily-life observation: why first-aid trainers tell you to slap the back, not press the chest, when a child has inhaled a peanut.',
+      zh: '"异物进入肺"——到此为止的描述。讲清左右差异后，学生能从一个日常观察反推解剖：为什么小孩呛到花生时急救培训师让你拍背，不让你压胸。',
+    },
+    source: {
+      en: 'G8 Science Chapter 8 (B8), Figure B8.01 + B8.06',
+      zh: 'G8 教材第 8 章（B8），图 B8.01 + B8.06',
+    },
+  },
+  {
+    id: 'o2-scalper-haemoglobin',
+    date: '2026-08-06',
+    lesson: '11-1',
+    hookName: 'O₂ 的黄牛',
+    hookNameEn: 'Oxygen\'s ticket scalper',
+    oneLiner: {
+      en: 'Carbon monoxide binds to haemoglobin about 200 times more tightly than oxygen does. A heavy smoker can have ~10% of their haemoglobin occupied by CO — that is the same effective oxygen-carrying loss as a mild anaemia, except the haemoglobin is still there, it is just blocked. Think of CO as a scalper who sits in 99% of the seats and lets almost no one else on.',
+      zh: '一氧化碳与血红蛋白的结合力大约是氧气的 200 倍。重度吸烟者可能有约 10% 的血红蛋白被 CO 占据——运氧能力的实际损失相当于轻度贫血，只不过血红蛋白还在那里，只是被占住了。把 CO 想象成黄牛：占了 99% 的座位，几乎不让人上去。',
+    },
+    transcriptRef: {
+      date: '2026-08-06',
+      approxLine: 261,
+      excerpt: '一氧化碳的对于红细胞的亲和力比氧要强200倍... 那群黄牛，抢票能力特别。抢99%的票都被他抢走了',
+    },
+    quality: 'B',
+    topicTags: ['haemoglobin', 'carbon-monoxide', 'smoking', 'analogy'],
+    relatedTermIds: ['haemoglobin', 'carbon monoxide'],
+    whatItReplaces: {
+      en: '"CO is bad because it binds haemoglobin". The scalper analogy turns the 200× number into something the student can picture: not "200 times more tightly" but "sits in 99 of 100 seats, blocks everyone else".',
+      zh: '"CO 不好是因为它会结合血红蛋白"。黄牛的比喻把"200 倍"这个数变成学生脑子里能浮现的画面——不是"亲和力强 200 倍"，而是"占了 100 个座位里的 99 个，把别的乘客挡在外面"。',
+    },
+    source: {
+      en: 'G8 Science Chapter 8 (B8), p.45 + teacher\'s "ticket scalper" framing 8/6',
+      zh: 'G8 教材第 8 章（B8）第 45 页 + 老师 8/6 课堂"黄牛抢票"说法',
+    },
+  },
+]
+
+// ---------------------------------------------------------------------------
 // Public export
 // ---------------------------------------------------------------------------
 
@@ -707,6 +926,7 @@ export const classroomStories: ClassroomStory[] = [
   ...S_8_3_NUTRITION,
   ...S_8_4_NUTRITION,
   ...S_8_5_CIRCULATION_AND_GAS,
+  ...S_8_6_NERVOUS_AND_VISION,
 ].sort((a, b) => a.date.localeCompare(b.date) || a.lesson.localeCompare(b.lesson))
 
 /** Filter helper. Empty / missing fields are not used. */

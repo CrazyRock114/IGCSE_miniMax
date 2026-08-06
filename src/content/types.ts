@@ -1084,6 +1084,14 @@ export interface ConceptExplainerExtra {
   title: Bilingual
   hint: Bilingual
   blocks: ConceptExplainerBlock[]
+  /**
+   * Optional hero figure — a real G8 PDF figure that anchors the whole
+   * explainer in one picture. Used by 11-1 mucociliary-escalator
+   * (G8 Figure B8.03 — goblet cell / cilia / mucus) so the student sees
+   * the three cell types before reading the mechanism.
+   */
+  heroImage?: string
+  heroImageSource?: Bilingual
 }
 
 /**

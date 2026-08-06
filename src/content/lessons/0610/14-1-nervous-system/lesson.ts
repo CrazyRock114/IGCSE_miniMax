@@ -120,6 +120,268 @@ const lesson: Lesson = {
       },
       syllabus: ['0610.14.2.5'],
     },
+    // ---- added 8/6 (G8 14-1 lesson, nervous system + visual perception) ----
+    {
+      en: 'neurone',
+      zh: '神经元',
+      definition: {
+        en: 'A nerve cell. It carries an electrical impulse along its length and passes it to the next cell across a synapse. The brain contains about 86 billion of them.',
+        zh: '一种神经细胞。它把电脉冲沿自身传递，并通过突触把信号交给下一个细胞。大脑约有 860 亿个神经元。',
+      },
+      syllabus: ['0610.14.1.1', '0610.14.1.2'],
+    },
+    {
+      en: 'central nervous system (CNS)',
+      zh: '中枢神经系统（CNS）',
+      definition: {
+        en: 'The brain and the spinal cord. The part of the nervous system where decisions are made and reflexes turn round.',
+        zh: '脑和脊髓。神经系统里做决定、也是反射弧折返的地方。',
+      },
+      syllabus: ['0610.14.1.1'],
+    },
+    {
+      en: 'peripheral nervous system (PNS)',
+      zh: '外周神经系统（PNS）',
+      definition: {
+        en: 'Every nerve outside the brain and spinal cord. Sensory nerves bring signals in, motor nerves carry commands out.',
+        zh: '脑和脊髓以外的所有神经。感觉神经把信号传入，运动神经把命令传出。',
+      },
+      syllabus: ['0610.14.1.1'],
+    },
+    {
+      en: 'spinal cord',
+      zh: '脊髓',
+      definition: {
+        en: 'The long bundle of nervous tissue running inside the vertebral column. Reflex arcs turn round here, which is why a hand can be off a hotplate before the brain knows the plate was hot.',
+        zh: '在椎管内纵向走行的一束神经组织。反射弧就在这里折返——这就是为什么手已经在离热盘时大脑还不知道热盘是热的。',
+      },
+      syllabus: ['0610.14.1.1', '0610.14.1.6'],
+    },
+    {
+      en: 'sensory neurone',
+      zh: '感觉神经元',
+      definition: {
+        en: 'A neurone that carries impulses from a receptor inwards, towards the central nervous system.',
+        zh: '把脉冲从感受器向内、传向中枢神经系统的神经元。',
+      },
+      syllabus: ['0610.14.1.2'],
+    },
+    {
+      en: 'relay neurone',
+      zh: '中间神经元',
+      definition: {
+        en: 'A short neurone that connects a sensory neurone to a motor neurone. Its cell body sits in the central nervous system — usually the spinal cord for a reflex.',
+        zh: '把感觉神经元和运动神经元连接起来的短神经元。胞体在中枢神经系统内——反射时通常在脊髓。',
+      },
+      syllabus: ['0610.14.1.2'],
+    },
+    {
+      en: 'motor neurone',
+      zh: '运动神经元',
+      definition: {
+        en: 'A neurone that carries impulses outwards, from the central nervous system to an effector (a muscle or a gland).',
+        zh: '把脉冲从中枢神经系统向外、传到效应器（肌肉或腺体）的神经元。',
+      },
+      syllabus: ['0610.14.1.2'],
+    },
+    {
+      en: 'receptor',
+      zh: '感受器',
+      definition: {
+        en: 'A cell (or part of a cell) that detects a specific stimulus — touch, heat, light, chemical — and turns it into an electrical impulse in a sensory neurone.',
+        zh: '探测特定刺激（触、热、光、化学物质）并把它变成感觉神经元电脉冲的细胞（或细胞的一部分）。',
+      },
+      syllabus: ['0610.14.1.4'],
+    },
+    {
+      en: 'effector',
+      zh: '效应器',
+      definition: {
+        en: 'A muscle or gland that responds to an impulse from a motor neurone — by contracting or by secreting.',
+        zh: '响应运动神经元脉冲的肌肉或腺体——以收缩或分泌作出反应。',
+      },
+      syllabus: ['0610.14.1.4'],
+    },
+    {
+      en: 'cornea',
+      zh: '角膜',
+      definition: {
+        en: 'The transparent front of the eye. It does most of the bending of light that focuses an image on the retina — about two-thirds of the total refractive power.',
+        zh: '眼前端的透明部分。完成把像聚焦到视网膜上所需的大部分屈光——约占总屈光力的三分之二。',
+      },
+      syllabus: ['0610.14.2.1'],
+    },
+    {
+      en: 'iris',
+      zh: '虹膜',
+      definition: {
+        en: 'The coloured ring of muscle that controls how much light enters the eye, by changing the size of the pupil.',
+        zh: '控制进光量的有色肌肉环，通过改变瞳孔大小来工作。',
+      },
+      syllabus: ['0610.14.2.3'],
+    },
+    {
+      en: 'pupil',
+      zh: '瞳孔',
+      definition: {
+        en: 'The hole in the middle of the iris. It is not a structure — its size is set by the iris muscles. Diameter runs from about 2 mm in bright light to about 8 mm in the dark.',
+        zh: '虹膜中央的孔。它本身不是结构——大小由虹膜肌肉决定。直径从强光下的约 2 mm 到黑暗中的约 8 mm。',
+      },
+      syllabus: ['0610.14.2.3'],
+    },
+    {
+      en: 'lens',
+      zh: '晶状体',
+      definition: {
+        en: 'A flexible, transparent disc behind the iris. Ciliary muscles change its shape to focus on objects at different distances.',
+        zh: '虹膜后方柔韧透明的盘状结构。睫状肌改变其形状以看清不同距离的物体。',
+      },
+      syllabus: ['0610.14.2.6'],
+    },
+    {
+      en: 'ciliary muscle',
+      zh: '睫状肌',
+      definition: {
+        en: 'A ring of muscle that changes the shape of the lens. When it contracts, the ring gets smaller, the suspensory ligaments slacken, and the lens fattens under its own elasticity.',
+        zh: '改变晶状体形状的环形肌肉。收缩时环变小，悬韧带松弛，晶状体在自身弹性下变厚。',
+      },
+      syllabus: ['0610.14.2.6'],
+    },
+    {
+      en: 'vitreous humour',
+      zh: '玻璃体',
+      definition: {
+        en: 'The clear jelly that fills the main chamber of the eye and holds the retina against the back wall. Light passes through it on its way to the retina.',
+        zh: '填充主眼室的透明胶状物，把视网膜压向眼球后壁。光穿过它到达视网膜。',
+      },
+      syllabus: ['0610.14.2.8'],
+    },
+    {
+      en: 'retina',
+      zh: '视网膜',
+      definition: {
+        en: 'The light-sensitive layer at the back of the eye. It contains the photoreceptor cells — rods (for dim light) and cones (for colour and detail).',
+        zh: '眼球后壁的感光层。包含感光细胞——视杆细胞（暗光下工作）与视锥细胞（色觉与细节）。',
+      },
+      syllabus: ['0610.14.2.8'],
+    },
+    {
+      en: 'optic nerve',
+      zh: '视神经',
+      definition: {
+        en: 'The bundle of about a million nerve fibres that carries impulses from the retina to the visual cortex at the back of the brain.',
+        zh: '由约一百万根神经纤维组成的束，把脉冲从视网膜送到大脑后部的视觉皮层。',
+      },
+      syllabus: ['0610.14.2.10'],
+    },
+    {
+      en: 'blind spot',
+      zh: '盲点',
+      definition: {
+        en: 'The small region of the retina where the optic nerve fibres exit the eyeball. There are no photoreceptors there — any light that lands on it produces no signal. The other eye normally covers for it.',
+        zh: '视神经纤维离开眼球的那个小区域。这里没有感光细胞——光落上去不产生信号。另一只眼通常会代偿。',
+      },
+      syllabus: ['0610.14.2.10'],
+    },
+    {
+      en: 'rod cell',
+      zh: '视杆细胞',
+      definition: {
+        en: 'A photoreceptor cell that works in dim light but cannot distinguish colour. Densely packed around the edges of the retina, almost absent from the fovea.',
+        zh: '在弱光下工作、但不能分辨颜色的感光细胞。在视网膜边缘密集分布，中央凹几乎不存在。',
+      },
+      syllabus: ['0610.14.2.9'],
+    },
+    {
+      en: 'cone cell',
+      zh: '视锥细胞',
+      definition: {
+        en: 'A photoreceptor cell that needs bright light and distinguishes colour. There are three types, sensitive to red, green or blue. Packed densely in the fovea.',
+        zh: '需要强光、能分辨颜色的感光细胞。分三种，分别对红、绿、蓝敏感。密集分布在中央凹。',
+      },
+      syllabus: ['0610.14.2.9'],
+    },
+    {
+      en: 'colour blindness',
+      zh: '色盲',
+      definition: {
+        en: 'A condition in which one or more types of cone cell are missing or non-functional. The most common form is red–green colour blindness, caused by a defect on the X chromosome — about 8% of boys, 0.5% of girls.',
+        zh: '一种或多种视锥细胞缺失或失能的状况。最常见的是红绿色盲，由 X 染色体上的缺陷导致——约 8% 的男孩、0.5% 的女孩。',
+      },
+      syllabus: ['0610.14.2.9'],
+    },
+    {
+      en: 'adrenaline',
+      zh: '肾上腺素',
+      definition: {
+        en: 'A hormone released by the adrenal glands in "fight-or-flight" moments. It widens the pupils, raises the heart rate, diverts blood to the muscles, and releases glucose from the liver.',
+        zh: '"战或逃"时刻由肾上腺释放的激素。它使瞳孔放大、心率上升、血液转向肌肉、并从肝脏释放葡萄糖。',
+      },
+      syllabus: ['0610.14.1.10', '0610.14.2.5'],
+    },
+    {
+      en: 'prefrontal cortex',
+      zh: '前额叶皮层',
+      definition: {
+        en: 'The part of the frontal lobe at the very front of the brain. Seat of planning, decision-making, voluntary movement and personality — the part most clearly "you".',
+        zh: '大脑额叶的最前部。负责计划、决策、随意运动与人格——最像"你"的那部分。',
+      },
+      syllabus: ['0610.14.1.10'],
+    },
+    {
+      en: 'corpus callosum',
+      zh: '胼胝体',
+      definition: {
+        en: 'The thick bundle of nerve fibres connecting the two cerebral hemispheres. Cutting it — historically done to treat severe epilepsy — reveals that the two halves can operate surprisingly independently.',
+        zh: '连接两个大脑半球的粗大神经纤维束。切断它——历史上曾用于治疗严重癫痫——揭示出两个半球能够惊人地独立工作。',
+      },
+      syllabus: ['0610.14.1.10'],
+    },
+    {
+      en: 'epilepsy',
+      zh: '癫痫',
+      definition: {
+        en: 'A condition in which groups of brain neurons fire out of control, producing seizures. The cause is electrical misfiring, not a personality or mood problem.',
+        zh: '一组大脑神经元失控放电、引发癫痫发作的疾病。原因是电信号失灵，不是人格或情绪问题。',
+      },
+      syllabus: ['0610.14.1.10'],
+    },
+    {
+      en: 'selective attention',
+      zh: '选择注意',
+      definition: {
+        en: 'The brain\'s ability to focus on one thing while ignoring others. The "invisible gorilla" experiment shows that what is outside the focus can pass straight through conscious vision unnoticed.',
+        zh: '大脑集中注意一件事、忽略其他事物的能力。"看不见的大猩猩"实验说明：焦点之外的东西可以完全穿过意识视野而不被察觉。',
+      },
+      syllabus: ['0610.14.2.10'],
+    },
+    {
+      en: 'change blindness',
+      zh: '变化盲',
+      definition: {
+        en: 'The failure to notice a large change that happens in plain view, because attention is elsewhere. The classic example: the missing puzzle piece sitting on a face — five minutes of staring, and still missed.',
+        zh: '视野正中央出现明显变化却没注意到的现象——因为注意力在别处。经典例子：缺失的拼图块就摆在脸上——盯五分钟还是看不见。',
+      },
+      syllabus: ['0610.14.2.10'],
+    },
+    {
+      en: 'visual completion',
+      zh: '视觉补全',
+      definition: {
+        en: 'The brain\'s habit of filling in missing information with the most likely pattern. It is what hides the blind spot — and what makes change blindness so embarrassing when it kicks in at the wrong moment.',
+        zh: '大脑用最可能的模式把缺失信息补全的习惯。它是隐藏盲点的原因——也是变化盲在错误时刻发生时让人如此尴尬的原因。',
+      },
+      syllabus: ['0610.14.2.10'],
+    },
+    {
+      en: 'brain–computer interface (BCI)',
+      zh: '脑机接口（BCI）',
+      definition: {
+        en: 'A device that lets the brain talk directly to an external machine — or vice versa — by reading or writing electrical signals. BrainPort, which routes camera images to the tongue, is one early example.',
+        zh: '让大脑与外部机器直接交流（或反过来）的设备——通过读取或写入电信号。BrainPort 把摄像头图像传到舌头上，是早期例子之一。',
+      },
+      syllabus: ['0610.14.1.10'],
+    },
   ],
 
   equations: [
@@ -865,6 +1127,96 @@ const lesson: Lesson = {
         principle: {
           en: 'Prolonged staring tires out the photoreceptors of one colour (e.g. the red cones for a red image). When the image turns grey, all three cone types are stimulated equally by the white background — but the tired red cones fire less. Your brain subtracts: red − muted red = cyan. The illusion is the visual system reporting the difference, not the absolute signal. Same mechanism as the Hermann grid, just at a different stage of the visual pipeline.',
           zh: '长时间盯着看会让某一种颜色的感光细胞疲劳（红方块就让红锥体疲劳）。图像变灰时，白背景均匀地刺激三种锥体，但疲劳的那一组反应弱。大脑做减法：红−减弱的红=青。和赫尔曼栅格错觉是同一类机制，只是发生在视觉通路的另一个环节。',
+        },
+      },
+      // 4. Invisible gorilla — selective attention, played in the 8/6
+      //    G8 class. The student is asked to count the white team's
+      //    passes; a dark "gorilla" walks across the scene while they
+      //    count. Most people miss the gorilla — the mechanism is the
+      //    same as the Hermann grid, but applied to attention rather
+      //    than to local contrast.
+      {
+        id: 'invisible-gorilla',
+        title: { en: 'Experiment 4: Beat the invisible gorilla', zh: '实验 4：抓住那只"看不见"的大猩猩' },
+        instructions: {
+          en: 'Click "Start — count the white team". Two teams of circles will appear, plus a dark shape that walks across the scene. Count only the white circles. After the scene, you will be asked how many passes the white team made. Then the gorilla will be revealed — and the question is whether you saw it the first time.',
+          zh: '点"开始——数白队"。屏幕会出现两队圆，外加一个深色形状会走过场景。只数白色圆。场景结束后，题目会问你白队传了几次球。然后大猩猩会被揭示——问题是你第一次有没有看见它。',
+        },
+        principle: {
+          en: 'The Simons & Chabris "invisible gorilla" experiment, 1999. About half of viewers, when asked to count the white team\'s passes, completely miss a person in a gorilla suit walking through the middle of the scene, thumping their chest. Attention is a resource with a narrow bandwidth: what falls outside the current task does not enter conscious perception — even when it is in plain view. This is the same machinery as change blindness, but applied to a single event rather than a difference over time.',
+          zh: '1999 年 Simons 与 Chabris 的"看不见的大猩猩"实验。约一半观众在数白队传球时，完全没注意到一个穿大猩猩戏服的人走过场景中央、拍打胸脯。注意力是带宽有限的资源——落在当前任务之外的东西进不了意识，即使它就在视野正中央。这和变化盲是同一套机制，但用在"单个事件"而不是"时间上的差异"上。',
+        },
+      },
+    ],
+  },
+
+  // The brain is plastic — the same "100 billion neurons" can route
+  // themselves around missing or damaged input. The textbook mentions
+  // this only in passing; the classroom story of hemispherectomy and
+  // the blind person's enhanced hearing makes it concrete.
+  {
+    type: 'concept-explainer',
+    id: 'brain-compensation',
+    title: { en: 'How the brain rewires itself', zh: '大脑是怎么"重新接线"的' },
+    hint: {
+      en: 'Take away one input to the brain and the brain does not sit idle — it reassigns the freed-up neurons to other jobs. That is why a blind person\'s hearing gets sharper, and that is why someone can live a normal life with half a brain removed.',
+      zh: '拿掉大脑的某一路输入，它不会闲着——会把空出来的神经元重新分配到别的工作上。这就是为什么盲人的听觉会变灵敏，也是一个人切掉半个大脑还能正常生活的原因。',
+    },
+    blocks: [
+      {
+        id: 'plasticity',
+        title: { en: 'Free workers find new jobs', zh: '"失业"的神经元会自己找新活儿干' },
+        hook: {
+          en: 'A child is born with severe epilepsy. By age seven, surgeons remove the entire left half of their brain. The child recovers. They go to school, learn to read, play sports, finish college. The right hemisphere — normally language, but here everything — takes over the missing half\'s work. This is not miraculous. It is what the brain does when given years and a reason.',
+          zh: '一个孩子出生就有严重癫痫。七岁时外科医生切掉了整个左半球。孩子活了下来，读书、运动、上大学。右半球——正常情况只管语言，但这里接管了全部——把左半球的工作全揽了过来。这不是奇迹，是大脑被给足了时间和理由之后会做的事。',
+        },
+        mechanism: {
+          en: 'The brain has roughly 100 billion neurones, and the figure that matters is not the total but the surplus. At any one time, many of those neurones are not doing much — they are available to be recruited. Block a sensory input (blindness, deafness) or remove tissue (hemispherectomy, hemispheric stroke) and the freed-up neurones start responding to other inputs. A blind person\'s visual cortex, for instance, gets pulled into auditory and tactile processing — which is why their hearing and Braille-reading speed can exceed a sighted person\'s.',
+          zh: '大脑约有 1000 亿个神经元，关键数字不是总数，而是富余量。任何时刻，其中很多神经元都没有"满负荷"——可以被征用。一旦某个感觉输入被阻断（失明、失聪）或某块组织被切除（半球切除术、半球性中风），被释放出来的神经元就会开始响应别的输入。比如盲人的视觉皮层，会被拉去处理听觉和触觉——这就是为什么他们的听觉和盲文阅读速度能超过视力正常的人。',
+        },
+        whyItMatters: {
+          en: 'Brain plasticity is the single biggest reason stroke patients can recover function. The adult brain is less plastic than a child\'s, but the principle is the same: uninjured tissue near the damage can be coaxed into taking over the lost role. Rehabilitation is, in effect, a course of "re-wiring" — the therapist is teaching undamaged neurones a new job. The window is wider in children, narrower in adults, but it does not close completely.',
+          zh: '脑的可塑性是脑卒中患者能恢复功能的最主要原因。成人大脑的可塑性比孩子差，但原理相同：受损区域附近未受伤的组织能被"哄"去接管失去的功能。康复治疗本质上就是"重新接线"的训练——治疗师在教未受损的神经元一个新工作。这个窗口在儿童期更宽，在成年期更窄，但不会完全关上。',
+        },
+        teacherStory: {
+          en: 'Tell a blind person\'s "echolocation" anecdote in class: a few blind people have learned to make mouth clicks and listen to the echoes, navigating by reflected sound. The clicks are not magic — the underlying hearing apparatus is unchanged. What changed is the wiring. With years of practice, the blind person\'s auditory cortex started doing a job that in a sighted person belongs to the visual cortex. Same neurons, different job description.',
+          zh: '在课堂上讲一个盲人"回声定位"的真实故事：少数盲人学会了嘴里发出咔哒声、听回声、用反射声来导航。咔哒声本身并不神奇——耳朵结构没变。变的是接线。经过多年练习，盲人的听觉皮层开始做一件在视力正常的人那里属于视觉皮层的工作。同样的神经元，不同的工作内容。',
+        },
+      },
+    ],
+  },
+
+  // The classroom played the "invisible gorilla" video and the
+  // "missing piece on the face" puzzle. Both reveal the same lesson:
+  // seeing is not the same as paying attention, and the brain fills
+  // in what it expects to see — even when "expected" is wrong.
+  {
+    type: 'concept-explainer',
+    id: 'change-blindness',
+    title: { en: 'Why your eyes miss what is in plain sight', zh: '为什么眼睛会"看不见"明明摆着的东西' },
+    hint: {
+      en: 'Two classic experiments — Simons & Chabris\' "invisible gorilla" and the face puzzle with the missing piece in the middle. Both show that attention, not vision, decides what reaches consciousness. "Seeing" is partly construction.',
+      zh: '两个经典实验——Simons 与 Chabris 的"看不见的大猩猩"以及人脸拼图中间缺失一块。两个实验都说明：决定什么进入意识的不是视觉，而是注意力。"看见"有一部分是构建出来的。',
+    },
+    blocks: [
+      {
+        id: 'selective-attention',
+        title: { en: 'Attention is a narrow spotlight — not a wide-angle lens', zh: '注意力是窄聚光灯，不是广角镜头' },
+        hook: {
+          en: 'In Simons & Chabris\' 1999 experiment, viewers watch a short video of two teams passing basketballs. Half are asked to count the white team\'s passes. The other half count the black team\'s. Halfway through, a person in a gorilla suit walks into the middle of the game, faces the camera, thumps their chest, and walks off. About half the viewers in each group miss the gorilla. Not because their eyes failed. Because their attention was elsewhere.',
+          zh: '在 Simons 与 Chabris 1999 年的实验里，观众看一段两队传球的短视频。一半人要求数白队的传球次数，另一半数黑队。视频中途，一个穿大猩猩戏服的人走进赛场中央，面对镜头，拍了一下胸脯，然后走开。每一组中大约一半的观众没看见大猩猩——不是因为眼睛失灵，而是因为注意力在别处。',
+        },
+        mechanism: {
+          en: 'Attention is a resource with a narrow bandwidth. The visual system throws away most of what the retina sees — the brain cannot afford to process every pixel every moment. What gets through the bottleneck is whatever the current "task set" cares about: counting white shirts, looking for a word, listening for a specific sound. Everything else, even if it is in plain view, is filtered out before it reaches conscious perception. This is not a flaw — it is what lets you read a book in a noisy café. The cost is that you do not see things that you were not looking for, even when they are obvious.',
+          zh: '注意力是一种带宽有限的资源。视觉系统会丢掉视网膜接收的大部分信息——大脑负担不起逐像素逐刻地处理一切。能在瓶颈中通过的是当前"任务集"关心的内容：数白球衣、找某个词、听某个声音。其他所有东西，即便在视野正中央，也会在进入意识前被过滤掉。这不是缺陷——这正是你在嘈杂咖啡馆里还能读书的原因。代价是你看不到你没在找的东西，哪怕它很显眼。',
+        },
+        whyItMatters: {
+          en: 'Change blindness is the same machinery, applied to differences over time rather than to differences in space. A change that happens while you blink, while you turn your head, while a film cuts between shots — even a large one, even one you are looking right at — can be invisible. The practical consequence: eyewitness testimony after a 30-second event is far less reliable than people think. The brain remembers the gist, fills in plausible detail, and is not aware of doing so.',
+          zh: '变化盲是同一套机制，只是用在"时间上的差异"而非"空间上的差异"。一次眨眼间、一次转头间、一次镜头切换间发生的变化——哪怕很大、哪怕你正盯着看——也看不见。实际后果是：30 秒事件后的目击证词远没有人们以为的那么可靠。大脑记住大意，填进合理的细节，而且自己不觉得这有什么问题。',
+        },
+        teacherStory: {
+          en: 'The face-puzzle demonstration: show a photograph of a person sitting in a chair. Tell the class one piece of the picture is missing. Ask them to find it. Most people scan for five minutes and never find it — because the missing piece is on the person\'s face, large and central, the size of a hand. Their visual system knows what faces look like, fills in the gap with the expected pattern, and does not flag the absence. The student\'s reaction is always the same: "But I was looking right at it." That sentence is the lesson.',
+          zh: '人脸拼图演示：展示一张人坐在椅子上的照片，告诉全班"图中少了一块"，请他们找出来。大多数人扫五分钟找不到——因为缺失的那块就摆在人脸上，又大、又在正中央、有巴掌大。他们的视觉系统知道脸长什么样，用预期模式把缺口填上了，根本没标出"这里有缺失"。学生的反应总是一样的："但我明明在看那儿啊。"这句话本身就是这一课。',
         },
       },
     ],

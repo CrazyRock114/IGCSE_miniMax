@@ -98,6 +98,25 @@ const lesson: Lesson = {
       },
       syllabus: ['0610.3.2.8'],
     },
+    // ---- added 8/6 (G8 11-1 review: "diffusion vs osmosis" recap) ----
+    {
+      en: 'diffusion',
+      zh: '扩散',
+      definition: {
+        en: 'The net movement of particles from a region of higher concentration to a region of lower concentration, down a concentration gradient. Passive — no energy from the cell is required. The gases O₂ and CO₂ cross the alveolar wall this way.',
+        zh: '粒子从浓度较高的区域向浓度较低的区域、顺浓度梯度的净移动。被动过程——细胞不需提供能量。O₂ 与 CO₂ 就是这样穿过肺泡壁的。',
+      },
+      syllabus: ['0610.3.2.1'],
+    },
+    {
+      en: 'concentration gradient',
+      zh: '浓度梯度',
+      definition: {
+        en: 'A difference in concentration between two adjacent regions. Diffusion goes down the gradient — high to low — until the concentrations equalise and the gradient disappears.',
+        zh: '两个相邻区域之间的浓度差。扩散顺梯度进行——从高到低——直到两侧浓度相等、梯度消失。',
+      },
+      syllabus: ['0610.3.2.1'],
+    },
   ],
 
   equations: [
@@ -322,6 +341,46 @@ const lesson: Lesson = {
         zh: '细胞壁就是全部差别所在。从渗透的角度看两种细胞的行为相同；只不过其中一种能挺过来。',
       },
     },
+  ],
+
+  // The 8/6 G8 11-1 review opened with a long aside on "diffusion vs
+  // osmosis". The chapter's glossary already covers both, but the
+  // mechanism that ties them together — particles moving down a
+  // gradient, with the membrane deciding which particles may cross —
+  // is the part students forget. This explainer states it once, with
+  // the everyday example (soaking in the bath) used in class.
+  extras: [
+    {
+    type: 'concept-explainer',
+    id: 'diffusion-vs-osmosis',
+    title: { en: 'Diffusion and osmosis: same logic, different particles', zh: '扩散与渗透：同一逻辑，不同的粒子' },
+    hint: {
+      en: 'Both processes are particles moving down a concentration gradient, with no energy spent. The only difference is which particles can cross the membrane: in diffusion, the solute moves; in osmosis, only the water does.',
+        zh: '两个过程都是粒子顺浓度梯度运动、不消耗能量。区别只在于膜允许哪种粒子通过：扩散是溶质在过膜；渗透是只有水在过膜。',
+    },
+    blocks: [
+      {
+        id: 'same-logic',
+        title: { en: 'Same logic, different particles', zh: '同一逻辑，不同的粒子' },
+        hook: {
+          en: 'Soak in a bath for half an hour. Your fingertips wrinkle — not because they lose skin, but because the outer skin layer is a partial barrier. Water inside the bath (low in salts) is more dilute than the water inside you (rich in salts and proteins). The membrane cannot pass the salts out, so water moves IN. The fingertips swell, the skin has nowhere to go, and the result is the prune.',
+          zh: '在浴缸里泡半小时，你的手指尖会起皱——不是因为丢了皮肤，而是因为最外层皮肤是一道半透膜。浴缸里的水（盐分少）比你身体内部的水（盐分、蛋白质都多）"稀"。膜过不去盐，所以水反而往里走。指尖胀大，皮肤没地方去，结果就是起皱。',
+        },
+        mechanism: {
+          en: 'Both diffusion and osmosis are passive: no ATP, no active transport, particles move down their own concentration gradient. Diffusion = the solute particles themselves (oxygen, carbon dioxide, glucose) move from where they are more concentrated to where they are less. Osmosis = the SOLVENT (water) moves, because the solute cannot. The membrane is the line. If the solute can pass, you get diffusion; if it cannot, the water moves instead, and the result is called osmosis. Either way, the system ends up closer to equilibrium — that is the whole point.',
+          zh: '扩散和渗透都是被动的：不耗 ATP、不靠主动运输、粒子顺自身的浓度梯度走。扩散 = 溶质粒子（氧、二氧化碳、葡萄糖）从浓度高的地方向浓度低的地方移动。渗透 = 溶剂（水）在移动，因为溶质过不去膜。膜就是分界线。溶质过得去，是扩散；溶质过不去，水就去代替它移动，结果叫渗透。无论哪种，系统都会更接近平衡——这就是全部逻辑。',
+        },
+        whyItMatters: {
+          en: 'In the lung, both processes run at the same time and at the same wall. O₂ and CO₂ cross by diffusion (their molecules are small enough). Water moves by osmosis. The body needs both. In the kidney, the same membrane that lets glucose through by diffusion later stops it, and water alone crosses by osmosis — that is how the kidney concentrates urine. The same two ideas, used in different proportions, do most of the work of keeping a body alive.',
+          zh: '在肺里，两个过程同时、同一面壁地发生。O₂ 和 CO₂ 通过扩散穿过（分子小到过得去）。水通过渗透穿过。身体两个都需要。在肾脏里，先用扩散把葡萄糖放过去，再把葡萄糖挡在膜外，让水单独通过渗透——这就是肾脏浓缩尿液的机制。同样的两个想法，按不同比例使用，承担了让人活着的绝大部分工作。',
+        },
+        teacherStory: {
+          en: 'A common wrong answer: "osmosis is when water moves toward a higher concentration of water." It sounds intuitive but it is the opposite of what happens. Water moves TOWARD the side that has more SOLUTE in it — because the side with more solute has less free water. Saying it that way keeps the gradient the right way round and stops the intuition from flipping.',
+          zh: '一个常见错答："渗透是水向水浓度更高的一侧移动。"听起来很直觉，但恰恰相反。水是向溶质更多的一侧移动——因为溶质多的那一侧"自由水"少。这样说，梯度的方向就对了，直觉就不会翻车。',
+        },
+      },
+    ],
+  },
   ],
 }
 

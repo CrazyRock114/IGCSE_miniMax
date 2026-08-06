@@ -205,6 +205,70 @@ const lesson: Lesson = {
       },
       syllabus: ['0610.11.1.4'],
     },
+    // ---- added 8/6 (G8 11-1 review, gas exchange + respiration) ----
+    {
+      en: 'cartilage',
+      zh: '软骨',
+      definition: {
+        en: 'A tough, flexible connective tissue. C-shaped rings of cartilage hold the trachea open against the pressure changes of breathing; without them the trachea would collapse on inhalation.',
+        zh: '一种坚韧而柔韧的结缔组织。气管里 C 形软骨环让它在呼吸压力变化下保持张开——没有它，气管在吸气时就会塌陷。',
+      },
+      syllabus: ['0610.11.1.2'],
+    },
+    {
+      en: 'smooth muscle',
+      zh: '平滑肌',
+      definition: {
+        en: 'Involuntary muscle lining the walls of hollow structures — blood vessels, gut, and the smaller airways (bronchioles). In the bronchioles it can contract suddenly, narrowing the airway and causing an asthma attack.',
+        zh: '衬在中空器官（血管、消化道、细支气管等）壁上的不随意肌。在细支气管里它会突然收缩，让气道变窄、引发哮喘发作。',
+      },
+      syllabus: ['0610.11.1.4'],
+    },
+    {
+      en: 'adenosine triphosphate (ATP)',
+      zh: '三磷酸腺苷（ATP）',
+      definition: {
+        en: 'The molecule cells use to power almost everything they do. Made by adding a phosphate group to ADP; broken back down to ADP when the energy is used. Aerobic respiration makes about 32 ATP per glucose; anaerobic makes about 2.',
+        zh: '细胞用来给几乎所有活动供能的分子。由 ADP 加上一个磷酸基团合成；能量被使用时又分解回 ADP。有氧呼吸每分子葡萄糖约产生 32 个 ATP；无氧呼吸只产生约 2 个。',
+      },
+      syllabus: ['0610.12.1.2'],
+    },
+    {
+      en: 'adenosine diphosphate (ADP)',
+      zh: '二磷酸腺苷（ADP）',
+      definition: {
+        en: 'What ATP becomes when its energy has been spent. Adding a phosphate group back onto ADP — using energy from respiration — turns it into ATP again.',
+        zh: 'ATP 释放能量后变成的分子。在 ADP 上重新加上一个磷酸基团——用呼吸释放的能量——就又变回 ATP。',
+      },
+      syllabus: ['0610.12.1.2'],
+    },
+    {
+      en: 'lactic acid',
+      zh: '乳酸',
+      definition: {
+        en: 'The product of anaerobic respiration in muscle. Builds up during a hard sprint and is what causes the burning feeling. Later, with oxygen available, the liver converts it back to glucose or to CO₂ and water.',
+        zh: '肌肉无氧呼吸的产物。在全力冲刺时堆积，是那种"烧灼感"的来源。稍后，在有氧的情况下，肝脏把它重新转化为葡萄糖，或彻底分解为二氧化碳和水。',
+      },
+      syllabus: ['0610.12.3.1'],
+    },
+    {
+      en: 'oxygen debt',
+      zh: '氧债',
+      definition: {
+        en: 'The extra oxygen the body must take in after exercise, to clear the lactic acid that anaerobic respiration built up during it.',
+        zh: '运动后身体必须额外吸入的氧，用来清除无氧呼吸在运动中堆积的乳酸。',
+      },
+      syllabus: ['0610.12.3.6'],
+    },
+    {
+      en: 'hypercapnia',
+      zh: '高碳酸血症',
+      definition: {
+        en: 'An abnormally high level of carbon dioxide in the blood. Normally a non-issue because CO₂ is extremely soluble in plasma and is exhaled quickly, but if ventilation is impaired (drowning, severe asthma, opioid overdose) it can build up to dangerous levels.',
+        zh: '血液中二氧化碳含量异常升高的情况。正常情况下不是问题——CO₂ 在血浆中溶解度极高、被快速呼出——但如果通气受损（溺水、严重哮喘、阿片类过量）就会积到危险水平。',
+      },
+      syllabus: ['0610.12.1.1'],
+    },
   ],
 
   equations: [
@@ -1079,6 +1143,11 @@ const lesson: Lesson = {
       hint: {
         en: 'Your lungs take in roughly 10,000 litres of dirty air every day. Without a built-in cleaning system, they would be full of dust within hours. There is one — a thin conveyor belt of sticky mucus, kept moving by millions of tiny beating hairs.',
         zh: '你的肺每天大约要"吸进"一万升脏空气。如果没有一套内置清洁系统，肺几个小时就会被灰尘填满。系统其实有——一层薄薄的黏液传送带，由数百万根微小纤毛不停地摆动来推动。',
+      },
+      heroImage: '/figures/g8/11-1-gas-exchange/figure-b8-03.png',
+      heroImageSource: {
+        en: 'G8 Science · Chapter 8, Figure B8.03 — goblet cell releasing mucus, with cilia on adjacent cells beating in a synchronised wave',
+        zh: 'G8 教材·第 8 章图 B8.03——杯状细胞正在释放黏液，邻近细胞上的纤毛同步摆动形成波浪',
       },
       blocks: [
         {

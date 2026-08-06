@@ -601,4 +601,13 @@ export const CONCEPT_EXPLAINER = {
   sectionMechanism: { en: 'The science', zh: '科学原理' } satisfies Bilingual,
   sectionWhy: { en: 'Why it matters', zh: '为什么重要' } satisfies Bilingual,
   sectionStory: { en: 'Classroom story', zh: '课堂故事' } satisfies Bilingual,
+  /**
+   * Alt text for an optional hero figure (see `ConceptExplainerExtra.heroImage`).
+   * Kept here so the i18n is in one place — figure alt text is short and
+   * describes what the student is looking at, not what they should learn.
+   */
+  heroAlt: {
+    en: 'A textbook figure that anchors the explainer',
+    zh: '作为本解释器主图示的教科书插图',
+  } satisfies Bilingual,
 } as const

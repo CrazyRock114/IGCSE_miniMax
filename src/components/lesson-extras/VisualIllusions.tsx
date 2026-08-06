@@ -284,6 +284,8 @@ function ExperimentDemo({ id }: { id: string }) {
       return <MullerLyerMatchExperiment />
     case 'afterimage-demo':
       return <AfterimageExperiment />
+    case 'invisible-gorilla':
+      return <InvisibleGorillaExperiment />
     default:
       return <span className="text-xs text-muted">No demo</span>
   }
@@ -503,5 +505,198 @@ function LookPhase({ onReset }: { onReset: () => void }) {
         </button>
       </p>
     </>
+  )
+}
+
+// ============================================================================
+// Experiment 4: The invisible gorilla — selective attention.
+// A simplified version of Simons & Chabris' 1999 experiment, played in
+// the 8/6 G8 class. The student is asked to count the white team's
+// passes; a dark "gorilla" walks across the scene while they count.
+// In the original video, about half the viewers miss the gorilla
+// entirely. This in-app version compresses the timing and uses simple
+// shapes, but the mechanism is the same: attention is a spotlight,
+// and what is outside it does not enter conscious perception.
+// ============================================================================
+
+function InvisibleGorillaExperiment() {
+  // Four phases: ready (button) → watching (gorilla walks) → question
+  // (white-team pass count) → reveal (gorilla path highlighted).
+  const [phase, setPhase] = useState<'ready' | 'watching' | 'question' | 'reveal'>('ready')
+  // gorillaX is the gorilla's horizontal position in viewBox units.
+  // Starts off-screen at -20; reaches 320 (also off-screen right) when
+  // the walk is done.
+  const [gorillaX, setGorillaX] = useState(-20)
+  const [selected, setSelected] = useState<number | null>(null)
+  // The "correct" pass count. Six — the user can verify by counting
+  // the white circles in the scene.
+  const CORRECT_PASSES = 6
+
+  const startWatching = () => {
+    setSelected(null)
+    setGorillaX(-20)
+    setPhase('watching')
+  }
+
+  // Drive the watching-phase animation. We do not call setState
+  // synchronously in the effect body — instead setTimeout / RAF
+  // callbacks are the only places state mutates.
+  useEffect(() => {
+    if (phase !== 'watching') return
+    // 1.4s after watching starts, the gorilla walks from left to
+    // right. The walk itself takes 2s. We end the watching phase
+    // 0.8s after the gorilla has cleared the right edge.
+    const enterTimer = setTimeout(() => {
+      const startTime = Date.now()
+      const walkDuration = 2000
+      const tick = () => {
+        const elapsed = Date.now() - startTime
+        const progress = Math.min(elapsed / walkDuration, 1)
+        // -20 → 320 over 2s; the gorilla is fully off-screen on both
+        // ends, so the "appearing in plain sight" surprise still works.
+        setGorillaX(-20 + progress * 340)
+        if (progress < 1) {
+          requestAnimationFrame(tick)
+        }
+      }
+      requestAnimationFrame(tick)
+    }, 1400)
+    const questionTimer = setTimeout(() => setPhase('question'), 4200)
+    return () => {
+      clearTimeout(enterTimer)
+      clearTimeout(questionTimer)
+    }
+  }, [phase])
+
+  return (
+    <div className="space-y-3">
+      {phase === 'ready' && (
+        <div className="space-y-2">
+          <p className="text-[11px] text-ink-soft">
+            You will see two teams — white and dark. A gorilla will walk through
+            the scene. Count only the white team&apos;s passes.
+          </p>
+          <button
+            type="button"
+            onClick={startWatching}
+            className="rounded border border-line bg-surface px-3 py-1 text-xs font-medium text-ink-soft hover:border-teal-500 hover:text-teal-700"
+          >
+            Start — count the white team
+          </button>
+        </div>
+      )}
+
+      {phase === 'watching' && <GorillaScene gorillaX={gorillaX} showGorilla={false} />}
+
+      {phase === 'question' && (
+        <div className="space-y-2">
+          <p className="text-xs text-ink-soft">
+            How many passes did the white team make?
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {[4, 5, 6, 7].map((n) => (
+              <button
+                key={n}
+                type="button"
+                onClick={() => {
+                  setSelected(n)
+                  setPhase('reveal')
+                }}
+                className="rounded border border-line bg-surface px-3 py-1 text-xs font-medium text-ink-soft hover:border-teal-500 hover:text-teal-700"
+              >
+                {n}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {phase === 'reveal' && (
+        <div className="space-y-2">
+          <p className="text-xs text-ink-soft">
+            {selected === CORRECT_PASSES ? (
+              <>You counted correctly. But did you see the dark shape walk through?</>
+            ) : (
+              <>
+                The white team actually made {CORRECT_PASSES} passes. But did you
+                see the dark shape walk through?
+              </>
+            )}
+          </p>
+          <GorillaScene gorillaX={170} showGorilla={true} highlighted={true} />
+          <p className="text-[10px] text-muted">
+            The dark shape — the &quot;gorilla&quot; — was in the scene the whole time.
+            Most people miss it because attention is a spotlight, not a wide-angle
+            lens.
+          </p>
+          <button
+            type="button"
+            onClick={startWatching}
+            className="rounded border border-line bg-surface px-3 py-1 text-xs font-medium text-ink-soft hover:border-teal-500 hover:text-teal-700"
+          >
+            Try again — this time watch for it
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function GorillaScene({
+  gorillaX,
+  showGorilla,
+  highlighted,
+}: {
+  gorillaX: number
+  showGorilla: boolean
+  highlighted?: boolean
+}) {
+  // 6 white circles (left half) + 4 dark circles (right half), spaced
+  // so a viewer counting the whites can plausibly keep a tally. The
+  // gorilla is a small dark shape — head + body — that walks across
+  // the middle of the scene.
+  const white: Array<[number, number]> = [
+    [25, 30],
+    [55, 55],
+    [85, 25],
+    [115, 60],
+    [145, 35],
+    [175, 55],
+  ]
+  const dark: Array<[number, number]> = [
+    [210, 30],
+    [240, 55],
+    [270, 30],
+    [295, 60],
+  ]
+  return (
+    <svg viewBox="0 0 320 100" className="block h-28 w-full rounded border border-line/50 bg-canvas">
+      <rect width="320" height="100" fill="#fafafa" />
+      {white.map(([cx, cy], i) => (
+        <circle key={`w${i}`} cx={cx} cy={cy} r="7" fill="#ffffff" stroke="#222" strokeWidth="1.5" />
+      ))}
+      {dark.map(([cx, cy], i) => (
+        <circle key={`b${i}`} cx={cx} cy={cy} r="7" fill="#222" />
+      ))}
+      {showGorilla && (
+        <g
+          transform={`translate(${gorillaX}, 78)`}
+          opacity={highlighted ? 1 : 0.4}
+        >
+          {highlighted && (
+            <ellipse
+              cx="0"
+              cy="-2"
+              rx="14"
+              ry="20"
+              fill="#fde68a"
+              opacity="0.5"
+            />
+          )}
+          <circle cx="0" cy="-12" r="8" fill="#1f2937" />
+          <rect x="-9" y="-6" width="18" height="16" rx="3" fill="#1f2937" />
+        </g>
+      )}
+    </svg>
   )
 }
