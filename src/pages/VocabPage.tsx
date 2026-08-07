@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { T } from '@/components/i18n/T'
 import { LangToggle } from '@/components/i18n/LangToggle'
@@ -46,20 +46,38 @@ export function VocabPage() {
   // `tab` is mirrored to the URL so a deep link like
   // `/vocab?tab=mistakes` lands on the right tab. Unknown values fall
   // back to 'all' rather than rendering nothing.
+  // The `tab` is local state — the URL is a one-way mirror, not the source
+  // of truth. Previously the URL was the source and a click only updated
+  // it via setSearchParams, but the result was racy and the content
+  // sometimes failed to re-render (the tab button got the new active
+  // style but the tab body stayed on the previous one). Reading the URL
+  // once on mount and using local state from there on is simpler and
+  // doesn't lose deep links.
   const [searchParams, setSearchParams] = useSearchParams()
   const urlTab = searchParams.get('tab')
-  const tab: Tab = urlTab && VALID_TABS.has(urlTab as Tab) ? (urlTab as Tab) : 'all'
-  const setTab = (next: Tab) => {
+  const initialTab: Tab = urlTab && VALID_TABS.has(urlTab as Tab) ? (urlTab as Tab) : 'all'
+  const [tab, setTab] = useState<Tab>(initialTab)
+
+  // Keep the URL in sync when the tab changes. This is a one-way write
+  // (state → URL) so we never get a feedback loop.
+  useEffect(() => {
+    const current = searchParams.get('tab')
+    const want = tab === 'all' ? null : tab
+    if (current === want || (current === null && want === null)) return
     setSearchParams(
       (prev) => {
         const out = new URLSearchParams(prev)
-        if (next === 'all') out.delete('tab')
-        else out.set('tab', next)
+        if (want === null) out.delete('tab')
+        else out.set('tab', want)
         return out
       },
       { replace: true }
     )
-  }
+    // We intentionally only depend on `tab` — the previous URL state is
+    // captured in the functional setter, so a stale `searchParams` won't
+    // cause an infinite loop.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tab])
   const [subject, setSubject] = useState<string>('all')
 
   // Flatten every term from every lesson into a row with subject+slug+en
