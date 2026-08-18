@@ -1108,8 +1108,8 @@ const lesson: Lesson = {
         id: 'muller-lyer-match',
         title: { en: 'Experiment 2: Beat the Müller-Lyer', zh: '实验 2：打败缪勒-莱尔' },
         instructions: {
-          en: 'The LEFT line has inward arrows (><). The RIGHT line has outward arrows (<>). They are EXACTLY the same length. Drag the slider to make the right line as long as the left — and watch how badly your visual system guesses.',
-          zh: '左边线是箭头朝内（><），右边线是箭头朝外（<>）。两条线**完全等长**。拖动滑块让右边的线和左边一样长——看看你的视觉系统会错得有多离谱。',
+          en: 'The LEFT line has inward arrows (><) — the fins point AWAY from the shaft at both ends. The RIGHT line is plain (no arrows). The two lines are EXACTLY the same length. Drag the slider to make the right line look the same length as the left — and watch how badly your visual system guesses.',
+          zh: '左边线是箭头朝内（><）——两端的鳍向外张开。右边线是**纯线**（无箭头）。两条线**完全等长**。拖动滑块让右边的线和左边一样长——看看你的视觉系统会错得有多离谱。',
         },
         principle: {
           en: 'Even when you know the lines are the same, the arrows push your perception of length up or down by 10-20%. Children under 10 are not yet fooled — the illusion develops as the brain learns to apply size constancy. The point: knowing is not seeing. Cognitive knowledge and visual perception are separate systems, and the visual one usually wins.',

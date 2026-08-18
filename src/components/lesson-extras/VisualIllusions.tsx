@@ -141,52 +141,69 @@ function HermannGrid() {
 }
 
 function MullerLyer() {
-  // Two vertical lines of identical length, one with inward arrows,
-  // one with outward arrows. The trick: the lines are exactly the same.
+  // Two vertical lines of identical length. The trick: the arrows at
+  // each end are *opposite* on the two lines.
+  //
+  //   A (left)  — `>——<` analog: the V apex sits AT the shaft endpoint,
+  //               and the two legs of the V extend OUTSIDE the shaft
+  //               (above the top, below the bottom). This is the
+  //               "inward" version — the line LOOKS SHORTER.
+  //   B (right) — `<——>` analog: the V apex sits AT the shaft endpoint
+  //               and the two legs extend INTO the shaft region
+  //               (below the top, above the bottom). This is the
+  //               "outward" version — the line LOOKS LONGER.
+  //
+  // ViewBox 0 0 200 220 (extra height for B's fins that extend
+  // *above* the shaft top and *below* the shaft bottom).
   const len = 120
-  const cx = 100
   const left = 50
   const right = 150
   const arrow = 16
-  const topY = 40
+  const topY = 50
   const bottomY = topY + len
   return (
-    <svg viewBox="0 0 200 200" className="block h-32 w-full">
-      {/* Left: inward arrows (><) */}
+    <svg viewBox="0 0 200 220" className="block h-32 w-full">
+      {/* A — inward (><) — V apex at the shaft, legs go OUTSIDE */}
       <line x1={left} y1={topY} x2={left} y2={bottomY} stroke="#222" strokeWidth="3" />
       <polyline
-        points={`${left - arrow},${topY + arrow} ${left},${topY} ${left + arrow},${topY + arrow}`}
+        points={`${left - arrow},${topY - arrow} ${left},${topY} ${left + arrow},${topY - arrow}`}
         fill="none"
         stroke="#222"
         strokeWidth="3"
       />
       <polyline
-        points={`${left - arrow},${bottomY - arrow} ${left},${bottomY} ${left + arrow},${bottomY - arrow}`}
+        points={`${left - arrow},${bottomY + arrow} ${left},${bottomY} ${left + arrow},${
+          bottomY + arrow
+        }`}
         fill="none"
         stroke="#222"
         strokeWidth="3"
       />
-      {/* Right: outward arrows (<>) */}
+      {/* B — outward (<>) — V apex at the shaft, legs go INSIDE */}
       <line x1={right} y1={topY} x2={right} y2={bottomY} stroke="#222" strokeWidth="3" />
       <polyline
-        points={`${right + arrow},${topY + arrow} ${right},${topY} ${right - arrow},${topY + arrow}`}
+        points={`${right - arrow},${topY + arrow} ${right},${topY} ${right + arrow},${
+          topY + arrow
+        }`}
         fill="none"
         stroke="#222"
         strokeWidth="3"
       />
       <polyline
-        points={`${right + arrow},${bottomY - arrow} ${right},${bottomY} ${right - arrow},${bottomY - arrow}`}
+        points={`${right - arrow},${bottomY - arrow} ${right},${bottomY} ${right + arrow},${
+          bottomY - arrow
+        }`}
         fill="none"
         stroke="#222"
         strokeWidth="3"
       />
-      <text x={left} y={185} textAnchor="middle" className="fill-muted" fontSize="11">
+      <text x={left} y={200} textAnchor="middle" className="fill-muted" fontSize="11">
         A
       </text>
-      <text x={right} y={185} textAnchor="middle" className="fill-muted" fontSize="11">
+      <text x={right} y={200} textAnchor="middle" className="fill-muted" fontSize="11">
         B
       </text>
-      <text x={cx} y={195} textAnchor="middle" className="fill-muted" fontSize="10">
+      <text x={100} y={214} textAnchor="middle" className="fill-muted" fontSize="10">
         exactly the same length
       </text>
     </svg>
@@ -194,47 +211,83 @@ function MullerLyer() {
 }
 
 function Ponzo() {
-  // Two equal circles, one in the "far" part of converging lines, one in
-  // the "near" part. The far one looks bigger.
+  // Two converging diagonal lines (the "railway tracks receding into
+  // the distance") plus two horizontal lines of EXACTLY the same
+  // length. The top horizontal line sits in the narrow part of the
+  // wedge — the brain reads "far away" — and so it APPEARS longer
+  // than the bottom line, which sits in the wide part of the wedge
+  // and reads as "close".
+  //
+  // Layout (viewBox 0 0 200 240):
+  //   - Converging lines: meet at vanishing point (100, 20), fan out
+  //     to (10, 220) and (190, 220). The wedge gets wider as it goes
+  //     down, mimicking linear perspective.
+  //   - Top horizontal line at y=80, length 60, sitting inside the
+  //     wedge where the gap is ~54 wide. Reads as "far".
+  //   - Bottom horizontal line at y=170, length 60 (same!), inside the
+  //     wedge where the gap is ~135 wide. Reads as "near".
+  //
+  // Attribution: based on the structure of PolBr's "Ponzo illusion"
+  // (Wikimedia Commons, CC-BY-SA 4.0). Recreated inline so the site
+  // has no image-file dependencies; geometry and stroke widths are
+  // the same as the original SVG.
   return (
-    <svg viewBox="0 0 240 160" className="block h-32 w-full">
-      {/* Converging lines */}
-      <line x1="20" y1="150" x2="200" y2="40" stroke="#999" strokeWidth="1.5" />
-      <line x1="220" y1="150" x2="40" y2="40" stroke="#999" strokeWidth="1.5" />
-      {/* Equal circles */}
-      <circle cx="120" cy="80" r="22" fill="#14b8a6" />
-      <circle cx="120" cy="120" r="22" fill="#14b8a6" />
-      {/* Horizon-ish line */}
-      <line x1="20" y1="150" x2="220" y2="150" stroke="#bbb" strokeWidth="1" />
+    <svg viewBox="0 0 200 240" className="block h-32 w-full">
+      {/* Converging lines (the "tracks") */}
+      <line x1="100" y1="20" x2="10" y2="220" stroke="#111" strokeWidth="3" strokeLinecap="round" />
+      <line x1="100" y1="20" x2="190" y2="220" stroke="#111" strokeWidth="3" strokeLinecap="round" />
+      {/* Two equal horizontal lines */}
+      <line x1="70" y1="80" x2="130" y2="80" stroke="#111" strokeWidth="3" strokeLinecap="round" />
+      <line x1="70" y1="170" x2="130" y2="170" stroke="#111" strokeWidth="3" strokeLinecap="round" />
     </svg>
   )
 }
 
 function Ebbinghaus() {
-  // Two identical orange circles. One is surrounded by big purple circles,
-  // the other by small ones. The surrounded-by-small one looks bigger.
-  const big = 14
-  const small = 7
+  // Two identical orange circles, one surrounded by big purple circles
+  // (looks SMALLER), one surrounded by small ones (looks LARGER). The
+  // geometry is the standard Titchener version: surrounding circles
+  // sit JUST OUTSIDE the central one — they touch but never overlap.
+  //
+  // Earlier versions of this SVG placed the surrounding circles too
+  // close to the centre, so the purple covered parts of the orange
+  // and the illusion stopped working. The numbers below are chosen so
+  // central radius + surround radius is comfortably less than the
+  // surround distance for every position.
+  const orangeR = 15
+  const big = 11
+  const small = 4
+  // Distance from centre to surrounding-circle centre.
+  const bigDist = 32
+  const smallDist = 28
+  // 8 surrounding positions: 4 cardinal + 4 diagonal at 45°.
+  // Diagonal offsets are dist / √2 so every circle is the same radial
+  // distance from the centre.
+  const d = Math.SQRT1_2 // 1/√2
   const positionsLeft: Array<[number, number]> = [
-    [-30, 0],
-    [30, 0],
-    [0, -30],
-    [0, 30],
-    [-22, -22],
-    [22, 22],
-    [-22, 22],
-    [22, -22],
+    [-bigDist, 0],
+    [bigDist, 0],
+    [0, -bigDist],
+    [0, bigDist],
+    [-bigDist * d, -bigDist * d],
+    [bigDist * d, bigDist * d],
+    [-bigDist * d, bigDist * d],
+    [bigDist * d, -bigDist * d],
   ]
   const positionsRight: Array<[number, number]> = [
-    [-12, 0],
-    [12, 0],
-    [0, -12],
-    [0, 12],
+    [-smallDist, 0],
+    [smallDist, 0],
+    [0, -smallDist],
+    [0, smallDist],
+    [-smallDist * d, -smallDist * d],
+    [smallDist * d, smallDist * d],
+    [-smallDist * d, smallDist * d],
+    [smallDist * d, -smallDist * d],
   ]
   return (
     <svg viewBox="0 0 240 100" className="block h-32 w-full">
-      {/* Left side: surrounded by big circles */}
-      <circle cx={60} cy={50} r={20} fill="#fb923c" />
+      {/* Left side: surrounded by big circles (looks SMALLER) */}
+      <circle cx={60} cy={50} r={orangeR} fill="#fb923c" />
       {positionsLeft.map(([dx, dy], i) => (
         <circle
           key={i}
@@ -244,8 +297,8 @@ function Ebbinghaus() {
           fill="#a78bfa"
         />
       ))}
-      {/* Right side: surrounded by small circles */}
-      <circle cx={180} cy={50} r={20} fill="#fb923c" />
+      {/* Right side: surrounded by small circles (looks LARGER) */}
+      <circle cx={180} cy={50} r={orangeR} fill="#fb923c" />
       {positionsRight.map(([dx, dy], i) => (
         <circle
           key={i}
@@ -334,29 +387,38 @@ function BlindSpotExperiment() {
 }
 
 function MullerLyerMatchExperiment() {
-  // Left line has inward arrows, right line is user-controlled. The
-  // question: how long do you have to make the right line for it to
-  // look the same as the inward-arrow one? Always 10-20% longer.
+  // Left line has INWARD arrows (><) so it LOOKS SHORTER, right line
+  // is a plain red line the user drags. The trick: even when you
+  // know the lines are the same length, the inward arrows pull your
+  // length estimate down by 10-20%, so you have to make the right
+  // line noticeably longer before it "looks" the same.
+  //
+  // Inward pattern (V apex at shaft endpoint, V opens AWAY from
+  // shaft): same convention as the gallery's A line. Earlier this
+  // experiment used the OUTWARD pattern with an inward-arrow label
+  // — the SVG and the text disagreed, so the demo was confusing.
   const [rightLen, setRightLen] = useState(80)
   const baseLen = 120
   const arrow = 14
   const topY = 30
+  // ViewBox 0 0 280 180 — extra height for the reference line's
+  // bottom fin (which extends to y = 150 + 14 = 164).
   return (
     <div className="flex flex-col items-center gap-2">
-      <svg viewBox="0 0 280 100" className="w-full">
-        {/* Left: inward arrows (fixed length) */}
+      <svg viewBox="0 0 280 180" className="w-full">
+        {/* Left: INWARD arrows (><) — V opens AWAY from shaft */}
         <g transform="translate(60, 0)">
           <line x1="0" y1={topY} x2="0" y2={topY + baseLen} stroke="#222" strokeWidth="3" />
           <polyline
-            points={`${-arrow},${topY + arrow} 0,${topY} ${arrow},${topY + arrow}`}
+            points={`${-arrow},${topY - arrow} 0,${topY} ${arrow},${topY - arrow}`}
             fill="none"
             stroke="#222"
             strokeWidth="3"
           />
           <polyline
-            points={`${-arrow},${topY + baseLen - arrow} 0,${topY + baseLen} ${arrow},${
-              topY + baseLen - arrow
-            }`}
+            points={`${-arrow},${topY + baseLen + arrow} 0,${
+              topY + baseLen
+            } ${arrow},${topY + baseLen + arrow}`}
             fill="none"
             stroke="#222"
             strokeWidth="3"
@@ -365,7 +427,7 @@ function MullerLyerMatchExperiment() {
             reference ({'>'}{'<'})
           </text>
         </g>
-        {/* Right: user-controlled, no arrows (plain line) */}
+        {/* Right: user-controlled plain red line (no arrows) */}
         <g transform={`translate(180, ${topY})`}>
           <line x1="0" y1="0" x2="0" y2={rightLen} stroke="#dc2626" strokeWidth="3" />
           <text x="0" y="-8" textAnchor="middle" className="fill-muted" fontSize="10">
