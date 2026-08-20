@@ -32,6 +32,34 @@ export const nervousNarration: NarrationScript = {
       ],
     },
     {
+      id: 'shape',
+      type: 'concept',
+      title: { en: 'The shape of a neurone', zh: '神经元长什么样' },
+      lines: [
+        {
+          id: 'shape-1',
+          text: {
+            en: 'Look at one neurone up close. There is a central cell body containing the nucleus. Out of it grow a few short, branched fibres called dendrites — they pick up signals from neighbouring cells. And then there is one single long fibre called the axon. The axon is the wire; the dendrites are the antennae.',
+            zh: '把一条神经元凑近看。中间是胞体，里面装着细胞核。从胞体长出几根短而分支的纤维——树突——它从邻近的细胞那里接收信号。然后是一根单独的长纤维——轴突。轴突是"电线"，树突是"天线"。',
+          },
+        },
+        {
+          id: 'shape-2',
+          text: {
+            en: 'The axon can be more than a metre long. The cell body of a motor neurone sits inside the spinal cord; the tip of the axon reaches a muscle in the foot. Everything that happens between the cell body and the muscle has to travel that whole length as an electrical impulse — which is why the axon is wrapped in a fatty myelin sheath that lets the signal jump from gap to gap rather than crawl along smoothly.',
+            zh: '轴突可以超过一米长。运动神经元的胞体在脊髓里；轴突末端却一直伸到脚上的肌肉。胞体到肌肉之间发生的一切，都必须以电脉冲的形式走完全程——这就是为什么轴突要包一层脂肪髓鞘，让信号从一个间隙跳到下一个，而不是沿全程慢慢爬。',
+          },
+        },
+        {
+          id: 'shape-3',
+          text: {
+            en: 'There are three kinds, and they are not three different shapes — they are three different positions. Sensory, relay, motor. The "sensory" one is a sensory neurone because the long fibre is on the receptor side. The "motor" one is a motor neurone because the long fibre is on the muscle side. The relay neurone is short on both sides because it is only connecting two cells inside the central nervous system.',
+            zh: '神经元有三种，但并不是三种不同的形状——而是三种不同的位置：感觉、中间、运动。"感觉"神经元之所以是感觉神经元，是因为那条长纤维在感受器一侧；"运动"神经元之所以是运动神经元，是因为那条长纤维在肌肉一侧；中间神经元两边都短，因为它只在中枢神经系统内部连接两个细胞。',
+          },
+        },
+      ],
+    },
+    {
       id: 'reflex',
       type: 'concept',
       title: { en: 'Fast because it does not ask', zh: '快，是因为它不去请示' },

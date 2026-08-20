@@ -299,6 +299,44 @@ export const EYE_ANATOMY = {
   } satisfies Bilingual,
   modeExplore: { en: 'Explore', zh: '探索' } satisfies Bilingual,
   modeFollow: { en: 'Follow the light', zh: '跟着光走' } satisfies Bilingual,
+  modeProtect: { en: 'Protect the eye', zh: '眼睛的防护' } satisfies Bilingual,
+  protectPrompt: {
+    en: 'The eye is exposed to the air directly, so it needs a layer of protection. The list on the right is the four-part defence: bone, membrane, fluid, lid.',
+    zh: '眼球直接暴露在空气中，所以需要一套防护。右侧列表是四道防线：骨头、薄膜、液体、眼睑。',
+  } satisfies Bilingual,
+  protectEmpty: {
+    en: 'Pick a part from the list to read what it does.',
+    zh: '从列表中选一个部分查看它的作用。',
+  } satisfies Bilingual,
+} as const
+
+// ---------------------------------------------------------------------------
+// NeuroneStructure + ThreeNeurones — G8 Figures B9.01 and B9.05.
+// One diagram each, drawn inline in SVG; the lesson author only carries
+// the bilingual labels and a few key facts about each part. The renderer
+// owns the figure geometry.
+// ---------------------------------------------------------------------------
+
+export const NEURONE_STRUCTURE = {
+  figcaption: {
+    en: 'G8 Science · p.47, Figure B9.01 · click a part to read about it',
+    zh: 'G8 Science · 第 47 页，图 B9.01 · 点击任一部分查看',
+  } satisfies Bilingual,
+  empty: {
+    en: 'Click any part of the motor neurone to read what it does.',
+    zh: '点击运动神经元任一部分，查看它的作用。',
+  } satisfies Bilingual,
+} as const
+
+export const THREE_NEURONES = {
+  figcaption: {
+    en: 'G8 Science · p.50, Figure B9.05 · pick a neurone to read about its shape',
+    zh: 'G8 Science · 第 50 页，图 B9.05 · 选一种神经元查看它的形态',
+  } satisfies Bilingual,
+  empty: {
+    en: 'Pick a neurone type to see its structure.',
+    zh: '选一种神经元查看它的形态。',
+  } satisfies Bilingual,
 } as const
 
 export const GLUCOSE_LOOP = {

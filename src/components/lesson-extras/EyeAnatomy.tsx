@@ -13,6 +13,14 @@ import { assetUrl } from '@/lib/assetUrl'
  * and a "follow the light" mode that animates a dot along the optical path
  * from cornea to optic nerve.
  *
+ * Three modes:
+ *   - "explore" — click any of the 12 hotspots in the figure to read about it
+ *   - "follow"  — auto-walk a dot along the optical path
+ *   - "protect" — read about the four protection structures (orbit,
+ *                conjunctiva, tear gland, eyelids). These are NOT in
+ *                Figure B9.06, so the figure stays put and the side
+ *                panel turns into a list.
+ *
  * The 12 hotspots are: cornea, aqueous humour, iris, pupil, lens, ciliary
  * muscle, suspensory ligament, vitreous humour, retina, fovea, blind spot,
  * optic nerve. The sclera and choroid are intentionally left out — the
@@ -25,6 +33,14 @@ import { assetUrl } from '@/lib/assetUrl'
  */
 const IMG_W = 809
 const IMG_H = 476
+
+/**
+ * The four protection parts from G8 B9.03 that are outside Figure B9.06
+ * (a section through the eye). They are listed in the "protect" mode of
+ * the side panel, since there is nowhere in the section image to click
+ * for "the orbit" or "the eyelid".
+ */
+const PROTECTION_IDS = ['orbit', 'conjunctiva', 'tear-gland', 'eyelids'] as const
 
 type Hotspot = { type: 'circle'; x: number; y: number; r: number }
   | { type: 'ellipse'; x: number; y: number; rx: number; ry: number }
@@ -62,11 +78,24 @@ export function EyeAnatomy({ extra }: { extra: EyeAnatomyExtra }) {
   const parts = extra.parts
   const [selectedId, setSelectedId] = useState<string | null>(extra.initialPart ?? null)
   const [hoveredId, setHoveredId] = useState<string | null>(null)
-  const [mode, setMode] = useState<'explore' | 'follow'>('explore')
+  const [mode, setMode] = useState<'explore' | 'follow' | 'protect'>('explore')
   const [followStep, setFollowStep] = useState(0)
 
   const orderedForFollow = useMemo(
     () => parts.filter((p) => typeof p.stop === 'number').sort((a, b) => a.stop! - b.stop!),
+    [parts]
+  )
+
+  // The four protection structures from G8 B9.03 (orbit, conjunctiva,
+  // tear gland, eyelids). They live in `parts` too, but they have no
+  // figure hotspot — they are listed in the side panel when the user
+  // switches to "protect" mode. Computed from the parts data so the
+  // component does not own the content.
+  const protectionParts = useMemo(
+    () => PROTECTION_IDS.flatMap((id) => {
+      const p = parts.find((x) => x.id === id)
+      return p ? [p] : []
+    }),
     [parts]
   )
 
@@ -100,7 +129,15 @@ export function EyeAnatomy({ extra }: { extra: EyeAnatomyExtra }) {
     setSelectedId(orderedForFollow[0]?.id ?? null)
     setMode('follow')
   }
+  const startProtect = () => {
+    setSelectedId(protectionParts[0]?.id ?? null)
+    setMode('protect')
+  }
   const stopFollow = () => {
+    setMode('explore')
+    setSelectedId(null)
+  }
+  const stopProtect = () => {
     setMode('explore')
     setSelectedId(null)
   }
@@ -115,17 +152,25 @@ export function EyeAnatomy({ extra }: { extra: EyeAnatomyExtra }) {
           <ModeButton active={mode === 'follow'} onClick={startFollow}>
             <T value={EYE_ANATOMY.modeFollow} />
           </ModeButton>
+          <ModeButton active={mode === 'protect'} onClick={mode === 'protect' ? stopProtect : startProtect}>
+            <T value={EYE_ANATOMY.modeProtect} />
+          </ModeButton>
           {mode === 'follow' && (
             <span className="text-xs text-muted">
               <T value={EYE_ANATOMY.followPrompt} />
+            </span>
+          )}
+          {mode === 'protect' && (
+            <span className="text-xs text-muted">
+              <T value={EYE_ANATOMY.protectPrompt} />
             </span>
           )}
         </div>
 
         <FigureWithHotspots
           parts={parts}
-          selectedId={selectedId}
-          hoveredId={hoveredId}
+          selectedId={mode === 'protect' ? null : selectedId}
+          hoveredId={mode === 'protect' ? null : hoveredId}
           onSelect={(id) => {
             setMode('explore')
             setSelectedId(id)
@@ -137,7 +182,13 @@ export function EyeAnatomy({ extra }: { extra: EyeAnatomyExtra }) {
       </div>
 
       <aside className="rounded-lg border border-line bg-canvas p-3 text-sm">
-        {selected ? (
+        {mode === 'protect' ? (
+          <ProtectPanel
+            parts={protectionParts}
+            selectedId={selectedId}
+            onSelect={(id) => setSelectedId(id)}
+          />
+        ) : selected ? (
           <PartPanel part={selected} />
         ) : (
           <p className="text-muted">
@@ -186,6 +237,63 @@ function PartPanel({ part }: { part: AnatomyOrgan }) {
       </h3>
       <p className="leading-relaxed text-ink-soft">
         <T value={part.description} />
+      </p>
+    </div>
+  )
+}
+
+/**
+ * The "protect" side panel. A clickable list of the four protection
+ * structures (orbit, conjunctiva, tear gland, eyelids), with the
+ * selected one showing its description. Used in place of the
+ * figure-driven part panel because these structures are outside
+ * Figure B9.06.
+ */
+function ProtectPanel({
+  parts,
+  selectedId,
+  onSelect,
+}: {
+  parts: AnatomyOrgan[]
+  selectedId: string | null
+  onSelect: (id: string) => void
+}) {
+  const selected = parts.find((p) => p.id === selectedId) ?? parts[0] ?? null
+  if (!selected) {
+    return (
+      <p className="text-muted">
+        <T value={EYE_ANATOMY.protectEmpty} />
+      </p>
+    )
+  }
+  return (
+    <div>
+      <ul className="mb-3 flex flex-wrap gap-1.5">
+        {parts.map((p) => {
+          const isActive = p.id === selected.id
+          return (
+            <li key={p.id}>
+              <button
+                type="button"
+                onClick={() => onSelect(p.id)}
+                className={
+                  'rounded-md px-2 py-1 text-xs font-medium transition-colors ' +
+                  (isActive
+                    ? 'bg-ink text-white'
+                    : 'border border-line bg-surface text-muted hover:bg-canvas hover:text-ink-soft')
+                }
+              >
+                <T value={p.name} />
+              </button>
+            </li>
+          )
+        })}
+      </ul>
+      <h3 className="mb-1 text-base font-semibold text-ink">
+        <T value={selected.name} />
+      </h3>
+      <p className="leading-relaxed text-ink-soft">
+        <T value={selected.description} />
       </p>
     </div>
   )

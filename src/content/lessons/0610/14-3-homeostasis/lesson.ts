@@ -157,6 +157,37 @@ const lesson: Lesson = {
       },
       syllabus: ['0610.14.3.4'],
     },
+    // ---- 2026-08-20 Chapter 4 PDF gap-fill ----
+    // Section 4.4 — explicit gland definition
+    {
+      en: 'endocrine gland',
+      zh: '内分泌腺',
+      definition: {
+        en: 'A gland that secretes its product (a hormone) directly into the blood, rather than through a duct. The textbook\'s examples are the adrenal glands, the islets of Langerhans in the pancreas, the thyroid, the pituitary, and the sex glands. Contrast with exocrine glands (sweat, salivary, tear) which secrete through a duct onto a surface.',
+        zh: '把产物（激素）直接释放入血的腺体，不通过导管。教材中的例子有肾上腺、胰岛、甲状腺、垂体、性腺。与之相对的是外分泌腺（汗腺、唾液腺、泪腺），通过导管分泌到表面。',
+      },
+      syllabus: ['0610.14.3.1'],
+    },
+    // Section 4.5 — skin structure (the passive insulation layer)
+    {
+      en: 'adipose tissue',
+      zh: '脂肪组织',
+      definition: {
+        en: 'A layer of fat-storing cells just under the skin (the hypodermis). The cells are mostly a single large droplet of oil, and the layer has two jobs: it insulates the body against heat loss, and it acts as an energy reserve. The textbook notes that the layer is thickest where the body takes the most wear — the soles of the feet, the palms of the hands.',
+        zh: '紧贴皮肤下方的脂肪贮存细胞层（即皮下组织）。细胞里主要是一大滴油。这层有两个作用：隔绝身体的热量散失，并作为能量储备。教材指出，承重最多的部位这层最厚——脚底、手掌。',
+      },
+      syllabus: ['0610.14.4.5'],
+    },
+    // Section 4.5 — sweat composition, cross-linked to 13-1 excretion
+    {
+      en: 'urea',
+      zh: '尿素',
+      definition: {
+        en: 'A nitrogen-containing waste product of protein breakdown. The body makes it in the liver and gets rid of it mainly through the kidneys (dissolved in urine — see Chapter 13, excretion), but a small amount is also lost in sweat, which is why sweat can taste salty-bitter on the skin.',
+        zh: '蛋白质分解产生的含氮废物。身体在肝脏里制造尿素，主要经肾脏排出（溶在尿里——见第 13 章排泄），但少量也随汗液排出，这就是汗液尝起来咸苦的原因。',
+      },
+      syllabus: ['0610.14.4.5'],
+    },
   ],
 
   equations: [
@@ -612,6 +643,19 @@ const lesson: Lesson = {
             zh: '真皮里分支状的神经末梢，皮肤温度变化时发出电脉冲。脉冲传到下丘脑，下丘脑把它和约 37 °C 的设定点对比，并相应调节四个效应器。',
           },
         },
+        {
+          // 2026-08-20 Chapter 4 PDF gap-fill — the textbook's B9.17 skin
+          // figure includes a layer of fat under the dermis, called
+          // adipose tissue, and it is part of the temperature story
+          // (passive insulation). Not one of the four "active" knobs
+          // the hypothalamus can turn, but worth knowing.
+          id: 'adipose-tissue',
+          name: { en: 'adipose tissue (fat layer)', zh: '脂肪组织（皮下脂肪层）' },
+          description: {
+            en: 'A layer of fat-storing cells just under the dermis. Unlike the other temperature-control structures, the adipose layer is passive — it does not switch on and off, it just sits there insulating. It works the same way the lagging on a hot water tank does: by trapping a layer of still air (or, in this case, still fat) between the warm inside and the cool outside. It is thickest on the soles of the feet and the palms of the hands, where the body takes the most wear and loses the most heat.',
+            zh: '紧贴真皮下方的脂肪贮存细胞层。与体温调节的其他结构不同，脂肪层是被动的——它不会一开一关，就一直守在那里做隔热。它的工作原理和热水瓶的保温层一样：在热的内部和冷的外部之间夹住一层静止的空气（或这里，静止的脂肪）。它在脚底和手掌最厚——这两处是身体承重最多、散热最多的地方。',
+          },
+        },
       ],
     },
 
@@ -844,8 +888,31 @@ const lesson: Lesson = {
           zh: '教材里把它叫做"战或逃"，对老祖先来说是合理的。现代的对应是"赶 deadline 或面试"——同样的化学物质倒进血液，同样的心跳加速，但威胁是一只时钟而不是一只猎手。频繁释放肾上腺素的代价是：高血压、血糖尖峰让胰腺额外分泌胰岛素去追、长期紧张的躯体。这套反应是为短促的、猛烈的、身体上的紧急情况设计的。现代生活充满了漫长的、沉闷的、心理上的紧急——而身体分不清这两者的区别。',
         },
       },
+      {
+          id: 'five-effects',
+          title: {
+            en: 'The five named effects — and the question they answer',
+            zh: '五项命名作用——以及它回答的那道题',
+          },
+          hook: {
+            en: '"Explain how the body prepares for vigorous physical activity" is a guaranteed Cambridge paper-2 question. The mark scheme expects five or six named effects. The most reliable way to lose the marks is to write two effects and stop. The most reliable way to score them is to work through the body, top to bottom, and ask "what would help a muscle work harder?"',
+            zh: '"解释身体如何为剧烈活动做准备"是必考题。标答要求列 5-6 项具体作用。失分最稳的方式是写两项就停；得分最稳的方式是从头到脚走一遍身体，问"什么能帮肌肉更用力地工作"。',
+          },
+          mechanism: {
+            en: 'The textbook gives a chain of five: (1) Heart rate and stroke volume go UP — more blood is pumped per beat. (2) Breathing rate goes UP and the bronchioles WIDEN — more oxygen gets in, more carbon dioxide gets out. (3) The liver BREAKS DOWN glycogen to glucose and dumps it into the blood — extra fuel for the muscles. (4) Blood vessels in the SKIN and the DIGESTIVE SYSTEM NARROW, while blood vessels in the SKELETAL MUSCLES WIDEN — blood is shunted away from non-essentials to the muscles that need it. (5) The PUPILS WIDEN — more light reaches the retina, helping the animal see the threat (or, in modern life, the deadline). Each of these is one mark in the exam. Naming two gets two marks; naming all five gets five.',
+            zh: '教材给出五项链：(1) 心率和每搏输出量都**升**——每搏泵出的血量增加。(2) 呼吸率**升**、细支气管**张**——更多氧气进，更多二氧化碳出。(3) 肝脏**分解**糖原为葡萄糖并**释放**入血——给肌肉额外燃料。(4) **皮肤**和**消化系统**的血管**收缩**，**骨骼肌**的血管**舒张**——血从非关键器官被调走去肌肉那里。(5) **瞳孔放大**——更多光到达视网膜，帮助看清威胁（或者，按现代生活来说，看清 deadline）。每项一分。写两项得两分；写完五项得五分。',
+          },
+          whyItMatters: {
+            en: 'Every effect named above ties back to ONE thing — getting oxygen and glucose to the working muscles faster. The exam will often include a "stretcher" effect, like "sweat production increases" or "pupils dilate", which is technically true but not part of the textbook\u2019s list. Stick to the five the textbook names, in the textbook\u2019s order, with the textbook\u2019s "muscle" framing. The examiner does not mark for creativity.',
+            zh: '上面列出的每项作用都回归到一件事——更快地把氧气和葡萄糖送到正在工作的肌肉那里。试卷常会加"边角"作用，比如"出汗增加"或"瞳孔放大"，技术上没错但不在教材列表里。紧扣教材列出的五项、按教材顺序、用教材"肌肉"的框架来写。阅卷人不按"创意"加分。',
+          },
+          teacherStory: {
+            en: 'A trick I have seen work: ask the student to stand up and run on the spot for ten seconds, then write the effects while their heart is still pounding. Heart pounding? Heart rate up. Panting? Breathing rate up. Glucose needed? Liver dumps it. Need blood in the legs? Diverted from gut. The lived experience of the body they are describing is right there.',
+            zh: '一个我见过有效的招：让学生站起来原地跑 10 秒钟，然后在心跳还快的时候写下作用。心跳加快？心率上升。喘气？呼吸率上升。需要葡萄糖？肝脏释放。需要腿那里有血？从消化道调走。他们正在描述的身体的"切身体验"就在那里。',
+          },
+      },
     ],
-  },
+  }
 ]
 
 }

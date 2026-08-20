@@ -382,6 +382,138 @@ const lesson: Lesson = {
       },
       syllabus: ['0610.14.1.10'],
     },
+    // ---- 2026-08-18 Chapter 4 PDF gap-fill ----
+    // Section 4.1 — coordination in animals (the textbook's framing chapter)
+    {
+      en: 'sensitivity',
+      zh: '感应性',
+      definition: {
+        en: 'The characteristic of all living things that lets them detect and respond to changes in their environment. A reflex pulling your hand off a hotplate is one example; a plant root growing towards water is another.',
+        zh: '所有生物共有的特性——能够察觉并对环境中的变化作出反应。手从热盘上缩回来是其中一例；植物的根向水源方向生长也是。',
+      },
+      syllabus: ['0610.14.1.1'],
+    },
+    {
+      en: 'stimulus (plural: stimuli)',
+      zh: '刺激（复数：stimuli）',
+      definition: {
+        en: 'A change in the environment that a receptor can detect — light, sound, heat, pressure, a chemical, a touch. Plural: stimuli.',
+        zh: '环境中能被感受器察觉到的变化——光、声、热、压、化学物质、触碰等。复数为 stimuli。',
+      },
+      syllabus: ['0610.14.1.4'],
+    },
+    {
+      en: 'voluntary action',
+      zh: '随意动作',
+      definition: {
+        en: 'A response that you decide to make. Reading this sentence is a voluntary action — the brain has decided to send the right impulses. Contrast with reflex (involuntary).',
+        zh: '由你决定做出的反应。读这一句话就是随意动作——大脑决定发出相应的脉冲。与反射（不随意）相对。',
+      },
+      syllabus: ['0610.14.1.5'],
+    },
+    {
+      en: 'involuntary action',
+      zh: '不随意动作',
+      definition: {
+        en: 'A response that happens without you deciding to make it — and usually without you being aware of it. A reflex action (pulling your hand off a hotplate) is the textbook example. The brain is told afterwards, not asked first.',
+        zh: '你没决定就发生的反应——通常你也没有意识到。反射动作（手从热盘上缩回）是教科书例子。大脑是事后被告知的，不是事先被请示的。',
+      },
+      syllabus: ['0610.14.1.5'],
+    },
+    // Section 4.2 — the structure of a neurone (Figure B9.01)
+    {
+      en: 'axon',
+      zh: '轴突',
+      definition: {
+        en: 'The long fibre stretching out from the cell body of a neurone. In a motor neurone it can be more than a metre long — the cell body sits in the spinal cord, the axon tip reaches a muscle in the foot. The signal travels along the axon as an electrical impulse.',
+        zh: '从神经元胞体伸出的一条长纤维。在运动神经元中长度可超过一米——胞体在脊髓里，轴突末端却一直伸到脚上的肌肉。信号以电脉冲的形式沿轴突传导。',
+      },
+      syllabus: ['0610.14.1.2'],
+    },
+    {
+      en: 'dendrite',
+      zh: '树突',
+      definition: {
+        en: 'A short, branched fibre coming out of the cell body of a neurone. Dendrites pick up electrical signals from neighbouring neurones and pass them to the cell body. (A single motor neurone can have hundreds of dendrites; the axon is the one long fibre.)',
+        zh: '从神经元胞体伸出的短而分支的纤维。树突从邻近的神经元那里接收电信号，并把它传给胞体。（一个运动神经元可以有数百根树突；轴突只有那一条长纤维。）',
+      },
+      syllabus: ['0610.14.1.2'],
+    },
+    {
+      en: 'cell body',
+      zh: '胞体',
+      definition: {
+        en: 'The central part of a neurone that contains the nucleus. All the dendrites and the axon grow out of it. In a motor neurone the cell body sits in the spinal cord; in a sensory neurone it sits in a swelling just outside the cord.',
+        zh: '神经元含细胞核的中央部分。所有树突和轴突都从这里长出。运动神经元的胞体在脊髓里；感觉神经元的胞体在脊髓外的一个膨大处。',
+      },
+      syllabus: ['0610.14.1.2'],
+    },
+    // Section 4.3 — eye protection (a third of the textbook's B9.03 page)
+    {
+      en: 'orbit',
+      zh: '眼眶',
+      definition: {
+        en: 'The bony socket in the skull that the eye sits in. Everything except the very front of the eye is surrounded by bone, so a blow to the side of the head cannot reach the retina.',
+        zh: '眼球所在的颅骨窝。除了最前端，眼球其余部分都被骨头包着——侧面的击打够不到视网膜。',
+      },
+      syllabus: ['0610.14.2.1'],
+    },
+    {
+      en: 'conjunctiva',
+      zh: '结膜',
+      definition: {
+        en: 'A thin, transparent membrane that covers the front of the eye and the inside of the eyelids. It is the surface dirt and bacteria land on, and it is the surface the tear fluid washes across when you blink.',
+        zh: '覆盖眼球前端和眼睑内面的薄而透明的膜。灰尘和细菌就落在这层膜上；你眨眼时，泪液也是从这层膜上洗过去的。',
+      },
+      syllabus: ['0610.14.2.1'],
+    },
+    {
+      en: 'tear gland',
+      zh: '泪腺',
+      definition: {
+        en: 'A small gland under the upper eyelid that secretes the watery fluid spread across the eye when you blink. The fluid carries dissolved oxygen and nutrients to the cornea (which has no blood supply) and washes debris to the corner of the eye.',
+        zh: '上眼睑下方的小腺体，分泌眨眼时铺展在眼球表面的水样液体。这种液体给没有血管的角膜带去溶解氧和营养，并把碎屑冲到眼角。',
+      },
+      syllabus: ['0610.14.2.1'],
+    },
+    {
+      en: 'lysozyme',
+      zh: '溶菌酶',
+      definition: {
+        en: 'An enzyme in the tear fluid that breaks down the cell walls of bacteria. The eye is one of the few parts of the body exposed directly to the air, so it has a chemical rather than an immune defence sitting on the surface.',
+        zh: '泪液中的一种酶，能破坏细菌的细胞壁。眼睛是身体少数几个直接暴露在空气中的部位之一，所以它在表面用化学方式而不是免疫方式防御。',
+      },
+      syllabus: ['0610.14.2.1'],
+    },
+    {
+      en: 'eyelid',
+      zh: '眼睑',
+      definition: {
+        en: 'The flap of skin that closes over the eye. Blinking spreads tear fluid across the conjunctiva; a fast reflex closure (when something flies at your face) protects the cornea from impact. Eyelashes at the lid edge catch large debris before it lands on the eye.',
+        zh: '盖在眼球上的皮瓣。眨眼把泪液铺在结膜上；当有东西飞向面部时，快速的反射性闭合能保护角膜免受撞击。睑缘的睫毛把大块碎屑挡在落到眼球之前。',
+      },
+      syllabus: ['0610.14.2.1'],
+    },
+    // Section 4.3 — "optional labels" (the textbook says they are not required,
+    // but it draws them on Figure B9.06 so students see them).
+    {
+      en: 'sclera',
+      zh: '巩膜',
+      definition: {
+        en: 'The tough, white outer coat of the eyeball. It is the part you see as "the white of the eye". The sclera is what the eye muscles attach to; it is the same kind of tough connective tissue as the cornea, just not transparent.',
+        zh: '眼球坚韧的白色外膜。也就是你看到的"眼白"。眼肌就附着在巩膜上；它的材料和角膜一样坚韧，只是不透光。',
+      },
+      syllabus: ['0610.14.2.1'],
+    },
+    {
+      en: 'choroid',
+      zh: '脉络膜',
+      definition: {
+        en: 'A dark, pigmented layer between the sclera and the retina. Its job is to absorb any light that gets past the retina, so reflections off the back of the eye do not blur the image. The dark colour is the pigment.',
+        zh: '巩膜和视网膜之间的深色色素层。它的工作是吸收穿过视网膜的杂散光，防止光线在眼球后壁反射而把像变模糊。深色就是这层色素。',
+      },
+      syllabus: ['0610.14.2.1'],
+    },
   ],
 
   equations: [
@@ -644,6 +776,98 @@ const lesson: Lesson = {
   // G8 PDF so the student sees the textbook picture, not a hand-drawn
   // approximation.
   extras: [
+    // 0) Coordination in animals — the framing chapter (G8 B9.01). The
+    //    textbook puts this FIRST because it sets up the rest of the
+    //    chapter: animals have two ways to coordinate receptors and
+    //    effectors (nerves for fast stuff, hormones for slow stuff), and
+    //    glands are effectors too, not just muscles. Most of the rest of
+    //    the lesson dives into the "nerves" half; the "hormones" half
+    //    lives in 14-3. This card gives the student a single mental model
+    //    of the whole chapter before the details arrive.
+    {
+      type: 'concept-explainer',
+      id: 'coordination-intro',
+      title: {
+        en: 'Coordination in animals — two ways to send a message',
+        zh: '动物的协调——两种传递信息的方式',
+      },
+      hint: {
+        en: 'A small framing chapter before the detail. Two ways to coordinate receptors and effectors: the nervous system (fast, electrical, short-lived) and the endocrine system (slow, chemical, longer-lasting).',
+        zh: '细节之前先建立总框架。感受器和效应器之间有两种协调方式：神经系统（快、电信号、作用短暂）和内分泌系统（慢、化学信号、作用持久）。',
+      },
+      blocks: [
+        {
+          id: 'two-systems',
+          title: {
+            en: 'Nerves and hormones — the two channels of coordination',
+            zh: '神经与激素——协调的两条通道',
+          },
+          hook: {
+            en: 'You spot a dog running at you, and you are off the pavement before you have finished the thought. Five minutes later your heart is still thumping and your mouth is dry. The first reaction came through nerves; the second came through hormones — two different channels running the same job.',
+            zh: '你看到一只狗朝你冲过来，还没想完就已经跳下了人行道。五分钟后你的心还在狂跳，嘴巴发干。第一次反应走的是神经；第二次走的是激素——两条不同的通道，干着同一件事。',
+          },
+          mechanism: {
+            en: 'Animals need a way to link receptors (cells that detect stimuli) to effectors (cells that respond). Most animals have two such links, and they are very different. Nerves send electrical impulses along specialised cells called neurones — extremely fast, lasting milliseconds, hitting one precise target. Hormones are chemicals made by glands, released into the blood, and carried everywhere at once — slower, lasting seconds or longer, and reaching the whole body. The fast channel handles "right now"; the slow channel handles "for the next few minutes".',
+            zh: '动物需要一种方式把感受器（察觉刺激的细胞）和效应器（作出反应的细胞）连接起来。大多数动物有两条这样的连接，而且差异很大。神经是把电脉冲沿神经元这种特化细胞传过去——极快，只持续毫秒，精确命中一个目标。激素是腺体产生、释放入血、被运到全身的化学物质——更慢，持续数秒或更长，到达整个身体。快速通道处理"现在"；慢速通道处理"接下来几分钟"。',
+          },
+          whyItMatters: {
+            en: 'Most exam questions on this chapter fall into one of two camps: how a nerve signal travels (reflexes, the eye, the brain) or how a hormone signal travels (adrenaline, insulin). Knowing there are two channels, and that they have opposite trade-offs, is the frame that makes the rest of the chapter make sense.',
+            zh: '本章大多数考题分属两类：神经信号怎么传（反射、眼、脑），激素信号怎么传（肾上腺素、胰岛素）。知道存在两条通道、且它们的取舍正相反，是让本章其余部分讲得通的"框架"。',
+          },
+          teacherStory: {
+            en: 'If a student ever asks "why do we need TWO systems?", point out that the nervous system can only do "right now" — by the time a nerve impulse gets to a muscle and back, the moment has often passed. Hormones are slow, but they are also persistent: adrenaline released in a fright will still be acting half an hour later. The two systems are not redundant; they are a fast/short pair plus a slow/long pair, which is exactly the trade-off a designer would pick.',
+            zh: '如果学生问"为什么需要两套系统"，可以告诉他们：神经系统只能处理"现在"——神经脉冲到达肌肉再返回时，那个瞬间往往已经过去了。激素虽慢，但胜在持久：恐惧时释放的肾上腺素，半小时后还在起作用。两套系统并非冗余，而是"快/短"加"慢/长"的一对——这正是任何设计师都会选的取舍。',
+          },
+        },
+        {
+          id: 'glands-are-effectors',
+          title: {
+            en: 'Effectors are not just muscles — glands are effectors too',
+            zh: '效应器不只是肌肉——腺体也是效应器',
+          },
+          hook: {
+            en: 'You smell food cooking. Before you are conscious of being hungry, your salivary glands have already released saliva into your mouth. That is an effector response — and the effector is a gland, not a muscle.',
+            zh: '你闻到了做饭的香味。在你意识到自己饿了之前，你的唾液腺已经把唾液送进了嘴里。这是一次效应器反应——而这个效应器是腺体，不是肌肉。',
+          },
+          mechanism: {
+            en: 'In a reflex the motor neurone carries an impulse to a muscle, and the muscle contracts. But the same motor neurone can also carry an impulse to a gland, and the gland responds by secreting. Salivary glands, sweat glands, tear glands, glands in the lining of the stomach, glands that make hormones — they are all effectors of the same kind. "Effector" is a job description, not a tissue type. Two jobs: contract or secrete.',
+            zh: '在反射中，运动神经元把脉冲送到肌肉，肌肉收缩。但同样的运动神经元也可以把脉冲送到腺体，腺体以分泌作反应。唾液腺、汗腺、泪腺、胃壁里的腺体、分泌激素的腺体——它们都是同一类效应器。"效应器"是工作描述，不是组织类型。两件事：收缩或分泌。',
+          },
+          whyItMatters: {
+            en: 'Many exam questions name a "gland" without explaining what it does. The student is expected to know that a gland-as-effector responds to a motor-nerve impulse by secreting, and that a gland-as-endocrine-organ responds to a blood-borne signal by secreting into the blood. The two roles look similar from the outside but answer to different signals.',
+            zh: '很多考题直接点出某个"腺体"而不解释它是干什么的。学生需要知道：作为效应器的腺体，响应运动神经的脉冲而分泌；作为内分泌器官的腺体，响应血液中的信号而分泌入血。两个角色从外面看像，但响应的是不同的信号。',
+          },
+          teacherStory: {
+            en: 'A good one-line summary to give a struggling student: "an effector is whatever the brain or spinal cord talks to when it wants something to happen — usually a muscle, sometimes a gland." Memorise the two jobs (contract, secrete) and the rest follows.',
+            zh: '给记不住的学生一句总结："效应器就是大脑或脊髓想要让某件事发生时去对话的对象——通常是肌肉，有时是腺体。"记住这两件事（收缩、分泌），其余就顺了。',
+          },
+        },
+        {
+          id: 'voluntary-involuntary',
+          title: {
+            en: 'Voluntary and involuntary — the same machinery, different routes',
+            zh: '随意与不随意——同一套装置，两条路径',
+          },
+          hook: {
+            en: 'You are reading this sentence because you decided to. Your heart is beating in the same chest, and you did not decide that. Both are coordinated by the nervous system, but one is voluntary and the other is not. The difference is where the decision happens.',
+            zh: '你读这一句话是你决定的。你的心脏就在同一个胸腔里跳，你并没有决定它跳。两者都由神经系统协调，但一个随意、一个不随意。差别在"决定"发生的地方。',
+          },
+          mechanism: {
+            en: 'A voluntary action — reaching for a cup, saying a word, looking at a question — starts in the cerebral cortex, where you become aware that you have decided to act. The decision becomes a signal that travels down through the brain and out along motor neurones to the muscles. An involuntary action — the heart beating, the gut pushing food along, a reflex like pulling your hand off a hotplate — does not start in the cortex. It starts lower down: in the medulla, the spinal cord, or a reflex arc. You are not consulted first, and you are often not aware of the action until it has already happened.',
+            zh: '随意动作——伸手拿杯子、说一句话、看一道题——起始于大脑皮层，你在这里"意识到"自己决定行动了。这个决定变成信号向下传到脑，再沿运动神经元传到肌肉。不随意动作——心脏跳动、肠道推进食物、像手从热盘上缩回来这样的反射——不是从皮层开始的，而是从更低的位置开始：延髓、脊髓，或一个反射弧。你事先没被征询，而且通常在动作已经发生之后你才意识到。',
+          },
+          whyItMatters: {
+            en: '"Describe the difference between a voluntary action and a reflex" is a one-sentence exam question worth two marks. The answer is not "reflexes are fast" (they are, but so are some voluntary actions). The answer is the route: voluntary goes through the cortex and you decide; reflex turns round at the spinal cord and you are not in the loop.',
+            zh: '"描述随意动作和反射的区别"是一道值两分的一句话考题。答案不是"反射更快"（反射确实快，但有些随意动作也快）。答案是路径：随意动作经皮层、你来决定；反射在脊髓折返、你不在环里。',
+          },
+          teacherStory: {
+            en: 'A useful image for a student: a voluntary action is a letter you write and post; an involuntary action is a text message your body sends without asking you. The mechanism is the same — nerves, muscles, glands — but one of them shows you the draft.',
+            zh: '对学生有用的比喻：随意动作是你写好寄出的信；不随意动作是你的身体没问你就发出的短信。机制是同一套——神经、肌肉、腺体——只是前者会把草稿给你看。',
+          },
+        },
+      ],
+    },
+
     // 1) The reflex arc in one picture — G8 Figure B9.04 (hand on a hot
     //    plate) with 6 hotspots: pain receptor, sensory neurone, relay
     //    neurone, motor neurone, effector, spinal cord. "Follow the
@@ -711,6 +935,139 @@ const lesson: Lesson = {
           description: {
             en: 'Part of the central nervous system. The relay neurone lives inside it, which is why the reflex arc turns round here and not in the brain. The brain is informed a moment later — the conscious "ouch!" is much slower than the hand withdrawal.',
             zh: '中枢神经系统的一部分。中间神经元就在它里面，所以反射在这里折返，而不去大脑。大脑晚一点才收到信息——有意识的"哎哟"比手缩回来慢得多。',
+          },
+        },
+      ],
+    },
+
+    // 1b) The motor neurone in section — G8 Figure B9.01. One neurone,
+    //     six clickable parts: cell body, nucleus, dendrites, axon,
+    //     myelin sheath, axon terminals. Drawn inline in SVG so the
+    //     project has no image-file dependency. The diagram is the
+    //     standard "dendrites fanning out on the left, cell body,
+    //     long axon with myelin segments, terminals on the right" —
+    //     the same shape the textbook draws on Figure B9.01.
+    {
+      type: 'neurone-structure',
+      id: 'neurone-structure',
+      title: {
+        en: 'A motor neurone, in section',
+        zh: '运动神经元，剖面',
+      },
+      hint: {
+        en: 'Click any of the six regions of the neurone to read what is there and what it does. The textbook Figure B9.01 is the same drawing — just labelled.',
+        zh: '点击神经元的任一区域，查看那里是什么、做什么。这是讲义图 B9.01 的同款——只是标了名。',
+      },
+      viewBox: { width: 400, height: 200 },
+      parts: [
+        {
+          id: 'cell-body',
+          name: { en: 'cell body', zh: '胞体' },
+          description: {
+            en: 'The central bulge of the neurone. It contains the nucleus and most of the cell\'s machinery. All the dendrites and the axon grow out of the cell body. In a motor neurone the cell body sits inside the spinal cord, with the long axon reaching out to a muscle.',
+            zh: '神经元中央的膨大。它装着细胞核和细胞大部分的"机器"。所有树突和轴突都从这里长出。运动神经元的胞体在脊髓内，而那条长的轴突则一路伸到肌肉。',
+          },
+          hotspot: { type: 'ellipse', cx: 110, cy: 105, rx: 45, ry: 38 },
+        },
+        {
+          id: 'nucleus',
+          name: { en: 'nucleus', zh: '细胞核' },
+          description: {
+            en: 'The control centre of the cell, sitting inside the cell body. It carries the DNA that codes for every protein the neurone needs to build and to maintain itself — including the ion pumps that keep the membrane ready to fire an electrical impulse.',
+            zh: '细胞的控制中心，位于胞体内。它装着编码神经元所需全部蛋白质的 DNA——包括维持膜电位、准备放电所需的离子泵。',
+          },
+          hotspot: { type: 'circle', cx: 105, cy: 108, r: 16 },
+        },
+        {
+          id: 'dendrites',
+          name: { en: 'dendrites', zh: '树突' },
+          description: {
+            en: 'The short, branched fibres coming out of the cell body on the left. They pick up electrical signals from neighbouring neurones and pass them inwards to the cell body. A single motor neurone can have hundreds of dendrites — what makes a cell body look "spidery" under a microscope.',
+            zh: '从胞体左端伸出的短而分支的纤维。它们从邻近的神经元接收电信号，并把它向内传到胞体。一个运动神经元可以有数百根树突——这正是胞体在显微镜下看起来"多刺"的原因。',
+          },
+          hotspot: { type: 'rect', x: 0, y: 10, width: 75, height: 180 },
+        },
+        {
+          id: 'axon',
+          name: { en: 'axon', zh: '轴突' },
+          description: {
+            en: 'The single long fibre stretching out to the right. In a motor neurone the axon can be more than a metre long — the cell body sits in the spinal cord, the tip of the axon reaches a muscle in the foot. The signal travels along the axon as an electrical impulse, much faster than any chemical signal could.',
+            zh: '向右伸出的那一条长纤维。在运动神经元中，轴突长度可超过一米——胞体在脊髓里，轴突末端却一直伸到脚上的肌肉。信号以电脉冲的形式沿轴突传导，比任何化学信号都快。',
+          },
+          hotspot: { type: 'rect', x: 165, y: 90, width: 170, height: 20 },
+        },
+        {
+          id: 'myelin-sheath',
+          name: { en: 'myelin sheath', zh: '髓鞘' },
+          description: {
+            en: 'The five oval segments wrapping the axon. They are made of fat (lipid), laid down by supporting cells called Schwann cells, and they act as electrical insulation. The impulse "jumps" from one gap between segments (Node of Ranvier) to the next, which is much faster than travelling the whole length smoothly. Damage to the myelin sheath is what makes multiple sclerosis slow down nerve signals.',
+            zh: '包裹轴突的 5 个椭圆形节段。它们由支持细胞（施旺细胞）制造的脂肪（脂质）构成，作用是电绝缘。脉冲在节段间的空隙（郎飞结）之间"跳跃"，比沿全长平稳传导要快得多。髓鞘受损是导致多发性硬化症神经信号变慢的原因。',
+          },
+          hotspot: { type: 'rect', x: 175, y: 88, width: 150, height: 24 },
+        },
+        {
+          id: 'axon-terminals',
+          name: { en: 'axon terminals', zh: '轴突末梢' },
+          description: {
+            en: 'The spray of fine branches at the right-hand end of the axon. Each terminal sits close to the next cell (a muscle fibre, for a motor neurone) and holds tiny vesicles full of neurotransmitter. When the impulse arrives, the vesicles release their contents into the gap, and the next cell either fires or relaxes.',
+            zh: '轴突右端的细分支丛。每一根末梢都紧贴着下一个细胞（对运动神经元来说是肌纤维），里面装满装着神经递质的小泡。脉冲到达时，小泡把内容物释放到缝隙中，下一个细胞或被激活或被抑制。',
+          },
+          hotspot: { type: 'rect', x: 320, y: 60, width: 80, height: 80 },
+        },
+      ],
+    },
+
+    // 1c) The three types of neurone side by side — G8 Figure B9.05.
+    //     Sensory / relay / motor, each with its own distinguishing
+    //     feature highlighted. The textbook draws the three in a row
+    //     so the student can compare them; we do the same, with the
+    //     long fibre of the selected one turning teal.
+    {
+      type: 'three-neurones',
+      id: 'three-neurones',
+      title: {
+        en: 'Sensory, relay, motor — the same family, three different jobs',
+        zh: '感觉、中间、运动——同一家族，三种不同的活',
+      },
+      hint: {
+        en: 'Pick a neurone type to see what makes it different. The diagram highlights the long fibre of the selected one — that is the "feature" the rest of the chapter assumes you can name.',
+        zh: '选一种神经元查看它的"特长"。图会把所选那条的长纤维高亮成青绿色——这正是本章其余部分假设你能叫出来的那条。',
+      },
+      neurones: [
+        {
+          id: 'sensory',
+          name: { en: 'sensory neurone', zh: '感觉神经元' },
+          distinguishingFeature: {
+            en: 'The long fibre is the DENDRITE — it carries the signal from a receptor (in the skin, the eye, the ear) towards the cell body. The cell body sits on a side branch off the main fibre.',
+            zh: '那条长纤维是**树突**——它把信号从感受器（皮肤、眼睛、耳朵）传向胞体。胞体位于主纤维的一个侧支上。',
+          },
+          description: {
+            en: 'A sensory neurone has its cell body on a side branch off the main fibre, with the long fibre being the dendrite (receptor → cell body) and a short fibre being the axon (cell body → spinal cord). The textbook\'s classic example: touch something hot, and the long dendrite carries the impulse from your fingertip up your arm to the spinal cord.',
+            zh: '感觉神经元的胞体在主纤维的侧支上；长的是树突（感受器→胞体），短的是轴突（胞体→脊髓）。讲义的经典例子：碰到烫的东西，那条长的树突就把脉冲从指尖沿手臂一路送到脊髓。',
+          },
+        },
+        {
+          id: 'relay',
+          name: { en: 'relay neurone', zh: '中间神经元' },
+          distinguishingFeature: {
+            en: 'Both fibres are SHORT — the cell body sits right in the middle. Its only job is to connect one neurone to the next, so it does not need to be long.',
+            zh: '两条纤维都**很短**——胞体就在正中间。它唯一的工作就是把一条神经元和另一条连接起来，所以根本不需要长。',
+          },
+          description: {
+            en: 'A relay neurone is a short neurone whose cell body sits in the central nervous system. It receives an impulse from a sensory or another relay neurone and passes it on to a motor or another relay neurone. The cell body is right in the middle of the line, and the two fibres go in opposite directions. Most of the brain and spinal cord is made of relay neurones.',
+            zh: '中间神经元是一条短神经元，胞体在中枢神经系统内。它从感觉或另一条中间神经元接收脉冲，再传给运动或另一条中间神经元。胞体正好在中间，两条纤维朝相反方向延伸。大脑和脊髓大部分由中间神经元组成。',
+          },
+        },
+        {
+          id: 'motor',
+          name: { en: 'motor neurone', zh: '运动神经元' },
+          distinguishingFeature: {
+            en: 'The long fibre is the AXON — it carries the signal from the cell body in the central nervous system out to a muscle (or a gland). The cell body sits at the start of the axon, with short dendrites branching in.',
+            zh: '那条长纤维是**轴突**——它把信号从中枢神经系统内的胞体一直送到肌肉（或腺体）。胞体就在轴突的起点，几根短的树突从这里伸入。',
+          },
+          description: {
+            en: 'A motor neurone carries impulses OUT of the central nervous system to an effector (a muscle or a gland). The cell body sits at the start of the long axon, with short dendrites branching in from the relay neurones that feed it. The axon can be more than a metre long, ending in axon terminals that release neurotransmitter onto the muscle fibre.',
+            zh: '运动神经元把脉冲从中枢神经系统**向外**传到效应器（肌肉或腺体）。胞体在长轴突的起点，几根短的树突从这里接收来自中间神经元的输入。轴突可超过一米长，末端是释放神经递质到肌纤维的轴突末梢。',
           },
         },
       ],
@@ -830,6 +1187,45 @@ const lesson: Lesson = {
             zh: '把脉冲从视网膜送到大脑后部的视觉皮层。两眼的视神经在视交叉处汇合——每只眼视网膜左半的纤维交叉到大脑右侧，右半交叉到左侧。',
           },
           stop: 7,
+        },
+        // ---- 2026-08-18 Chapter 4 PDF gap-fill ----
+        // Section 4.3 of the textbook spends a whole paragraph on how the
+        // eye is protected from dirt and bacteria: orbit, conjunctiva,
+        // tear glands, eyelids. These parts are NOT inside the section
+        // through the eye (Figure B9.06), so they have no figure hotspots
+        // — they show up only in the "Protect the eye" mode of the side
+        // panel.
+        {
+          id: 'orbit',
+          name: { en: 'orbit (bony socket)', zh: '眼眶（骨性窝）' },
+          description: {
+            en: 'The cup of bone in the skull that the eyeball sits in. Everything except the very front of the eye is surrounded by bone, so a blow to the side of the head cannot reach the retina or the lens. The orbit also provides the surface the eye muscles anchor to.',
+            zh: '颅骨里装着眼球的骨杯。除了最前端，眼球其余部分都被骨头包着——侧面的击打够不到视网膜或晶状体。眼眶还为眼外肌提供锚点。',
+          },
+        },
+        {
+          id: 'conjunctiva',
+          name: { en: 'conjunctiva', zh: '结膜' },
+          description: {
+            en: 'A thin, transparent membrane that covers the white of the eye (sclera) and the inside of the eyelids. It is the surface dirt and bacteria land on, and it is the surface the tear fluid washes across when you blink. When it gets inflamed — by dust, by infection, by allergy — the eye goes pink. That is "conjunctivitis", named after this membrane.',
+            zh: '覆盖眼白（巩膜）和眼睑内面的薄而透明的膜。灰尘和细菌就落在这层膜上；眨眼时，泪液也是从这层膜上洗过去的。一旦它发炎（灰尘、感染、过敏），眼睛就发红——所谓的"结膜炎"就是以这层膜命名的。',
+          },
+        },
+        {
+          id: 'tear-gland',
+          name: { en: 'tear gland (with lysozyme)', zh: '泪腺（含溶菌酶）' },
+          description: {
+            en: 'A small gland under the upper eyelid that secretes the watery fluid spread across the conjunctiva when you blink. The fluid carries dissolved oxygen and nutrients to the cornea (which has no blood supply, because blood vessels would block the light). It also contains lysozyme, an enzyme that breaks down the cell walls of bacteria — the eye is one of the few parts of the body exposed directly to the air, so it defends itself chemically rather than immunologically.',
+            zh: '上眼睑下方的小腺体，分泌眨眼时铺展在结膜上的水样液体。这种液体给没有血管的角膜带去溶解氧和营养（血管会挡光，所以角膜不能有血管）。液体里还含有溶菌酶——一种能破坏细菌细胞壁的酶。眼睛是身体少数直接暴露在空气中的部位之一，所以它在表面用化学方式而不是免疫方式防御。',
+          },
+        },
+        {
+          id: 'eyelids',
+          name: { en: 'eyelids, lashes and brows', zh: '眼睑、睫毛、眉毛' },
+          description: {
+            en: 'Three layers of mechanical defence outside the conjunctiva. Eyelids close reflexively when something approaches the eye, and the blink that happens every few seconds spreads tear fluid evenly. Eyelashes at the lid edge are angled outwards so large debris is deflected before it can land on the cornea. Eyebrows channel sweat and rain away from the eye so the fluid does not run straight in.',
+            zh: '结膜之外的三层物理防线。有东西逼近时，眼睑会反射性闭合；每隔几秒一次的眨眼把泪液均匀铺开。睑缘的睫毛向外翘起，大块碎屑在落到角膜之前就被弹开。眉毛把汗和雨水从眼睛方向引开，免得液体直接流入眼内。',
+          },
         },
       ],
     },

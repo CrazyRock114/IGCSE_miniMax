@@ -641,6 +641,8 @@ export type LessonExtra =
   | FoodWeb3DExtra
   | ConceptExplainerExtra
   | VisualIllusionsExtra
+  | NeuroneStructureExtra
+  | ThreeNeuronesExtra
 
 /** What to show in the side panel when an organ is selected. */
 export interface AnatomyOrgan {
@@ -1126,6 +1128,78 @@ export interface VisualIllusionsExtra {
   hint: Bilingual
   illusions: VisualIllusion[]
   experiments: VisualIllusionExperiment[]
+}
+
+/**
+ * A single motor neurone in section, G8 Figure B9.01. The user clicks a
+ * region of the diagram (cell body, nucleus, dendrites, axon, myelin
+ * sheath, axon terminals) and the side panel describes what is there and
+ * what it does. Same shape as `EyeAnatomy`'s hotspot-based parts, but
+ * the figure is inline SVG rather than a bitmap — drawing it inline
+ * keeps the project self-contained (no image-file dependency) and lets
+ * the hotspots scale crisply.
+ *
+ * Hotspot coordinates are in the SVG viewBox of the figure. The renderer
+ * owns the viewBox dimensions; the data just tells it where each part
+ * sits in that viewBox.
+ */
+export interface NeuronePart {
+  id: string
+  name: Bilingual
+  description: Bilingual
+  /**
+   * Where the part sits in the figure. The renderer draws an invisible
+   * click-target at this position. The figure's own visible artwork
+   * (cell-body outline, axon line, myelin segments, etc.) is rendered by
+   * the component — hotspots are only for clicks.
+   */
+  hotspot:
+    | { type: 'circle'; cx: number; cy: number; r: number }
+    | { type: 'ellipse'; cx: number; cy: number; rx: number; ry: number }
+    | { type: 'rect'; x: number; y: number; width: number; height: number }
+}
+
+export interface NeuroneStructureExtra {
+  type: 'neurone-structure'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  parts: NeuronePart[]
+  /**
+   * Width and height of the inline-SVG viewBox. The component draws the
+   * visible artwork using these dimensions; hotspots use the same
+   * coordinate space. Defaults to 400 × 200 if omitted.
+   */
+  viewBox?: { width: number; height: number }
+}
+
+/**
+ * The three types of neurone side by side, G8 Figure B9.05. The user
+ * picks one of the three (sensory / relay / motor) and the side panel
+ * describes its structure and what makes it different from the other
+ * two. The renderer draws the three neurones at fixed positions inside
+ * a single SVG and toggles which one is "active" — that one gets a
+ * colour highlight on its key structural feature (e.g. the long axon
+ * of the motor neurone).
+ */
+export interface NeuroneProfile {
+  id: 'sensory' | 'relay' | 'motor'
+  name: Bilingual
+  description: Bilingual
+  /**
+   * The single structural feature that distinguishes this neurone type
+   * from the other two. Shown as a labelled callout on the diagram and
+   * quoted in the side panel.
+   */
+  distinguishingFeature: Bilingual
+}
+
+export interface ThreeNeuronesExtra {
+  type: 'three-neurones'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  neurones: NeuroneProfile[]
 }
 
 /**
