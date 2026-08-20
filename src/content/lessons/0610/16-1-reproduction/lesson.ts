@@ -494,16 +494,16 @@ const lesson: Lesson = {
             id: 'oviduct-fallopian-tube',
             name: { en: 'oviduct (Fallopian tube)', zh: '输卵管' },
             description: {
-              en: 'A tube from the ovary to the uterus. The egg is released into the funnel-shaped end and is moved along by cilia and peristalsis. Fertilisation happens here — usually within the first day after ovulation.',
-              zh: '从卵巢通向子宫的管道。卵子被释放到其漏斗状开口端，靠纤毛与蠕动被送往子宫。受精发生在这里——通常在排卵后第一天内。',
+              en: 'A tube from the ovary to the uterus, with a funnel-shaped opening that wraps around the ovary. The egg is released into the funnel, where cilia beat rhythmically to waft it into the tube; peristalsis then moves it slowly along. Fertilisation has to happen here within 8 to 24 hours of ovulation, or the egg dies — which is why the sperm\'s swim up the female tract is a race against the egg\'s short survival window.',
+              zh: '从卵巢通向子宫的管道，开口端是漏斗状，把卵巢包住。卵子被释放到漏斗里，纤毛有节奏地摆动把它"拨"进管内；然后靠蠕动缓慢前进。受精必须发生在排卵后 **8 到 24 小时内**，否则卵子死亡——这正是精子沿女性生殖道上行之所以是一场"和卵子短暂存活窗口赛跑"的原因。',
             },
           },
           {
             id: 'ovary',
             name: { en: 'ovary', zh: '卵巢' },
             description: {
-              en: 'Stores and develops the eggs. A baby girl is born with all the eggs she will ever have — about a million in each ovary — and only about 400 of them are ever released, one at a time each month from puberty to the menopause.',
-              zh: '卵子的储存与发育场所。女婴出生时已带有终其一生的全部卵子——每侧卵巢约一百万个——但其中只有约 400 个会真正排出，从青春期到绝经，每月一个。',
+              en: 'Stores and develops the eggs. A baby girl is born with all the eggs she will ever have — about a million in each ovary. They stay partly developed until puberty, when (from around age 10 to 14) a few begin to mature. From then until the menopause, only ONE egg is released at a time, usually one per month — of the million or so she started with, only about 400 will ever be released.',
+              zh: '卵子的储存与发育场所。女婴出生时已带有终其一生的全部卵子——每侧卵巢约一百万个。出生后它们停留在"部分发育"状态，直到青春期（大约 10-14 岁）才有少数开始成熟。此后到绝经为止，**每次只有一个卵子**排出——通常每月一个——最初那一百多万个里，真正排出的约只有 400 个。',
             },
           },
           {
@@ -591,8 +591,8 @@ const lesson: Lesson = {
             id: 'testis',
             name: { en: 'testis', zh: '睾丸' },
             description: {
-              en: 'Produces sperm — millions of them every day from puberty onwards. Also produces the hormone testosterone, which is what brings on the secondary sexual characteristics at puberty. The testis hangs outside the body because sperm production needs a temperature slightly below core body temperature.',
-              zh: '生成精子——从青春期开始每天数百万。同时分泌睾酮，引发青春期第二性征。睾丸位于体外，是因为精子生成需要略低于核心体温的温度。',
+              en: 'Produces sperm — millions of them every day from about age 12 to 14 onwards (around the same time as the eggs in girls start to mature). Also produces the hormone testosterone, which is what brings on the secondary sexual characteristics at puberty. The testis hangs outside the body because sperm production needs a temperature slightly below core body temperature — which is why hot baths, hot laptops and tight underwear can temporarily reduce sperm counts.',
+              zh: '生成精子——从大约 12-14 岁开始每天数百万（与女孩的卵子开始成熟的时间相近）。同时分泌睾酮，引发青春期第二性征。睾丸位于体外，是因为精子生成需要略低于核心体温的温度——这也是为什么热水浴、发热笔记本、紧身内裤都会暂时性减少精子数量。',
             },
           },
           {
@@ -768,8 +768,8 @@ const lesson: Lesson = {
           },
           title: { en: '3. Implantation in the uterus lining', zh: '3. 在子宫内膜着床' },
           body: {
-            en: 'The zygote divides to form a ball of cells, which is pushed down the oviduct by cilia and peristalsis. About a week after fertilisation it reaches the uterus and embeds itself in the thickened lining, where it will develop through the next nine months. The lining is maintained by progesterone from the corpus luteum — which is why no period comes.',
-            zh: '合子分裂成一团细胞团，靠纤毛与蠕动被推下输卵管。约在受精一周后到达子宫，嵌入已增厚的内膜，开始接下来九个月的发育。内膜由黄体分泌的孕激素维持——所以没有月经来潮。',
+            en: 'The zygote divides as it travels, becoming a ball of 16 or 32 cells by the time it reaches the uterus. Cilia and peristalsis in the oviduct push it down; about a week after fertilisation it embeds itself in the thickened lining, where it will develop through the next nine months. The lining is maintained by progesterone from the corpus luteum — which is why no period comes.',
+            zh: '合子在行进中持续分裂，到达子宫时已是一团 16 或 32 个细胞的球。输卵管的纤毛与蠕动把它推下去；约在受精一周后嵌入已增厚的内膜，开始接下来九个月的发育。内膜由黄体分泌的孕激素维持——所以没有月经来潮。',
           },
         },
       ],
@@ -812,18 +812,18 @@ const lesson: Lesson = {
         },
         {
           id: 'fetal-capillaries',
-          name: { en: 'fetal capillaries', zh: '胎儿毛细血管' },
+          name: { en: 'fetal capillaries (in the villi)', zh: '胎儿毛细血管（绒毛内）' },
           description: {
-            en: 'Tiny vessels branching off the umbilical cord into the placenta. Their wall is the thin membrane across which all the exchange happens — one cell thick. They carry fetal blood at the lower fetal pressure, so the two bloods do not push into each other.',
-            zh: '由脐带分支进入胎盘的微小血管。它们的壁就是发生交换的那层薄膜——只有一个细胞厚。血管内流动的是胎儿血液，压力比母体低，所以两套血液不会互相冲击。',
+            en: 'Tiny vessels branching off the umbilical cord into the placenta. They are bundled into finger-like projections called VILLI that reach into the maternal blood space, giving a huge surface area for exchange. The wall of each capillary is the thin membrane across which all the exchange happens — one cell thick. They carry fetal blood at the lower fetal pressure, so the two bloods do not push into each other.',
+            zh: '由脐带分支进入胎盘的微小血管。它们聚集成指状突起——**绒毛（villi）**——伸入母体血液的空间中，从而提供巨大的交换面积。每根毛细血管的壁就是发生交换的那层薄膜——只有一个细胞厚。血管内流动的是胎儿血液，压力比母体低，所以两套血液不会互相冲击。',
           },
         },
         {
           id: 'placental-wall',
           name: { en: 'thin wall of placenta', zh: '胎盘薄膜' },
           description: {
-            en: 'A single layer of cells separating fetal blood from maternal blood. All exchange happens by diffusion across this wall. The thinner it stays, the more efficient the exchange — and the easier it is for oxygen to get across.',
-            zh: '把胎儿血液与母体血液隔开的单层细胞。所有的物质交换都靠穿过这层薄膜进行扩散。它越薄，交换效率越高，氧也越容易穿过。',
+            en: 'A single layer of cells separating fetal blood from maternal blood. All exchange happens by diffusion across this wall. The thinner it stays, the more efficient the exchange — and the easier it is for oxygen to get across. The whole placenta at birth is a flat, soft, dark-red disc about 12 cm in diameter and 3 cm thick, weighing roughly 500 g. It looks and feels like raw liver.',
+            zh: '把胎儿血液与母体血液隔开的单层细胞。所有的物质交换都靠穿过这层薄膜进行扩散。它越薄，交换效率越高，氧也越容易穿过。整个胎盘在出生时是一片柔软、暗红、扁平的圆盘，直径约 12 cm，厚约 3 cm，重量约 500 g——看起来和摸起来都像生肝。',
           },
         },
         {

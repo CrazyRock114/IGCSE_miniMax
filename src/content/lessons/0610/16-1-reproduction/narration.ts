@@ -158,10 +158,52 @@ export const reproductionNarration: NarrationScript = {
       ],
     },
     {
+      id: 'childbirth',
+      type: 'concept',
+      title: { en: 'Nine months later — what childbirth actually is', zh: '九个月之后——分娩究竟是什么' },
+      lines: [
+        {
+          id: 'cb-1',
+          text: {
+            en: 'Childbirth has three stages and they happen in a fixed order. First, the muscular wall of the uterus begins to contract — strongly and regularly. The contractions dilate the cervix, which has to open wide enough to let the baby through. A first labour can last twelve hours or more; later ones are usually shorter.',
+            zh: '分娩分三个阶段，按固定顺序发生。第一阶段，子宫肌壁开始有规律地强烈收缩。宫缩使子宫颈扩张，必须开得足够大才能让婴儿通过。初产妇分娩可能持续 12 小时甚至更久；后面的通常较短。',
+          },
+        },
+        {
+          id: 'cb-2',
+          text: {
+            en: 'Second, the contractions push the baby out through the dilated cervix and along the vagina. The baby is still attached to the placenta by the umbilical cord — that does not need to be cut until after the baby is breathing on its own. The cord is clamped and cut, and what is left on the baby\'s abdomen heals into the belly button.',
+            zh: '第二阶段，收缩把婴儿从已扩张的子宫颈推出，沿阴道娩出。婴儿此时仍通过脐带与胎盘相连——不必在婴儿自己开始呼吸之前切断。脐带被夹住、剪断，留在婴儿腹部的那段会愈合成肚脐。',
+          },
+        },
+        {
+          id: 'cb-3',
+          text: {
+            en: 'Third, the placenta itself comes out — the "afterbirth". The same uterine contractions that pushed the baby out now push the placenta away from the uterus wall, and it passes out through the vagina. The umbilical cord, by then, is already cut. Losing the placenta is the end of the pregnancy, and the uterus goes back to its pre-pregnancy size over the following weeks.',
+            zh: '第三阶段，胎盘本身也排出体外——即"胞衣（afterbirth）"。推出婴儿的同一波子宫收缩现在把胎盘从子宫壁上剥下来，并从阴道排出。脐带此时已被剪断。胎盘排出是妊娠的结束，子宫将在接下来的几周内恢复到怀孕前的大小。',
+          },
+        },
+        {
+          id: 'cb-4',
+          text: {
+            en: 'The placenta is delivered because the contractions that pushed the baby out also shear it off the uterine wall. It is a deliberate biological sequence: birth first, then afterbirth, then the long recovery of the uterus. Get any stage wrong and the bleeding that follows can be dangerous — which is why obstructed labour is a medical emergency, and why every modern birth has a trained attendant with a clock.',
+            zh: '胎盘之所以能排出，是因为推出婴儿的同一波收缩也把它从子宫壁上剥下来。这是一个有序的生物序列：先是分娩，然后是胞衣，最后是子宫的长期恢复。任何一阶段出错，紧随其后的出血都可能致命——这就是为什么难产是医疗急症，以及为什么现代每一次分娩都有训练有素、带着钟表的助产士在场。',
+          },
+        },
+      ],
+    },
+    {
       id: 'cycle',
       type: 'interaction',
       title: { en: 'Four hormones and a lining', zh: '四种激素与一层内膜' },
       lines: [
+        {
+          id: 'cy-0',
+          text: {
+            en: 'One whole cycle, on average, takes about 28 days — but the textbook number is misleading. Cycles of 25 or 35 days are normal; what is "fixed" is the second half of the cycle (always about 14 days from ovulation to the next period), not the first half. The bleeding itself usually lasts about five days.',
+            zh: '整个月经周期平均约 28 天——但教材里这个数字有迷惑性。25 或 35 天的周期都属正常；"固定"的是周期后半段（从排卵到下次月经几乎总是 14 天），不是前半段。经期出血本身通常持续约 5 天。',
+          },
+        },
         {
           id: 'cy-1',
           text: {
@@ -242,6 +284,13 @@ export const reproductionNarration: NarrationScript = {
           },
         },
         {
+          id: 'st-1b',
+          text: {
+            en: 'One reason HIV is hard to catch is that the virus itself is fragile — it cannot live outside the human body, and is much less tough than the cold or flu virus. It cannot survive on a toilet seat, on a cup, in a swimming pool, or on a handshake. It gets in only when body fluids from an infected person reach the body fluids of someone else — and almost all those routes can be interrupted.',
+            zh: 'HIV 难以传染的一个原因是病毒本身很脆弱——它**无法在人体外存活**，比感冒或流感病毒要不耐受得多。它不会在马桶座、杯子、泳池或一次握手之上存活。它只在感染者的体液进入他人的体液时才能进入——而几乎所有这些路径都可以被切断。',
+          },
+        },
+        {
           id: 'st-2',
           text: {
             en: 'HIV is transmitted in body fluids: through unprotected sexual contact, through blood — sharing needles, or transfusion of infected blood — and from a mother to her child across the placenta, during birth, or in breast milk.',
@@ -258,8 +307,8 @@ export const reproductionNarration: NarrationScript = {
         {
           id: 'st-4',
           text: {
-            en: 'HIV attacks lymphocytes — the very cells that make antibodies. So the damage is not what the virus does directly; it is that the immune system stops being able to deal with anything else. AIDS is what other infections do to a body that can no longer defend itself.',
-            zh: 'HIV 攻击淋巴细胞——正是产生抗体的那类细胞。因此危害并非病毒直接造成，而在于免疫系统再也无法应对其他任何病原体。艾滋病，是其他感染对一个已无力自卫的身体所造成的后果。',
+            en: 'HIV attacks white blood cells called lymphocytes — the very cells that make antibodies. So the damage is not what the virus does directly; it is that the immune system stops being able to deal with anything else. AIDS is what other infections do to a body that can no longer defend itself.',
+            zh: 'HIV 攻击一种称为淋巴细胞的白细胞——正是产生抗体的那类细胞。因此危害并非病毒直接造成，而在于免疫系统再也无法应对其他任何病原体。艾滋病，是其他感染对一个已无力自卫的身体所造成的后果。',
           },
         },
       ],
