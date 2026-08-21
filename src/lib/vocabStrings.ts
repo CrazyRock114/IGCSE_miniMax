@@ -107,6 +107,49 @@ export const VOCAB = {
     zh: '共 {total} 条 · 未解决 {unresolved} · 已掌握 {resolved}',
   } satisfies Bilingual,
 
+  // ---- 2026-08-21 Vocabulary v2: SRS, streak, TTS, related-terms ----
+  statDueToday: { en: 'Due today', zh: '今日待复习' } satisfies Bilingual,
+  statStartReview: { en: 'Start review', zh: '开始复习' } satisfies Bilingual,
+  statKnown: { en: 'Known', zh: '已掌握' } satisfies Bilingual,
+  statLapsed: { en: 'Lapsed', zh: '薄弱' } satisfies Bilingual,
+  lapseBadge: { en: 'Lapsed {count}×', zh: '错 {count} 次' } satisfies Bilingual,
+  relatedLabel: { en: 'Related', zh: '相关' } satisfies Bilingual,
+  speakLabel: { en: 'Hear pronunciation', zh: '听发音' } satisfies Bilingual,
+  // SRS schedule labels (for the concept card)
+  srsNextReview: { en: 'Next review', zh: '下次复习' } satisfies Bilingual,
+  srsInDays: { en: 'in {n} days', zh: '{n} 天后' } satisfies Bilingual,
+  srsDueNow: { en: 'due now', zh: '现在可复习' } satisfies Bilingual,
+  srsNew: { en: 'new', zh: '新词' } satisfies Bilingual,
+  // Game picker
+  gamePickerTitle: { en: 'Pick a game', zh: '选择游戏' } satisfies Bilingual,
+  gameMultiChoice: { en: 'Multiple choice', zh: '四选一' } satisfies Bilingual,
+  gameMultiChoiceDesc: {
+    en: '4-option quiz. Quick to play, easy to do in a few minutes.',
+    zh: '四选一测验。上手快，几分钟就能玩一轮。',
+  } satisfies Bilingual,
+  gameTypeTerm: { en: 'Type the term', zh: '拼写挑战' } satisfies Bilingual,
+  gameTypeTermDesc: {
+    en: 'See the definition in English, type the term. Hard, but it locks the word in.',
+    zh: '看英文释义，拼出单词。难，但记得牢。',
+  } satisfies Bilingual,
+  gameMatchPairs: { en: 'Match pairs', zh: '连连看' } satisfies Bilingual,
+  gameMatchPairsDesc: {
+    en: 'Pair each term with its definition by clicking pairs. Spatial memory.',
+    zh: '点击配对每个词和它的释义。靠空间记忆。',
+  } satisfies Bilingual,
+  // Game shared
+  gameRoundOver: { en: 'Round done', zh: '本轮结束' } satisfies Bilingual,
+  gameCheck: { en: 'Check', zh: '检查' } satisfies Bilingual,
+  gameNext: { en: 'Next', zh: '下一题' } satisfies Bilingual,
+  gamePlayAgain: { en: '↻ Play again', zh: '↻ 再来一轮' } satisfies Bilingual,
+  gameTypePrompt: { en: 'Type the term for:', zh: '拼出这个词:' } satisfies Bilingual,
+  gameTypePlaceholder: { en: 'type here…', zh: '在这里打字…' } satisfies Bilingual,
+  gameMatchInstructions: {
+    en: 'Click a term, then click its definition. Keep going until all pairs are matched.',
+    zh: '点一个词，再点它的释义。配对完所有对子即可通关。',
+  } satisfies Bilingual,
+  gameMatchCleared: { en: 'All matched!', zh: '全部配对完成！' } satisfies Bilingual,
+
   // Personal progress card on HomePage
   progressTitle: { en: 'Your study so far', zh: '你的学习进度' } satisfies Bilingual,
   progressSignedOutBody: {

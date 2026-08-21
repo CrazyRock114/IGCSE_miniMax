@@ -3,16 +3,19 @@ import { T } from '@/components/i18n/T'
 import type { ConceptEnrichment } from '@/lib/vocabTypes'
 import type { Term } from '@/content/types'
 import { useWordBank } from '@/lib/useVocab'
+import { useNow } from '@/lib/useNow'
 import { VOCAB } from '@/lib/vocabStrings'
 import { assetUrl } from '@/lib/assetUrl'
+import { SpeakButton } from './SpeakButton'
 
 /**
  * The "concept card" — a rich display of a single glossary term.
  *
  * Three layers, from the most general to the most specific:
  *  1. The Term itself: English, Chinese, one-line definition (always present)
- *  2. The enrichment: image, mechanism, clinical details (when authored)
- *  3. The user's state: in the word bank? known? still learning?
+ *  2. The enrichment: image, mechanism, clinical details, related terms
+ *  3. The user's state: in the word bank? known? still learning? when's
+ *     the next review?
  *
  * Inline mode is collapsible; full mode shows everything. The card is also the
  * "front" of the study-mode flip, and the same data feeds the word bank list
@@ -26,9 +29,7 @@ export function ConceptCard({
 }: {
   term: Term
   enrichment?: ConceptEnrichment
-  /** `full` opens the clinical details by default; `inline` starts collapsed. */
   variant?: 'full' | 'inline'
-  /** Show the "Add to word bank" / "Mark known" buttons. */
   showBankControls?: boolean
 }) {
   const [open, setOpen] = useState(variant === 'full')
@@ -38,7 +39,11 @@ export function ConceptCard({
   const status = entry?.status ?? null
 
   return (
-    <article className="rounded-xl border border-line bg-surface p-4" data-concept-term={term.en}>
+    <article
+      className="rounded-xl border border-line bg-surface p-4"
+      data-concept-term={term.en}
+      id={`term-${term.en}`}
+    >
       <header className="flex flex-wrap items-baseline justify-between gap-2">
         <div>
           <h3 className="text-lg font-semibold text-ink">
@@ -52,20 +57,37 @@ export function ConceptCard({
             ) : null}
           </p>
         </div>
-        {showBankControls && (
-          <BankControls
-            inBank={inBank}
-            status={status}
-            onAdd={() => enrichment && bank.add(term.en, enrichment.subject, enrichment.slug)}
-            onRemove={() => bank.remove(term.en)}
-            onMark={(s) => bank.setStatus(term.en, s)}
-          />
-        )}
+        <div className="flex items-center gap-2">
+          <SpeakButton text={term.en} />
+          {showBankControls && (
+            <BankControls
+              inBank={inBank}
+              status={status}
+              onAdd={() => enrichment && bank.add(term.en, enrichment.subject, enrichment.slug)}
+              onRemove={() => bank.remove(term.en)}
+              onMark={(s) => bank.setStatus(term.en, s)}
+            />
+          )}
+        </div>
       </header>
 
       <p className="mt-2 text-sm text-ink-soft">
         <T value={term.definition} />
       </p>
+
+      {entry && (
+        <p className="mt-2 text-xs text-muted">
+          <T value={VOCAB.srsNextReview} />:{' '}
+          <span className="font-mono text-ink">
+            <SrsSchedule entry={entry} />
+          </span>
+          {entry.lapses > 0 && (
+            <span className="ml-2 rounded-full bg-rose-100 px-2 py-0.5 text-[10px] font-semibold text-rose-700">
+              <T value={VOCAB.lapseBadge} params={{ count: String(entry.lapses) }} />
+            </span>
+          )}
+        </p>
+      )}
 
       {enrichment && (
         <div className="mt-3 grid gap-3 sm:grid-cols-[200px_1fr]">
@@ -109,6 +131,13 @@ export function ConceptCard({
         </div>
       )}
 
+      {enrichment && enrichment.relatedTerms && enrichment.relatedTerms.length > 0 && (
+        <RelatedChips
+          termIds={enrichment.relatedTerms}
+          current={term.en}
+        />
+      )}
+
       {enrichment && (enrichment.mechanism || enrichment.clinicalDetails) && variant === 'inline' && (
         <button
           type="button"
@@ -119,6 +148,44 @@ export function ConceptCard({
         </button>
       )}
     </article>
+  )
+}
+
+function SrsSchedule({ entry }: { entry: { nextDue: number; status: string; interval: number } }) {
+  const now = useNow()
+  if (entry.nextDue === 0 || entry.status === 'new') {
+    return <T value={VOCAB.srsNew} />
+  }
+  if (!now) return <T value={VOCAB.srsNew} />
+  const days = Math.round((entry.nextDue - now) / (24 * 60 * 60 * 1000))
+  if (days <= 0) return <T value={VOCAB.srsDueNow} />
+  return <T value={VOCAB.srsInDays} params={{ n: String(days) }} />
+}
+
+function RelatedChips({
+  termIds,
+  current,
+}: {
+  termIds: string[]
+  current: string
+}) {
+  const filtered = termIds.filter((t) => t !== current)
+  if (filtered.length === 0) return null
+  return (
+    <div className="mt-3 flex flex-wrap items-center gap-1 border-t border-line pt-2">
+      <span className="text-[10px] uppercase tracking-wide text-muted">
+        <T value={VOCAB.relatedLabel} />
+      </span>
+      {filtered.map((t) => (
+        <a
+          key={t}
+          href={`#term-${t}`}
+          className="rounded-full border border-teal-300 bg-teal-50 px-2 py-0.5 text-[11px] text-teal-800 hover:bg-teal-100"
+        >
+          {t}
+        </a>
+      ))}
+    </div>
   )
 }
 

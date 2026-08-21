@@ -18,9 +18,10 @@
  */
 
 import type { StudyStatus, VocabStore, WordEntry } from './vocabTypes'
+import { DEFAULT_SRS, migrateLegacySrs } from './srs'
 
 const STORAGE_KEY = 'igcse.vocab.wordbank.v1'
-const SCHEMA_VERSION = 1
+const SCHEMA_VERSION = 2
 export const VOCAB_CHANGED_EVENT = 'igcse:vocab-changed'
 
 interface Persisted {
@@ -38,8 +39,16 @@ function read(): WordEntry[] {
     const raw = window.localStorage.getItem(STORAGE_KEY)
     if (!raw) return []
     const parsed = JSON.parse(raw) as Persisted
+    if (parsed.v === 1) {
+      // v1 → v2: add SRS fields to legacy entries.
+      const migrated = Array.isArray(parsed.words)
+        ? parsed.words.map(migrateLegacySrs)
+        : []
+      write(migrated)
+      return migrated
+    }
     if (parsed.v !== SCHEMA_VERSION) {
-      // Future migrations would go here; today there is only v1.
+      // Unknown version — drop to start fresh.
       return []
     }
     return Array.isArray(parsed.words) ? parsed.words : []
@@ -75,7 +84,7 @@ class LocalStorageVocabStore implements VocabStore {
     return read()
   }
 
-  add(entry: Omit<WordEntry, 'addedAt' | 'lastReviewed' | 'reviewCount' | 'status'>): WordEntry {
+  add(entry: Omit<WordEntry, 'addedAt' | 'lastReviewed' | 'reviewCount' | 'status' | 'interval' | 'ease' | 'repetitions' | 'lapses' | 'nextDue'>): WordEntry {
     const words = read()
     const existing = words.find((w) => w.termId === entry.termId)
     if (existing) return existing
@@ -85,6 +94,7 @@ class LocalStorageVocabStore implements VocabStore {
       lastReviewed: 0,
       reviewCount: 0,
       status: 'new',
+      ...DEFAULT_SRS,
     }
     words.push(created)
     write(words)
@@ -123,6 +133,7 @@ class LocalStorageVocabStore implements VocabStore {
         lastReviewed: 0,
         reviewCount: 0,
         status: 'new',
+        ...DEFAULT_SRS,
       })
       changed = true
     }

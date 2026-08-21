@@ -21,9 +21,12 @@ import { vocabStore, VOCAB_CHANGED_EVENT } from '@/lib/vocabStore'
 import { mistakeStore, MISTAKE_CHANGED_EVENT } from '@/lib/mistakeStore'
 import { progressStore, PROGRESS_CHANGED_EVENT, lastActivityAt } from '@/lib/progressStore'
 import { classify, type StatementProgress, type StatementStatus } from '@/lib/progressTypes'
+import { isDue } from '@/lib/srs'
 
 export interface ProgressSnapshot {
   wordCount: number
+  /** Words due for review right now (SRS queue, not just new words). */
+  dueTodayCount: number
   mistakeCount: number
   unresolvedMistakeCount: number
   resolvedMistakeCount: number
@@ -39,6 +42,7 @@ export interface ProgressSnapshot {
 
 const EMPTY: ProgressSnapshot = {
   wordCount: 0,
+  dueTodayCount: 0,
   mistakeCount: 0,
   unresolvedMistakeCount: 0,
   resolvedMistakeCount: 0,
@@ -55,6 +59,7 @@ const EMPTY: ProgressSnapshot = {
 }
 
 function compute(): ProgressSnapshot {
+  const now = Date.now()
   const words = vocabStore.list()
   const mistakes = mistakeStore.list()
   const progress = progressStore.list()
@@ -78,6 +83,7 @@ function compute(): ProgressSnapshot {
 
   return {
     wordCount: words.length,
+    dueTodayCount: words.filter((w) => isDue(w, now)).length,
     mistakeCount: mistakes.length,
     unresolvedMistakeCount: mistakes.filter((m) => !m.resolved).length,
     resolvedMistakeCount: mistakes.filter((m) => m.resolved).length,

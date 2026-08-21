@@ -1,61 +1,103 @@
 import { useMemo, useState } from 'react'
 import { T } from '@/components/i18n/T'
-import type { StudyStatus, WordEntry } from '@/lib/vocabTypes'
+import type { WordEntry } from '@/lib/vocabTypes'
 import { dueForReview, useWordBank } from '@/lib/useVocab'
 import { VOCAB } from '@/lib/vocabStrings'
-import { assetUrl } from '@/lib/assetUrl'
+import { recordReview, useStreak, streakLabel } from '@/lib/useStreak'
+import { SpeakButton } from './SpeakButton'
 
 /**
  * Card-flip study mode.
  *
- * Shows the English term (and image, if any) face-up; the student clicks to
- * flip and see the definition + mechanism. Then three buttons: "Know it",
- * "Still learning", "Don't know it". The status ladder maps onto a simple
- * self-assessment: know → known, don't know → new, unsure → stays.
+ * The queue is the user's word bank filtered by SRS: anything whose
+ * `nextDue` is past or never scheduled. Today the queue is shuffled and
+ * presented one at a time. Three self-assessment buttons (know / unsure /
+ * don't know) feed the SM-2 lite scheduler (see `lib/srs.ts`).
  *
- * Queue is whatever is "due for review" today — the student's word bank
- * filtered by status, with 'known' words re-introduced after a week. The
- * shuffle is a Fisher–Yates on a snapshot of the queue, computed once per
- * session inside a child that mounts with a fresh key whenever the bank
- * changes — so re-renders don't reshuffle mid-session and the shuffle never
- * runs during render.
+ * The session is keyed on the bank hash so any add/remove/status change
+ * forces a fresh shuffle. A child owns the shuffle (lazy useState) so
+ * the parent never calls `Math.random` during render or setState in
+ * an effect.
  */
 export function StudyMode({
   resolve,
 }: {
   resolve: (termId: string, subject: string, slug: string) => { term: import('@/content/types').Term; enrichment?: import('@/lib/vocabTypes').ConceptEnrichment } | null
 }) {
-  const { words } = useWordBank()
+  const { words, todayQueue, stats } = useWordBank()
+  const streak = useStreak()
 
-  // Pure: what is due. The shuffle lives in the child so the parent render
-  // stays free of `Math.random`.
   const due = useMemo(() => dueForReview(words), [words])
 
   if (due.length === 0) {
     return (
-      <p className="rounded-lg border border-dashed border-line bg-canvas p-6 text-center text-sm text-muted">
-        <T value={VOCAB.studyEmpty} />
-      </p>
+      <div className="space-y-3">
+        <StreakHUD streak={streak} stats={stats} />
+        <p className="rounded-lg border border-dashed border-line bg-canvas p-6 text-center text-sm text-muted">
+          <T value={VOCAB.studyEmpty} />
+        </p>
+      </div>
     )
   }
 
-  // The session component remounts when the bank changes, so the shuffle
-  // runs once per session — never in the parent render, never in an effect.
   return (
-    <Session
-      // Hash the bank so any add/remove/status change forces a fresh shuffle.
-      // A new session starts on the first card of the new queue.
-      key={bankHash(words)}
-      due={due}
-      resolve={resolve}
-    />
+    <div className="space-y-3">
+      <StreakHUD streak={streak} stats={stats} />
+      <Session
+        // Hash the bank so any add/remove/status change forces a fresh shuffle.
+        // A new session starts on the first card of the new queue.
+        key={bankHash(words)}
+        due={todayQueue.length > 0 ? todayQueue : due}
+        resolve={resolve}
+        onAssess={() => {
+          /* streak subscription already updates via the event */
+        }}
+      />
+    </div>
+  )
+}
+
+function StreakHUD({
+  streak,
+  stats,
+}: {
+  streak: import('@/lib/streak').StreakRecord
+  stats: ReturnType<typeof useWordBank>['stats']
+}) {
+  return (
+    <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-line bg-canvas px-3 py-2 text-xs">
+      <div className="flex flex-wrap items-center gap-3">
+        <span className="font-mono text-base" title="Day streak (≥1 review per day)">
+          🔥 <span className="text-ink">{streakLabel(streak)}</span>
+        </span>
+        <span className="text-muted">
+          XP <span className="font-mono text-ink">{streak.xp}</span>
+        </span>
+        <span className="text-muted">
+          Best <span className="font-mono text-ink">{streak.longest}</span>
+        </span>
+      </div>
+      <div className="flex flex-wrap items-center gap-3 text-muted">
+        <span>
+          <T value={VOCAB.statDueToday} />{' '}
+          <span className="font-mono text-ink">{stats.dueToday}</span>
+        </span>
+        <span>
+          <T value={VOCAB.statKnown} />{' '}
+          <span className="font-mono text-emerald-700">{stats.known}</span>
+        </span>
+        <span>
+          <T value={VOCAB.statLapsed} />{' '}
+          <span className="font-mono text-rose-700">{stats.lapsedCount}</span>
+        </span>
+      </div>
+    </div>
   )
 }
 
 function bankHash(words: WordEntry[]): string {
-  // Cheap, stable, order-insensitive — a content hash of the bank's identity.
   return words
-    .map((w) => `${w.termId}:${w.status}:${w.lastReviewed}`)
+    .map((w) => `${w.termId}:${w.status}:${w.nextDue}:${w.lapses}`)
     .sort()
     .join('|')
 }
@@ -67,11 +109,13 @@ function bankHash(words: WordEntry[]): string {
 function Session({
   due,
   resolve,
+  onAssess,
 }: {
   due: WordEntry[]
   resolve: (termId: string, subject: string, slug: string) => { term: import('@/content/types').Term; enrichment?: import('@/lib/vocabTypes').ConceptEnrichment } | null
+  onAssess: () => void
 }) {
-  const { setStatus } = useWordBank()
+  const { assess } = useWordBank()
   const [queue] = useState(() => {
     const a = [...due]
     for (let i = a.length - 1; i > 0; i--) {
@@ -82,7 +126,7 @@ function Session({
   })
   const [idx, setIdx] = useState(0)
   const [flipped, setFlipped] = useState(false)
-  const [session, setSession] = useState({ done: 0, right: 0 })
+  const [session, setSession] = useState({ done: 0, right: 0, xp: 0 })
   const [done, setDone] = useState(false)
 
   if (done) {
@@ -92,14 +136,14 @@ function Session({
           <T value={VOCAB.studyDone} />
         </h3>
         <p className="mt-1 text-sm text-ink-soft">
-          {session.right}/{session.done} <T value={VOCAB.studyRight} />
+          {session.right}/{session.done} <T value={VOCAB.studyRight} /> · +{session.xp} XP
         </p>
         <button
           type="button"
           onClick={() => {
             setIdx(0)
             setFlipped(false)
-            setSession({ done: 0, right: 0 })
+            setSession({ done: 0, right: 0, xp: 0 })
             setDone(false)
           }}
           className="mt-3 rounded-md bg-ink px-3 py-1.5 text-sm font-medium text-white hover:opacity-90"
@@ -115,11 +159,13 @@ function Session({
   const resolved = resolve(current.termId, current.subject, current.slug)
   if (!resolved) return null
 
-  const assess = (s: 'know' | 'unsure' | 'dont') => {
-    const nextStatus: StudyStatus =
-      s === 'know' ? 'known' : s === 'dont' ? 'new' : current.status === 'new' ? 'learning' : current.status
-    setStatus(current.termId, nextStatus)
-    setSession((p) => ({ done: p.done + 1, right: p.right + (s === 'know' ? 1 : 0) }))
+  const xpFor = (a: 'know' | 'unsure' | 'dont') => (a === 'know' ? 10 : a === 'unsure' ? 5 : 2)
+
+  const doAssess = (a: 'know' | 'unsure' | 'dont') => {
+    assess(current.termId, a)
+    recordReview(a)
+    setSession((p) => ({ done: p.done + 1, right: p.right + (a === 'know' ? 1 : 0), xp: p.xp + xpFor(a) }))
+    onAssess()
     setFlipped(false)
     if (idx + 1 >= queue.length) {
       setDone(true)
@@ -130,11 +176,18 @@ function Session({
 
   return (
     <div className="space-y-3">
-      <div className="text-xs text-muted">
-        <T value={VOCAB.studyProgress} />{' '}
-        <span className="font-mono text-ink">
-          {Math.min(idx + 1, queue.length)} / {queue.length}
+      <div className="flex items-center justify-between text-xs text-muted">
+        <span>
+          <T value={VOCAB.studyProgress} />{' '}
+          <span className="font-mono text-ink">
+            {Math.min(idx + 1, queue.length)} / {queue.length}
+          </span>
         </span>
+        {current.lapses > 0 && (
+          <span className="rounded-full bg-rose-100 px-2 py-0.5 text-[10px] font-semibold text-rose-700">
+            <T value={VOCAB.lapseBadge} params={{ count: String(current.lapses) }} />
+          </span>
+        )}
       </div>
 
       <button
@@ -143,16 +196,12 @@ function Session({
         className="block w-full rounded-xl border border-line bg-surface p-4 text-left transition-colors hover:border-teal-500"
         aria-pressed={flipped}
       >
-        {resolved.enrichment?.image && (
-          <img
-            src={assetUrl(resolved.enrichment.image)}
-            alt={resolved.term.en}
-            className="mx-auto mb-3 h-32 w-full max-w-md rounded object-cover"
-          />
-        )}
-        <h3 className="text-center text-2xl font-semibold text-ink">
-          <T value={{ en: resolved.term.en, zh: resolved.term.zh }} />
-        </h3>
+        <div className="flex items-center justify-between gap-2">
+          <h3 className="flex-1 text-center text-2xl font-semibold text-ink">
+            <T value={{ en: resolved.term.en, zh: resolved.term.zh }} />
+          </h3>
+          <SpeakButton text={resolved.term.en} />
+        </div>
         {flipped ? (
           <div className="mt-3 space-y-2 border-t border-line pt-3">
             <p className="text-sm text-ink-soft">
@@ -166,6 +215,12 @@ function Session({
                 <T value={resolved.enrichment.mechanism} />
               </p>
             )}
+            {resolved.enrichment?.relatedTerms && resolved.enrichment.relatedTerms.length > 0 && (
+              <RelatedChips
+                termIds={resolved.enrichment.relatedTerms}
+                current={resolved.term.en}
+              />
+            )}
           </div>
         ) : (
           <p className="mt-2 text-center text-xs text-muted">
@@ -178,27 +233,57 @@ function Session({
         <div className="grid grid-cols-3 gap-2">
           <button
             type="button"
-            onClick={() => assess('dont')}
+            onClick={() => doAssess('dont')}
             className="rounded-md border border-line bg-surface px-2 py-2 text-xs text-ink-soft hover:border-rose-500 hover:text-rose-700"
           >
             <T value={VOCAB.dontKnow} />
+            <span className="ml-1 text-[10px] text-muted">+2</span>
           </button>
           <button
             type="button"
-            onClick={() => assess('unsure')}
+            onClick={() => doAssess('unsure')}
             className="rounded-md border border-line bg-surface px-2 py-2 text-xs text-ink-soft hover:border-amber-500 hover:text-amber-700"
           >
             <T value={VOCAB.unsure} />
+            <span className="ml-1 text-[10px] text-muted">+5</span>
           </button>
           <button
             type="button"
-            onClick={() => assess('know')}
+            onClick={() => doAssess('know')}
             className="rounded-md border border-line bg-surface px-2 py-2 text-xs text-ink-soft hover:border-emerald-500 hover:text-emerald-700"
           >
             <T value={VOCAB.know} />
+            <span className="ml-1 text-[10px] text-muted">+10</span>
           </button>
         </div>
       )}
+    </div>
+  )
+}
+
+function RelatedChips({
+  termIds,
+  current,
+}: {
+  termIds: string[]
+  current: string
+}) {
+  const filtered = termIds.filter((t) => t !== current)
+  if (filtered.length === 0) return null
+  return (
+    <div className="mt-1 flex flex-wrap items-center gap-1">
+      <span className="text-[10px] uppercase tracking-wide text-muted">
+        <T value={VOCAB.relatedLabel} />
+      </span>
+      {filtered.map((t) => (
+        <a
+          key={t}
+          href={`#term-${t}`}
+          className="rounded-full border border-teal-300 bg-teal-50 px-2 py-0.5 text-[11px] text-teal-800 hover:bg-teal-100"
+        >
+          {t}
+        </a>
+      ))}
     </div>
   )
 }

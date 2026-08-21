@@ -49,6 +49,11 @@ function wordEntryToRow(entry: WordEntry, userId: string) {
     added_at: new Date(entry.addedAt).toISOString(),
     last_reviewed: entry.lastReviewed ? new Date(entry.lastReviewed).toISOString() : null,
     review_count: entry.reviewCount,
+    interval: entry.interval,
+    ease: entry.ease,
+    repetitions: entry.repetitions,
+    lapses: entry.lapses,
+    next_due: entry.nextDue ? new Date(entry.nextDue).toISOString() : null,
   }
 }
 
@@ -95,7 +100,7 @@ async function pullFromSupabase(userId: string): Promise<void> {
   ] = await Promise.all([
     supabase
       .from('word_bank')
-      .select('term_id, subject, slug, status, note, added_at, last_reviewed, review_count')
+      .select('term_id, subject, slug, status, note, added_at, last_reviewed, review_count, interval, ease, repetitions, lapses, next_due')
       .eq('user_id', userId),
     supabase
       .from('mistakes')
@@ -132,6 +137,11 @@ async function pullFromSupabase(userId: string): Promise<void> {
         addedAt: new Date(row.added_at as string).getTime(),
         lastReviewed: row.last_reviewed ? new Date(row.last_reviewed as string).getTime() : 0,
         reviewCount: row.review_count as number,
+        interval: (row.interval as number | null) ?? 0,
+        ease: (row.ease as number | null) ?? 2.5,
+        repetitions: (row.repetitions as number | null) ?? 0,
+        lapses: (row.lapses as number | null) ?? 0,
+        nextDue: row.next_due ? new Date(row.next_due as string).getTime() : 0,
       }
       const remoteEntry: WordEntry =
         remoteNote !== undefined ? { ...base, note: remoteNote } : base
