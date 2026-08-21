@@ -5,8 +5,9 @@ import { LangToggle } from '@/components/i18n/LangToggle'
 import { TranslatorToggle } from '@/components/translator/TranslatorToggle'
 import { ConceptCard } from '@/components/vocab/ConceptCard'
 import { WordBank } from '@/components/vocab/WordBank'
+import { VocabHud } from '@/components/vocab/VocabHud'
 import { StudyMode } from '@/components/vocab/StudyMode'
-import { WordGame } from '@/components/vocab/WordGame'
+import { GamePicker } from '@/components/vocab/GamePicker'
 import { MistakeList } from '@/components/vocab/MistakeList'
 import { HooksTab } from '@/components/hooks/HooksTab'
 import { lessons } from '@/lib/registry'
@@ -134,6 +135,7 @@ export function VocabPage() {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
+          <VocabHud />
           <TranslatorToggle />
           <LangToggle />
         </div>
@@ -193,7 +195,7 @@ export function VocabPage() {
 
       {tab === 'study' && <StudyMode resolve={resolve} />}
 
-      {tab === 'game' && <WordGame resolve={resolve} pool={pool} />}
+      {tab === 'game' && <GamePicker resolve={resolve} pool={pool} />}
 
       {tab === 'mistakes' && <MistakeList />}
 

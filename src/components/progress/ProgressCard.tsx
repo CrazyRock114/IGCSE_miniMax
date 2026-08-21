@@ -54,6 +54,21 @@ export function ProgressCard() {
         )}
       </div>
 
+      {snap.dueTodayCount > 0 && (
+        <a
+          href="/vocab?tab=study"
+          className="mt-3 flex items-center justify-between rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm hover:border-amber-400"
+        >
+          <span className="text-ink">
+            <T value={VOCAB.statDueToday} />:{' '}
+            <span className="font-mono text-base font-semibold text-amber-700">
+              {snap.dueTodayCount}
+            </span>
+          </span>
+          <span className="text-xs text-amber-700">→ <T value={VOCAB.statStartReview} /></span>
+        </a>
+      )}
+
       <div className="mt-3 grid gap-3 sm:grid-cols-3">
         <Stat
           label={<T value={VOCAB.progressWords} />}

@@ -1,8 +1,10 @@
 import { useMemo, useState } from 'react'
 import { T } from '@/components/i18n/T'
 import { useWordBank } from '@/lib/useVocab'
+import { recordReview, useStreak, streakLabel } from '@/lib/useStreak'
 import { VOCAB } from '@/lib/vocabStrings'
 import { assetUrl } from '@/lib/assetUrl'
+import { SpeakButton } from './SpeakButton'
 import type { Term } from '@/content/types'
 import type { ConceptEnrichment } from '@/lib/vocabTypes'
 
@@ -27,7 +29,8 @@ export function WordGame({
   /** All terms across all lessons — needed to build distractors. */
   pool: Array<{ term: Term }>
 }) {
-  const { words } = useWordBank()
+  const { words, assess } = useWordBank()
+  const dayStreak = useStreak()
   const [score, setScore] = useState({ right: 0, wrong: 0 })
   const [streak, setStreak] = useState(0)
   const [lastWasRight, setLastWasRight] = useState<boolean | null>(null)
@@ -59,9 +62,22 @@ export function WordGame({
     if (isRight) {
       setScore((s) => ({ ...s, right: s.right + 1 }))
       setStreak((s) => s + 1)
+      // Drive the SRS — the user got it right in a multiple-choice game
+      // counts as a "know" assessment (mid-strength). The bank row's
+      // interval bumps up; next session that word waits longer.
+      const bankEntry = words.find((w) => w.termId === correct.term.en)
+      if (bankEntry) {
+        assess(bankEntry.termId, 'know')
+        recordReview('know')
+      }
     } else {
       setScore((s) => ({ ...s, wrong: s.wrong + 1 }))
       setStreak(0)
+      const bankEntry = words.find((w) => w.termId === correct.term.en)
+      if (bankEntry) {
+        assess(bankEntry.termId, 'dont')
+        recordReview('dont')
+      }
     }
     setLastWasRight(isRight)
   }
@@ -80,6 +96,7 @@ export function WordGame({
           <span className="font-mono text-rose-700">{score.wrong}</span>
         </span>
         <span>
+          🔥 <span className="font-mono text-ink">{streakLabel(dayStreak)}</span> ·{' '}
           <T value={VOCAB.gameStreak} />: <span className="font-mono text-ink">{streak}</span>
         </span>
       </div>
@@ -91,12 +108,15 @@ export function WordGame({
           className="mx-auto h-32 w-full max-w-md rounded object-cover"
         />
       )}
-      <p className="text-center text-lg font-semibold text-ink">
-        <T value={VOCAB.gamePrompt} />:{' '}
-        <span className="text-teal-700">
-          <T value={{ en: correct.term.en, zh: correct.term.zh }} />
-        </span>
-      </p>
+      <div className="flex items-center justify-center gap-2">
+        <p className="text-center text-lg font-semibold text-ink">
+          <T value={VOCAB.gamePrompt} />:{' '}
+          <span className="text-teal-700">
+            <T value={{ en: correct.term.en, zh: correct.term.zh }} />
+          </span>
+        </p>
+        <SpeakButton text={correct.term.en} />
+      </div>
 
       <QuestionCard key={`${correct.term.en}-${attempt}`} correct={correct.term} pool={pool} onAnswer={answer} />
 

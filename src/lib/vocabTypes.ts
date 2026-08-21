@@ -63,6 +63,18 @@ export interface WordEntry {
   reviewCount: number
   /** Current status. */
   status: StudyStatus
+  // ---- SRS (SM-2 lite) fields ----
+  /** Days until next review. 0 = new, no schedule yet. */
+  interval: number
+  /** Multiplier on interval. Starts at 2.5; floor 1.3, cap 2.8. */
+  ease: number
+  /** Consecutive correct reviews since the last lapse. */
+  repetitions: number
+  /** Times the user has answered "don't know". */
+  lapses: number
+  /** Unix ms when this word next comes up. 0 = new. */
+  nextDue: number
+  // ---- meta ----
   /** Optional note the student wrote to themselves. */
   note?: string
 }
@@ -74,7 +86,7 @@ export interface WordEntry {
  */
 export interface VocabStore {
   list(): WordEntry[]
-  add(entry: Omit<WordEntry, 'addedAt' | 'lastReviewed' | 'reviewCount' | 'status'>): WordEntry
+  add(entry: Omit<WordEntry, 'addedAt' | 'lastReviewed' | 'reviewCount' | 'status' | 'interval' | 'ease' | 'repetitions' | 'lapses' | 'nextDue'>): WordEntry
   update(termId: string, patch: Partial<WordEntry>): WordEntry | null
   remove(termId: string): void
   /** Bulk add: only adds terms the user doesn't already have. */

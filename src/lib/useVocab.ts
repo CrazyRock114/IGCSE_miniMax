@@ -10,6 +10,8 @@
 import { useCallback, useEffect, useState } from 'react'
 import { vocabStore } from './vocabStore'
 import type { StudyStatus, WordEntry } from './vocabTypes'
+import { buildTodayQueue, computeStats, nextSchedule } from './srs'
+import type { Assessment, VocabStats } from './srs'
 
 export function useWordBank() {
   const [version, setVersion] = useState(0)
@@ -45,16 +47,42 @@ export function useWordBank() {
     [refresh]
   )
 
-  const setStatus = useCallback(
-    (termId: string, status: StudyStatus) => {
+  /**
+   * Self-assessment with the SM-2 lite algorithm. Replaces the old
+   * `setStatus` — callers now pass the assessment directly; we map
+   * "know" → known, "dont" → new, "unsure" → unchanged-or-learning, and
+   * also update interval/ease/repetitions/lapses/nextDue.
+   */
+  const assess = useCallback(
+    (termId: string, assessment: Assessment) => {
+      const w = words.find((x) => x.termId === termId)
+      if (!w) return
+      const now = Date.now()
+      const sched = nextSchedule(w, assessment, now)
+      const nextStatus: StudyStatus =
+        assessment === 'know' ? 'known' : assessment === 'dont' ? 'new' : w.status === 'new' ? 'learning' : w.status
       vocabStore.update(termId, {
-        status,
-        lastReviewed: Date.now(),
-        reviewCount: (words.find((w) => w.termId === termId)?.reviewCount ?? 0) + 1,
+        status: nextStatus,
+        lastReviewed: now,
+        reviewCount: w.reviewCount + 1,
+        ...sched,
       })
       refresh()
     },
     [refresh, words]
+  )
+
+  /**
+   * Status override without re-running SRS — used by the word bank
+   * "Mark known / learning" buttons where the user wants to set a label
+   * without an assessment.
+   */
+  const setStatus = useCallback(
+    (termId: string, status: StudyStatus) => {
+      vocabStore.update(termId, { status })
+      refresh()
+    },
+    [refresh]
   )
 
   const setNote = useCallback(
@@ -73,6 +101,10 @@ export function useWordBank() {
     [refresh]
   )
 
+  // Derived selectors
+  const todayQueue = buildTodayQueue(words)
+  const stats = computeStats(words)
+
   return {
     words,
     version,
@@ -80,8 +112,11 @@ export function useWordBank() {
     remove,
     setStatus,
     setNote,
+    assess,
     ensure,
     refresh,
+    todayQueue,
+    stats,
   }
 }
 
@@ -92,13 +127,18 @@ export function groupByStatus(words: WordEntry[]): Record<StudyStatus, WordEntry
   return out
 }
 
+/**
+ * The flat "due" pool. Used by the study-mode shuffle and the games'
+ * queue. Anything in `todayQueue` plus any word the user has marked
+ * known but whose `nextDue` is past.
+ */
 export function dueForReview(words: WordEntry[], now = Date.now()): WordEntry[] {
-  // Simple heuristic: anything 'new' or 'learning' is due; known words are
-  // re-introduced 7 days after their last review. A real SRS would weight by
-  // review count and confidence; this is enough to make the study page useful.
-  const sevenDays = 7 * 24 * 60 * 60 * 1000
   return words.filter((w) => {
-    if (w.status !== 'known') return true
-    return now - w.lastReviewed > sevenDays
+    if (w.nextDue === 0) return true
+    return w.nextDue <= now
   })
 }
+
+// Re-export SRS helpers for tests
+export { buildTodayQueue, computeStats, nextSchedule }
+export type { Assessment, VocabStats }

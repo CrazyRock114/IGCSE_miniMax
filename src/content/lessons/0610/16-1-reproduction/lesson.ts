@@ -152,6 +152,376 @@ const lesson: Lesson = {
       },
       syllabus: ['0610.16.4.8'],
     },
+    // ---- 2026-08-21 Vocabulary gap-fill (讲义实际术语) ----
+    {
+      en: 'asexual reproduction',
+      zh: '无性生殖',
+      definition: {
+        en: 'Reproduction that needs only one parent, producing offspring that are genetically identical clones. Examples: bacteria dividing, strawberry runners, potato tubers, fungal spores.',
+        zh: '只需要一个亲本的生殖方式，后代是与亲本遗传上完全一致的克隆。例子：细菌分裂、草莓匍匐茎、马铃薯块茎、真菌孢子。',
+      },
+      syllabus: ['0610.16.1.1'],
+    },
+    {
+      en: 'sexual reproduction',
+      zh: '有性生殖',
+      definition: {
+        en: 'Reproduction that fuses the nuclei of two gametes (one from each parent) to form a diploid zygote. Produces variation.',
+        zh: '融合两个配子（各来自一个亲本）的细胞核、形成二倍体合子的生殖方式。能产生变异。',
+      },
+      syllabus: ['0610.16.1.2'],
+    },
+    {
+      en: 'gamete',
+      zh: '配子',
+      definition: {
+        en: 'A haploid sex cell (sperm or egg) carrying one set of chromosomes. Two gametes fuse at fertilisation to make a diploid zygote.',
+        zh: '单倍体的性细胞（精子或卵），带有一套染色体。两个配子在受精时融合，形成二倍体合子。',
+      },
+      syllabus: ['0610.16.2.1'],
+    },
+    {
+      en: 'haploid',
+      zh: '单倍体',
+      definition: {
+        en: 'A cell with a single set of chromosomes (n). Human gametes are haploid; the zygote and all body cells are diploid (2n).',
+        zh: '只有一套染色体的细胞（n）。人的配子是单倍体；合子与所有体细胞都是二倍体（2n）。',
+      },
+      syllabus: ['0610.16.2.1'],
+    },
+    {
+      en: 'diploid',
+      zh: '二倍体',
+      definition: {
+        en: 'A cell with two sets of chromosomes (2n). Formed when two haploid gametes fuse at fertilisation.',
+        zh: '有两套染色体的细胞（2n）。两个单倍体配子在受精时融合后形成。',
+      },
+      syllabus: ['0610.16.2.3'],
+    },
+    {
+      en: 'meiosis',
+      zh: '减数分裂',
+      definition: {
+        en: 'The cell division that produces gametes. Halves the chromosome number so fertilisation restores the diploid state.',
+        zh: '产生配子的细胞分裂方式。它把染色体数目减半，使受精后恢复二倍体状态。',
+      },
+      syllabus: ['0610.16.2.1'],
+    },
+    {
+      en: 'stamen',
+      zh: '雄蕊',
+      definition: {
+        en: 'The male reproductive part of a flower. Made of an anther (which makes pollen) on a filament.',
+        zh: '花的雄性生殖部分。由产生花粉的花药和支持它的花丝组成。',
+      },
+      syllabus: ['0610.16.3.1'],
+    },
+    {
+      en: 'anther',
+      zh: '花药',
+      definition: {
+        en: 'The pollen-producing part at the tip of a stamen.',
+        zh: '雄蕊顶端产生花粉的部分。',
+      },
+      syllabus: ['0610.16.3.1'],
+    },
+    {
+      en: 'carpel',
+      zh: '心皮',
+      definition: {
+        en: 'The female reproductive part of a flower. Made of a stigma (top), a style (middle), and an ovary (base, containing ovules).',
+        zh: '花的雌性生殖部分。由柱头（顶部）、花柱（中部）和含胚珠的子房（基部）组成。',
+      },
+      syllabus: ['0610.16.3.1'],
+    },
+    {
+      en: 'stigma',
+      zh: '柱头',
+      definition: {
+        en: 'The sticky top of a carpel. Catches pollen during pollination.',
+        zh: '心皮顶端的黏性部分。传粉时接收花粉。',
+      },
+      syllabus: ['0610.16.3.1'],
+    },
+    {
+      en: 'ovule',
+      zh: '胚珠',
+      definition: {
+        en: 'The structure inside an ovary that contains the female gamete. After fertilisation it becomes the seed.',
+        zh: '子房内含雌配子的结构。受精后发育成种子。',
+      },
+      syllabus: ['0610.16.3.1'],
+    },
+    {
+      en: 'pollen tube',
+      zh: '花粉管',
+      definition: {
+        en: 'A tube that grows from a pollen grain down through the style to the ovule, carrying the male nucleus to the female gamete.',
+        zh: '从花粉粒沿花柱向下长入胚珠的管子，把雄核运到雌配子处。',
+      },
+      syllabus: ['0610.16.3.5'],
+    },
+    {
+      en: 'sperm',
+      zh: '精子',
+      definition: {
+        en: 'The male gamete. Tiny, motile (has a tail), and released in huge numbers — millions per day after puberty. Built to travel, not to feed.',
+        zh: '雄配子。微小、能动（有尾）、数量极多——青春期后每天数百万。为运动而造，不承担供养。',
+      },
+      syllabus: ['0610.16.4.1', '0610.16.4.4'],
+    },
+    {
+      en: 'egg',
+      zh: '卵(子)',
+      definition: {
+        en: 'The female gamete. Much larger than a sperm, full of cytoplasm and food store for the early embryo. Does not move on its own.',
+        zh: '雌配子。比精子大得多，富含细胞质和早期胚胎所需的营养物质。自身不能移动。',
+      },
+      syllabus: ['0610.16.4.2', '0610.16.4.5'],
+    },
+    {
+      en: 'testis',
+      zh: '睾丸',
+      definition: {
+        en: 'The male gonad. Produces sperm (millions per day from about age 12–14) and the hormone testosterone. Hangs outside the body because sperm production needs a temperature slightly below core temperature.',
+        zh: '男性性腺。生成精子（自 12–14 岁起每天数百万）并分泌睾酮。位于体外是因为精子生成需要略低于核心体温的温度。',
+      },
+      syllabus: ['0610.16.4.1'],
+    },
+    {
+      en: 'scrotum',
+      zh: '阴囊',
+      definition: {
+        en: 'The pouch of skin holding the testes outside the body. Its muscle wall contracts in the cold and relaxes in the heat, regulating testicular temperature.',
+        zh: '兜住睾丸位于体外的皮囊。肌壁在寒冷时收缩、炎热时放松，调节睾丸温度。',
+      },
+      syllabus: ['0610.16.4.1'],
+    },
+    {
+      en: 'epididymis',
+      zh: '附睾',
+      definition: {
+        en: 'A long coiled tube on the outside of each testis where sperm mature and become motile. Sperm take about a week to pass through it.',
+        zh: '睾丸外侧的细长盘曲管道，精子在此成熟并获得运动能力。精子通过约需一周。',
+      },
+      syllabus: ['0610.16.4.1'],
+    },
+    {
+      en: 'vas deferens',
+      zh: '输精管',
+      definition: {
+        en: 'The tube that carries sperm from the epididymis up into the body and around the bladder to join the urethra. It is cut in a vasectomy.',
+        zh: '把精子从附睾向上绕膀胱送到尿道的管道。输精管结扎术就是切断它。',
+      },
+      syllabus: ['0610.16.4.1'],
+    },
+    {
+      en: 'prostate gland',
+      zh: '前列腺',
+      definition: {
+        en: 'Adds a milky alkaline fluid to sperm as they pass through the urethra. The fluid activates sperm and neutralises the acidity of the female tract.',
+        zh: '在精子通过尿道时给它加入一种奶状碱性液体。这种液体激活精子，并中和女性生殖道的酸性。',
+      },
+      syllabus: ['0610.16.4.1'],
+    },
+    {
+      en: 'urethra',
+      zh: '尿道',
+      definition: {
+        en: 'The tube that carries urine from the bladder (and semen from the reproductive tract in males) out of the body. In males, urine and semen do not mix because a sphincter closes during ejaculation.',
+        zh: '把尿液（男性还包括精液）排出体外的管道。男性排精时括约肌关闭，使尿和精液不混。',
+      },
+      syllabus: ['0610.16.4.1'],
+    },
+    {
+      en: 'penis',
+      zh: '阴茎',
+      definition: {
+        en: 'Deposits semen inside the female reproductive tract. Its erectile tissue fills with blood during arousal, making it rigid.',
+        zh: '把精液送到女性生殖道内的器官。性唤起时其海绵组织充血而变硬。',
+      },
+      syllabus: ['0610.16.4.1'],
+    },
+    {
+      en: 'ovary',
+      zh: '卵巢',
+      definition: {
+        en: 'The female gonad. Stores and develops eggs (a baby girl is born with about a million in each ovary). From puberty to menopause, only ONE egg is released at a time, usually one per month — about 400 in a lifetime.',
+        zh: '女性性腺。储存并发育卵子（女婴出生时每侧约一百万个）。青春期到绝经期间，每次只排出一个，通常每月一个——一生约 400 个。',
+      },
+      syllabus: ['0610.16.4.2'],
+    },
+    {
+      en: 'oviduct',
+      zh: '输卵管',
+      definition: {
+        en: 'A tube from the ovary to the uterus, with a funnel-shaped opening that wraps around the ovary. The egg is released into the funnel, where cilia beat rhythmically to waft it in. Fertilisation must happen here within 8 to 24 hours of ovulation.',
+        zh: '从卵巢通向子宫的管道，开口端是漏斗状，把卵巢包住。卵子被释放到漏斗里，纤毛有节奏摆动把它"拨"进管内。受精必须发生在排卵后 8–24 小时内。',
+      },
+      syllabus: ['0610.16.4.2', '0610.16.4.3'],
+    },
+    {
+      en: 'uterus',
+      zh: '子宫',
+      definition: {
+        en: 'The muscular organ where the embryo implants and develops. Its inner lining (endometrium) thickens each cycle and is shed as menstruation if no embryo implants.',
+        zh: '胚胎着床并发育的肌肉器官。其内膜（子宫内膜）每个周期增厚，若无胚胎植入则作为月经脱落。',
+      },
+      syllabus: ['0610.16.4.2', '0610.16.5.5'],
+    },
+    {
+      en: 'endometrium',
+      zh: '子宫内膜',
+      definition: {
+        en: 'The inner lining of the uterus. It thickens under the influence of oestrogen in the first half of the cycle, ready to receive an embryo. If no embryo implants, it is shed as the next period.',
+        zh: '子宫的内层。周期前半段在雌激素作用下增厚，准备接受胚胎；若没有胚胎植入，则作为下次月经脱落。',
+      },
+      syllabus: ['0610.16.5.5'],
+    },
+    {
+      en: 'cervix',
+      zh: '子宫颈',
+      definition: {
+        en: 'The narrow opening at the lower end of the uterus, opening into the vagina. Usually closed, but dilates during childbirth. Cells at its surface are sampled in a cervical smear test.',
+        zh: '子宫下端通向阴道的狭窄开口。通常是关闭的，但分娩时会扩张。其表面细胞可由宫颈涂片检查取样。',
+      },
+      syllabus: ['0610.16.4.2'],
+    },
+    {
+      en: 'vagina',
+      zh: '阴道',
+      definition: {
+        en: 'The muscular tube leading from the cervix to the outside. It is the birth canal and the route by which sperm enter the female reproductive tract. Its lining is kept moist and acidic by mucus.',
+        zh: '从子宫颈通向体外的肌肉管道。是产道，也是精子进入女性生殖道的路径。其内壁由黏液保持湿润和酸性。',
+      },
+      syllabus: ['0610.16.4.2'],
+    },
+    {
+      en: 'FSH',
+      zh: '促卵泡激素',
+      definition: {
+        en: 'Follicle-stimulating hormone. High early in the menstrual cycle. Stimulates a follicle in the ovary to develop and makes the ovary secrete oestrogen.',
+        zh: '促卵泡激素。月经周期早期较高。促使卵巢中的卵泡发育，并刺激卵巢分泌雌激素。',
+      },
+      syllabus: ['0610.16.5.1'],
+    },
+    {
+      en: 'LH',
+      zh: '黄体生成素',
+      definition: {
+        en: 'Luteinising hormone. A mid-cycle surge of LH triggers ovulation — the follicle bursts and releases the egg.',
+        zh: '黄体生成素。周期中段的 LH 峰触发排卵——卵泡破裂并释放卵子。',
+      },
+      syllabus: ['0610.16.5.2'],
+    },
+    {
+      en: 'oestrogen',
+      zh: '雌激素',
+      definition: {
+        en: 'A hormone secreted by the developing follicle. Rebuilds the uterine lining each cycle and, when it gets high enough, triggers the LH surge that causes ovulation.',
+        zh: '由发育中的卵泡分泌的激素。每个周期重建子宫内膜，并在浓度足够高时触发引起排卵的 LH 峰。',
+      },
+      syllabus: ['0610.16.5.3'],
+    },
+    {
+      en: 'progesterone',
+      zh: '孕激素',
+      definition: {
+        en: 'A hormone secreted by the corpus luteum. Maintains the thickened uterine lining so a fertilised egg can implant. Falling progesterone triggers menstruation.',
+        zh: '由黄体分泌的激素。维持已增厚的子宫内膜，让受精卵能着床。孕激素下降触发月经。',
+      },
+      syllabus: ['0610.16.5.4'],
+    },
+    {
+      en: 'ovulation',
+      zh: '排卵',
+      definition: {
+        en: 'The release of an egg from a follicle in the ovary, triggered by the LH surge around day 14 of a 28-day cycle. The egg then travels down the oviduct.',
+        zh: '卵子从卵巢的卵泡中释放出来，由周期约第 14 天的 LH 峰触发。卵子随后进入输卵管。',
+      },
+      syllabus: ['0610.16.5.2'],
+    },
+    {
+      en: 'menstrual cycle',
+      zh: '月经周期',
+      definition: {
+        en: 'The ~28-day cycle of hormone-driven changes in the ovary and uterus. Average 28 days, but the second half is fixed (~14 days from ovulation to next period); the first half varies. Bleeding itself usually lasts about 5 days.',
+        zh: '由激素驱动的卵巢和子宫的 ~28 天周期变化。平均 28 天，但后半段固定（排卵到下次月经约 14 天），前半段可变。经期出血本身通常约 5 天。',
+      },
+      syllabus: ['0610.16.5.5'],
+    },
+    {
+      en: 'implantation',
+      zh: '着床',
+      definition: {
+        en: 'The embedding of the embryo into the thickened uterine lining, about a week after fertilisation. Maintained by progesterone from the corpus luteum.',
+        zh: '受精约一周后，胚胎嵌入已增厚的子宫内膜的过程。由黄体分泌的孕激素维持。',
+      },
+      syllabus: ['0610.16.4.7'],
+    },
+    {
+      en: 'amniotic sac',
+      zh: '羊膜囊',
+      definition: {
+        en: 'The fluid-filled sac that surrounds the fetus. The amniotic fluid cushions knocks and supports the fetus\'s weight so it can grow evenly.',
+        zh: '包围胎儿的充满液体的囊。羊水缓冲撞击并支撑胎儿重量，使其能均匀发育。',
+      },
+      syllabus: ['0610.16.4.8'],
+    },
+    {
+      en: 'umbilical cord',
+      zh: '脐带',
+      definition: {
+        en: 'A flexible tube about 50 cm long linking the fetus to the placenta. Carries two umbilical arteries (fetal → placenta) and one umbilical vein (placenta → fetus). Cut at birth; what remains becomes the belly button.',
+        zh: '约 50 cm 长的柔性管，把胎儿与胎盘连接起来。含两条脐动脉（胎儿→胎盘）和一条脐静脉（胎盘→胎儿）。出生时被剪断，残留部分变成肚脐。',
+      },
+      syllabus: ['0610.16.4.8'],
+    },
+    {
+      en: 'embryo',
+      zh: '胚胎',
+      definition: {
+        en: 'The early stage of development after fertilisation, from the first cell division through to about 8 weeks, when it becomes a fetus.',
+        zh: '受精后早期发育阶段，从第一次细胞分裂到约第 8 周，之后称为胎儿。',
+      },
+      syllabus: ['0610.16.4.7'],
+    },
+    {
+      en: 'fetus',
+      zh: '胎儿',
+      definition: {
+        en: 'The developing baby from about 8 weeks after fertilisation until birth.',
+        zh: '从受精约第 8 周到出生期间的发育中的婴儿。',
+      },
+      syllabus: ['0610.16.4.7'],
+    },
+    {
+      en: 'HIV',
+      zh: '人类免疫缺陷病毒',
+      definition: {
+        en: 'Human Immunodeficiency Virus — the pathogen that causes AIDS. A fragile virus that cannot survive outside the human body; it gets in only when body fluids from an infected person reach the body fluids of someone else.',
+        zh: '人类免疫缺陷病毒——引起艾滋病的病原体。脆弱的病毒，不能在人体外存活；只有当感染者的体液进入他人体液时才能传播。',
+      },
+      syllabus: ['0610.16.6.1'],
+    },
+    {
+      en: 'AIDS',
+      zh: '艾滋病',
+      definition: {
+        en: 'Acquired Immune Deficiency Syndrome — the late stage of untreated HIV infection, in which the immune system can no longer defend the body against other infections.',
+        zh: '获得性免疫缺陷综合征——未经治疗的 HIV 感染的晚期，免疫系统已无法抵御其他感染。',
+      },
+      syllabus: ['0610.16.6.2'],
+    },
+    {
+      en: 'lymphocyte',
+      zh: '淋巴细胞',
+      definition: {
+        en: 'A type of white blood cell. HIV attacks lymphocytes — the very cells that make antibodies — so the immune system loses the ability to fight other infections.',
+        zh: '一种白细胞。HIV 攻击淋巴细胞——正是产生抗体的细胞——使免疫系统失去抵御其他感染的能力。',
+      },
+      syllabus: ['0610.16.6.3'],
+    },
   ],
 
   equations: [],

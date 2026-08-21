@@ -269,6 +269,97 @@ const lesson: Lesson = {
       },
       syllabus: ['0610.12.1.1'],
     },
+    // ---- 2026-08-21 Vocabulary gap-fill (讲义实际术语) ----
+    {
+      en: 'diaphragm',
+      zh: '膈肌',
+      definition: {
+        en: 'A sheet of muscle below the lungs, dome-shaped at rest. When it contracts it flattens — the volume of the thorax increases and air is drawn in. When it relaxes the dome returns and air is pushed out.',
+        zh: '肺下方一片肌肉，静息时呈拱顶形。收缩时变平——胸腔容积增大，气体被吸入。舒张时拱顶复原，气体被推出。',
+      },
+      syllabus: ['0610.11.1.8'],
+    },
+    {
+      en: 'intercostal muscles',
+      zh: '肋间肌',
+      definition: {
+        en: 'Muscles between the ribs. The external intercostal muscles contract during inhalation, pulling the ribs upwards and outwards to increase the volume of the thorax.',
+        zh: '肋骨之间的肌肉。吸气时外肋间肌收缩，把肋骨向上向外提，以增大胸腔容积。',
+      },
+      syllabus: ['0610.11.1.8'],
+    },
+    {
+      en: 'inspiration',
+      zh: '吸气',
+      definition: {
+        en: 'Breathing in. The diaphragm contracts and flattens, the external intercostal muscles contract, the ribcage moves up and out, thoracic volume rises, pressure falls, and air flows in down the pressure gradient.',
+        zh: '吸气。膈肌收缩变平，外肋间肌收缩，肋骨架上提外展，胸腔容积增大、压力下降，空气沿压力梯度被吸入。',
+      },
+      syllabus: ['0610.11.1.8'],
+    },
+    {
+      en: 'expiration',
+      zh: '呼气',
+      definition: {
+        en: 'Breathing out. The diaphragm relaxes and domes upwards, the external intercostal muscles relax, thoracic volume falls, pressure rises above atmospheric, and air flows out.',
+        zh: '呼气。膈肌舒张并向上拱起，外肋间肌舒张，胸腔容积减小、压力上升超过大气压，气体被呼出。',
+      },
+      syllabus: ['0610.11.1.8'],
+    },
+    {
+      en: 'gas exchange',
+      zh: '气体交换',
+      definition: {
+        en: 'The diffusion of oxygen from the alveoli into the blood, and of carbon dioxide from the blood into the alveoli. Driven by concentration gradients across the thin alveolar wall.',
+        zh: '氧气由肺泡扩散入血、二氧化碳由血液扩散入肺泡。由薄薄的肺泡壁两侧的浓度梯度驱动。',
+      },
+      syllabus: ['0610.11.1.4'],
+    },
+    {
+      en: 'surfactant',
+      zh: '表面活性物质',
+      definition: {
+        en: 'A layer on the inside of the alveolus that lowers surface tension, keeping the alveolus open and the wall thin. Premature babies who have not yet made enough surfactant cannot keep their alveoli open — neonatal respiratory distress syndrome.',
+        zh: '肺泡内表面的一层物质，降低表面张力，使肺泡保持张开、壁保持薄。尚未合成足够表面活性物质的早产儿无法维持肺泡张开——这是新生儿呼吸窘迫综合征。',
+      },
+      syllabus: ['0610.11.1.7'],
+    },
+    {
+      en: 'lung cancer',
+      zh: '肺癌',
+      definition: {
+        en: 'Uncontrolled growth of cells in the lung, usually starting in the airway lining. Symptoms: a cough that does not go away, coughing up blood, breathlessness, chest pain, unexplained weight loss. Risk for smokers is many times that of non-smokers.',
+        zh: '肺部细胞失控增殖，常起始于气道内壁。症状：持续不愈的咳嗽、咳血、呼吸困难、胸痛、不明原因消瘦。吸烟者风险是非吸烟者的数倍。',
+      },
+      syllabus: ['0610.11.1.12'],
+    },
+    {
+      en: 'tar',
+      zh: '焦油',
+      definition: {
+        en: 'A sticky brown residue in cigarette smoke that settles on the lining of the airways. Contains dozens of chemicals that damage DNA, including benzo[a]pyrene — one of the most potent cancer-causing substances known. It also paralyses the cilia that would normally sweep it out.',
+        zh: '香烟烟雾中沉降在气道内壁上的黏性棕黄色残留物。含数十种损伤 DNA 的化学物质，包括苯并[a]芘——已知最强的致癌物之一。它还能麻痹本应清扫它的纤毛。',
+      },
+      syllabus: ['0610.11.1.11'],
+    },
+    {
+      en: 'PM2.5 / PM10',
+      zh: '细颗粒物 / 可吸入颗粒物',
+      definition: {
+        en: 'Particulate matter in air pollution. PM10 is particles ≤10 µm across — caught in the nose and upper airways. PM2.5 is particles ≤2.5 µm — small enough to reach the alveoli and enter the bloodstream.',
+        zh: '空气污染中的颗粒物。PM10 指直径 ≤10 µm 的颗粒——被鼻和上呼吸道阻挡。PM2.5 指直径 ≤2.5 µm 的颗粒——小到能到达肺泡并进入血液。',
+      },
+      syllabus: ['0610.11.1.14'],
+    },
+    {
+      en: 'larynx',
+      zh: '喉',
+      definition: {
+        en: 'The voice box. The upper part of the airway between the pharynx and the trachea. Contains the vocal cords.',
+        zh: '喉头。位于咽与气管之间的气道上部，内有声带。',
+      },
+      syllabus: ['0610.11.1.1'],
+    },
   ],
 
   equations: [

@@ -228,6 +228,250 @@ const lesson: Lesson = {
       },
       syllabus: ['0610.7.3.7'],
     },
+    // ---- 2026-08-21 Vocabulary gap-fill (讲义实际术语) ----
+    {
+      en: 'carbohydrate',
+      zh: '碳水化合物',
+      definition: {
+        en: 'A nutrient made of carbon, hydrogen and oxygen. The body\'s main energy source. Starch (in bread, rice, potatoes) is broken down to glucose before absorption.',
+        zh: '由碳、氢、氧组成的营养素，是身体主要的能量来源。淀粉（面包、米饭、土豆）需先被分解为葡萄糖才能被吸收。',
+      },
+      syllabus: ['0610.7.1.1'],
+    },
+    {
+      en: 'protein',
+      zh: '蛋白质',
+      definition: {
+        en: 'A nutrient made of amino acids. Used for growth and to repair body tissues. Excess protein is broken down by the liver; the nitrogen part is converted to urea and excreted by the kidneys.',
+        zh: '由氨基酸组成的营养素，用于生长和修复身体组织。多余的蛋白质由肝脏分解，含氮部分转化为尿素由肾脏排出。',
+      },
+      syllabus: ['0610.7.1.1'],
+    },
+    {
+      en: 'fat',
+      zh: '脂肪',
+      definition: {
+        en: 'A nutrient that releases more than twice the energy per gram of carbohydrate or protein. Stored under the skin and around organs as an energy reserve and as insulation.',
+        zh: '每克释放的能量是碳水化合物或蛋白质两倍以上的营养素。储存在皮下和器官周围，作为能量储备和保温层。',
+      },
+      syllabus: ['0610.7.1.1'],
+    },
+    {
+      en: 'vitamin',
+      zh: '维生素',
+      definition: {
+        en: 'An organic nutrient needed in small amounts. The body cannot make most of them, so they must come from the diet. Examples: vitamin A (vision), C (collagen), D (calcium absorption).',
+        zh: '少量必需的有机营养素。身体不能合成大多数维生素，必须从食物中获取。例如：维生素 A（视觉）、C（胶原蛋白）、D（钙吸收）。',
+      },
+      syllabus: ['0610.7.1.3'],
+    },
+    {
+      en: 'mineral',
+      zh: '矿物质',
+      definition: {
+        en: 'An inorganic nutrient needed in small amounts. Examples: calcium (for bones and teeth) and iron (for haemoglobin).',
+        zh: '少量必需的无机营养素。例如：钙（骨骼和牙齿）和铁（血红蛋白）。',
+      },
+      syllabus: ['0610.7.1.3'],
+    },
+    {
+      en: 'fibre (dietary)',
+      zh: '膳食纤维',
+      definition: {
+        en: 'Plant material that cannot be digested. Adds bulk to food, helps the gut muscles push contents along, and reduces the risk of constipation and bowel disease.',
+        zh: '不能被消化的植物性物质。它增加食物体积、帮助肠道肌肉推动内容物，并降低便秘和肠道疾病的风险。',
+      },
+      syllabus: ['0610.7.1.1'],
+    },
+    {
+      en: 'scurvy',
+      zh: '坏血病',
+      definition: {
+        en: 'A disease caused by lack of vitamin C. Symptoms: bleeding gums, loose teeth, bruises without injury, wounds that will not heal, fatigue. Common in sailors on long voyages before fresh fruit was rationed.',
+        zh: '由缺乏维生素 C 引起的疾病。症状：牙龈出血、牙齿松动、无外伤的瘀伤、伤口不愈合、疲劳。在新鲜水果成为每日配给前，长航船员常患此病。',
+      },
+      syllabus: ['0610.7.1.5'],
+    },
+    {
+      en: 'rickets',
+      zh: '佝偻病',
+      definition: {
+        en: 'A disease in children caused by lack of vitamin D or calcium. Bones, especially in the legs, stay soft and bend under the body\'s weight — knees bow outward, ankles turn in, spine curves.',
+        zh: '儿童因缺乏维生素 D 或钙而患的疾病。骨骼（尤其是腿部）保持柔软，在体重作用下弯曲——膝盖外翻、踝内翻、脊柱弯曲。',
+      },
+      syllabus: ['0610.7.1.5'],
+    },
+    {
+      en: 'mouth',
+      zh: '口腔',
+      definition: {
+        en: 'The first part of the digestive system. Teeth break food into smaller pieces; the salivary glands add saliva containing amylase, which starts digesting starch.',
+        zh: '消化系统的第一部分。牙齿把食物嚼碎；唾液腺分泌含淀粉酶的唾液，开始消化淀粉。',
+      },
+      syllabus: ['0610.7.2.1'],
+    },
+    {
+      en: 'oesophagus',
+      zh: '食道',
+      definition: {
+        en: 'A muscular tube that pushes food down to the stomach. Food does not fall — the walls squeeze behind it in a wave called peristalsis. This works even upside down.',
+        zh: '将食物推送到胃的肌肉管道。食物不是掉下去的——管壁在它后方以"蠕动"的方式挤压推动。即使倒立也能工作。',
+      },
+      syllabus: ['0610.7.2.1'],
+    },
+    {
+      en: 'stomach',
+      zh: '胃',
+      definition: {
+        en: 'A muscular sac that churns food and adds gastric juice: hydrochloric acid and a protease called pepsin. The acid kills most bacteria; the low pH (~2) is what pepsin needs to work. Food stays 2–4 hours and turns into chyme.',
+        zh: '搅拌食物并加入胃液的肌肉囊：盐酸和一种叫胃蛋白酶的蛋白酶。酸杀灭大多数细菌；低 pH（~2）是胃蛋白酶工作所需。食物停留 2–4 小时变成食糜。',
+      },
+      syllabus: ['0610.7.2.1'],
+    },
+    {
+      en: 'small intestine',
+      zh: '小肠',
+      definition: {
+        en: 'About 6 m long. Where digestion is finished and the products are absorbed. Its wall is folded into villi and microvilli giving a huge surface area for fast absorption into blood and lymph.',
+        zh: '约 6 米长。是消化完成、产物被吸收的地方。管壁折叠成绒毛和微绒毛，提供巨大的表面积，使营养能快速吸收到血液和淋巴。',
+      },
+      syllabus: ['0610.7.2.1'],
+    },
+    {
+      en: 'large intestine',
+      zh: '大肠',
+      definition: {
+        en: 'About 1.5 m long. Reabsorbs water and salts from undigested food, turning it from liquid into solid faeces. Bacteria here also make vitamin K, which the body absorbs.',
+        zh: '约 1.5 米长。从未消化的食物中重吸收水分和盐，将其由液体变为固体粪便。此处的细菌还制造维生素 K，被身体吸收。',
+      },
+      syllabus: ['0610.7.2.1'],
+    },
+    {
+      en: 'rectum',
+      zh: '直肠',
+      definition: {
+        en: 'The final straight section of the large intestine. Stores faeces until they are released through the anus.',
+        zh: '大肠的最后一段直管。储存粪便直至通过肛门排出。',
+      },
+      syllabus: ['0610.7.2.1'],
+    },
+    {
+      en: 'anus',
+      zh: '肛门',
+      definition: {
+        en: 'The opening at the end of the digestive tract through which faeces leave the body. Its opening is controlled by a ring of muscle (sphincter).',
+        zh: '消化道末端的开口，粪便由此排出体外。其开合由一圈肌肉（括约肌）控制。',
+      },
+      syllabus: ['0610.7.2.1'],
+    },
+    {
+      en: 'peristalsis',
+      zh: '蠕动',
+      definition: {
+        en: 'A wave of muscular contraction that pushes food along the oesophagus and through the gut. The muscles behind the food squeeze, those in front relax.',
+        zh: '沿食道和肠道推送食物的肌肉收缩波。食物后方的肌肉收缩挤压，前方的肌肉舒张让路。',
+      },
+      syllabus: ['0610.7.2.2'],
+    },
+    {
+      en: 'amylase',
+      zh: '淀粉酶',
+      definition: {
+        en: 'An enzyme in saliva and pancreatic juice that breaks starch down to maltose (a sugar). Works best at a near-neutral pH.',
+        zh: '唾液和胰液中的酶，把淀粉分解为麦芽糖（一种糖）。在接近中性的 pH 下活性最高。',
+      },
+      syllabus: ['0610.7.2.3'],
+    },
+    {
+      en: 'pepsin',
+      zh: '胃蛋白酶',
+      definition: {
+        en: 'A protease enzyme in the stomach. Breaks proteins into smaller polypeptides. Works only in acidic conditions (pH ~2) provided by hydrochloric acid in gastric juice.',
+        zh: '胃中的蛋白酶，把蛋白质分解为较小的多肽。只在酸性条件（pH ~2）下工作，由胃液中的盐酸提供此环境。',
+      },
+      syllabus: ['0610.7.2.3'],
+    },
+    {
+      en: 'lipase',
+      zh: '脂肪酶',
+      definition: {
+        en: 'An enzyme that breaks fats into fatty acids and glycerol. Made by the pancreas and released into the small intestine, where bile has already emulsified the fat into tiny droplets.',
+        zh: '把脂肪分解为脂肪酸和甘油的酶。由胰腺制造，释放入小肠——此处胆汁已把脂肪乳化成小滴。',
+      },
+      syllabus: ['0610.7.2.3'],
+    },
+    {
+      en: 'protease',
+      zh: '蛋白酶',
+      definition: {
+        en: 'A general term for an enzyme that breaks proteins into amino acids. Pepsin (stomach) and trypsin (pancreas) are two examples.',
+        zh: '把蛋白质分解为氨基酸的酶的通称。胃蛋白酶（胃）和胰蛋白酶（胰腺）是两个例子。',
+      },
+      syllabus: ['0610.7.2.3'],
+    },
+    {
+      en: 'glucose',
+      zh: '葡萄糖',
+      definition: {
+        en: 'A simple sugar. The main sugar carried in the blood and the main energy source for cells. Made by digestion of starch and by photosynthesis in plants.',
+        zh: '一种单糖。血液中运输的主要糖类，是细胞的主要能量来源。由淀粉消化产生，也由植物光合作用产生。',
+      },
+      syllabus: ['0610.7.2.4'],
+    },
+    {
+      en: 'amino acid',
+      zh: '氨基酸',
+      definition: {
+        en: 'The small soluble molecule that proteins are made of. Absorbed through the villi of the small intestine and used by the body to build its own proteins.',
+        zh: '组成蛋白质的小的可溶性分子。通过小肠绒毛吸收，被身体用来构建自身的蛋白质。',
+      },
+      syllabus: ['0610.7.2.4'],
+    },
+    {
+      en: 'fatty acid',
+      zh: '脂肪酸',
+      definition: {
+        en: 'One of the products of fat digestion. Absorbed into the lacteal (lymph vessel) of a villus, not directly into the blood.',
+        zh: '脂肪消化的产物之一。被吸收进绒毛的乳糜管（淋巴管），而不是直接进入血液。',
+      },
+      syllabus: ['0610.7.2.4'],
+    },
+    {
+      en: 'glycerol',
+      zh: '甘油',
+      definition: {
+        en: 'The other product of fat digestion (along with fatty acids). Absorbed into the lacteal of a villus. Can be converted to glucose by the liver.',
+        zh: '脂肪消化的另一产物（与脂肪酸一起）。被吸收进绒毛的乳糜管。可由肝脏转化为葡萄糖。',
+      },
+      syllabus: ['0610.7.2.4'],
+    },
+    {
+      en: 'absorption',
+      zh: '吸收',
+      definition: {
+        en: 'The movement of digested food molecules through the wall of the small intestine into the blood (and lymph). Happens mainly across the villi.',
+        zh: '已消化的食物分子穿过小肠壁进入血液（或淋巴）的过程。主要发生在绒毛表面。',
+      },
+      syllabus: ['0610.7.2.5'],
+    },
+    {
+      en: 'assimilation',
+      zh: '同化',
+      definition: {
+        en: 'The uptake and use of absorbed nutrients by body cells. Glucose is used for respiration; amino acids are used to build new proteins.',
+        zh: '被吸收的营养物质被体细胞摄取并利用的过程。葡萄糖用于呼吸作用；氨基酸用于构建新的蛋白质。',
+      },
+      syllabus: ['0610.7.2.6'],
+    },
+    {
+      en: 'deficiency',
+      zh: '营养缺乏',
+      definition: {
+        en: 'A shortage of a nutrient in the diet. Common examples: vitamin C deficiency → scurvy; vitamin D / calcium deficiency → rickets; iron deficiency → anaemia; protein + energy deficiency → kwashiorkor or marasmus.',
+        zh: '饮食中某种营养素的短缺。常见例子：缺维生素 C → 坏血病；缺维生素 D/钙 → 佝偻病；缺铁 → 贫血；缺蛋白质+能量 → 恶性营养不良病或消瘦症。',
+      },
+      syllabus: ['0610.7.1.5'],
+    },
   ],
 
   // The content here is a web of one-to-one facts rather than a relationship between
