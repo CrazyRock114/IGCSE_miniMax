@@ -431,9 +431,9 @@ function SubjectLessonFilter({
  */
 function WordBankSeeder({ scope }: { scope: VocabScope }) {
   const { ensure, words } = useWordBank()
-  // Run once on mount: any term not already in the bank gets a 'new' entry.
-  // Has a side effect (writes to localStorage); deps include scope so the
-  // bank picks up new lessons when the user navigates between them.
+  // Compute the missing terms. `words` is a dependency because every
+  // ensure() bumps the bank and we want the next render to see a
+  // shorter seed (or an empty one, when the bank catches up).
   const seed = useMemo(() => {
     const all = lessons.flatMap((l) => {
       if (scope.subject !== 'all' && l.subject !== scope.subject) return []
@@ -443,6 +443,29 @@ function WordBankSeeder({ scope }: { scope: VocabScope }) {
     const have = new Set(words.map((w) => w.termId))
     return all.filter((a) => !have.has(a.termId))
   }, [words, scope.subject, scope.slug])
-  if (seed.length > 0) ensure(seed)
+
+  // IMPORTANT: do NOT call ensure() from the render body. setState during
+  // render in React 19 trips "Maximum update depth exceeded" (error #185)
+  // because the ensure() call refreshes words, which re-renders, which
+  // re-computes seed, which — depending on the bundle's batching — can
+  // fire another ensure() before React gets to commit. The fix is to
+  // move the side effect into useEffect, which runs *after* the commit
+  // phase and only re-fires when the seed actually changes.
+  //
+  // In-flight dedup: even after moving to useEffect, a single edge case
+  // can re-trigger: when the user is between two scopes and the lesson
+  // set overlaps (e.g. switching from 7-1 to 7-1+8-1), the same termId
+  // can briefly appear in two seed arrays. ensure() is already idempotent
+  // (ensureMany skips termIds it already has), so the dedup is just a
+  // belt-and-suspenders optimization to avoid the pointless write.
+  const inFlight = useRef(new Set<string>())
+  useEffect(() => {
+    const todo = seed.filter((s) => !inFlight.current.has(s.termId))
+    if (todo.length > 0) {
+      for (const t of todo) inFlight.current.add(t.termId)
+      ensure(todo)
+    }
+  }, [seed, ensure])
+
   return null
 }
