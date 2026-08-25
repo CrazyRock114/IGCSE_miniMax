@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { T } from '@/components/i18n/T'
-import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { LangToggle } from '@/components/i18n/LangToggle'
 import { TranslatorToggle } from '@/components/translator/TranslatorToggle'
 import { ConceptCard } from '@/components/vocab/ConceptCard'
@@ -205,10 +204,23 @@ export function VocabPage() {
     return s ? s.title.en : subject
   }, [subject, slug])
 
+  // Total glossary count across every lesson of the currently selected
+  // subject. Used by the "All (N)" chip in the subject row. Must live at
+  // the top of the component (not inside the JSX) to respect the rules
+  // of hooks — calling useMemo from inside a prop expression will trip
+  // a hook-order check in some bundlers and break renders.
+  const totalCount = useMemo(() => {
+    let n = 0
+    for (const l of lessons) {
+      if (subject !== 'all' && l.subject !== subject) continue
+      n += l.glossary.length
+    }
+    return n
+  }, [subject])
+
   return (
     <main className="mx-auto max-w-5xl px-4 py-8">
-      <ErrorBoundary label="vocabulary">
-        <header className="mb-6 flex flex-wrap items-start justify-between gap-3">
+      <header className="mb-6 flex flex-wrap items-start justify-between gap-3">
         <div>
           <Link to="/" className="text-xs text-muted hover:text-ink-soft">
             ← <T value={{ en: 'All lessons', zh: '返回首页' }} />
@@ -264,14 +276,7 @@ export function VocabPage() {
           }}
           onSlugChange={setSlug}
           count={allTerms.length}
-          totalCount={useMemo(() => {
-            let n = 0
-            for (const l of lessons) {
-              if (subject !== 'all' && l.subject !== subject) continue
-              n += l.glossary.length
-            }
-            return n
-          }, [subject])}
+          totalCount={totalCount}
           filterLabel={filterLabel}
         />
       </div>
@@ -309,7 +314,6 @@ export function VocabPage() {
       {tab === 'hooks' && <HooksTab scope={scope} />}
 
       <WordBankSeeder scope={scope} />
-      </ErrorBoundary>
     </main>
   )
 }

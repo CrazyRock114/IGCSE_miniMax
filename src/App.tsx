@@ -8,6 +8,7 @@ import { SyncManager } from '@/components/auth/SyncManager'
 import { TeacherGate } from '@/components/teacher/TeacherGate'
 import { TeacherDashboard } from '@/components/teacher/TeacherDashboard'
 import { StudentDetail } from '@/components/teacher/StudentDetail'
+import { ErrorBoundary } from '@/components/ErrorBoundary'
 
 export default function App() {
   return (
@@ -22,7 +23,20 @@ export default function App() {
         <Route path="/subject/:subject" element={<HomePage />} />
         <Route path="/lesson/:subject/:slug" element={<LessonPage />} />
         <Route path="/anatomy/:subject/:slug" element={<AnatomyPage />} />
-        <Route path="/vocab" element={<VocabPage />} />
+        <Route
+          path="/vocab"
+          element={
+            // The /vocab page is the most fragile one in the app — it
+            // reads four localStorage keys with a v1→v2 schema migration
+            // and has 7+ child components that all run useState hooks. If
+            // any of them throw on mount (stale data, broken migration,
+            // hook order), wrap the whole route so the user gets a
+            // recovery card instead of a white screen.
+            <ErrorBoundary label="vocabulary">
+              <VocabPage />
+            </ErrorBoundary>
+          }
+        />
         <Route
           path="/teacher"
           element={
