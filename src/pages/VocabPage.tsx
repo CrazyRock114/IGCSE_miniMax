@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { T } from '@/components/i18n/T'
+import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { LangToggle } from '@/components/i18n/LangToggle'
 import { TranslatorToggle } from '@/components/translator/TranslatorToggle'
 import { ConceptCard } from '@/components/vocab/ConceptCard'
@@ -206,7 +207,8 @@ export function VocabPage() {
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-8">
-      <header className="mb-6 flex flex-wrap items-start justify-between gap-3">
+      <ErrorBoundary label="vocabulary">
+        <header className="mb-6 flex flex-wrap items-start justify-between gap-3">
         <div>
           <Link to="/" className="text-xs text-muted hover:text-ink-soft">
             ← <T value={{ en: 'All lessons', zh: '返回首页' }} />
@@ -307,6 +309,7 @@ export function VocabPage() {
       {tab === 'hooks' && <HooksTab scope={scope} />}
 
       <WordBankSeeder scope={scope} />
+      </ErrorBoundary>
     </main>
   )
 }

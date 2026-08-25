@@ -151,6 +151,14 @@ export const VOCAB = {
     zh: '点一个词，再点它的释义。配对完所有对子即可通关。',
   } satisfies Bilingual,
   gameMatchCleared: { en: 'All matched!', zh: '全部配对完成！' } satisfies Bilingual,
+  // ErrorBoundary recovery
+  errorTitle: { en: 'Something went wrong rendering this page', zh: '页面渲染出错' } satisfies Bilingual,
+  errorBody: {
+    en: 'Your saved data is safe. You can try a hard refresh first; if that does not help, reset vocab data to start clean.',
+    zh: '你的学习数据都在。可以先试「硬刷新」；如果还不行，「重置生词数据」可以从头开始。',
+  } satisfies Bilingual,
+  errorHardRefresh: { en: 'Hard refresh', zh: '硬刷新' } satisfies Bilingual,
+  errorReset: { en: 'Reset vocab data', zh: '重置生词数据' } satisfies Bilingual,
 
   // Personal progress card on HomePage
   progressTitle: { en: 'Your study so far', zh: '你的学习进度' } satisfies Bilingual,
