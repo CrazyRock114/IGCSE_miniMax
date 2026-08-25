@@ -30,7 +30,7 @@ import type { Question } from '@/content/types'
  */
 type Filter = 'unresolved' | 'resolved' | 'all'
 
-export function MistakeList() {
+export function MistakeList({ scope }: { scope?: import('@/pages/VocabPage').VocabScope }) {
   const [rows, setRows] = useState<Mistake[]>(() => mistakeStore.list())
   const [filter, setFilter] = useState<Filter>('unresolved')
 
@@ -54,18 +54,27 @@ export function MistakeList() {
     return map
   }, [])
 
+  const scopedRows = useMemo(() => {
+    if (!scope) return rows
+    return rows.filter((m) => {
+      if (scope.subject !== 'all' && m.subject !== scope.subject) return false
+      if (scope.slug !== 'all' && m.slug !== scope.slug) return false
+      return true
+    })
+  }, [rows, scope])
+
   const filtered = useMemo(() => {
-    let pool = rows
+    let pool = scopedRows
     if (filter === 'unresolved') pool = unresolved(pool)
     else if (filter === 'resolved') pool = pool.filter((m) => m.resolved)
     return sortByRecency(pool)
-  }, [rows, filter])
+  }, [scopedRows, filter])
 
-  const last5 = useMemo(() => recentMistakes(rows, 5), [rows])
-  const top5 = useMemo(() => topWrongQuestions(rows, 5), [rows])
+  const last5 = useMemo(() => recentMistakes(scopedRows, 5), [scopedRows])
+  const top5 = useMemo(() => topWrongQuestions(scopedRows, 5), [scopedRows])
 
-  const total = rows.length
-  const unres = unresolved(rows).length
+  const total = scopedRows.length
+  const unres = unresolved(scopedRows).length
   const res = total - unres
 
   const empty = total === 0

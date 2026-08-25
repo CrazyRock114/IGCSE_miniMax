@@ -15,6 +15,7 @@ import { useWordBank } from '@/lib/useVocab'
 import { recordReview, useStreak, streakLabel } from '@/lib/useStreak'
 import { VOCAB } from '@/lib/vocabStrings'
 import type { Term } from '@/content/types'
+import type { VocabScope } from '@/pages/VocabPage'
 
 const ROUND_SIZE = 5
 
@@ -28,12 +29,24 @@ interface Tile {
 
 export function MatchPairs({
   pool,
+  scope,
 }: {
   pool: Array<{ term: Term }>
+  scope?: VocabScope
 }) {
   const { words, assess } = useWordBank()
   const streak = useStreak()
-  const [round, setRound] = useState(() => makeRound(pool, words, ROUND_SIZE))
+  // `pool` is already filtered by VocabPage; we just need to filter
+  // `words` (the bank) for the same scope so the SRS round matches.
+  const scopedWords = (() => {
+    if (!scope) return words
+    return words.filter((w) => {
+      if (scope.subject !== 'all' && w.subject !== scope.subject) return false
+      if (scope.slug !== 'all' && w.slug !== scope.slug) return false
+      return true
+    })
+  })()
+  const [round, setRound] = useState(() => makeRound(pool, scopedWords, ROUND_SIZE))
   const [picked, setPicked] = useState<{ side: Side; termId: string } | null>(null)
   const [matched, setMatched] = useState<Set<string>>(new Set())
   const [wrongFlash, setWrongFlash] = useState<{ side: Side; termId: string } | null>(null)
@@ -59,7 +72,7 @@ export function MatchPairs({
         <button
           type="button"
           onClick={() => {
-            setRound(makeRound(pool, words, ROUND_SIZE))
+            setRound(makeRound(pool, scopedWords, ROUND_SIZE))
             setPicked(null)
             setMatched(new Set())
             setWrongFlash(null)
@@ -100,7 +113,7 @@ export function MatchPairs({
             recordReview('know')
             // Mark all terms in the round as a success
             for (const t of round.terms) {
-              const bankEntry = words.find((w) => w.termId === t.en)
+              const bankEntry = scopedWords.find((w) => w.termId === t.en)
               if (bankEntry) assess(bankEntry.termId, 'know')
             }
           }, 350)

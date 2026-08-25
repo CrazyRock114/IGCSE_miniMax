@@ -12,6 +12,7 @@ import { T } from '@/components/i18n/T'
 import { VOCAB } from '@/lib/vocabStrings'
 import type { ConceptEnrichment } from '@/lib/vocabTypes'
 import type { Term } from '@/content/types'
+import type { VocabScope } from '@/pages/VocabPage'
 import { WordGame } from './WordGame'
 import { TypeTheTerm } from './TypeTheTerm'
 import { MatchPairs } from './MatchPairs'
@@ -27,9 +28,11 @@ const GAMES: ReadonlyArray<{ id: GameId; label: typeof VOCAB.gameMultiChoice; de
 export function GamePicker({
   resolve,
   pool,
+  scope,
 }: {
   resolve: (termId: string, subject: string, slug: string) => { term: Term; enrichment?: ConceptEnrichment } | null
   pool: Array<{ term: Term }>
+  scope?: VocabScope
 }) {
   const [picked, setPicked] = useState<GameId | null>(null)
 
@@ -82,8 +85,12 @@ export function GamePicker({
         </button>
       </div>
       {picked === 'multi' && <WordGame resolve={resolve} pool={pool} />}
-      {picked === 'type' && <TypeTheTerm resolve={resolve} pool={pool} />}
-      {picked === 'match' && <MatchPairs pool={pool} />}
+      {picked === 'type' && (
+        <TypeTheTerm resolve={resolve} pool={pool} {...(scope ? { scope } : {})} />
+      )}
+      {picked === 'match' && (
+        <MatchPairs pool={pool} {...(scope ? { scope } : {})} />
+      )}
     </div>
   )
 }

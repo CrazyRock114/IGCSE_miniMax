@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { T } from '@/components/i18n/T'
 import { groupByStatus, useWordBank } from '@/lib/useVocab'
 import { VOCAB } from '@/lib/vocabStrings'
+import type { VocabScope } from '@/pages/VocabPage'
 
 /**
  * The user's word bank, grouped by status.
@@ -10,17 +11,30 @@ import { VOCAB } from '@/lib/vocabStrings'
  * page uses it as the "what's in my bank right now" tab. The study mode and
  * the game both pull from the same `useWordBank()` data, so changes made
  * here show up there immediately.
+ *
+ * The optional `scope` prop restricts the view to a single subject and/or
+ * lesson. When unset the bank shows everything the user has saved.
  */
 export function WordBank({
   resolve,
+  scope,
 }: {
   /** Given a termId+subject+slug, return the matching Term + enrichment (if any). */
   resolve: (termId: string, subject: string, slug: string) => { term: import('@/content/types').Term; enrichment?: import('@/lib/vocabTypes').ConceptEnrichment } | null
+  scope?: VocabScope
 }) {
   const { words, setStatus, remove } = useWordBank()
-  const grouped = useMemo(() => groupByStatus(words), [words])
+  const filtered = useMemo(() => {
+    if (!scope) return words
+    return words.filter((w) => {
+      if (scope.subject !== 'all' && w.subject !== scope.subject) return false
+      if (scope.slug !== 'all' && w.slug !== scope.slug) return false
+      return true
+    })
+  }, [words, scope])
+  const grouped = useMemo(() => groupByStatus(filtered), [filtered])
 
-  if (words.length === 0) {
+  if (filtered.length === 0) {
     return (
       <p className="rounded-lg border border-dashed border-line bg-canvas p-6 text-center text-sm text-muted">
         <T value={VOCAB.bankEmpty} />
@@ -76,7 +90,7 @@ export function WordBank({
                         onClick={() => remove(w.termId)}
                         className="rounded-md border border-line bg-canvas px-2 py-0.5 text-[10px] text-muted hover:border-rose-500 hover:text-rose-700"
                       >
-                        <T value={VOCAB.removeFromBank} />
+                          <T value={VOCAB.removeFromBank} />
                       </button>
                     </div>
                   </li>

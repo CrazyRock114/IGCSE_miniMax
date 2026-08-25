@@ -7,6 +7,7 @@ import { useNow } from '@/lib/useNow'
 import { VOCAB } from '@/lib/vocabStrings'
 import { assetUrl } from '@/lib/assetUrl'
 import { SpeakButton } from './SpeakButton'
+import { RelatedChips } from './RelatedChips'
 
 /**
  * The "concept card" — a rich display of a single glossary term.
@@ -160,33 +161,6 @@ function SrsSchedule({ entry }: { entry: { nextDue: number; status: string; inte
   const days = Math.round((entry.nextDue - now) / (24 * 60 * 60 * 1000))
   if (days <= 0) return <T value={VOCAB.srsDueNow} />
   return <T value={VOCAB.srsInDays} params={{ n: String(days) }} />
-}
-
-function RelatedChips({
-  termIds,
-  current,
-}: {
-  termIds: string[]
-  current: string
-}) {
-  const filtered = termIds.filter((t) => t !== current)
-  if (filtered.length === 0) return null
-  return (
-    <div className="mt-3 flex flex-wrap items-center gap-1 border-t border-line pt-2">
-      <span className="text-[10px] uppercase tracking-wide text-muted">
-        <T value={VOCAB.relatedLabel} />
-      </span>
-      {filtered.map((t) => (
-        <a
-          key={t}
-          href={`#term-${t}`}
-          className="rounded-full border border-teal-300 bg-teal-50 px-2 py-0.5 text-[11px] text-teal-800 hover:bg-teal-100"
-        >
-          {t}
-        </a>
-      ))}
-    </div>
-  )
 }
 
 function BankControls({

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { T } from '@/components/i18n/T'
 import { LangToggle } from '@/components/i18n/LangToggle'
@@ -13,7 +13,7 @@ import { HooksTab } from '@/components/hooks/HooksTab'
 import { lessons } from '@/lib/registry'
 import { useWordBank } from '@/lib/useVocab'
 import { SYLLABUSES } from '@/content/syllabus'
-import type { Term } from '@/content/types'
+import type { Lesson, Term, Bilingual } from '@/content/types'
 import type { ConceptEnrichment } from '@/lib/vocabTypes'
 import { getEnrichment } from '@/content/termEnrichments'
 import { VOCAB } from '@/lib/vocabStrings'
@@ -22,15 +22,17 @@ import { HOOKS } from '@/lib/hooksStrings'
 /**
  * The vocabulary page.
  *
- * Four tabs:
- *  - All terms: browses every glossary entry across every lesson
- *  - Word bank: the user's saved terms, grouped by status
- *  - Study: card-flip review session
- *  - Game: multiple-choice mini-game using the word bank
+ * Two-level filter (subject → lesson) that affects every tab:
+ *   - All terms: browses the in-scope glossary
+ *   - Word bank: shows only saved words in scope
+ *   - Study: SRS queue filtered to in-scope words
+ *   - Game: pool of in-scope terms
+ *   - Mistakes: only in-scope mistakes
+ *   - Hooks: only in-scope classroom stories
  *
- * The page reads lessons via the same `import.meta.glob` registry the home
- * page uses, so adding a new lesson automatically makes its terms appear
- * here — no central list to maintain.
+ * URL state: `?tab=study&subject=0610&slug=7-1-nutrition&focus=oviduct`
+ * lands on the study tab filtered to 7-1 nutrition, with oviduct
+ * scrolled into view.
  */
 type Tab = 'all' | 'bank' | 'study' | 'game' | 'mistakes' | 'hooks'
 
@@ -43,46 +45,117 @@ const VALID_TABS: ReadonlySet<Tab> = new Set<Tab>([
   'hooks',
 ])
 
+export interface VocabScope {
+  subject: string
+  slug: string
+}
+
+/** A row in the lesson-picker dropdown. */
+interface LessonOption {
+  subject: string
+  slug: string
+  title: Bilingual
+  termCount: number
+}
+
+function lessonsInSubject(subject: string): LessonOption[] {
+  return lessons
+    .filter((l) => l.subject === subject)
+    .map((l) => ({
+      subject: l.subject,
+      slug: l.slug,
+      title: lessonShortTitle(l),
+      termCount: l.glossary.length,
+    }))
+    .sort((a, b) => a.slug.localeCompare(b.slug, 'en', { numeric: true }))
+}
+
+function lessonShortTitle(l: Lesson): Bilingual {
+  return l.title
+}
+
 export function VocabPage() {
-  // `tab` is mirrored to the URL so a deep link like
-  // `/vocab?tab=mistakes` lands on the right tab. Unknown values fall
-  // back to 'all' rather than rendering nothing.
-  // The `tab` is local state — the URL is a one-way mirror, not the source
-  // of truth. Previously the URL was the source and a click only updated
-  // it via setSearchParams, but the result was racy and the content
-  // sometimes failed to re-render (the tab button got the new active
-  // style but the tab body stayed on the previous one). Reading the URL
-  // once on mount and using local state from there on is simpler and
-  // doesn't lose deep links.
   const [searchParams, setSearchParams] = useSearchParams()
+
+  // -- URL → state on first mount (one-way read) --
   const urlTab = searchParams.get('tab')
   const initialTab: Tab = urlTab && VALID_TABS.has(urlTab as Tab) ? (urlTab as Tab) : 'all'
   const [tab, setTab] = useState<Tab>(initialTab)
 
-  // Keep the URL in sync when the tab changes. This is a one-way write
-  // (state → URL) so we never get a feedback loop.
+  const urlSubject = searchParams.get('subject') ?? 'all'
+  const urlSlug = searchParams.get('slug') ?? 'all'
+  // If the slug from the URL doesn't belong to the subject, fall back
+  // to 'all' so the picker doesn't show a non-existent combination.
+  const validSlug = (() => {
+    if (urlSubject === 'all' || urlSlug === 'all') return urlSlug
+    const ok = lessons.some((l) => l.subject === urlSubject && l.slug === urlSlug)
+    return ok ? urlSlug : 'all'
+  })()
+  const [subject, setSubject] = useState<string>(urlSubject === 'all' ? 'all' : urlSubject)
+  const [slug, setSlug] = useState<string>(validSlug)
+
+  // If the user changes subject, reset slug to 'all' (handled in
+  // SubjectLessonFilter's onSubjectChange).
+
+  // -- state → URL (one-way write) --
   useEffect(() => {
-    const current = searchParams.get('tab')
-    const want = tab === 'all' ? null : tab
-    if (current === want || (current === null && want === null)) return
+    const current = {
+      tab: searchParams.get('tab'),
+      subject: searchParams.get('subject'),
+      slug: searchParams.get('slug'),
+      focus: searchParams.get('focus'),
+    }
+    const want: Record<string, string | null> = {
+      tab: tab === 'all' ? null : tab,
+      subject: subject === 'all' ? null : subject,
+      slug: slug === 'all' ? null : slug,
+      focus: current.focus, // managed separately by the focus effect
+    }
+    if (
+      current.tab === want.tab &&
+      current.subject === want.subject &&
+      current.slug === want.slug
+    ) {
+      return
+    }
     setSearchParams(
       (prev) => {
         const out = new URLSearchParams(prev)
-        if (want === null) out.delete('tab')
-        else out.set('tab', want)
+        for (const [k, v] of Object.entries(want)) {
+          if (v === null) out.delete(k)
+          else out.set(k, v)
+        }
         return out
       },
       { replace: true }
     )
-    // We intentionally only depend on `tab` — the previous URL state is
-    // captured in the functional setter, so a stale `searchParams` won't
-    // cause an infinite loop.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tab])
-  const [subject, setSubject] = useState<string>('all')
+  }, [tab, subject, slug])
 
-  // Flatten every term from every lesson into a row with subject+slug+en
-  // keys, sorted by lesson order then by the term's position in the glossary.
+  // -- focus scrolling: when ?focus=xxx, scroll to that term on tab=all --
+  const focusTerm = searchParams.get('focus')
+  const hasScrolledRef = useRef<string | null>(null)
+  useEffect(() => {
+    if (tab !== 'all' || !focusTerm) return
+    if (hasScrolledRef.current === focusTerm) return
+    // Wait for the next paint so the term is in the DOM.
+    const id = requestAnimationFrame(() => {
+      const el = document.getElementById(`term-${focusTerm}`)
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        // Brief ring to draw the eye.
+        el.classList.add('ring-2', 'ring-teal-400', 'ring-offset-2')
+        setTimeout(() => {
+          el.classList.remove('ring-2', 'ring-teal-400', 'ring-offset-2')
+        }, 1600)
+        hasScrolledRef.current = focusTerm
+      }
+    })
+    return () => cancelAnimationFrame(id)
+  }, [tab, focusTerm])
+
+  // -- data --
+  const scope: VocabScope = { subject, slug }
   const allTerms = useMemo(() => {
     const rows: Array<{
       term: Term
@@ -92,6 +165,7 @@ export function VocabPage() {
     }> = []
     for (const l of lessons) {
       if (subject !== 'all' && l.subject !== subject) continue
+      if (slug !== 'all' && l.slug !== slug) continue
       for (const t of l.glossary) {
         rows.push({
           term: t,
@@ -102,23 +176,33 @@ export function VocabPage() {
       }
     }
     return rows
-  }, [subject])
+  }, [subject, slug])
 
-  // The flat pool the game uses — same data, exposed as `term` so the
+  // The flat pool the games use — same data, exposed as `term` so the
   // component can pick definitions.
   const pool = useMemo(() => allTerms.map((r) => ({ term: r.term })), [allTerms])
 
-  const resolve = (termId: string, subject: string, slug: string): {
+  const resolve = (termId: string, subj: string, slg: string): {
     term: Term
     enrichment?: ConceptEnrichment
   } | null => {
-    const lesson = lessons.find((l) => l.subject === subject && l.slug === slug)
+    const lesson = lessons.find((l) => l.subject === subj && l.slug === slg)
     if (!lesson) return null
     const term = lesson.glossary.find((t) => t.en === termId)
     if (!term) return null
-    const enrichment = getEnrichment(subject, slug, termId)
+    const enrichment = getEnrichment(subj, slg, termId)
     return enrichment ? { term, enrichment } : { term }
   }
+
+  const filterLabel = useMemo<string | null>(() => {
+    if (subject === 'all' && slug === 'all') return null
+    if (slug !== 'all') {
+      const l = lessons.find((x) => x.subject === subject && x.slug === slug)
+      return l ? `${l.title.en}` : `${subject} / ${slug}`
+    }
+    const s = SYLLABUSES.find((s) => s.code === subject)
+    return s ? s.title.en : subject
+  }, [subject, slug])
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-8">
@@ -135,7 +219,7 @@ export function VocabPage() {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <VocabHud />
+          <VocabHud scope={scope} />
           <TranslatorToggle />
           <LangToggle />
         </div>
@@ -168,9 +252,30 @@ export function VocabPage() {
         ))}
       </nav>
 
+      <div className="mb-4">
+        <SubjectLessonFilter
+          subject={subject}
+          slug={slug}
+          onSubjectChange={(s) => {
+            setSubject(s)
+            setSlug('all')
+          }}
+          onSlugChange={setSlug}
+          count={allTerms.length}
+          totalCount={useMemo(() => {
+            let n = 0
+            for (const l of lessons) {
+              if (subject !== 'all' && l.subject !== subject) continue
+              n += l.glossary.length
+            }
+            return n
+          }, [subject])}
+          filterLabel={filterLabel}
+        />
+      </div>
+
       {tab === 'all' && (
         <div className="space-y-3">
-          <SubjectFilter value={subject} onChange={setSubject} count={allTerms.length} />
           {allTerms.length === 0 ? (
             <p className="rounded-lg border border-dashed border-line bg-canvas p-6 text-center text-sm text-muted">
               <T value={VOCAB.bankNoneInGroup} />
@@ -191,18 +296,119 @@ export function VocabPage() {
         </div>
       )}
 
-      {tab === 'bank' && <WordBank resolve={resolve} />}
+      {tab === 'bank' && <WordBank resolve={resolve} scope={scope} />}
 
-      {tab === 'study' && <StudyMode resolve={resolve} />}
+      {tab === 'study' && <StudyMode resolve={resolve} scope={scope} />}
 
-      {tab === 'game' && <GamePicker resolve={resolve} pool={pool} />}
+      {tab === 'game' && <GamePicker resolve={resolve} pool={pool} scope={scope} />}
 
-      {tab === 'mistakes' && <MistakeList />}
+      {tab === 'mistakes' && <MistakeList scope={scope} />}
 
-      {tab === 'hooks' && <HooksTab />}
+      {tab === 'hooks' && <HooksTab scope={scope} />}
 
-      <WordBankSeeder />
+      <WordBankSeeder scope={scope} />
     </main>
+  )
+}
+
+/**
+ * Two-row filter: subject chips, then a lesson dropdown for the
+ * currently selected subject. When subject is 'all' the lesson row
+ * shows a count summary instead.
+ */
+function SubjectLessonFilter({
+  subject,
+  slug,
+  onSubjectChange,
+  onSlugChange,
+  count,
+  totalCount,
+  filterLabel,
+}: {
+  subject: string
+  slug: string
+  onSubjectChange: (s: string) => void
+  onSlugChange: (s: string) => void
+  count: number
+  totalCount: number
+  filterLabel: string | null
+}) {
+  const lessonOptions = subject === 'all' ? [] : lessonsInSubject(subject)
+  return (
+    <div className="rounded-lg border border-line bg-canvas px-3 py-2 text-xs">
+      <div className="flex flex-wrap items-center gap-2 text-muted">
+        <span>
+          <T value={VOCAB.filterAll} /> ·
+        </span>
+        <button
+          type="button"
+          onClick={() => {
+            onSubjectChange('all')
+            onSlugChange('all')
+          }}
+          className={
+            'rounded-md border px-2 py-0.5 ' +
+            (subject === 'all' ? 'border-teal-600 bg-teal-50 text-teal-800' : 'border-line bg-surface')
+          }
+        >
+          All ({totalCount})
+        </button>
+        {SYLLABUSES.map((s) => (
+          <button
+            key={s.code}
+            type="button"
+            onClick={() => onSubjectChange(s.code)}
+            className={
+              'rounded-md border px-2 py-0.5 ' +
+              (subject === s.code ? 'border-teal-600 bg-teal-50 text-teal-800' : 'border-line bg-surface')
+            }
+          >
+            {s.code}
+          </button>
+        ))}
+        {filterLabel && (
+          <span className="ml-2 truncate text-ink">
+            · <span className="font-medium">{filterLabel}</span> ({count})
+          </span>
+        )}
+      </div>
+      {lessonOptions.length > 0 && (
+        <div className="mt-2 flex flex-wrap items-center gap-2 text-muted">
+          <span>
+            <T value={VOCAB.filterLesson} /> ·
+          </span>
+          <button
+            type="button"
+            onClick={() => onSlugChange('all')}
+            className={
+              'rounded-md border px-2 py-0.5 ' +
+              (slug === 'all'
+                ? 'border-teal-600 bg-teal-50 text-teal-800'
+                : 'border-line bg-surface')
+            }
+          >
+            <T value={VOCAB.filterAllLessons} />
+          </button>
+          {lessonOptions.map((l) => (
+            <button
+              key={l.slug}
+              type="button"
+              onClick={() => onSlugChange(l.slug)}
+              className={
+                'rounded-md border px-2 py-0.5 ' +
+                (slug === l.slug
+                  ? 'border-teal-600 bg-teal-50 text-teal-800'
+                  : 'border-line bg-surface')
+              }
+              title={l.title.en}
+            >
+              {l.slug}{' '}
+              <span className="text-[10px] text-muted">({l.termCount})</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
   )
 }
 
@@ -211,57 +417,25 @@ export function VocabPage() {
  * mount so the student has a starting set to interact with — without this
  * the bank is empty until they manually add each term, which feels broken.
  * Idempotent: terms the user has already removed are not re-added.
+ *
+ * When a scope is set, only that lesson's terms are seeded into the bank.
+ * This keeps the bank lean for the next class — the student can drill
+ * one lesson at a time without 480 entries competing for attention.
  */
-function WordBankSeeder() {
+function WordBankSeeder({ scope }: { scope: VocabScope }) {
   const { ensure, words } = useWordBank()
   // Run once on mount: any term not already in the bank gets a 'new' entry.
-  // Has a side effect (writes to localStorage); deps are empty by design.
+  // Has a side effect (writes to localStorage); deps include scope so the
+  // bank picks up new lessons when the user navigates between them.
   const seed = useMemo(() => {
-    const all = lessons.flatMap((l) => l.glossary.map((t) => ({ termId: t.en, subject: l.subject, slug: l.slug })))
+    const all = lessons.flatMap((l) => {
+      if (scope.subject !== 'all' && l.subject !== scope.subject) return []
+      if (scope.slug !== 'all' && l.slug !== scope.slug) return []
+      return l.glossary.map((t) => ({ termId: t.en, subject: l.subject, slug: l.slug }))
+    })
     const have = new Set(words.map((w) => w.termId))
     return all.filter((a) => !have.has(a.termId))
-  }, [words])
+  }, [words, scope.subject, scope.slug])
   if (seed.length > 0) ensure(seed)
   return null
-}
-
-function SubjectFilter({
-  value,
-  onChange,
-  count,
-}: {
-  value: string
-  onChange: (s: string) => void
-  count: number
-}) {
-  return (
-    <div className="flex flex-wrap items-center gap-2 text-xs text-muted">
-      <span>
-        <T value={VOCAB.filterAll} /> ·
-      </span>
-      <button
-        type="button"
-        onClick={() => onChange('all')}
-        className={
-          'rounded-md border px-2 py-0.5 ' +
-          (value === 'all' ? 'border-teal-600 bg-teal-50 text-teal-800' : 'border-line bg-surface')
-        }
-      >
-        All ({count})
-      </button>
-      {SYLLABUSES.map((s) => (
-        <button
-          key={s.code}
-          type="button"
-          onClick={() => onChange(s.code)}
-          className={
-            'rounded-md border px-2 py-0.5 ' +
-            (value === s.code ? 'border-teal-600 bg-teal-50 text-teal-800' : 'border-line bg-surface')
-          }
-        >
-          {s.code}
-        </button>
-      ))}
-    </div>
-  )
 }

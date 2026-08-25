@@ -5,6 +5,7 @@ import { dueForReview, useWordBank } from '@/lib/useVocab'
 import { VOCAB } from '@/lib/vocabStrings'
 import { recordReview, useStreak, streakLabel } from '@/lib/useStreak'
 import { SpeakButton } from './SpeakButton'
+import { RelatedChips } from './RelatedChips'
 
 /**
  * Card-flip study mode.
@@ -21,13 +22,32 @@ import { SpeakButton } from './SpeakButton'
  */
 export function StudyMode({
   resolve,
+  scope,
 }: {
   resolve: (termId: string, subject: string, slug: string) => { term: import('@/content/types').Term; enrichment?: import('@/lib/vocabTypes').ConceptEnrichment } | null
+  scope?: import('@/pages/VocabPage').VocabScope
 }) {
   const { words, todayQueue, stats } = useWordBank()
   const streak = useStreak()
 
-  const due = useMemo(() => dueForReview(words), [words])
+  const filtered = useMemo(() => {
+    if (!scope) return words
+    return words.filter((w) => {
+      if (scope.subject !== 'all' && w.subject !== scope.subject) return false
+      if (scope.slug !== 'all' && w.slug !== scope.slug) return false
+      return true
+    })
+  }, [words, scope])
+
+  const due = useMemo(() => dueForReview(filtered), [filtered])
+  const filteredTodayQueue = useMemo(() => {
+    if (!scope) return todayQueue
+    return todayQueue.filter((w) => {
+      if (scope.subject !== 'all' && w.subject !== scope.subject) return false
+      if (scope.slug !== 'all' && w.slug !== scope.slug) return false
+      return true
+    })
+  }, [todayQueue, scope])
 
   if (due.length === 0) {
     return (
@@ -46,8 +66,8 @@ export function StudyMode({
       <Session
         // Hash the bank so any add/remove/status change forces a fresh shuffle.
         // A new session starts on the first card of the new queue.
-        key={bankHash(words)}
-        due={todayQueue.length > 0 ? todayQueue : due}
+        key={bankHash(filtered)}
+        due={filteredTodayQueue.length > 0 ? filteredTodayQueue : due}
         resolve={resolve}
         onAssess={() => {
           /* streak subscription already updates via the event */
@@ -257,33 +277,6 @@ function Session({
           </button>
         </div>
       )}
-    </div>
-  )
-}
-
-function RelatedChips({
-  termIds,
-  current,
-}: {
-  termIds: string[]
-  current: string
-}) {
-  const filtered = termIds.filter((t) => t !== current)
-  if (filtered.length === 0) return null
-  return (
-    <div className="mt-1 flex flex-wrap items-center gap-1">
-      <span className="text-[10px] uppercase tracking-wide text-muted">
-        <T value={VOCAB.relatedLabel} />
-      </span>
-      {filtered.map((t) => (
-        <a
-          key={t}
-          href={`#term-${t}`}
-          className="rounded-full border border-teal-300 bg-teal-50 px-2 py-0.5 text-[11px] text-teal-800 hover:bg-teal-100"
-        >
-          {t}
-        </a>
-      ))}
     </div>
   )
 }
