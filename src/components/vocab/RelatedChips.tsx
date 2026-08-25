@@ -2,17 +2,31 @@
  * RelatedChips — the row of "see also" terms that appears at the
  * bottom of a concept card and at the bottom of a flipped study card.
  *
- * Each chip is a Link to `/vocab?tab=all&focus=<termId>` and sets
- * `subject` and `slug` URL params so the destination page lands
- * already filtered to the term's lesson. The user lands on the
- * all-terms tab scrolled to the term, in the right lesson.
+ * Each chip is a plain `<button>` (not a `<Link>`) so its onClick is
+ * guaranteed to run. react-router 7's `<Link>` swallows the user-supplied
+ * `onClick` when `isSpaLink` is true (which is the default) — the Link
+ * uses its own `handleClick` and never invokes our prop. That made
+ * earlier chips no-op: `e.preventDefault()` + `goToTerm()` were dead
+ * code, and the user saw "the chip does nothing" even though the
+ * `to="#term-…"` href looked right.
+ *
+ * On click we:
+ *   1. Set `?tab=all&subject=…&slug=…&focus=…` via setSearchParams so
+ *      the page filter pins to the term's lesson (VocabPage reads the
+ *      focus param and runs the scroll + ring-flash effect).
+ *   2. As a belt-and-suspenders fallback, also call scrollIntoView
+ *      directly — the term is already in the DOM (the current scope
+ *      contains it in 99% of cases), so we don't need to wait for a
+ *      re-render.
+ *   3. Clear the focus param after 800ms so a hard refresh doesn't
+ *      reopen straight onto that term.
  *
  * On hover, a small tooltip shows the Chinese translation (looked
  * up via `findTermChinese`). The hover works on touch too — a
  * tap-and-hold shows the tooltip via CSS focus-within.
  */
 import { useState } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { T } from '@/components/i18n/T'
 import { VOCAB } from '@/lib/vocabStrings'
 import { findFirstTerm, findTermChinese } from '@/lib/termIndex'
@@ -74,16 +88,18 @@ export function RelatedChips({
             onFocus={() => setOpenTermId(t)}
             onBlur={() => setOpenTermId((cur) => (cur === t ? null : cur))}
           >
-            <Link
-              to={`#term-${t}`}
+            <button
+              type="button"
               onClick={(e) => {
-                // Take over the navigation so we can also pin the page
-                // filter to the term's lesson.
                 e.preventDefault()
                 goToTerm(t)
-                // Defer to the next frame so the DOM has the new
-                // filter applied; the all-terms list will re-render
-                // with the term visible, and the anchor scroll lands.
+                // The term is usually already in the DOM (the current
+                // scope contains it for same-lesson related terms);
+                // scroll directly so the user gets feedback even if
+                // the focus effect races with the focus-param-clear
+                // timeout. VocabPage's focus effect will run too and
+                // add the ring flash; this is a parallel path, not a
+                // duplicate, so re-clicking works reliably.
                 requestAnimationFrame(() => {
                   const el = document.getElementById(`term-${t}`)
                   el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
@@ -96,7 +112,7 @@ export function RelatedChips({
               {zh && zh !== t && (
                 <span className="text-[10px] text-teal-700/70">译</span>
               )}
-            </Link>
+            </button>
             {openTermId === t && zh && (
               <span
                 role="tooltip"
