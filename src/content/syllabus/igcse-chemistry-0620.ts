@@ -452,6 +452,7 @@ const topic12 = topic(
 export const igcseChemistry0620: Syllabus = {
   code: '0620',
   title: { en: 'Cambridge IGCSE Chemistry', zh: '剑桥 IGCSE 化学' },
+  shortName: { en: 'Chemistry', zh: '化学' },
   board: 'Cambridge International',
   cycle: [2026, 2028],
   guidedLearningHours: 130,

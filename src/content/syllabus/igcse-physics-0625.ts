@@ -522,6 +522,7 @@ const topic6 = topic(6, { en: 'Space physics', zh: '空间物理' }, [
 export const igcsePhysics0625: Syllabus = {
   code: '0625',
   title: { en: 'Cambridge IGCSE Physics', zh: '剑桥 IGCSE 物理' },
+  shortName: { en: 'Physics', zh: '物理' },
   board: 'Cambridge International',
   cycle: [2026, 2028],
   guidedLearningHours: 130,

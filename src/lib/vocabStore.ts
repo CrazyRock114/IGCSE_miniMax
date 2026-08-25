@@ -33,6 +33,28 @@ function isBrowser(): boolean {
   return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined'
 }
 
+/**
+ * De-duplicate by termId, keeping the first occurrence. Some lessons
+ * accidentally listed the same term twice in their `glossary` array
+ * (e.g. 11-1 had "oxygen debt" at index 4 and again at index 20).
+ * When the bank was first seeded, that produced two entries sharing a
+ * termId — the second one quietly shadowed the first, so the user saw
+ * a duplicate and only the second review was recorded. Now that the
+ * source lessons are deduped, the bank still has the legacy duplicates
+ * for anyone who opened /vocab before this fix. Strip them on every
+ * read so the in-memory bank converges to one entry per term.
+ */
+function dedupeByTermId(words: WordEntry[]): WordEntry[] {
+  const seen = new Set<string>()
+  const out: WordEntry[] = []
+  for (const w of words) {
+    if (seen.has(w.termId)) continue
+    seen.add(w.termId)
+    out.push(w)
+  }
+  return out
+}
+
 function read(): WordEntry[] {
   if (!isBrowser()) return []
   try {
@@ -44,14 +66,18 @@ function read(): WordEntry[] {
       const migrated = Array.isArray(parsed.words)
         ? parsed.words.map(migrateLegacySrs)
         : []
-      write(migrated)
-      return migrated
+      const cleaned = dedupeByTermId(migrated)
+      if (cleaned.length !== migrated.length) write(cleaned)
+      return cleaned
     }
     if (parsed.v !== SCHEMA_VERSION) {
       // Unknown version — drop to start fresh.
       return []
     }
-    return Array.isArray(parsed.words) ? parsed.words : []
+    const words = Array.isArray(parsed.words) ? parsed.words : []
+    const cleaned = dedupeByTermId(words)
+    if (cleaned.length !== words.length) write(cleaned)
+    return cleaned
   } catch {
     return []
   }

@@ -252,15 +252,6 @@ const lesson: Lesson = {
       syllabus: ['0610.12.3.1'],
     },
     {
-      en: 'oxygen debt',
-      zh: '氧债',
-      definition: {
-        en: 'The extra oxygen the body must take in after exercise, to clear the lactic acid that anaerobic respiration built up during it.',
-        zh: '运动后身体必须额外吸入的氧，用来清除无氧呼吸在运动中堆积的乳酸。',
-      },
-      syllabus: ['0610.12.3.6'],
-    },
-    {
       en: 'hypercapnia',
       zh: '高碳酸血症',
       definition: {

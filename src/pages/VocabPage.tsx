@@ -365,12 +365,14 @@ function SubjectLessonFilter({
             key={s.code}
             type="button"
             onClick={() => onSubjectChange(s.code)}
+            title={s.title.en}
             className={
-              'rounded-md border px-2 py-0.5 ' +
+              'inline-flex items-center gap-1 rounded-md border px-2 py-0.5 ' +
               (subject === s.code ? 'border-teal-600 bg-teal-50 text-teal-800' : 'border-line bg-surface')
             }
           >
-            {s.code}
+            <T value={s.shortName ?? s.title} />
+            <span className="font-mono text-[10px] text-muted">{s.code}</span>
           </button>
         ))}
         {filterLabel && (

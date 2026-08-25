@@ -62,6 +62,12 @@ export interface Syllabus {
   /** Awarding body code, e.g. '0625' */
   code: string
   title: Bilingual
+  /**
+   * Display name for narrow UI (filter chips, breadcrumb tails). Falls
+   * back to `title` when not set; the `code` is shown as a secondary
+   * marker so the awarding-body number is never lost.
+   */
+  shortName?: Bilingual
   board: string
   /** Exam years this cycle covers, e.g. [2026, 2028] */
   cycle: [number, number]
