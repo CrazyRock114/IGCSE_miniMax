@@ -79,4 +79,39 @@ describe('streak', () => {
     expect(stored).not.toBeNull()
     expect(stored!.current).toBe(1)
   })
+
+  // Regression test for the useSyncExternalStore infinite-loop bug:
+  // readStreak is the getSnapshot for useStreak(), and React requires
+  // the snapshot to be referentially equal across calls when the
+  // underlying value hasn't changed. If readStreak() constructs a new
+  // object on every call (the obvious "spread the parsed JSON" shape),
+  // useSyncExternalStore sees a new reference, schedules a re-render,
+  // reads again, gets another new reference, etc. — until React
+  // surfaces error #185 ("Maximum update depth exceeded"). This test
+  // pins the contract.
+  it('readStreak returns a stable reference when storage is unchanged', () => {
+    recordReview('know')
+    const a = readStreak()
+    const b = readStreak()
+    const c = readStreak()
+    expect(a).toBe(b)
+    expect(b).toBe(c)
+  })
+
+  it('readStreak returns a stable reference when storage is empty', () => {
+    const a = readStreak()
+    const b = readStreak()
+    expect(a).toBe(b)
+    expect(a.current).toBe(0)
+  })
+
+  it('readStreak invalidates cache after recordReview', () => {
+    const before = readStreak()
+    recordReview('know')
+    const after = readStreak()
+    expect(after).not.toBe(before)
+    expect(after.current).toBe(before.current + 1)
+    // And a third read after the write is again stable.
+    expect(readStreak()).toBe(after)
+  })
 })

@@ -37,25 +37,51 @@ const DEFAULT: StreakRecord = {
   lastReviewDay: '',
 }
 
+// Cache for the readStreak snapshot. See the long comment in readStreak
+// for why this is necessary — TL;DR useSyncExternalStore's getSnapshot
+// must return a stable reference, so we memoise by raw string.
+let cache: { raw: string | null; value: StreakRecord } | null = null
+
+/** Invalidate the readStreak cache. Called by recordReview after a write. */
+function invalidateStreakCache(): void {
+  cache = null
+}
+
 function isBrowser(): boolean {
   return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined'
 }
 
 export function readStreak(): StreakRecord {
   if (!isBrowser()) return DEFAULT
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY)
-    if (!raw) return DEFAULT
-    const parsed = JSON.parse(raw) as StreakRecord
-    return {
-      current: parsed.current ?? 0,
-      longest: parsed.longest ?? 0,
-      xp: parsed.xp ?? 0,
-      lastReviewDay: parsed.lastReviewDay ?? '',
+  const raw = window.localStorage.getItem(STORAGE_KEY)
+  // CRITICAL: useSyncExternalStore's getSnapshot must return a stable
+  // reference when the underlying value is unchanged. React compares
+  // snapshots with Object.is; returning a freshly-constructed object
+  // every call (the obvious "just spread the parsed JSON" shape) trips
+  // an infinite re-render loop, surfaced as React error #185. Cache
+  // by raw-string identity — if the localStorage bytes haven't changed,
+  // we hand back the same object reference we built last time. When
+  // the bytes change (e.g. recordReview just wrote), the cache misses
+  // and we rebuild once.
+  if (cache && cache.raw === raw) return cache.value
+  let value: StreakRecord
+  if (!raw) {
+    value = DEFAULT
+  } else {
+    try {
+      const parsed = JSON.parse(raw) as StreakRecord
+      value = {
+        current: parsed.current ?? 0,
+        longest: parsed.longest ?? 0,
+        xp: parsed.xp ?? 0,
+        lastReviewDay: parsed.lastReviewDay ?? '',
+      }
+    } catch {
+      value = DEFAULT
     }
-  } catch {
-    return DEFAULT
   }
+  cache = { raw, value }
+  return value
 }
 
 function writeStreak(s: StreakRecord): void {
@@ -119,6 +145,7 @@ export function recordReview(assessment: 'know' | 'unsure' | 'dont', now = new D
     }
   }
   writeStreak(next)
+  invalidateStreakCache()
   if (typeof window !== 'undefined') {
     window.dispatchEvent(new Event('vocab:streak-changed'))
   }
