@@ -4,6 +4,7 @@ import { lessons } from '@/lib/registry'
 import { T } from '@/components/i18n/T'
 import { HOOKS } from '@/lib/hooksStrings'
 import { HookCard } from './HookCard'
+import type { VocabScope } from '@/pages/VocabPage'
 
 /**
  * The "Hooks" tab content — the browse view for the 30+ classroom
@@ -12,8 +13,12 @@ import { HookCard } from './HookCard'
  * Filters: lesson (one of the syllabuses' published lessons) and
  * quality (A / B / C, multi-select chips). Sort: by quality-then-date
  * (default), by date, or by lesson order.
+ *
+ * When the page-level `scope` is set, the story filter is overridden:
+ * the page filter takes precedence so the user only sees hooks for
+ * the currently selected lesson.
  */
-export function HooksTab() {
+export function HooksTab({ scope }: { scope?: VocabScope }) {
   // The set of lesson codes that have hooks AND have a published lesson.
   // We surface only those so the dropdown matches what the user can
   // actually open.
@@ -24,13 +29,25 @@ export function HooksTab() {
       .map((l) => ({ code: l.slug.split('-').slice(0, 2).join('-'), title: l.title }))
   }, [])
 
+  // The page-level scope wins: if the user has filtered to a specific
+  // lesson (e.g. 7-1-nutrition), the hooks tab shows only that lesson's
+  // stories. The local dropdown is hidden in that case — the user
+  // can't override the page-level filter from inside the hooks tab.
+  const scopeIsLocked = !!(scope && scope.slug !== 'all')
+  const scopedLesson = scopeIsLocked
+    ? scope!.slug.split('-').slice(0, 2).join('-')
+    : 'all'
+
   const [lesson, setLesson] = useState<string>('all')
   const [quality, setQuality] = useState<Set<StoryQuality>>(new Set())
   const [sort, setSort] = useState<'qualityDate' | 'date' | 'lesson'>('qualityDate')
 
+  // Effective lesson filter = scope wins, else user's local pick.
+  const effectiveLesson = scopeIsLocked ? scopedLesson : lesson
+
   const filtered = useMemo(() => {
     let rows = classroomStories.slice()
-    if (lesson !== 'all') rows = rows.filter((s) => s.lesson === lesson)
+    if (effectiveLesson !== 'all') rows = rows.filter((s) => s.lesson === effectiveLesson)
     if (quality.size > 0) rows = rows.filter((s) => quality.has(s.quality))
 
     const byQuality = (q: StoryQuality) => (q === 'A' ? 0 : q === 'B' ? 1 : 2)
@@ -51,7 +68,7 @@ export function HooksTab() {
       return a.date < b.date ? 1 : a.date > b.date ? -1 : 0
     })
     return rows
-  }, [lesson, quality, sort])
+  }, [effectiveLesson, quality, sort])
 
   const toggleQuality = (q: StoryQuality) => {
     setQuality((prev) => {
@@ -62,31 +79,33 @@ export function HooksTab() {
     })
   }
 
-  const hasFilter = lesson !== 'all' || quality.size > 0
+  const hasFilter = effectiveLesson !== 'all' || quality.size > 0
 
   return (
     <div className="space-y-3">
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs">
-        {/* Lesson filter */}
-        <div className="flex items-center gap-1.5">
-          <span className="text-muted">
-            <T value={HOOKS.filterLesson} />:
-          </span>
-          <select
-            value={lesson}
-            onChange={(e) => setLesson(e.target.value)}
-            className="rounded-md border border-line bg-surface px-1.5 py-0.5 text-xs"
-          >
-            <option value="all">
-              <T value={HOOKS.filterAllLessons} />
-            </option>
-            {lessonOptions.map((o) => (
-              <option key={o.code} value={o.code}>
-                {o.code} · <T value={o.title} />
+        {/* Lesson filter — hidden when the page-level scope is locked */}
+        {!scopeIsLocked && (
+          <div className="flex items-center gap-1.5">
+            <span className="text-muted">
+              <T value={HOOKS.filterLesson} />:
+            </span>
+            <select
+              value={lesson}
+              onChange={(e) => setLesson(e.target.value)}
+              className="rounded-md border border-line bg-surface px-1.5 py-0.5 text-xs"
+            >
+              <option value="all">
+                <T value={HOOKS.filterAllLessons} />
               </option>
-            ))}
-          </select>
-        </div>
+              {lessonOptions.map((o) => (
+                <option key={o.code} value={o.code}>
+                  {o.code} · <T value={o.title} />
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
 
         {/* Quality filter */}
         <div className="flex items-center gap-1.5">
@@ -150,7 +169,8 @@ export function HooksTab() {
               setLesson('all')
               setQuality(new Set())
             }}
-            className="rounded-md border border-line bg-surface px-2 py-0.5 text-xs text-muted hover:border-teal-500 hover:text-teal-700"
+            disabled={scopeIsLocked}
+            className="rounded-md border border-line bg-surface px-2 py-0.5 text-xs text-muted hover:border-teal-500 hover:text-teal-700 disabled:opacity-50"
           >
             <T value={HOOKS.clearFilters} />
           </button>

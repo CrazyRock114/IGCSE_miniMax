@@ -24,6 +24,7 @@ import { assetUrl } from '@/lib/assetUrl'
 import { SpeakButton } from './SpeakButton'
 import type { Term } from '@/content/types'
 import type { ConceptEnrichment } from '@/lib/vocabTypes'
+import type { VocabScope } from '@/pages/VocabPage'
 
 const ROUND_SIZE = 6
 
@@ -34,13 +35,27 @@ function normalise(s: string): string {
 export function TypeTheTerm({
   resolve,
   pool,
+  scope,
 }: {
   resolve: (termId: string, subject: string, slug: string) => { term: Term; enrichment?: ConceptEnrichment } | null
   pool: Array<{ term: Term }>
+  scope?: VocabScope
 }) {
   const { words, assess } = useWordBank()
   const streak = useStreak()
-  const [round, setRound] = useState(() => makeRound(pool, words, ROUND_SIZE))
+  const scopedPool = useMemo(() => {
+    if (!scope) return pool
+    return pool // pool is already filtered by VocabPage
+  }, [pool, scope])
+  const scopedWords = useMemo(() => {
+    if (!scope) return words
+    return words.filter((w) => {
+      if (scope.subject !== 'all' && w.subject !== scope.subject) return false
+      if (scope.slug !== 'all' && w.slug !== scope.slug) return false
+      return true
+    })
+  }, [words, scope])
+  const [round, setRound] = useState(() => makeRound(scopedPool, scopedWords, ROUND_SIZE))
   const [idx, setIdx] = useState(0)
   const [input, setInput] = useState('')
   const [feedback, setFeedback] = useState<'right' | 'wrong' | null>(null)
@@ -72,7 +87,7 @@ export function TypeTheTerm({
         <button
           type="button"
           onClick={() => {
-            setRound(makeRound(pool, words, ROUND_SIZE))
+            setRound(makeRound(scopedPool, scopedWords, ROUND_SIZE))
             setIdx(0)
             setInput('')
             setFeedback(null)
@@ -95,7 +110,7 @@ export function TypeTheTerm({
       setFeedback('right')
       setCorrectCount((c) => c + 1)
       // Mark the word as a success in the SRS — this counts as a "know".
-      const bankEntry = words.find((w) => w.termId === current.en)
+      const bankEntry = scopedWords.find((w) => w.termId === current.en)
       if (bankEntry) {
         assess(bankEntry.termId, 'know')
         recordReview('know')
@@ -109,7 +124,7 @@ export function TypeTheTerm({
       setFeedback('wrong')
       setWrongIds((s) => new Set(s).add(current.en))
       // Mark the word as a fail in the SRS — this counts as a "dont".
-      const bankEntry = words.find((w) => w.termId === current.en)
+      const bankEntry = scopedWords.find((w) => w.termId === current.en)
       if (bankEntry) {
         assess(bankEntry.termId, 'dont')
         recordReview('dont')

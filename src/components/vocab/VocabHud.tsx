@@ -6,14 +6,34 @@
  * only glances at /vocab should still see "12 due today, 5-day streak"
  * and know what to do next.
  */
+import { useMemo } from 'react'
 import { T } from '@/components/i18n/T'
 import { useWordBank } from '@/lib/useVocab'
 import { useStreak, streakLabel } from '@/lib/useStreak'
+import { useNow } from '@/lib/useNow'
 import { VOCAB } from '@/lib/vocabStrings'
+import type { VocabScope } from '@/pages/VocabPage'
 
-export function VocabHud() {
-  const { stats } = useWordBank()
+export function VocabHud({ scope }: { scope?: VocabScope }) {
+  const { words, stats } = useWordBank()
   const streak = useStreak()
+  const now = useNow()
+
+  // Recompute "due today" against the in-scope words. The `now` tick
+  // (set up in useNow) drives the refresh — never call Date.now()
+  // during render.
+  const scopedStats = useMemo(() => {
+    if (!scope) return { due: stats.dueToday, total: stats.total }
+    const scoped = words.filter((w) => {
+      if (scope.subject !== 'all' && w.subject !== scope.subject) return false
+      if (scope.slug !== 'all' && w.slug !== scope.slug) return false
+      return true
+    })
+    return {
+      due: now ? scoped.filter((w) => w.nextDue === 0 || w.nextDue <= now).length : 0,
+      total: scoped.length,
+    }
+  }, [words, scope, stats.dueToday, stats.total, now])
 
   return (
     <div className="flex flex-wrap items-center gap-2 rounded-lg border border-line bg-canvas px-3 py-1.5 text-xs">
@@ -24,11 +44,16 @@ export function VocabHud() {
         <T value={VOCAB.statDueToday} />{' '}
         <span
           className={
-            'font-mono ' + (stats.dueToday > 0 ? 'text-amber-700' : 'text-ink-soft')
+            'font-mono ' + (scopedStats.due > 0 ? 'text-amber-700' : 'text-ink-soft')
           }
         >
-          {stats.dueToday}
+          {scopedStats.due}
         </span>
+        {scope && (scope.subject !== 'all' || scope.slug !== 'all') && (
+          <span className="ml-1 text-[10px] text-muted">
+            / {scopedStats.total}
+          </span>
+        )}
       </span>
       <span className="text-muted">
         XP <span className="font-mono text-ink">{streak.xp}</span>

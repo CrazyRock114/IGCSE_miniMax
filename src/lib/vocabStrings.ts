@@ -80,6 +80,8 @@ export const VOCAB = {
 
   // Filters
   filterAll: { en: 'All subjects', zh: '全部学科' } satisfies Bilingual,
+  filterLesson: { en: 'Lesson', zh: '课程' } satisfies Bilingual,
+  filterAllLessons: { en: 'All lessons', zh: '全部课程' } satisfies Bilingual,
 
   // Mistake log tab
   tabMistakes: { en: 'Your mistakes', zh: '错题' } satisfies Bilingual,
