@@ -65,7 +65,17 @@ export function TypeTheTerm({
 
   const queue = useMemo(() => round.terms, [round])
   const current = queue[idx]
-  const currentResolved = current ? resolve(current.en, '', '') : null
+  // Look up the bank entry for `current` so we can pass real subject/slug
+  // to resolve(). The previous code passed '' for both, which made
+  // VocabPage's resolve always return null (its lookup is
+  // `lessons.find(l => l.subject === subj && l.slug === slg)` — empty
+  // strings never match). That null short-circuited the early-return
+  // guard below, so the game opened straight into the "round done"
+  // screen and Play again couldn't recover. Round terms are built
+  // from scopedWords so the bank entry is guaranteed to exist.
+  const bankEntry = current ? scopedWords.find((w) => w.termId === current.en) : undefined
+  const currentResolved =
+    current && bankEntry ? resolve(current.en, bankEntry.subject, bankEntry.slug) : null
 
   if (queue.length < 2) {
     return (
@@ -75,7 +85,12 @@ export function TypeTheTerm({
     )
   }
 
-  if (done || !current || !currentResolved) {
+  // We used to gate on `!currentResolved` here, but enrichment is optional
+  // (some terms have no image, some have no enrichment at all). The render
+  // already uses `currentResolved?.enrichment?.image` so a null enrichment
+  // just hides the image; we still want to show the term definition and
+  // the input. The only true "round done" condition is the boolean `done`.
+  if (done) {
     return (
       <div className="rounded-xl border border-teal-600 bg-teal-50 p-6 text-center">
         <h3 className="text-lg font-semibold text-ink">
@@ -102,6 +117,13 @@ export function TypeTheTerm({
       </div>
     )
   }
+
+  // After the early returns above, queue has at least 2 terms, but
+  // `current` could still be undefined if `idx` ever goes out of range
+  // (defensive — should not happen given how `advance` keeps idx in
+  // bounds, but we don't want a runtime crash). Render nothing rather
+  // than the round-done screen, because no real round is done.
+  if (!current) return null
 
   const check = () => {
     if (!input.trim()) return
