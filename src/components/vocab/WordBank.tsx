@@ -14,6 +14,15 @@ import type { VocabScope } from '@/pages/VocabPage'
  *
  * The optional `scope` prop restricts the view to a single subject and/or
  * lesson. When unset the bank shows everything the user has saved.
+ *
+ * Per-row layout:
+ *   - The visible row stays compact: term name (en), small metadata line
+ *     (subject · slug · review count).
+ *   - On hover (CSS-only, group/group-hover), a floating tooltip drops
+ *     down showing the Chinese translation and the English definition.
+ *     This keeps the bank list scannable while still giving instant
+ *     context when the user pauses on a term — they don't have to expand
+ *     a card or leave the page.
  */
 export function WordBank({
   resolve,
@@ -64,34 +73,71 @@ export function WordBank({
                 return (
                   <li
                     key={w.termId}
-                    className="flex items-start gap-2 rounded-lg border border-line bg-surface p-3"
+                    // `group` lets the tooltip child target group-hover.
+                    // `relative` anchors the absolutely-positioned tooltip
+                    // to this row so it doesn't float to the wrong parent.
+                    className="group relative"
                   >
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-medium text-ink">
-                        <T value={{ en: r.term.en, zh: r.term.zh }} />
-                      </p>
-                      <p className="mt-0.5 line-clamp-2 text-xs text-muted">
-                        {w.subject} · {w.slug}
-                        {w.reviewCount > 0 ? ` · ${VOCAB.reviewedPrefix.en} ${w.reviewCount}` : ''}
-                      </p>
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      {s !== 'known' && (
+                    <div className="flex items-start gap-2 rounded-lg border border-line bg-surface p-3">
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-sm font-medium text-ink">
+                          <T value={{ en: r.term.en, zh: r.term.zh }} />
+                        </p>
+                        <p className="mt-0.5 truncate text-xs text-muted">
+                          {w.subject} · {w.slug}
+                          {w.reviewCount > 0 ? ` · ${VOCAB.reviewedPrefix.en} ${w.reviewCount}` : ''}
+                        </p>
+                      </div>
+                      <div className="flex shrink-0 flex-col gap-1">
+                        {s !== 'known' && (
+                          <button
+                            type="button"
+                            onClick={() => setStatus(w.termId, 'known')}
+                            className="rounded-md border border-line bg-canvas px-2 py-0.5 text-[10px] hover:border-emerald-500 hover:text-emerald-700"
+                          >
+                            <T value={VOCAB.markKnown} />
+                          </button>
+                        )}
                         <button
                           type="button"
-                          onClick={() => setStatus(w.termId, 'known')}
-                          className="rounded-md border border-line bg-canvas px-2 py-0.5 text-[10px] hover:border-emerald-500 hover:text-emerald-700"
+                          onClick={() => remove(w.termId)}
+                          className="rounded-md border border-line bg-canvas px-2 py-0.5 text-[10px] text-muted hover:border-rose-500 hover:text-rose-700"
                         >
-                          <T value={VOCAB.markKnown} />
-                        </button>
-                      )}
-                      <button
-                        type="button"
-                        onClick={() => remove(w.termId)}
-                        className="rounded-md border border-line bg-canvas px-2 py-0.5 text-[10px] text-muted hover:border-rose-500 hover:text-rose-700"
-                      >
                           <T value={VOCAB.removeFromBank} />
-                      </button>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Hover tooltip — CSS-only, no React state.
+                       - `top-full left-0` drops below the row, left-aligned.
+                       - `hidden group-hover:block` so it only shows on row hover.
+                       - `pointer-events-none` so it never blocks the row buttons
+                         or the next-row hover target.
+                       - `w-72` is wide enough for the English definition; the
+                         Chinese fits comfortably below the English term name. */}
+                    <div
+                      role="tooltip"
+                      className="pointer-events-none absolute left-0 top-full z-20 hidden w-72 -translate-y-px rounded-lg border border-line bg-white p-3 text-sm shadow-lg group-hover:block"
+                    >
+                      {r.term.zh && (
+                        <p
+                          className="text-sm font-semibold text-teal-800"
+                          lang="zh-CN"
+                        >
+                          {r.term.zh}
+                        </p>
+                      )}
+                      <p className="mt-1 text-xs leading-relaxed text-ink-soft">
+                        {r.term.definition.en}
+                      </p>
+                      {r.term.definition.zh && (
+                        <p
+                          className="mt-1 text-xs leading-relaxed text-ink-soft"
+                          lang="zh-CN"
+                        >
+                          {r.term.definition.zh}
+                        </p>
+                      )}
                     </div>
                   </li>
                 )
