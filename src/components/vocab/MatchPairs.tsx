@@ -238,7 +238,12 @@ function makeRound(pool: Array<{ term: Term }>, words: import('@/lib/vocabTypes'
       id: `def:${t.en}`,
       side: 'def',
       termId: t.en,
-      text: t.definition.en.length > 80 ? t.definition.en.slice(0, 80) + '…' : t.definition.en,
+      // Show the full definition in the match-tile. Previous code
+      // truncated at 80 chars + '…', which hid the discriminating
+      // middle of similar definitions and made the game much harder
+      // than intended. CSS wraps long text inside the tile, so this
+      // stays scannable.
+      text: t.definition.en,
     })
   }
   // Shuffle the def side independently

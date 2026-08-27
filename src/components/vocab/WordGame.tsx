@@ -159,9 +159,14 @@ function QuestionCard({
           onClick={() => onAnswer(t)}
           className="rounded-lg border border-line bg-surface p-3 text-left text-sm text-ink-soft transition-colors hover:border-teal-500 hover:bg-canvas"
         >
+          {/* Show the full definition — the option is a card, it can be
+             tall. Truncating at 90 chars (the previous behaviour) cut
+             off exactly the kind of clinical/mechanism detail the
+             student needs to discriminate similar terms. CSS will wrap
+             the long English naturally; Chinese wraps the same way. */}
           <T
             value={{
-              en: t.definition.en.slice(0, 90) + (t.definition.en.length > 90 ? '…' : ''),
+              en: t.definition.en,
               zh: t.definition.zh ?? '',
             }}
           />
