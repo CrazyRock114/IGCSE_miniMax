@@ -143,6 +143,7 @@ export const VOCAB = {
   gameRoundOver: { en: 'Round done', zh: '本轮结束' } satisfies Bilingual,
   gameCheck: { en: 'Check', zh: '检查' } satisfies Bilingual,
   gameNext: { en: 'Next', zh: '下一题' } satisfies Bilingual,
+  gamePrev: { en: 'Previous', zh: '上一题' } satisfies Bilingual,
   gamePlayAgain: { en: '↻ Play again', zh: '↻ 再来一轮' } satisfies Bilingual,
   gameTypePrompt: { en: 'Type the term for:', zh: '拼出这个词:' } satisfies Bilingual,
   gameTypePlaceholder: { en: 'type here…', zh: '在这里打字…' } satisfies Bilingual,
