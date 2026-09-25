@@ -176,7 +176,7 @@ const lesson: Lesson = {
         en: 'The addictive stimulant in cigarette smoke. It makes the smoker feel alert, narrows the small blood vessels, raises blood pressure, and is the reason smokers find it so hard to stop.',
         zh: '香烟烟雾中的成瘾性兴奋剂。它让吸烟者感到警觉，使小血管变窄，升高血压，也是吸烟者戒烟如此困难的原因。',
       },
-      syllabus: ['0610.11.2.1'],
+      syllabus: ['0610.11.1.2'],
     },
     {
       en: 'carbon monoxide',
@@ -185,7 +185,7 @@ const lesson: Lesson = {
         en: 'A poisonous gas in cigarette smoke. It binds to haemoglobin in red blood cells and stops it carrying oxygen, which is especially harmful to a developing baby.',
         zh: '香烟烟雾中的有毒气体。它与红细胞中的血红蛋白结合，使其无法携带氧气，这对发育中的胎儿尤其有害。',
       },
-      syllabus: ['0610.11.2.3'],
+      syllabus: ['0610.11.1.4'],
     },
     {
       en: 'emphysema',
@@ -194,7 +194,7 @@ const lesson: Lesson = {
         en: 'A lung disease in which the walls of the alveoli break down, so the air spaces merge into fewer, larger ones with less total surface area. Gas exchange becomes inefficient, and a person with emphysema gets out of breath walking across a room.',
         zh: '一种肺病——肺泡壁破裂，使许多小气腔合并成少数大气腔，总表面积减小。气体交换效率下降，肺气肿患者走几步路就会气喘。',
       },
-      syllabus: ['0610.11.2.5'],
+      syllabus: ['0610.11.1.1'],
     },
     {
       en: 'asthma',
@@ -322,7 +322,7 @@ const lesson: Lesson = {
         en: 'Uncontrolled growth of cells in the lung, usually starting in the airway lining. Symptoms: a cough that does not go away, coughing up blood, breathlessness, chest pain, unexplained weight loss. Risk for smokers is many times that of non-smokers.',
         zh: '肺部细胞失控增殖，常起始于气道内壁。症状：持续不愈的咳嗽、咳血、呼吸困难、胸痛、不明原因消瘦。吸烟者风险是非吸烟者的数倍。',
       },
-      syllabus: ['0610.11.1.12'],
+      syllabus: ['0610.11.1.1'],
     },
     {
       en: 'tar',
@@ -340,7 +340,7 @@ const lesson: Lesson = {
         en: 'Particulate matter in air pollution. PM10 is particles ≤10 µm across — caught in the nose and upper airways. PM2.5 is particles ≤2.5 µm — small enough to reach the alveoli and enter the bloodstream.',
         zh: '空气污染中的颗粒物。PM10 指直径 ≤10 µm 的颗粒——被鼻和上呼吸道阻挡。PM2.5 指直径 ≤2.5 µm 的颗粒——小到能到达肺泡并进入血液。',
       },
-      syllabus: ['0610.11.1.14'],
+      syllabus: ['0610.11.1.2'],
     },
     {
       en: 'larynx',
@@ -509,7 +509,7 @@ const lesson: Lesson = {
     {
       id: '0610-11-1-cp2',
       syllabus: ['0610.12.3.2'],
-      tier: 'extended',
+      tier: 'core',
       commandWord: 'Explain',
       marks: 3,
       stem: 'A muscle respiring anaerobically uses far more glucose than one respiring aerobically to release the same amount of energy. Explain why, and state the products of each.',

@@ -649,3 +649,72 @@ export const CONCEPT_EXPLAINER = {
     zh: '作为本解释器主图示的教科书插图',
   } satisfies Bilingual,
 } as const
+
+// ---------------------------------------------------------------------------
+// Food tests virtual laboratory (Paper 5/6 practical skills)
+// ---------------------------------------------------------------------------
+
+export const FOOD_TESTS_LAB = {
+  tabBench: { en: 'Virtual Testbench', zh: '虚拟实验台' } satisfies Bilingual,
+  tabGuide: { en: 'Paper 6 Practical Exam Guide', zh: 'Paper 6 实验考点速记' } satisfies Bilingual,
+  tabSummary: { en: 'Results Matrix', zh: '结果速查表' } satisfies Bilingual,
+  selectSample: { en: 'Step 1: Choose Food Sample', zh: '第一步：选择待测食物样本' } satisfies Bilingual,
+  selectTest: { en: 'Step 2: Choose Biochemical Test', zh: '第二步：选择生化检验项目' } satisfies Bilingual,
+  addReagent: { en: 'Add Reagent', zh: '加入检测试剂' } satisfies Bilingual,
+  heatWaterBath: { en: 'Heat in Water Bath (80°C)', zh: '水浴加热（80°C）' } satisfies Bilingual,
+  shakeTube: { en: 'Shake with Water', zh: '倒入冷水剧烈震荡' } satisfies Bilingual,
+  reset: { en: 'Reset Tube', zh: '重置试管' } satisfies Bilingual,
+  currentStatus: { en: 'Current Status', zh: '当前状态' } satisfies Bilingual,
+  reagentAdded: { en: 'Reagent Added', zh: '已加试剂' } satisfies Bilingual,
+  heated: { en: 'Heated in Water Bath', zh: '已水浴加热' } satisfies Bilingual,
+  observation: { en: 'Observation', zh: '实验现象' } satisfies Bilingual,
+  conclusion: { en: 'Conclusion', zh: '实验结论' } satisfies Bilingual,
+  positive: { en: 'Positive', zh: '呈阳性 (+)' } satisfies Bilingual,
+  negative: { en: 'Negative', zh: '呈阴性 (-)' } satisfies Bilingual,
+  needsReagent: { en: 'Sample placed in tube. Click "Add Reagent" to proceed.', zh: '样本已置入试管。请点击"加入检测试剂"。' } satisfies Bilingual,
+  needsHeat: { en: 'Benedict\'s reagent added. Heat in hot water bath (80°C) to develop color!', zh: '已加入本尼迪克特试剂。必须在 80°C 热水浴中加热方可显色！' } satisfies Bilingual,
+  needsShake: { en: 'Ethanol added. Pour into water and shake to observe emulsion!', zh: '已加入乙醇。倒入冷水中并充分震荡以观察乳状液！' } satisfies Bilingual,
+  safetyTitle: { en: 'Safety Precautions (Paper 6 Essential)', zh: '安全注意事项（实验考卷必背）' } satisfies Bilingual,
+  controlTitle: { en: 'Control Variables', zh: '控制变量' } satisfies Bilingual,
+  trapTitle: { en: 'High-Frequency Exam Traps', zh: '高频失分陷阱' } satisfies Bilingual,
+  blankControl: { en: 'Negative Control (Distilled Water)', zh: '阴性空白对照（蒸馏水）' } satisfies Bilingual,
+  semiQuantLabel: { en: 'Semi-quantitative Color Scale (Benedict\'s)', zh: '半定量颜色梯度（本尼迪克特检验）' } satisfies Bilingual,
+  lowSugar: { en: 'Traces / Low sugar (Green/Yellow)', zh: '微量 / 低浓度（绿/黄色）' } satisfies Bilingual,
+  mediumSugar: { en: 'Moderate sugar (Orange)', zh: '中等浓度（橙色）' } satisfies Bilingual,
+  highSugar: { en: 'High sugar (Brick red)', zh: '高浓度（砖红色）' } satisfies Bilingual,
+  reagentLabel: { en: 'Reagent', zh: '试剂' } satisfies Bilingual,
+  testLabel: { en: 'Test', zh: '检验项目' } satisfies Bilingual,
+  positiveResult: { en: 'Positive Result', zh: '阳性结果' } satisfies Bilingual,
+  negativeResult: { en: 'Negative Result', zh: '阴性结果' } satisfies Bilingual,
+} as const
+
+// ---------------------------------------------------------------------------
+// Driver.js animated guided tours
+// ---------------------------------------------------------------------------
+
+export const BIOLOGY_TOUR = {
+  btnStartTour: { en: 'Animation Tour', zh: '步骤动画导览' } satisfies Bilingual,
+  btnAutoPlay: { en: 'Auto-Play Tour', zh: '自动播放动画' } satisfies Bilingual,
+  btnPause: { en: 'Pause', zh: '暂停' } satisfies Bilingual,
+  tourPrompt: {
+    en: 'Step-by-step interactive focal animation powered by Driver.js',
+    zh: '由 Driver.js 驱动的生理机制步骤聚焦动画',
+  } satisfies Bilingual,
+  doubleCirculationBtn: {
+    en: 'Blood Circulation Tour',
+    zh: '血液循环路径动画导览',
+  } satisfies Bilingual,
+  reflexArcBtn: {
+    en: 'Impulse Transmission Tour',
+    zh: '神经冲动传导动画导览',
+  } satisfies Bilingual,
+  digestiveBtn: {
+    en: 'Digestive Journey Tour',
+    zh: '消化吸收全程动画导览',
+  } satisfies Bilingual,
+  airwayBtn: {
+    en: 'Airflow & Gas Exchange Tour',
+    zh: '气道与气体交换动画导览',
+  } satisfies Bilingual,
+} as const
+

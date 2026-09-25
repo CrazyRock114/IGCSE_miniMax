@@ -1,3 +1,4 @@
+import { Suspense, lazy } from 'react'
 import type { LessonExtra } from '@/content/types'
 import { T } from '@/components/i18n/T'
 import { DigestiveAnatomy } from './DigestiveAnatomy'
@@ -35,12 +36,18 @@ import { PyramidCompare } from './PyramidCompare'
 import { NutrientCycle } from './NutrientCycle'
 import { PopulationCurve } from './PopulationCurve'
 import { OrganAnatomy } from './OrganAnatomy'
-import { DnaHelix3D } from './DnaHelix3D'
-import { FoodWeb3D } from './FoodWeb3D'
 import { ConceptExplainer } from './ConceptExplainer'
 import { VisualIllusions } from './VisualIllusions'
 import { NeuroneStructure } from './NeuroneStructure'
 import { ThreeNeurones } from './ThreeNeurones'
+import { FoodTestsLab } from './FoodTestsLab'
+
+const DnaHelix3D = lazy(() =>
+  import('./DnaHelix3D').then((m) => ({ default: m.DnaHelix3D }))
+)
+const FoodWeb3D = lazy(() =>
+  import('./FoodWeb3D').then((m) => ({ default: m.FoodWeb3D }))
+)
 
 /**
  * Dispatches the lesson's `extras` to the right component.
@@ -150,9 +157,21 @@ function renderExtra(extra: LessonExtra) {
     case 'organ-anatomy':
       return <OrganAnatomy extra={extra} />
     case 'dna-helix-3d':
-      return <DnaHelix3D extra={extra} />
+      return (
+        <Suspense
+          fallback={<div className="h-64 animate-pulse rounded-xl border border-line bg-surface" />}
+        >
+          <DnaHelix3D extra={extra} />
+        </Suspense>
+      )
     case 'food-web-3d':
-      return <FoodWeb3D extra={extra} />
+      return (
+        <Suspense
+          fallback={<div className="h-64 animate-pulse rounded-xl border border-line bg-surface" />}
+        >
+          <FoodWeb3D extra={extra} />
+        </Suspense>
+      )
     case 'concept-explainer':
       return <ConceptExplainer extra={extra} />
     case 'visual-illusions':
@@ -161,5 +180,7 @@ function renderExtra(extra: LessonExtra) {
       return <NeuroneStructure extra={extra} />
     case 'three-neurones':
       return <ThreeNeurones extra={extra} />
+    case 'food-tests-lab':
+      return <FoodTestsLab extra={extra} />
   }
 }

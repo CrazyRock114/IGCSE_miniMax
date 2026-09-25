@@ -1,8 +1,10 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { AirwayPathwayExtra, AnatomyOrgan } from '@/content/types'
 import { T } from '@/components/i18n/T'
-import { AIRWAY_PATHWAY } from '@/lib/lessonExtrasStrings'
+import { AIRWAY_PATHWAY, BIOLOGY_TOUR } from '@/lib/lessonExtrasStrings'
 import { assetUrl } from '@/lib/assetUrl'
+import { createBiologyTour, type BiologyTourController } from '@/lib/driverTour'
+import { AIRWAY_PATHWAY_TOUR } from '@/content/biologyToursData'
 
 /**
  * The human gas-exchange system, in one picture.
@@ -70,6 +72,13 @@ export function AirwayPathway({ extra }: { extra: AirwayPathwayExtra }) {
   const [hoveredId, setHoveredId] = useState<string | null>(null)
   const [mode, setMode] = useState<'explore' | 'follow'>('explore')
   const [followStep, setFollowStep] = useState(0)
+  const tourRef = useRef<BiologyTourController | null>(null)
+
+  useEffect(() => {
+    return () => {
+      tourRef.current?.destroy()
+    }
+  }, [])
 
   // Memoize the ordered list of "follow" parts once.
   const orderedForFollow = useMemo(
@@ -79,33 +88,25 @@ export function AirwayPathway({ extra }: { extra: AirwayPathwayExtra }) {
 
   const selected = useMemo(() => parts.find((p) => p.id === selectedId) ?? null, [parts, selectedId])
 
-  // "Follow the air" mode — advance through the airway in `stop` order.
-  useEffect(() => {
-    if (mode !== 'follow') return
-    if (orderedForFollow.length === 0) return
-    const id = setInterval(() => {
-      setFollowStep((s) => {
-        const next = s + 1
-        if (next >= orderedForFollow.length) {
-          setTimeout(() => {
-            setMode('explore')
-            setSelectedId(null)
-          }, 2500)
-          return s
-        }
-        setSelectedId(orderedForFollow[next]?.id ?? null)
-        return next
-      })
-    }, 2200)
-    return () => clearInterval(id)
-  }, [mode, orderedForFollow])
-
-  const startFollow = () => {
-    setFollowStep(0)
-    setSelectedId(orderedForFollow[0]?.id ?? null)
+  const startDriverTour = (autoPlay: boolean) => {
+    tourRef.current?.destroy()
     setMode('follow')
+    tourRef.current = createBiologyTour(AIRWAY_PATHWAY_TOUR, {
+      autoPlay,
+      autoPlayIntervalMs: 3800,
+      onStepChange: (stepId, index) => {
+        setSelectedId(stepId)
+        setFollowStep(index)
+      },
+      onDestroy: () => {
+        setMode('explore')
+      },
+    })
+    tourRef.current.drive(0)
   }
+
   const stopFollow = () => {
+    tourRef.current?.destroy()
     setMode('explore')
     setSelectedId(null)
   }
@@ -113,13 +114,28 @@ export function AirwayPathway({ extra }: { extra: AirwayPathwayExtra }) {
   return (
     <div className="grid gap-4 lg:grid-cols-[1fr_300px]">
       <div>
-        <div className="mb-2 flex flex-wrap items-center gap-2">
-          <ModeButton active={mode === 'explore'} onClick={stopFollow}>
-            <T value={AIRWAY_PATHWAY.modeExplore} />
-          </ModeButton>
-          <ModeButton active={mode === 'follow'} onClick={startFollow}>
-            <T value={AIRWAY_PATHWAY.modeFollow} />
-          </ModeButton>
+        <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <ModeButton active={mode === 'explore'} onClick={stopFollow}>
+              <T value={AIRWAY_PATHWAY.modeExplore} />
+            </ModeButton>
+            <button
+              type="button"
+              onClick={() => startDriverTour(false)}
+              className="flex items-center gap-1 rounded-md border border-teal-500 bg-surface px-2.5 py-1 text-xs font-medium text-teal-700 shadow-sm transition hover:bg-teal-50 active:scale-95"
+            >
+              <span>▶</span>
+              <T value={BIOLOGY_TOUR.airwayBtn} />
+            </button>
+            <button
+              type="button"
+              onClick={() => startDriverTour(true)}
+              className="flex items-center gap-1 rounded-md bg-teal-600 px-2.5 py-1 text-xs font-medium text-white shadow-sm transition hover:bg-teal-700 active:scale-95"
+            >
+              <span>⚡</span>
+              <T value={BIOLOGY_TOUR.btnAutoPlay} />
+            </button>
+          </div>
           {mode === 'follow' && (
             <span className="text-xs text-muted">
               <T value={AIRWAY_PATHWAY.followPrompt} />
@@ -264,6 +280,7 @@ function FigureWithHotspots({
           return (
             <HotspotShape
               key={p.id}
+              id={p.id}
               h={h}
               isSelected={isSelected}
               isHovered={isHovered}
@@ -282,6 +299,7 @@ function FigureWithHotspots({
 }
 
 function HotspotShape({
+  id,
   h,
   isSelected,
   isHovered,
@@ -289,6 +307,7 @@ function HotspotShape({
   onSelect,
   onHover,
 }: {
+  id: string
   h: Hotspot
   isSelected: boolean
   isHovered: boolean
@@ -307,7 +326,8 @@ function HotspotShape({
       onMouseEnter={() => onHover(true)}
       onMouseLeave={() => onHover(false)}
       style={{ cursor: 'pointer', pointerEvents: 'auto' }}
-      data-airway-hotspot={label}
+      data-airway-hotspot={id}
+      data-part={id}
     >
       {h.type === 'circle' ? (
         <circle

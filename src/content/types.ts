@@ -649,6 +649,7 @@ export type LessonExtra =
   | VisualIllusionsExtra
   | NeuroneStructureExtra
   | ThreeNeuronesExtra
+  | FoodTestsLabExtra
 
 /** What to show in the side panel when an organ is selected. */
 export interface AnatomyOrgan {
@@ -1206,6 +1207,42 @@ export interface ThreeNeuronesExtra {
   title: Bilingual
   hint: Bilingual
   neurones: NeuroneProfile[]
+}
+
+export interface FoodTestItem {
+  id: 'starch' | 'reducing_sugar' | 'protein' | 'lipids' | 'vitamin_c'
+  name: Bilingual
+  targetMolecule: Bilingual
+  reagent: Bilingual
+  procedure: Bilingual
+  heatingRequired: boolean
+  mixingRequired?: boolean
+  initialColor: Bilingual
+  positiveColor: Bilingual
+  negativeColor: Bilingual
+  colorCodeInitial: string
+  colorCodePositive: string
+  colorCodeNegative: string
+  precipitate?: boolean
+  safetyNote: Bilingual
+  controlVariable: Bilingual
+  paper6Notes: Bilingual
+}
+
+export interface FoodSample {
+  id: string
+  name: Bilingual
+  contains: Array<'starch' | 'reducing_sugar' | 'protein' | 'lipids' | 'vitamin_c'>
+  notes?: Bilingual
+}
+
+export interface FoodTestsLabExtra {
+  type: 'food-tests-lab'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  tests: FoodTestItem[]
+  samples: FoodSample[]
 }
 
 /**

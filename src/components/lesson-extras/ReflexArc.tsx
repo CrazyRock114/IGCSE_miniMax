@@ -1,8 +1,10 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { ReflexArcExtra, AnatomyOrgan } from '@/content/types'
 import { T } from '@/components/i18n/T'
-import { REFLEX_ARC } from '@/lib/lessonExtrasStrings'
+import { BIOLOGY_TOUR, REFLEX_ARC } from '@/lib/lessonExtrasStrings'
 import { assetUrl } from '@/lib/assetUrl'
+import { createBiologyTour, type BiologyTourController } from '@/lib/driverTour'
+import { REFLEX_ARC_TOUR } from '@/content/biologyToursData'
 
 /**
  * A reflex arc, on G8 Figure B9.04 — the hand-on-a-hot-plate diagram.
@@ -49,6 +51,13 @@ export function ReflexArc({ extra }: { extra: ReflexArcExtra }) {
   const [hoveredId, setHoveredId] = useState<string | null>(null)
   const [mode, setMode] = useState<'explore' | 'follow'>('explore')
   const [followStep, setFollowStep] = useState(0)
+  const tourRef = useRef<BiologyTourController | null>(null)
+
+  useEffect(() => {
+    return () => {
+      tourRef.current?.destroy()
+    }
+  }, [])
 
   const orderedForFollow = useMemo(
     () => parts.filter((p) => typeof p.stop === 'number').sort((a, b) => a.stop! - b.stop!),
@@ -60,32 +69,25 @@ export function ReflexArc({ extra }: { extra: ReflexArcExtra }) {
     [parts, selectedId]
   )
 
-  useEffect(() => {
-    if (mode !== 'follow') return
-    if (orderedForFollow.length === 0) return
-    const id = setInterval(() => {
-      setFollowStep((s) => {
-        const next = s + 1
-        if (next >= orderedForFollow.length) {
-          setTimeout(() => {
-            setMode('explore')
-            setSelectedId(null)
-          }, 2500)
-          return s
-        }
-        setSelectedId(orderedForFollow[next]?.id ?? null)
-        return next
-      })
-    }, 1800)
-    return () => clearInterval(id)
-  }, [mode, orderedForFollow])
-
-  const startFollow = () => {
-    setFollowStep(0)
-    setSelectedId(orderedForFollow[0]?.id ?? null)
+  const startDriverTour = (autoPlay: boolean) => {
+    tourRef.current?.destroy()
     setMode('follow')
+    tourRef.current = createBiologyTour(REFLEX_ARC_TOUR, {
+      autoPlay,
+      autoPlayIntervalMs: 3800,
+      onStepChange: (stepId, index) => {
+        setSelectedId(stepId)
+        setFollowStep(index)
+      },
+      onDestroy: () => {
+        setMode('explore')
+      },
+    })
+    tourRef.current.drive(0)
   }
+
   const stopFollow = () => {
+    tourRef.current?.destroy()
     setMode('explore')
     setSelectedId(null)
   }
@@ -93,13 +95,28 @@ export function ReflexArc({ extra }: { extra: ReflexArcExtra }) {
   return (
     <div className="grid gap-4 lg:grid-cols-[1fr_300px]">
       <div>
-        <div className="mb-2 flex flex-wrap items-center gap-2">
-          <ModeButton active={mode === 'explore'} onClick={stopFollow}>
-            <T value={REFLEX_ARC.modeExplore} />
-          </ModeButton>
-          <ModeButton active={mode === 'follow'} onClick={startFollow}>
-            <T value={REFLEX_ARC.modeFollow} />
-          </ModeButton>
+        <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <ModeButton active={mode === 'explore'} onClick={stopFollow}>
+              <T value={REFLEX_ARC.modeExplore} />
+            </ModeButton>
+            <button
+              type="button"
+              onClick={() => startDriverTour(false)}
+              className="flex items-center gap-1 rounded-md border border-teal-500 bg-surface px-2.5 py-1 text-xs font-medium text-teal-700 shadow-sm transition hover:bg-teal-50 active:scale-95"
+            >
+              <span>▶</span>
+              <T value={BIOLOGY_TOUR.reflexArcBtn} />
+            </button>
+            <button
+              type="button"
+              onClick={() => startDriverTour(true)}
+              className="flex items-center gap-1 rounded-md bg-teal-600 px-2.5 py-1 text-xs font-medium text-white shadow-sm transition hover:bg-teal-700 active:scale-95"
+            >
+              <span>⚡</span>
+              <T value={BIOLOGY_TOUR.btnAutoPlay} />
+            </button>
+          </div>
           {mode === 'follow' && (
             <span className="text-xs text-muted">
               <T value={REFLEX_ARC.followPrompt} />
@@ -232,6 +249,7 @@ function FigureWithHotspots({
           return (
             <HotspotShape
               key={p.id}
+              id={p.id}
               h={h}
               isSelected={isSelected}
               isHovered={isHovered}
@@ -249,6 +267,7 @@ function FigureWithHotspots({
 }
 
 function HotspotShape({
+  id,
   h,
   isSelected,
   isHovered,
@@ -256,6 +275,7 @@ function HotspotShape({
   onSelect,
   onHover,
 }: {
+  id: string
   h: Hotspot
   isSelected: boolean
   isHovered: boolean
@@ -274,7 +294,8 @@ function HotspotShape({
       onMouseEnter={() => onHover(true)}
       onMouseLeave={() => onHover(false)}
       style={{ cursor: 'pointer', pointerEvents: 'auto' }}
-      data-reflex-hotspot={label}
+      data-reflex-hotspot={id}
+      data-part={id}
     >
       {h.type === 'circle' ? (
         <circle

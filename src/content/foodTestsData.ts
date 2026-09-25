@@ -1,0 +1,201 @@
+import type { FoodTestsLabExtra } from './types'
+
+export const foodTestsLabData: FoodTestsLabExtra = {
+  type: 'food-tests-lab',
+  id: 'food-tests-lab',
+  title: {
+    en: 'Virtual Laboratory: Food Tests (Paper 5 & 6 Practical Skills)',
+    zh: '虚拟实验台：生化食物检验（Paper 5 & 6 核心实验实战）',
+  },
+  hint: {
+    en: 'Test real food samples with Iodine, Benedict\'s, Biuret, Ethanol, and DCPIP. Observe colour changes, precipitates, and learn crucial Paper 6 mark scheme keys.',
+    zh: '使用碘液、本尼迪克特试剂、双缩脲试剂、乙醇乳化和 DCPIP 测试真实食物样本。观察显色与沉淀反应，掌握 Paper 6 评分必背考点。',
+  },
+  tests: [
+    {
+      id: 'starch',
+      name: { en: 'Starch Test (Iodine)', zh: '淀粉检验（碘液试验）' },
+      targetMolecule: { en: 'Starch (Polysaccharide)', zh: '淀粉（多糖）' },
+      reagent: { en: 'Iodine in potassium iodide solution', zh: '碘-碘化钾溶液' },
+      procedure: {
+        en: 'Add 2–3 drops of yellow-brown iodine solution directly to sample at room temperature. No heating required.',
+        zh: '室温下向样本直接滴加 2-3 滴黄褐色碘液。无需加热。',
+      },
+      heatingRequired: false,
+      initialColor: { en: 'Yellow-brown', zh: '黄褐色' },
+      positiveColor: { en: 'Blue-black', zh: '蓝黑色' },
+      negativeColor: { en: 'Remains yellow-brown', zh: '保持黄褐色' },
+      colorCodeInitial: '#ca8a04',
+      colorCodePositive: '#1e1b4b',
+      colorCodeNegative: '#ca8a04',
+      safetyNote: {
+        en: 'Iodine stains skin, bench surfaces and clothes; wear a lab coat and safety goggles.',
+        zh: '碘液会沾染皮肤、实验台面和衣物；请穿戴实验服和护目镜。',
+      },
+      controlVariable: {
+        en: 'Same volume of food solution and same drop count of iodine.',
+        zh: '相同体积的待测液与相同滴数的碘液。',
+      },
+      paper6Notes: {
+        en: 'Do not confuse with starch digestion: if amylase has fully digested starch into maltose, the iodine test remains yellow-brown.',
+        zh: '切勿与淀粉消化混淆：若淀粉酶已将淀粉水解为麦芽糖，则碘液试验保持黄褐色。',
+      },
+    },
+    {
+      id: 'reducing_sugar',
+      name: { en: 'Reducing Sugar Test (Benedict\'s)', zh: '还原糖检验（本尼迪克特试验）' },
+      targetMolecule: { en: 'Reducing sugars (Glucose, Maltose, Fructose)', zh: '还原糖（葡萄糖、麦芽糖、果糖）' },
+      reagent: { en: 'Benedict\'s solution (Alkaline copper(II) sulfate)', zh: '本尼迪克特试剂（碱性硫酸铜）' },
+      procedure: {
+        en: 'Add equal volume of blue Benedict\'s solution to sample, then heat in a water bath at 80–100°C for 3–5 minutes.',
+        zh: '加入等体积的蓝色本尼迪克特试剂，随后置于 80-100°C 热水浴中加热 3-5 分钟。',
+      },
+      heatingRequired: true,
+      initialColor: { en: 'Bright blue', zh: '明亮蓝色' },
+      positiveColor: { en: 'Green → Yellow → Orange → Brick-red precipitate', zh: '由绿→黄→橙→生成砖红色沉淀' },
+      negativeColor: { en: 'Remains blue', zh: '保持蓝色' },
+      colorCodeInitial: '#0284c7',
+      colorCodePositive: '#b91c1c',
+      colorCodeNegative: '#0284c7',
+      precipitate: true,
+      safetyNote: {
+        en: 'Always heat in a water bath with tongs and goggles; never heat tube directly over a naked Bunsen flame to prevent violent boiling over.',
+        zh: '必须使用水浴加热并佩戴护目镜、使用试管夹；切勿直接在明火上加热，以防液体暴沸飞溅。',
+      },
+      controlVariable: {
+        en: 'Water bath temperature (maintained at 80°C+) and heating duration (e.g. exactly 5 minutes).',
+        zh: '水浴温度（维持在 80°C 以上）以及恒定加热时间（如恒定 5 分钟）。',
+      },
+      paper6Notes: {
+        en: 'Benedict\'s is semi-quantitative: green indicates traces (+), yellow/orange indicates moderate (++), brick-red precipitate indicates high concentration (+++). Non-reducing sugars (like sucrose) give a negative result unless pre-hydrolysed with dilute acid.',
+        zh: '本尼迪克特检验是半定量测试：绿色为微量(+)，黄/橙色为中等(++)，砖红色沉淀为高浓度(+++)。非还原糖（如蔗糖）直接检测呈阴性，需先用酸水解。',
+      },
+    },
+    {
+      id: 'protein',
+      name: { en: 'Protein Test (Biuret)', zh: '蛋白质检验（双缩脲试验）' },
+      targetMolecule: { en: 'Proteins and polypeptides (Peptide bonds)', zh: '蛋白质与多肽（肽键）' },
+      reagent: { en: 'Biuret reagent (Potassium hydroxide + copper(II) sulfate)', zh: '双缩脲试剂（氢氧化钾 + 硫酸铜）' },
+      procedure: {
+        en: 'Add Biuret reagent to sample at room temperature and swirl gently. No heating required.',
+        zh: '室温下向待测样中加入双缩脲试剂并轻轻摇匀。无需加热。',
+      },
+      heatingRequired: false,
+      initialColor: { en: 'Pale blue', zh: '淡蓝色' },
+      positiveColor: { en: 'Purple / Violet / Lilac', zh: '紫罗兰色 / 紫色' },
+      negativeColor: { en: 'Remains pale blue', zh: '保持淡蓝色' },
+      colorCodeInitial: '#93c5fd',
+      colorCodePositive: '#7c3aed',
+      colorCodeNegative: '#93c5fd',
+      safetyNote: {
+        en: 'Biuret contains strong alkali (KOH/NaOH), which is caustic and corrosive. Wash immediately with water if in contact with skin.',
+        zh: '双缩脲试剂含强碱，具有腐蚀性。若触碰皮肤应立即用大量清水冲洗。',
+      },
+      controlVariable: {
+        en: 'Equal volumes of sample and reagent, observed against a white background or tile.',
+        zh: '样本与试剂体积相等，置于白色背景或瓷板前对比观察。',
+      },
+      paper6Notes: {
+        en: 'Only intact proteins and polypeptides with peptide bonds give a positive purple result; free single amino acids give a negative result.',
+        zh: '只有具备肽键的多肽和蛋白质分子才会显紫色；游离单个氨基酸呈阴性（保持淡蓝）。',
+      },
+    },
+    {
+      id: 'lipids',
+      name: { en: 'Lipid Test (Ethanol Emulsion)', zh: '脂质检验（乙醇乳化试验）' },
+      targetMolecule: { en: 'Fats and oils (Lipids)', zh: '油脂（脂质）' },
+      reagent: { en: 'Absolute ethanol and cold distilled water', zh: '无水乙醇与冷蒸馏水' },
+      procedure: {
+        en: 'Dissolve sample in pure ethanol and shake vigorously. Pour the clear liquid into a tube of cold water.',
+        zh: '先加无水乙醇剧烈震荡溶解样本中的油脂，再将其倾倒入盛有冷水的试管中。',
+      },
+      heatingRequired: false,
+      mixingRequired: true,
+      initialColor: { en: 'Clear and colourless', zh: '澄清透明' },
+      positiveColor: { en: 'Cloudy white emulsion', zh: '乳白色浑浊乳状液' },
+      negativeColor: { en: 'Remains clear and colourless', zh: '保持澄清透明' },
+      colorCodeInitial: '#f8fafc',
+      colorCodePositive: '#ffffff',
+      colorCodeNegative: '#f8fafc',
+      safetyNote: {
+        en: 'Ethanol is highly flammable. Extinguish all Bunsen burners and naked flames before opening ethanol containers.',
+        zh: '乙醇高度易燃。在打开乙醇试剂前必须熄灭所有酒精灯和明火。',
+      },
+      controlVariable: {
+        en: 'Equal volume of ethanol and water, shake for the same duration.',
+        zh: '等体积的乙醇与水，震荡相同时间。',
+      },
+      paper6Notes: {
+        en: 'Do not use the word "precipitate" for lipids: it is an emulsion (tiny droplets of lipid suspended in water reflecting light).',
+        zh: '切勿对脂肪测试使用"沉淀（precipitate）"字眼：它是乳状液（emulsion，分散悬浮在水中的微小脂肪滴散射光线）。',
+      },
+    },
+    {
+      id: 'vitamin_c',
+      name: { en: 'Vitamin C Test (DCPIP Decolourisation)', zh: '维生素 C 检验（DCPIP 褪色试验）' },
+      targetMolecule: { en: 'Vitamin C (Ascorbic acid - reducing agent)', zh: '维生素 C（抗坏血酸，还原剂）' },
+      reagent: { en: 'DCPIP solution (2,6-dichlorophenolindophenol)', zh: 'DCPIP 试剂（二氯酚靛酚）' },
+      procedure: {
+        en: 'Measure 1 cm³ of blue DCPIP. Add sample drop by drop using a syringe/pipette until the blue colour disappears.',
+        zh: '量取 1 cm³ 蓝色 DCPIP 溶液，用滴管逐滴加入待测液，直至蓝色完全消失褪色。',
+      },
+      heatingRequired: false,
+      initialColor: { en: 'Deep blue', zh: '深蓝色' },
+      positiveColor: { en: 'Decolourises to colourless', zh: '蓝色褪去，变为无色透明' },
+      negativeColor: { en: 'Remains deep blue', zh: '保持深蓝色' },
+      colorCodeInitial: '#1d4ed8',
+      colorCodePositive: '#f8fafc',
+      colorCodeNegative: '#1d4ed8',
+      safetyNote: {
+        en: 'DCPIP can stain skin and clothes; wear gloves.',
+        zh: 'DCPIP 会使皮肤和衣物着色；请佩戴实验手套。',
+      },
+      controlVariable: {
+        en: 'Standard volume and concentration of DCPIP, uniform drop size from syringe/pipette.',
+        zh: 'DCPIP 溶液的固定体积与浓度，注射器/滴管的均匀液滴大小。',
+      },
+      paper6Notes: {
+        en: 'The fewer drops of juice needed to decolourise blue DCPIP, the higher the Vitamin C concentration in that sample.',
+        zh: '使 DCPIP 蓝色完全褪色所用的果汁滴数越少，说明样品中维生素 C 的浓度越高（成反比）。',
+      },
+    },
+  ],
+  samples: [
+    {
+      id: 'potato',
+      name: { en: 'Potato extract', zh: '马铃薯提取液' },
+      contains: ['starch'],
+      notes: { en: 'Starch storage organ', zh: '淀粉贮存器官' },
+    },
+    {
+      id: 'glucose',
+      name: { en: 'Glucose solution', zh: '葡萄糖溶液' },
+      contains: ['reducing_sugar'],
+      notes: { en: 'Simple monosaccharide', zh: '简单单糖' },
+    },
+    {
+      id: 'egg_white',
+      name: { en: 'Egg albumin', zh: '卵白蛋白溶液' },
+      contains: ['protein'],
+      notes: { en: 'Pure protein source', zh: '纯蛋白质来源' },
+    },
+    {
+      id: 'vegetable_oil',
+      name: { en: 'Cooking oil', zh: '食用植物油' },
+      contains: ['lipids'],
+      notes: { en: 'Pure triglyceride lipid', zh: '纯甘油三酯脂质' },
+    },
+    {
+      id: 'lemon_juice',
+      name: { en: 'Fresh lemon juice', zh: '鲜榨柠檬汁' },
+      contains: ['vitamin_c', 'reducing_sugar'],
+      notes: { en: 'High Vitamin C + trace sugars', zh: '富含维 C 及微量糖' },
+    },
+    {
+      id: 'water',
+      name: { en: 'Distilled water', zh: '纯蒸馏水' },
+      contains: [],
+      notes: { en: 'Paper 6 Negative Blank Control', zh: '实验考卷阴性空白对照' },
+    },
+  ],
+}

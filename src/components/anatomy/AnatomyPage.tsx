@@ -13,8 +13,13 @@ import { findLesson } from '@/lib/registry'
 import { T } from '@/components/i18n/T'
 import { ANATOMY_3D } from '@/lib/lessonExtrasStrings'
 import { assetUrl } from '@/lib/assetUrl'
-import { DnaHelixFullscreen } from './DnaHelixFullscreen'
-import { FoodWebFullscreen } from './FoodWebFullscreen'
+
+const DnaHelixFullscreen = lazy(() =>
+  import('./DnaHelixFullscreen').then((m) => ({ default: m.DnaHelixFullscreen }))
+)
+const FoodWebFullscreen = lazy(() =>
+  import('./FoodWebFullscreen').then((m) => ({ default: m.FoodWebFullscreen }))
+)
 
 // Same lazy chunk as the in-lesson 3D tab — only downloads the first time
 // the student opens either the tab or this page.
@@ -81,10 +86,18 @@ export function AnatomyPage() {
     return <GLSurfaceView lesson={lesson} extra={extra} />
   }
   if (extra.type === 'dna-helix-3d') {
-    return <DnaHelixFullscreen lesson={lesson} extra={extra} />
+    return (
+      <Suspense fallback={<div className="h-full w-full animate-pulse bg-canvas" />}>
+        <DnaHelixFullscreen lesson={lesson} extra={extra} />
+      </Suspense>
+    )
   }
   // food-web-3d
-  return <FoodWebFullscreen lesson={lesson} extra={extra} />
+  return (
+    <Suspense fallback={<div className="h-full w-full animate-pulse bg-canvas" />}>
+      <FoodWebFullscreen lesson={lesson} extra={extra} />
+    </Suspense>
+  )
 }
 
 function GLSurfaceView({

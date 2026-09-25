@@ -2,6 +2,7 @@ import type { Lesson } from '@/content/types'
 import { placementParams } from '@/lib/assignment'
 import { ALL_ITEMS, MAX_TARGETS } from './kernel'
 import narration from './narration'
+import { foodTestsLabData } from '@/content/foodTestsData'
 
 const lesson: Lesson = {
   slug: '2-1-cells',
@@ -161,6 +162,8 @@ const lesson: Lesson = {
   },
 
   narration,
+
+  extras: [foodTestsLabData],
 
   checkpoints: [
     {

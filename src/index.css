@@ -301,3 +301,157 @@ body {
    * active/inactive palette without a separate BEM block. */
   cursor: pointer;
 }
+
+/* ---------------------------------------------------------------------------
+ * Driver.js Biology Tour Popover styling
+ * ------------------------------------------------------------------------- */
+@import 'driver.js/dist/driver.css';
+
+.driver-popover.biology-tour-popover {
+  border-radius: 0.875rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-line);
+  box-shadow: 0 20px 40px -8px rgba(15, 23, 42, 0.28), 0 4px 14px -2px rgba(15, 23, 42, 0.1);
+  color: var(--color-ink);
+  min-width: 280px;
+  max-width: 380px;
+  padding: 1.15rem;
+}
+
+.driver-popover.biology-tour-popover .driver-popover-title {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--color-ink);
+}
+
+.bio-tour-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-bottom: 0.35rem;
+}
+
+.bio-tour-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.bio-tour-title-en {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.bio-tour-title-zh {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-core);
+}
+
+.bio-tour-badge {
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0.12rem 0.45rem;
+  border-radius: 9999px;
+  background: #f0fdfa;
+  border: 1px solid #ccfbf1;
+  color: #0f766e;
+  white-space: nowrap;
+}
+
+.bio-tour-badge.deox {
+  background: #eff6ff;
+  border-color: #dbeafe;
+  color: #1d4ed8;
+}
+
+.bio-tour-badge.ox {
+  background: #fef2f2;
+  border-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.bio-tour-badge.highlight {
+  background: #fefce8;
+  border-color: #fef08a;
+  color: #a16207;
+}
+
+.bio-tour-desc-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.3rem;
+}
+
+.bio-tour-desc-en {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--color-ink-soft);
+  margin: 0;
+}
+
+.bio-tour-desc-zh {
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--color-muted);
+  margin: 0;
+  border-left: 2px solid var(--color-core);
+  padding-left: 0.45rem;
+}
+
+.driver-popover.biology-tour-popover .driver-popover-footer {
+  margin-top: 0.85rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--color-line);
+}
+
+.driver-popover.biology-tour-popover .driver-popover-progress-text {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-muted);
+}
+
+.driver-popover.biology-tour-popover .driver-popover-footer-btn {
+  border-radius: 0.5rem;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.driver-popover.biology-tour-popover .driver-popover-next-btn {
+  background-color: var(--color-core);
+  border-color: var(--color-core);
+  color: #ffffff;
+}
+
+.driver-popover.biology-tour-popover .driver-popover-next-btn:hover {
+  background-color: #0f766e;
+  border-color: #0f766e;
+}
+
+.driver-popover.biology-tour-popover .driver-popover-prev-btn {
+  background-color: var(--color-surface);
+  border-color: var(--color-line);
+  color: var(--color-ink-soft);
+}
+
+.driver-popover.biology-tour-popover .driver-popover-prev-btn:hover {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+}
+
+.driver-popover.biology-tour-popover .driver-popover-close-btn {
+  color: var(--color-muted);
+  font-size: 1.15rem;
+}
+
+.driver-popover.biology-tour-popover .driver-popover-close-btn:hover {
+  color: var(--color-ink);
+}
+

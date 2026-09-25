@@ -272,7 +272,7 @@ const lesson: Lesson = {
         en: 'The bundle of about a million nerve fibres that carries impulses from the retina to the visual cortex at the back of the brain.',
         zh: '由约一百万根神经纤维组成的束，把脉冲从视网膜送到大脑后部的视觉皮层。',
       },
-      syllabus: ['0610.14.2.10'],
+      syllabus: ['0610.14.2.2', '0610.14.2.3'],
     },
     {
       en: 'blind spot',
@@ -281,7 +281,7 @@ const lesson: Lesson = {
         en: 'The small region of the retina where the optic nerve fibres exit the eyeball. There are no photoreceptors there — any light that lands on it produces no signal. The other eye normally covers for it.',
         zh: '视神经纤维离开眼球的那个小区域。这里没有感光细胞——光落上去不产生信号。另一只眼通常会代偿。',
       },
-      syllabus: ['0610.14.2.10'],
+      syllabus: ['0610.14.2.2', '0610.14.2.3'],
     },
     {
       en: 'rod cell',
@@ -353,7 +353,7 @@ const lesson: Lesson = {
         en: 'The brain\'s ability to focus on one thing while ignoring others. The "invisible gorilla" experiment shows that what is outside the focus can pass straight through conscious vision unnoticed.',
         zh: '大脑集中注意一件事、忽略其他事物的能力。"看不见的大猩猩"实验说明：焦点之外的东西可以完全穿过意识视野而不被察觉。',
       },
-      syllabus: ['0610.14.2.10'],
+      syllabus: ['0610.14.1.3'],
     },
     {
       en: 'change blindness',
@@ -362,7 +362,7 @@ const lesson: Lesson = {
         en: 'The failure to notice a large change that happens in plain view, because attention is elsewhere. The classic example: the missing puzzle piece sitting on a face — five minutes of staring, and still missed.',
         zh: '视野正中央出现明显变化却没注意到的现象——因为注意力在别处。经典例子：缺失的拼图块就摆在脸上——盯五分钟还是看不见。',
       },
-      syllabus: ['0610.14.2.10'],
+      syllabus: ['0610.14.1.3'],
     },
     {
       en: 'visual completion',
@@ -371,7 +371,7 @@ const lesson: Lesson = {
         en: 'The brain\'s habit of filling in missing information with the most likely pattern. It is what hides the blind spot — and what makes change blindness so embarrassing when it kicks in at the wrong moment.',
         zh: '大脑用最可能的模式把缺失信息补全的习惯。它是隐藏盲点的原因——也是变化盲在错误时刻发生时让人如此尴尬的原因。',
       },
-      syllabus: ['0610.14.2.10'],
+      syllabus: ['0610.14.1.3'],
     },
     {
       en: 'brain–computer interface (BCI)',

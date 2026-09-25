@@ -2,6 +2,7 @@ import type { Lesson } from '@/content/types'
 import { placementParams } from '@/lib/assignment'
 import { ALL_ITEMS, MAX_TARGETS } from './kernel'
 import narration from './narration'
+import { foodTestsLabData } from '@/content/foodTestsData'
 
 const lesson: Lesson = {
   slug: '7-1-nutrition',
@@ -199,7 +200,7 @@ const lesson: Lesson = {
         en: 'Difficulty seeing in dim light. Caused by a lack of vitamin A, which is needed to make the retinal pigment in rod cells of the retina.',
         zh: '在弱光下看不清东西。原因是缺乏维生素 A——它是视网膜杆状细胞中视紫红质的原料。',
       },
-      syllabus: ['0610.7.1.4'],
+      syllabus: ['0610.7.1.2'],
     },
     {
       en: 'dental caries',
@@ -217,7 +218,7 @@ const lesson: Lesson = {
         en: 'Excess fat stored inside liver cells, often from sustained over-nutrition. The liver\'s first role is to store surplus glucose as glycogen; once that fills, the rest is turned into fat. Reversible in early stages by cutting energy intake.',
         zh: '肝细胞内堆积过多脂肪，常因长期营养过剩。肝脏的首要功能是把多余的葡萄糖以糖原储存；糖原满后，余下的就转成脂肪。早期通过减少能量摄入可以逆转。',
       },
-      syllabus: ['0610.7.1.5'],
+      syllabus: ['0610.7.1.2'],
     },
     {
       en: 'gallstone',
@@ -290,7 +291,7 @@ const lesson: Lesson = {
         en: 'A disease caused by lack of vitamin C. Symptoms: bleeding gums, loose teeth, bruises without injury, wounds that will not heal, fatigue. Common in sailors on long voyages before fresh fruit was rationed.',
         zh: '由缺乏维生素 C 引起的疾病。症状：牙龈出血、牙齿松动、无外伤的瘀伤、伤口不愈合、疲劳。在新鲜水果成为每日配给前，长航船员常患此病。',
       },
-      syllabus: ['0610.7.1.5'],
+      syllabus: ['0610.7.1.3'],
     },
     {
       en: 'rickets',
@@ -299,7 +300,7 @@ const lesson: Lesson = {
         en: 'A disease in children caused by lack of vitamin D or calcium. Bones, especially in the legs, stay soft and bend under the body\'s weight — knees bow outward, ankles turn in, spine curves.',
         zh: '儿童因缺乏维生素 D 或钙而患的疾病。骨骼（尤其是腿部）保持柔软，在体重作用下弯曲——膝盖外翻、踝内翻、脊柱弯曲。',
       },
-      syllabus: ['0610.7.1.5'],
+      syllabus: ['0610.7.1.3'],
     },
     {
       en: 'mouth',
@@ -380,7 +381,7 @@ const lesson: Lesson = {
         en: 'An enzyme in saliva and pancreatic juice that breaks starch down to maltose (a sugar). Works best at a near-neutral pH.',
         zh: '唾液和胰液中的酶，把淀粉分解为麦芽糖（一种糖）。在接近中性的 pH 下活性最高。',
       },
-      syllabus: ['0610.7.2.3'],
+      syllabus: ['0610.7.4.3', '0610.7.4.4'],
     },
     {
       en: 'pepsin',
@@ -389,7 +390,7 @@ const lesson: Lesson = {
         en: 'A protease enzyme in the stomach. Breaks proteins into smaller polypeptides. Works only in acidic conditions (pH ~2) provided by hydrochloric acid in gastric juice.',
         zh: '胃中的蛋白酶，把蛋白质分解为较小的多肽。只在酸性条件（pH ~2）下工作，由胃液中的盐酸提供此环境。',
       },
-      syllabus: ['0610.7.2.3'],
+      syllabus: ['0610.7.4.3', '0610.7.4.5'],
     },
     {
       en: 'lipase',
@@ -398,7 +399,7 @@ const lesson: Lesson = {
         en: 'An enzyme that breaks fats into fatty acids and glycerol. Made by the pancreas and released into the small intestine, where bile has already emulsified the fat into tiny droplets.',
         zh: '把脂肪分解为脂肪酸和甘油的酶。由胰腺制造，释放入小肠——此处胆汁已把脂肪乳化成小滴。',
       },
-      syllabus: ['0610.7.2.3'],
+      syllabus: ['0610.7.4.3', '0610.7.4.4'],
     },
     {
       en: 'protease',
@@ -407,7 +408,7 @@ const lesson: Lesson = {
         en: 'A general term for an enzyme that breaks proteins into amino acids. Pepsin (stomach) and trypsin (pancreas) are two examples.',
         zh: '把蛋白质分解为氨基酸的酶的通称。胃蛋白酶（胃）和胰蛋白酶（胰腺）是两个例子。',
       },
-      syllabus: ['0610.7.2.3'],
+      syllabus: ['0610.7.4.3', '0610.7.4.4'],
     },
     {
       en: 'glucose',
@@ -416,7 +417,7 @@ const lesson: Lesson = {
         en: 'A simple sugar. The main sugar carried in the blood and the main energy source for cells. Made by digestion of starch and by photosynthesis in plants.',
         zh: '一种单糖。血液中运输的主要糖类，是细胞的主要能量来源。由淀粉消化产生，也由植物光合作用产生。',
       },
-      syllabus: ['0610.7.2.4'],
+      syllabus: ['0610.7.4.6'],
     },
     {
       en: 'amino acid',
@@ -425,7 +426,7 @@ const lesson: Lesson = {
         en: 'The small soluble molecule that proteins are made of. Absorbed through the villi of the small intestine and used by the body to build its own proteins.',
         zh: '组成蛋白质的小的可溶性分子。通过小肠绒毛吸收，被身体用来构建自身的蛋白质。',
       },
-      syllabus: ['0610.7.2.4'],
+      syllabus: ['0610.7.4.7'],
     },
     {
       en: 'fatty acid',
@@ -434,7 +435,7 @@ const lesson: Lesson = {
         en: 'One of the products of fat digestion. Absorbed into the lacteal (lymph vessel) of a villus, not directly into the blood.',
         zh: '脂肪消化的产物之一。被吸收进绒毛的乳糜管（淋巴管），而不是直接进入血液。',
       },
-      syllabus: ['0610.7.2.4'],
+      syllabus: ['0610.7.4.3', '0610.7.5.5'],
     },
     {
       en: 'glycerol',
@@ -443,7 +444,7 @@ const lesson: Lesson = {
         en: 'The other product of fat digestion (along with fatty acids). Absorbed into the lacteal of a villus. Can be converted to glucose by the liver.',
         zh: '脂肪消化的另一产物（与脂肪酸一起）。被吸收进绒毛的乳糜管。可由肝脏转化为葡萄糖。',
       },
-      syllabus: ['0610.7.2.4'],
+      syllabus: ['0610.7.4.3', '0610.7.5.5'],
     },
     {
       en: 'absorption',
@@ -452,7 +453,7 @@ const lesson: Lesson = {
         en: 'The movement of digested food molecules through the wall of the small intestine into the blood (and lymph). Happens mainly across the villi.',
         zh: '已消化的食物分子穿过小肠壁进入血液（或淋巴）的过程。主要发生在绒毛表面。',
       },
-      syllabus: ['0610.7.2.5'],
+      syllabus: ['0610.7.5.1'],
     },
     {
       en: 'assimilation',
@@ -461,7 +462,7 @@ const lesson: Lesson = {
         en: 'The uptake and use of absorbed nutrients by body cells. Glucose is used for respiration; amino acids are used to build new proteins.',
         zh: '被吸收的营养物质被体细胞摄取并利用的过程。葡萄糖用于呼吸作用；氨基酸用于构建新的蛋白质。',
       },
-      syllabus: ['0610.7.2.6'],
+      syllabus: ['0610.7.5.1'],
     },
     {
       en: 'deficiency',
@@ -470,7 +471,7 @@ const lesson: Lesson = {
         en: 'A shortage of a nutrient in the diet. Common examples: vitamin C deficiency → scurvy; vitamin D / calcium deficiency → rickets; iron deficiency → anaemia; protein + energy deficiency → kwashiorkor or marasmus.',
         zh: '饮食中某种营养素的短缺。常见例子：缺维生素 C → 坏血病；缺维生素 D/钙 → 佝偻病；缺铁 → 贫血；缺蛋白质+能量 → 恶性营养不良病或消瘦症。',
       },
-      syllabus: ['0610.7.1.5'],
+      syllabus: ['0610.7.1.3'],
     },
   ],
 
@@ -516,6 +517,7 @@ const lesson: Lesson = {
   // `LessonExtra` shape — each one is data, the renderers live in
   // src/components/lesson-extras/.
   extras: [
+    foodTestsLabData,
     {
       type: 'digestive-anatomy',
       id: 'anatomy',

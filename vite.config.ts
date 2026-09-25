@@ -23,6 +23,55 @@ export default defineConfig({
     // Fail loudly instead of silently moving to 5174 when the port is taken.
     strictPort: true,
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          const normalizedId = id.replace(/\\/g, '/')
+          if (normalizedId.includes('/node_modules/')) {
+            if (
+              normalizedId.includes('three') ||
+              normalizedId.includes('@react-three')
+            ) {
+              return 'three-vendor'
+            }
+            if (
+              normalizedId.includes('katex') ||
+              normalizedId.includes('uplot')
+            ) {
+              return 'math-vendor'
+            }
+            if (normalizedId.includes('@supabase')) {
+              return 'supabase-vendor'
+            }
+            if (
+              normalizedId.includes('/react/') ||
+              normalizedId.includes('/react-dom/') ||
+              normalizedId.includes('/react-router/') ||
+              normalizedId.includes('/react-router-dom/') ||
+              normalizedId.includes('/zustand/') ||
+              normalizedId.includes('/scheduler/')
+            ) {
+              return 'react-vendor'
+            }
+          }
+          if (normalizedId.includes('/content/lessons/0625/')) {
+            return 'content-physics-0625'
+          }
+          if (normalizedId.includes('/content/lessons/0620/')) {
+            return 'content-chemistry-0620'
+          }
+          if (normalizedId.includes('/content/lessons/0610/')) {
+            return 'content-biology-0610'
+          }
+          if (normalizedId.includes('/content/syllabus/')) {
+            return 'syllabus-data'
+          }
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1100,
+  },
   test: {
     environment: 'node',
     include: ['src/**/*.{test,spec}.{ts,tsx}'],

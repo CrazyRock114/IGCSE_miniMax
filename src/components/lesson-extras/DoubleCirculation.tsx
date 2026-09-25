@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { Bilingual, DoubleCirculationExtra } from '@/content/types'
 import { T } from '@/components/i18n/T'
-import { DOUBLE_CIRCULATION } from '@/lib/lessonExtrasStrings'
+import { BIOLOGY_TOUR, DOUBLE_CIRCULATION } from '@/lib/lessonExtrasStrings'
 import { assetUrl } from '@/lib/assetUrl'
+import { createBiologyTour, type BiologyTourController } from '@/lib/driverTour'
+import { DOUBLE_CIRCULATION_TOUR } from '@/content/biologyToursData'
 
 /**
  * The double circulation as two horizontal loops, with a base image above.
@@ -19,6 +21,32 @@ import { assetUrl } from '@/lib/assetUrl'
  */
 export function DoubleCirculation({ extra }: { extra: DoubleCirculationExtra }) {
   const [openId, setOpenId] = useState<string | null>(null)
+  const [activeStationId, setActiveStationId] = useState<string | null>(null)
+  const tourRef = useRef<BiologyTourController | null>(null)
+
+  useEffect(() => {
+    return () => {
+      tourRef.current?.destroy()
+    }
+  }, [])
+
+  const startTour = (autoPlay: boolean) => {
+    tourRef.current?.destroy()
+    tourRef.current = createBiologyTour(DOUBLE_CIRCULATION_TOUR, {
+      autoPlay,
+      autoPlayIntervalMs: 3800,
+      onStepChange: (stepId) => {
+        setActiveStationId(stepId)
+        const el = document.querySelector(`[data-station="${stepId}"]`)
+        el?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
+      },
+      onDestroy: () => {
+        setActiveStationId(null)
+      },
+    })
+    tourRef.current.drive(0)
+  }
+
   // The two loops, in the order they were authored.
   const pulmonary = extra.stations.filter((s) => s.loop === 'pulmonary')
   const systemic = extra.stations.filter((s) => s.loop === 'systemic')
@@ -31,9 +59,52 @@ export function DoubleCirculation({ extra }: { extra: DoubleCirculationExtra }) 
         </figcaption>
       </figure>
 
-      <LoopRow stations={pulmonary} rowLabel={DOUBLE_CIRCULATION.rowLabel.pulmonary} />
+      {/* Driver.js animated guided tour action bar */}
+      <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-teal-200 bg-teal-50/60 p-3">
+        <div className="flex items-center gap-2">
+          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-teal-600 text-xs font-bold text-white">
+            ★
+          </span>
+          <div>
+            <div className="text-xs font-semibold text-ink">
+              <T value={DOUBLE_CIRCULATION_TOUR.title} />
+            </div>
+            <div className="text-[11px] text-muted">
+              <T value={DOUBLE_CIRCULATION_TOUR.prompt} />
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => startTour(false)}
+            className="flex items-center gap-1.5 rounded-md border border-line bg-surface px-3 py-1.5 text-xs font-medium text-ink shadow-sm transition hover:border-teal-500 hover:text-teal-700 active:scale-95"
+          >
+            <span>▶</span>
+            <T value={BIOLOGY_TOUR.btnStartTour} />
+          </button>
+          <button
+            type="button"
+            onClick={() => startTour(true)}
+            className="flex items-center gap-1.5 rounded-md bg-teal-600 px-3 py-1.5 text-xs font-medium text-white shadow-sm transition hover:bg-teal-700 active:scale-95"
+          >
+            <span>⚡</span>
+            <T value={BIOLOGY_TOUR.btnAutoPlay} />
+          </button>
+        </div>
+      </div>
+
+      <LoopRow
+        stations={pulmonary}
+        rowLabel={DOUBLE_CIRCULATION.rowLabel.pulmonary}
+        activeStationId={activeStationId}
+      />
       <Connector />
-      <LoopRow stations={systemic} rowLabel={DOUBLE_CIRCULATION.rowLabel.systemic} />
+      <LoopRow
+        stations={systemic}
+        rowLabel={DOUBLE_CIRCULATION.rowLabel.systemic}
+        activeStationId={activeStationId}
+      />
 
       <div>
         <h4 className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted">
@@ -63,9 +134,11 @@ export function DoubleCirculation({ extra }: { extra: DoubleCirculationExtra }) 
 function LoopRow({
   stations,
   rowLabel,
+  activeStationId,
 }: {
   stations: DoubleCirculationExtra['stations']
   rowLabel: Bilingual
+  activeStationId?: string | null
 }) {
   return (
     <div className="rounded-lg border border-line bg-canvas p-3">
@@ -79,7 +152,7 @@ function LoopRow({
         <div className="flex min-w-fit items-stretch gap-0">
           {stations.map((s, i) => (
             <div key={s.id} className="flex items-stretch">
-              <Station station={s} index={i} />
+              <Station station={s} index={i} isActive={activeStationId === s.id} />
               {i < stations.length - 1 && (
                 <div className="flex w-6 items-center justify-center text-muted" aria-hidden="true">
                   →
@@ -98,13 +171,22 @@ function LoopRow({
  * red = oxygenated blood, blue = deoxygenated, neutral (grey) = "mixed" —
  * usually the lung or body capillaries where gas exchange happens.
  */
-function Station({ station, index }: { station: DoubleCirculationExtra['stations'][number]; index: number }) {
+function Station({
+  station,
+  index,
+  isActive,
+}: {
+  station: DoubleCirculationExtra['stations'][number]
+  index: number
+  isActive?: boolean
+}) {
   const palette = STATION_PALETTE[station.bloodState]
   return (
     <div
       className={
-        'flex w-28 flex-col justify-between rounded-md border p-2 text-center ' +
-        palette.box
+        'flex w-28 flex-col justify-between rounded-md border p-2 text-center transition-all duration-300 ' +
+        palette.box +
+        (isActive ? ' ring-2 ring-teal-500 ring-offset-2 scale-105 shadow-md z-10' : '')
       }
       data-station={station.id}
     >

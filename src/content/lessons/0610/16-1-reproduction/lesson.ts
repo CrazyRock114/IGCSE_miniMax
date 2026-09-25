@@ -367,7 +367,7 @@ const lesson: Lesson = {
         en: 'The muscular organ where the embryo implants and develops. Its inner lining (endometrium) thickens each cycle and is shed as menstruation if no embryo implants.',
         zh: '胚胎着床并发育的肌肉器官。其内膜（子宫内膜）每个周期增厚，若无胚胎植入则作为月经脱落。',
       },
-      syllabus: ['0610.16.4.2', '0610.16.5.5'],
+      syllabus: ['0610.16.4.2', '0610.16.5.2'],
     },
     {
       en: 'endometrium',
@@ -376,7 +376,7 @@ const lesson: Lesson = {
         en: 'The inner lining of the uterus. It thickens under the influence of oestrogen in the first half of the cycle, ready to receive an embryo. If no embryo implants, it is shed as the next period.',
         zh: '子宫的内层。周期前半段在雌激素作用下增厚，准备接受胚胎；若没有胚胎植入，则作为下次月经脱落。',
       },
-      syllabus: ['0610.16.5.5'],
+      syllabus: ['0610.16.5.2'],
     },
     {
       en: 'cervix',
@@ -448,7 +448,7 @@ const lesson: Lesson = {
         en: 'The ~28-day cycle of hormone-driven changes in the ovary and uterus. Average 28 days, but the second half is fixed (~14 days from ovulation to next period); the first half varies. Bleeding itself usually lasts about 5 days.',
         zh: '由激素驱动的卵巢和子宫的 ~28 天周期变化。平均 28 天，但后半段固定（排卵到下次月经约 14 天），前半段可变。经期出血本身通常约 5 天。',
       },
-      syllabus: ['0610.16.5.5'],
+      syllabus: ['0610.16.5.2'],
     },
     {
       en: 'implantation',
