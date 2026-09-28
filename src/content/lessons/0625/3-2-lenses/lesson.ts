@@ -239,7 +239,7 @@ const lesson: Lesson = {
     {
       id: '0625-3-2-cp1',
       syllabus: ['0625.3.2.3.4', '0625.3.2.3.5'],
-      tier: 'core',
+      tier: 'extended',
       commandWord: 'Describe',
       marks: 4,
       stem: 'An object is placed 6 cm from a converging lens of focal length 10 cm. Describe the image formed, giving four characteristics, and explain why it cannot be caught on a screen.',

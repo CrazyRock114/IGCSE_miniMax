@@ -15,6 +15,8 @@
   // `src/lib` is taken wholesale rather than file by file: a kernel may import any of it,
   // and a hand-maintained list breaks the build the first time someone forgets to add to
   // it — which is a failure that only shows up in `tsc -b`, not in the dev server.
-  "include": ["vite.config.ts", "scripts/**/*.ts", "src/content/**/*.ts", "src/lib/**/*.ts"],
-  "exclude": ["src/**/*.test.ts"]
+  "include": ["scripts/**/*.ts", "src/content/**/*.ts", "src/lib/**/*.ts"],
+  // gen-narration-audio is an offline tool: it imports `coze-coding-dev-sdk`,
+  // which is not resolvable outside that sandbox, so `tsc -b` excludes it.
+  "exclude": ["src/**/*.test.ts", "scripts/gen-narration-audio.ts"]
 }

@@ -288,7 +288,7 @@ const lesson: Lesson = {
     {
       id: '0625-4-2-cp4',
       syllabus: ['0625.4.2.3.1', '0625.4.2.3.3'],
-      tier: 'core',
+      tier: 'extended',
       commandWord: 'Compare',
       marks: 2,
       stem: 'Compare what is meant by the e.m.f. of a cell and the potential difference across a lamp.',

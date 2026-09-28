@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react'
+import { Suspense, lazy, useEffect, useMemo, useRef, useState, use } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import type {
   AnatomyOrgan,
@@ -9,11 +9,15 @@ import type {
   LessonExtra,
   OrganAnatomyExtra,
 } from '@/content/types'
-import { findLesson } from '@/lib/registry'
+import { loadLesson, type LessonHandle } from '@/lib/registry'
 import { T } from '@/components/i18n/T'
 import { ANATOMY_3D } from '@/lib/lessonExtrasStrings'
 import { assetUrl } from '@/lib/assetUrl'
 
+// Same lazy treatment as the in-lesson 3D extras: these two fullscreen
+// viewers import three.js, and AnatomyPage itself is reached from the
+// entry chunk — without lazy() the whole three.js library would land in
+// the first-load bundle.
 const DnaHelixFullscreen = lazy(() =>
   import('./DnaHelixFullscreen').then((m) => ({ default: m.DnaHelixFullscreen }))
 )
@@ -40,13 +44,75 @@ const Anatomy3D = lazy(() =>
  * file. The lesson's source-of-truth `position3d` is left untouched —
  * overrides are a session-only view of the work-in-progress.
  */
+/** Stable settled promise for invalid params: `use()` must see the same
+ * reference across re-renders (uncached promises suspend forever in React 19). */
+const EMPTY_LESSON_HANDLE: Promise<LessonHandle> = Promise.resolve({})
+
 export function AnatomyPage() {
   const { subject, slug } = useParams<{ subject: string; slug: string }>()
-  const lesson = subject && slug ? findLesson(subject, slug) : undefined
+  // Content loads lazily per subject chunk; `use()` suspends until it arrives.
+  const handle = use(subject && slug ? loadLesson(subject, slug) : EMPTY_LESSON_HANDLE)
+  const lesson: Lesson | undefined = handle.lesson
   const extra = useMemo(
     () => (lesson ? find3DExtra(lesson) : undefined),
     [lesson]
   )
+
+  if (!subject || !slug) {
+    return (
+      <main className="mx-auto max-w-4xl px-4 py-12">
+        <header className="mb-8">
+          <Link to="/" className="text-xs text-muted hover:text-ink">
+            ← Back to Home
+          </Link>
+          <h1 className="mt-2 text-2xl font-bold tracking-tight text-ink">
+            Interactive 3D Anatomy & Models
+          </h1>
+          <p className="mt-1 text-sm text-muted">
+            Explore interactive three-dimensional anatomical structures and biological systems.
+          </p>
+        </header>
+        <div className="grid gap-6 sm:grid-cols-3">
+          <Link
+            to="/anatomy/0610/9-1-transport-animals"
+            className="group block rounded-xl border border-line bg-surface p-5 transition-all hover:border-teal-500 hover:shadow-md"
+          >
+            <div className="text-3xl mb-3">🫀</div>
+            <h2 className="text-base font-semibold text-ink group-hover:text-teal-600">
+              Human Heart 3D
+            </h2>
+            <p className="mt-1 text-xs text-muted">
+              Explore chambers, valves, coronary vessels, and double circulation in 3D.
+            </p>
+          </Link>
+          <Link
+            to="/anatomy/0610/16-1-reproduction"
+            className="group block rounded-xl border border-line bg-surface p-5 transition-all hover:border-teal-500 hover:shadow-md"
+          >
+            <div className="text-3xl mb-3">🧬</div>
+            <h2 className="text-base font-semibold text-ink group-hover:text-teal-600">
+              DNA Double Helix 3D
+            </h2>
+            <p className="mt-1 text-xs text-muted">
+              Interactive 3D model of nucleotide base pairs, antiparallel strands, and hydrogen bonds.
+            </p>
+          </Link>
+          <Link
+            to="/anatomy/0610/19-1-ecosystems"
+            className="group block rounded-xl border border-line bg-surface p-5 transition-all hover:border-teal-500 hover:shadow-md"
+          >
+            <div className="text-3xl mb-3">🕸️</div>
+            <h2 className="text-base font-semibold text-ink group-hover:text-teal-600">
+              Ecosystem Food Web 3D
+            </h2>
+            <p className="mt-1 text-xs text-muted">
+              Spatial food web showing trophic levels, primary producers, consumers, and energy flow.
+            </p>
+          </Link>
+        </div>
+      </main>
+    )
+  }
 
   if (!lesson) {
     return (
@@ -87,14 +153,14 @@ export function AnatomyPage() {
   }
   if (extra.type === 'dna-helix-3d') {
     return (
-      <Suspense fallback={<div className="h-full w-full animate-pulse bg-canvas" />}>
+      <Suspense fallback={<FullScreen3DFallback />}>
         <DnaHelixFullscreen lesson={lesson} extra={extra} />
       </Suspense>
     )
   }
   // food-web-3d
   return (
-    <Suspense fallback={<div className="h-full w-full animate-pulse bg-canvas" />}>
+    <Suspense fallback={<FullScreen3DFallback />}>
       <FoodWebFullscreen lesson={lesson} extra={extra} />
     </Suspense>
   )

@@ -260,7 +260,7 @@ const lesson: Lesson = {
     {
       id: '0620-8-2-cp5',
       syllabus: ['0620.8.3.4', '0620.8.2.2'],
-      tier: 'core',
+      tier: 'extended',
       commandWord: 'Explain',
       marks: 3,
       stem: 'Explain why reactivity increases down Group I but decreases down Group VII.',

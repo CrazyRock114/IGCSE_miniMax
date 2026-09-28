@@ -1,17 +1,26 @@
 import { Suspense, lazy } from 'react'
 import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom'
-import { HomePage } from '@/components/HomePage'
+import { NotFoundPage } from '@/components/NotFoundPage'
+import { T } from '@/components/i18n/T'
 import { SelectionTranslator } from '@/components/translator/SelectionTranslator'
 import { SyncManager } from '@/components/auth/SyncManager'
 import { TeacherGate } from '@/components/teacher/TeacherGate'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 
+/**
+ * Route-level code splitting: each page is its own chunk, so the entry
+ * bundle only carries the shell. `vite.config.mjs` keeps vendor-three out
+ * of the entry chunk entirely — the 3D stack is reachable only through
+ * the lazy anatomy/lesson chunks.
+ */
+const HomePage = lazy(() => import('@/components/HomePage').then((m) => ({ default: m.HomePage })))
 const LessonPage = lazy(() =>
   import('@/components/lesson/LessonPage').then((m) => ({ default: m.LessonPage }))
 )
 const VocabPage = lazy(() =>
   import('@/pages/VocabPage').then((m) => ({ default: m.VocabPage }))
 )
+const PracticalPage = lazy(() => import('@/components/practical/PracticalPage'))
 const AnatomyPage = lazy(() =>
   import('@/components/anatomy/AnatomyPage').then((m) => ({ default: m.AnatomyPage }))
 )
@@ -22,16 +31,16 @@ const StudentDetail = lazy(() =>
   import('@/components/teacher/StudentDetail').then((m) => ({ default: m.StudentDetail }))
 )
 
-function PageFallback() {
+/** Minimal skeleton shown while a route chunk (and its first data fetch) streams in. */
+function RouteFallback() {
   return (
-    <main
-      className="mx-auto max-w-5xl px-4 py-16 animate-pulse"
-      aria-busy="true"
-      aria-label="Loading page"
-    >
-      <div className="h-8 w-48 rounded-lg bg-surface mb-6 border border-line" />
-      <div className="h-64 rounded-xl bg-surface border border-line" />
-    </main>
+    <div className="mx-auto max-w-3xl px-6 py-24" role="status" aria-live="polite">
+      <div className="mx-auto h-8 w-48 animate-pulse rounded bg-ink/10" />
+      <div className="mx-auto mt-6 h-64 w-full animate-pulse rounded-xl bg-ink/5" />
+      <span className="sr-only">
+        <T value={{ en: 'Loading…', zh: '加载中…' }} />
+      </span>
+    </div>
   )
 }
 
@@ -43,21 +52,19 @@ export default function App() {
       {/* SyncManager is a side-effect-only component — it watches auth state
        * and bridges localStorage ↔ Supabase. Render once near the top. */}
       <SyncManager />
-      <Suspense fallback={<PageFallback />}>
+      <Suspense fallback={<RouteFallback />}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/subject/:subject" element={<HomePage />} />
           <Route path="/lesson/:subject/:slug" element={<LessonPage />} />
+          <Route path="/anatomy" element={<AnatomyPage />} />
           <Route path="/anatomy/:subject/:slug" element={<AnatomyPage />} />
+          <Route path="/practical" element={<PracticalPage />} />
           <Route
             path="/vocab"
             element={
-              // The /vocab page is the most fragile one in the app — it
-              // reads four localStorage keys with a v1→v2 schema migration
-              // and has 7+ child components that all run useState hooks. If
-              // any of them throw on mount (stale data, broken migration,
-              // hook order), wrap the whole route so the user gets a
-              // recovery card instead of a white screen.
+              // The /vocab page reads four localStorage keys with a v1→v2 schema migration
+              // and has 7+ child components that all run useState hooks. Wrap with ErrorBoundary.
               <ErrorBoundary label="vocabulary">
                 <VocabPage />
               </ErrorBoundary>
@@ -79,7 +86,7 @@ export default function App() {
               </TeacherGate>
             }
           />
-          <Route path="*" element={<HomePage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>
       {/* The translator is page-level chrome, not part of any route — it lives

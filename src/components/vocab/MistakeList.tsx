@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, use } from 'react'
 import { Link } from 'react-router-dom'
 import { T } from '@/components/i18n/T'
 import { VOCAB } from '@/lib/vocabStrings'
@@ -10,8 +10,9 @@ import {
   unresolved,
 } from '@/lib/mistakeStore'
 import type { Mistake } from '@/lib/mistakeTypes'
-import { lessons } from '@/lib/registry'
+import { collectAllQuestions, loadAllSubjects } from '@/lib/registry'
 import type { Question } from '@/content/types'
+import { ReviewSession, useReviewQueue } from './ReviewSession'
 
 /**
  * The "Your mistakes" tab on /vocab.
@@ -31,6 +32,11 @@ import type { Question } from '@/content/types'
 type Filter = 'unresolved' | 'resolved' | 'all'
 
 export function MistakeList({ scope }: { scope?: import('@/pages/VocabPage').VocabScope }) {
+  // Checkpoints live inside lesson bodies, which load lazily per subject.
+  // This component only mounts on the "Your mistakes" tab, so the three
+  // subject chunks are fetched on demand (and cached) right here.
+  const bundles = use(loadAllSubjects())
+  const lessons = bundles.flatMap((b) => b.lessons)
   const [rows, setRows] = useState<Mistake[]>(() => mistakeStore.list())
   const [filter, setFilter] = useState<Filter>('unresolved')
 
@@ -51,8 +57,16 @@ export function MistakeList({ scope }: { scope?: import('@/pages/VocabPage').Voc
         map[q.id] = { question: q, subject: l.subject, slug: l.slug }
       }
     }
+    // Standalone banks: the question id prefix identifies the subject syllabus
+    // code, and 'bank' marks the origin so the review UI can tag rows.
+    for (const q of collectAllQuestions(bundles)) {
+      if (map[q.id]) continue
+      const subject = q.id.startsWith('b') ? q.id.slice(1, 5) : 'bank'
+      map[q.id] = { question: q, subject, slug: 'bank' }
+    }
     return map
-  }, [])
+  }, [bundles, lessons])
+
 
   const scopedRows = useMemo(() => {
     if (!scope) return rows
@@ -72,6 +86,9 @@ export function MistakeList({ scope }: { scope?: import('@/pages/VocabPage').Voc
 
   const last5 = useMemo(() => recentMistakes(scopedRows, 5), [scopedRows])
   const top5 = useMemo(() => topWrongQuestions(scopedRows, 5), [scopedRows])
+  const [reviewing, setReviewing] = useState(false)
+  const openRows = useMemo(() => unresolved(scopedRows), [scopedRows])
+  const reviewQueue = useReviewQueue(openRows, questionById)
 
   const total = scopedRows.length
   const unres = unresolved(scopedRows).length
@@ -119,6 +136,20 @@ export function MistakeList({ scope }: { scope?: import('@/pages/VocabPage').Voc
     window.dispatchEvent(new Event('igcse:vocab-changed'))
   }
 
+  if (reviewing) {
+    return (
+      <div className="space-y-4">
+        {reviewQueue.length === 0 ? (
+          <p className="rounded-lg border border-dashed border-line bg-canvas p-6 text-center text-sm text-muted">
+            <T value={VOCAB.reviewNothing} />
+          </p>
+        ) : (
+          <ReviewSession queue={reviewQueue} onExit={() => { setReviewing(false); setRows(mistakeStore.list()) }} />
+        )}
+      </div>
+    )
+  }
+
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -150,6 +181,15 @@ export function MistakeList({ scope }: { scope?: import('@/pages/VocabPage').Voc
               <T value={f.label} />
             </button>
           ))}
+          {unres > 0 && (
+            <button
+              type="button"
+              onClick={() => setReviewing(true)}
+              className="ml-2 rounded-md border border-teal-600 bg-teal-50 px-2 py-0.5 text-xs font-medium text-teal-800 hover:bg-teal-100"
+            >
+              <T value={VOCAB.reviewStart} />
+            </button>
+          )}
           {total > 0 && (
             <button
               type="button"
