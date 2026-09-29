@@ -1,7 +1,40 @@
 import { chromium } from "playwright-core";
 import fs from "node:fs";
 
-const BASE = process.env.QA_BASE ?? "http://localhost:5000";
+import { createServer } from "node:http";
+import { resolve, extname } from "node:path";
+import { createReadStream, statSync } from "node:fs";
+
+let server;
+let BASE = process.env.QA_BASE;
+if (!BASE) {
+  const PORT = 5198;
+  BASE = `http://localhost:${PORT}`;
+  const root = resolve(process.cwd(), "dist");
+  const MIME = {
+    ".html": "text/html; charset=utf-8",
+    ".js": "text/javascript; charset=utf-8",
+    ".css": "text/css; charset=utf-8",
+    ".json": "application/json; charset=utf-8",
+    ".svg": "image/svg+xml",
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".webp": "image/webp",
+    ".ico": "image/x-icon",
+  };
+  server = createServer((req, res) => {
+    const url = new URL(req.url ?? "/", BASE);
+    let filePath = resolve(root, "." + decodeURIComponent(url.pathname));
+    if (!fs.existsSync(filePath) || statSync(filePath).isDirectory()) {
+      filePath = resolve(root, "index.html");
+    }
+    const type = MIME[extname(filePath).toLowerCase()] ?? "application/octet-stream";
+    res.writeHead(200, { "Content-Type": type });
+    createReadStream(filePath).pipe(res);
+  });
+  await new Promise((res) => server.listen(PORT, res));
+}
+
 const MAC_CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const LINUX_SHELL = `${process.env.HOME}/.cache/ms-playwright/chromium_headless_shell-1161/chrome-linux/headless_shell`;
 const EXEC = process.env.CHROMIUM_PATH || (fs.existsSync(MAC_CHROME) ? MAC_CHROME : LINUX_SHELL);
@@ -159,4 +192,5 @@ await withBrowser("practical skills", async (browser) => {
 });
 
 console.log(failed === 0 ? "\nALL INTERACTION TESTS PASSED" : `\n${failed} INTERACTION TEST(S) FAILED`);
+server?.close();
 process.exit(failed === 0 ? 0 : 1);

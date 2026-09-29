@@ -215,7 +215,7 @@ pure functions and remain testable at any chosen instant.
 
 **944 of 944 statements taught (100%)** across 75 lessons.
 
-550 statements carry at least one checkpoint question with a mark scheme.
+551 statements carry at least one checkpoint question with a mark scheme.
 
 ### Physics 0625 — 100%
 

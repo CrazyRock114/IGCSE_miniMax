@@ -206,7 +206,7 @@
 {"id":"0620-8-2-cp2","type":"THEORY","source":"0620/8-2-groups","syllabus":["0620.8.2.2"],"tier":"core","commandWord":"Predict","marks":2,"schemePoints":2,"verified":true}
 {"id":"0620-8-2-cp3","type":"THEORY","source":"0620/8-2-groups","syllabus":["0620.8.3.2"],"tier":"core","commandWord":"State","marks":3,"schemePoints":3,"verified":true}
 {"id":"0620-8-2-cp4","type":"THEORY","source":"0620/8-2-groups","syllabus":["0620.8.3.3"],"tier":"core","commandWord":"Predict","marks":3,"schemePoints":3,"verified":true}
-{"id":"0620-8-2-cp5","type":"THEORY","source":"0620/8-2-groups","syllabus":["0620.8.3.4","0620.8.2.2"],"tier":"extended","commandWord":"Explain","marks":3,"schemePoints":3,"verified":true}
+{"id":"0620-8-2-cp5","type":"THEORY","source":"0620/8-2-groups","syllabus":["0620.8.3.4","0620.8.2.2"],"tier":"core","commandWord":"Explain","marks":3,"schemePoints":3,"verified":true}
 {"id":"0620-9-3-cp1","type":"THEORY","source":"0620/9-3-alloys","syllabus":["0620.9.3.1"],"tier":"core","commandWord":"Define","marks":1,"schemePoints":1,"verified":true}
 {"id":"0620-9-3-cp2","type":"THEORY","source":"0620/9-3-alloys","syllabus":["0620.9.3.5"],"tier":"extended","commandWord":"Explain","marks":3,"schemePoints":3,"verified":true}
 {"id":"0620-9-3-cp3","type":"THEORY","source":"0620/9-3-alloys","syllabus":["0620.9.3.4"],"tier":"core","commandWord":"Identify","marks":2,"schemePoints":2,"verified":true}
@@ -241,7 +241,7 @@
 {"id":"0620-11-3-cp1","type":"THEORY","source":"0620/11-3-fuels","syllabus":["0620.11.3.3"],"tier":"core","commandWord":"Describe","marks":4,"schemePoints":4,"verified":true}
 {"id":"0620-11-3-cp2","type":"THEORY","source":"0620/11-3-fuels","syllabus":["0620.11.3.4"],"tier":"core","commandWord":"State","marks":3,"schemePoints":3,"verified":true}
 {"id":"0620-11-3-cp3","type":"THEORY","source":"0620/11-3-fuels","syllabus":["0620.11.3.5"],"tier":"core","commandWord":"Describe","marks":3,"schemePoints":3,"verified":true}
-{"id":"0620-11-3-cp4","type":"THEORY","source":"0620/11-3-fuels","syllabus":["0620.11.3.5"],"tier":"extended","commandWord":"Explain","marks":2,"schemePoints":2,"verified":true}
+{"id":"0620-11-3-cp4","type":"THEORY","source":"0620/11-3-fuels","syllabus":["0620.11.3.5"],"tier":"core","commandWord":"Explain","marks":2,"schemePoints":2,"verified":true}
 {"id":"0620-11-3-cp5","type":"THEORY","source":"0620/11-3-fuels","syllabus":["0620.11.3.1","0620.11.3.2"],"tier":"core","commandWord":"State","marks":3,"schemePoints":3,"verified":true}
 {"id":"0620-11-5-cp1","type":"THEORY","source":"0620/11-5-alkenes","syllabus":["0620.11.5.4"],"tier":"core","commandWord":"Describe","marks":2,"schemePoints":2,"verified":true}
 {"id":"0620-11-5-cp2","type":"THEORY","source":"0620/11-5-alkenes","syllabus":["0620.11.4.3","0620.11.5.5"],"tier":"extended","commandWord":"Compare","marks":3,"schemePoints":3,"verified":true}
@@ -328,7 +328,7 @@
 {"id":"3-2-2-refraction-cp1","type":"MCQ","source":"0625/3-2-2-refraction","syllabus":["0625.3.2.2.1"],"tier":"core","stem":"A ray of light travels from air into a glass block. Identify","optionsCount":4,"answerIndex":0,"answerText":"The normal to the surface","verified":true}
 {"id":"3-2-2-refraction-cp2","type":"THEORY","source":"0625/3-2-2-refraction","syllabus":["0625.3.2.2.7"],"tier":"extended","commandWord":"Calculate","marks":3,"schemePoints":3,"verified":true}
 {"id":"3-2-2-refraction-cp3","type":"THEORY","source":"0625/3-2-2-refraction","syllabus":["0625.3.2.2.5","0625.3.2.2.8"],"tier":"extended","commandWord":"Explain","marks":4,"schemePoints":4,"verified":true}
-{"id":"0625-3-2-cp1","type":"THEORY","source":"0625/3-2-lenses","syllabus":["0625.3.2.3.4","0625.3.2.3.5"],"tier":"extended","commandWord":"Describe","marks":4,"schemePoints":4,"verified":true}
+{"id":"0625-3-2-cp1","type":"THEORY","source":"0625/3-2-lenses","syllabus":["0625.3.2.3.4","0625.3.2.3.5","0625.3.2.3.6"],"tier":"extended","commandWord":"Describe","marks":4,"schemePoints":4,"verified":true}
 {"id":"0625-3-2-cp2","type":"THEORY","source":"0625/3-2-lenses","syllabus":["0625.3.2.3.3"],"tier":"core","commandWord":"Describe","marks":3,"schemePoints":3,"verified":true}
 {"id":"0625-3-2-cp3","type":"THEORY","source":"0625/3-2-lenses","syllabus":["0625.3.2.1.2","0625.3.2.1.4"],"tier":"extended","commandWord":"Describe","marks":4,"schemePoints":4,"verified":true}
 {"id":"0625-3-2-cp4","type":"THEORY","source":"0625/3-2-lenses","syllabus":["0625.3.2.3.8"],"tier":"extended","commandWord":"Explain","marks":3,"schemePoints":3,"verified":true}
@@ -357,7 +357,7 @@
 {"id":"0625-4-2-cp1","type":"THEORY","source":"0625/4-2-current-power","syllabus":["0625.4.2.5.4"],"tier":"core","commandWord":"Calculate","marks":4,"schemePoints":4,"verified":true}
 {"id":"0625-4-2-cp2","type":"THEORY","source":"0625/4-2-current-power","syllabus":["0625.4.2.5.4"],"tier":"core","commandWord":"Explain","marks":2,"schemePoints":2,"verified":true}
 {"id":"0625-4-2-cp3","type":"THEORY","source":"0625/4-2-current-power","syllabus":["0625.4.2.2.5"],"tier":"extended","commandWord":"Calculate","marks":3,"schemePoints":3,"verified":true}
-{"id":"0625-4-2-cp4","type":"THEORY","source":"0625/4-2-current-power","syllabus":["0625.4.2.3.1","0625.4.2.3.3"],"tier":"extended","commandWord":"Compare","marks":2,"schemePoints":2,"verified":true}
+{"id":"0625-4-2-cp4","type":"THEORY","source":"0625/4-2-current-power","syllabus":["0625.4.2.3.1","0625.4.2.3.3"],"tier":"core","commandWord":"Compare","marks":2,"schemePoints":2,"verified":true}
 {"id":"0625-4-2-cp5","type":"THEORY","source":"0625/4-2-current-power","syllabus":["0625.4.2.2.3","0625.4.2.2.6"],"tier":"extended","commandWord":"Describe","marks":3,"schemePoints":3,"verified":true}
 {"id":"0625-4-2-cp6","type":"THEORY","source":"0625/4-2-current-power","syllabus":["0625.4.2.5.2"],"tier":"core","commandWord":"Calculate","marks":2,"schemePoints":2,"verified":true}
 {"id":"4-3-2-cp1","type":"MCQ","source":"0625/4-3-2-series-parallel","syllabus":["0625.4.3.2.1"],"tier":"core","stem":"Three lamps are connected in series with a cell. State how t","optionsCount":4,"answerIndex":0,"answerText":"The currents are the same","verified":true}

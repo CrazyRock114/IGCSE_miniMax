@@ -238,7 +238,7 @@ const lesson: Lesson = {
   checkpoints: [
     {
       id: '0625-3-2-cp1',
-      syllabus: ['0625.3.2.3.4', '0625.3.2.3.5'],
+      syllabus: ['0625.3.2.3.4', '0625.3.2.3.5', '0625.3.2.3.6'],
       tier: 'extended',
       commandWord: 'Describe',
       marks: 4,

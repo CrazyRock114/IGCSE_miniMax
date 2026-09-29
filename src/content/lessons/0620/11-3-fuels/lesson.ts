@@ -200,7 +200,7 @@ const lesson: Lesson = {
     {
       id: '0620-11-3-cp4',
       syllabus: ['0620.11.3.5'],
-      tier: 'extended',
+      tier: 'core',
       commandWord: 'Explain',
       marks: 2,
       stem: 'Explain why the boiling point of a hydrocarbon increases as the number of carbon atoms in its molecules increases.',

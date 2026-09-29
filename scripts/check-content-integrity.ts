@@ -154,7 +154,9 @@ for (const { lesson, dir, slug, subject, hasKernel } of lessons) {
       !result.bodies?.length &&
       !result.assignment &&
       !result.equation &&
-      !result.chromatogram
+      !result.chromatogram &&
+      !result.grid &&
+      !result.pyramid
     ) {
       warn(where, 'kernel returns nothing to draw')
     }
