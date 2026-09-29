@@ -113,7 +113,9 @@ export function RelatedChips({
             >
               {t}
               {zh && zh !== t && (
-                <span className="text-[10px] text-teal-700/70">译</span>
+                <span className="text-[10px] text-teal-700/70">
+                  <T value={VOCAB.translationBadge} />
+                </span>
               )}
             </button>
             {openTermId === t && zh && (

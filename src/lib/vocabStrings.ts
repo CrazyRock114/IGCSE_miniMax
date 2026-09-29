@@ -37,6 +37,7 @@ export const VOCAB = {
   statusNew: { en: 'New', zh: '新词' } satisfies Bilingual,
   statusLearning: { en: 'Learning', zh: '在学' } satisfies Bilingual,
   statusKnown: { en: 'Known', zh: '已掌握' } satisfies Bilingual,
+  translationBadge: { en: 'zh', zh: '译' } satisfies Bilingual,
 
   // From-lesson caption
   fromLesson: { en: 'From', zh: '来源' } satisfies Bilingual,

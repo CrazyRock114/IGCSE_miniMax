@@ -1,0 +1,27 @@
+---
+description: 系统化测试与全态对偶穷举验证规则（Systematic Verifier）
+globs: *
+alwaysApply: true
+---
+
+# Systematic Verifier for Cursor
+
+当你在 Cursor 中审查代码、排查缺陷或执行回归测试时，严格激活本规则。
+
+## 核心公理
+1. **Oracle 三级隔离**：独立推导期望值，禁止抄袭实现。对概念意图审阅必须逐项落盘。
+2. **接线必须通电**：输入变化必须触发状态差分，排查未读变量与首行 Null 崩溃。
+3. **逆向路径必测**：计分/计数 UI 答错绝不增加；越界输入优雅处理。
+4. **甄别漏斗协议**：文案算式经过容差模型与反例守卫，残差 100% 人工复核。
+5. **数字不经人手**：覆盖声明必须由脚本循环输出。
+
+## 可用本地命令
+- `node skills/systematic-verifier/scripts/inventory.js .`：建立全域枚举与基数互锁表。
+- `node skills/systematic-verifier/scripts/equations.js .`：全量提取文案微算式并求值。
+- `node skills/systematic-verifier/scripts/consistency.js .`：闭合性检查与陈旧词疫苗。
+- `node skills/systematic-verifier/scripts/signoff.js .`：生成带哈希指纹继承的签核清单。
+- `node skills/systematic-verifier/scripts/delegate.js preview`：PR 增量差异提取。
+
+## 缺陷输出规范
+遇到缺陷必须输出包含 `file`, `line_start`, `line_end`, `severity`, `confidence >= 0.8` 以及带有 `suggested_diff` 的可执行修复代码块。
+
