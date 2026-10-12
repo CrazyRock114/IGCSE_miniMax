@@ -1,4 +1,5 @@
 import type { Lesson } from '@/content/types'
+import { TRANSFORMER_LAB_DEFAULT } from '@/content/transformerLabData'
 import narration from './narration'
 
 const lesson: Lesson = {
@@ -413,6 +414,7 @@ const lesson: Lesson = {
       },
     },
   ],
+  extras: [TRANSFORMER_LAB_DEFAULT],
 }
 
 export default lesson

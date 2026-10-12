@@ -664,6 +664,14 @@ export type LessonExtra =
   | EnergeticsLabExtra
   | EquilibriumLabExtra
   | GroupTrendsLabExtra
+  | MeasurementLabExtra
+  | HookesLawLabExtra
+  | MomentsLabExtra
+  | RefractionLabExtra
+  | LensLabExtra
+  | ResistanceLabExtra
+  | TransformerLabExtra
+  | RadioactivityLabExtra
 
 /** What to show in the side panel when an organ is selected. */
 export interface AnatomyOrgan {
@@ -1554,6 +1562,127 @@ export interface GroupTrendsLabExtra {
     occurs: boolean
     colorChange: Bilingual
     equation: string
+  }>
+  examinerNotes: Bilingual
+}
+
+export interface MeasurementLabExtra {
+  type: 'measurement-lab'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  instruments: Array<{
+    id: 'micrometer' | 'vernier' | 'pendulum'
+    name: Bilingual
+    precisionMm: number
+    description: Bilingual
+  }>
+  examinerNotes: Bilingual
+}
+
+export interface HookesLawLabExtra {
+  type: 'hookes-law-lab'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  springConstantNPerM: number
+  unloadedLengthCm: number
+  limitOfProportionalityN: number
+  massPoints: Array<{ massG: number; loadN: number; lengthCm: number; extensionCm: number }>
+  examinerNotes: Bilingual
+}
+
+export interface MomentsLabExtra {
+  type: 'moments-lab'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  rulerLengthCm: number
+  defaultLoads: Array<{ id: string; massG: number; positionCm: number; side: 'left' | 'right' }>
+  examinerNotes: Bilingual
+}
+
+export interface RefractionLabExtra {
+  type: 'refraction-lab'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  materials: Array<{
+    id: string
+    name: Bilingual
+    refractiveIndex: number
+    criticalAngleDeg: number
+  }>
+  examinerNotes: Bilingual
+}
+
+export interface LensLabExtra {
+  type: 'lens-lab'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  focalLengthCm: number
+  presets: Array<{
+    id: string
+    name: Bilingual
+    objectDistanceCm: number
+    imageDistanceCm: number
+    magnification: number
+    nature: Bilingual
+  }>
+  examinerNotes: Bilingual
+}
+
+export interface ResistanceLabExtra {
+  type: 'resistance-lab'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  components: Array<{
+    id: 'resistor' | 'filament' | 'diode' | 'thermistor'
+    name: Bilingual
+    description: Bilingual
+    symbol: string
+    ivCurveData: Array<{ v: number; i: number }>
+  }>
+  examinerNotes: Bilingual
+}
+
+export interface TransformerLabExtra {
+  type: 'transformer-lab'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  presets: Array<{
+    id: string
+    name: Bilingual
+    primaryTurns: number
+    secondaryTurns: number
+    primaryVoltageV: number
+    secondaryVoltageV: number
+    isStepUp: boolean
+    useCase: Bilingual
+  }>
+  examinerNotes: Bilingual
+}
+
+export interface RadioactivityLabExtra {
+  type: 'radioactivity-lab'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  halfLifeSeconds: number
+  initialCountRateBq: number
+  backgroundCountRateBq: number
+  radiations: Array<{
+    type: 'alpha' | 'beta' | 'gamma'
+    name: Bilingual
+    nature: Bilingual
+    ionisingPower: Bilingual
+    penetratingPower: Bilingual
+    stoppedBy: Bilingual
+    electricDeflection: Bilingual
+    magneticDeflection: Bilingual
   }>
   examinerNotes: Bilingual
 }

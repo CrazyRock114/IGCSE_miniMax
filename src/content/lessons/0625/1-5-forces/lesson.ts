@@ -1,4 +1,5 @@
 import type { Lesson } from '@/content/types'
+import { HOOKES_LAW_LAB_DEFAULT } from '@/content/hookesLawLabData'
 import narration from './narration'
 
 const lesson: Lesson = {
@@ -418,6 +419,7 @@ const lesson: Lesson = {
       },
     },
   ],
+  extras: [HOOKES_LAW_LAB_DEFAULT],
 }
 
 export default lesson

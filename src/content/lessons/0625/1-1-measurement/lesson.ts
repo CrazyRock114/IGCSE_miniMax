@@ -1,4 +1,5 @@
 import type { Lesson } from '@/content/types'
+import { MEASUREMENT_LAB_DEFAULT } from '@/content/measurementLabData'
 import narration from './narration'
 
 const lesson: Lesson = {
@@ -296,6 +297,7 @@ const lesson: Lesson = {
       },
     },
   ],
+  extras: [MEASUREMENT_LAB_DEFAULT],
 }
 
 export default lesson

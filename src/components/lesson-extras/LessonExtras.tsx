@@ -55,6 +55,14 @@ import { QualitativeAnalysisLab } from './QualitativeAnalysisLab'
 import { EnergeticsLab } from './EnergeticsLab'
 import { EquilibriumLab } from './EquilibriumLab'
 import { GroupTrendsLab } from './GroupTrendsLab'
+import { MeasurementLab } from './MeasurementLab'
+import { HookesLawLab } from './HookesLawLab'
+import { MomentsLab } from './MomentsLab'
+import { RefractionLab } from './RefractionLab'
+import { LensLab } from './LensLab'
+import { ResistanceLab } from './ResistanceLab'
+import { TransformerLab } from './TransformerLab'
+import { RadioactivityLab } from './RadioactivityLab'
 
 const DnaHelix3D = lazy(() =>
   import('./DnaHelix3D').then((m) => ({ default: m.DnaHelix3D }))
@@ -224,5 +232,21 @@ function renderExtra(extra: LessonExtra) {
       return <EquilibriumLab extra={extra} />
     case 'group-trends-lab':
       return <GroupTrendsLab extra={extra} />
+    case 'measurement-lab':
+      return <MeasurementLab extra={extra} />
+    case 'hookes-law-lab':
+      return <HookesLawLab extra={extra} />
+    case 'moments-lab':
+      return <MomentsLab extra={extra} />
+    case 'refraction-lab':
+      return <RefractionLab extra={extra} />
+    case 'lens-lab':
+      return <LensLab extra={extra} />
+    case 'resistance-lab':
+      return <ResistanceLab extra={extra} />
+    case 'transformer-lab':
+      return <TransformerLab extra={extra} />
+    case 'radioactivity-lab':
+      return <RadioactivityLab extra={extra} />
   }
 }

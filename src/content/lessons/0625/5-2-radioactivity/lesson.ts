@@ -1,4 +1,5 @@
 import type { Lesson } from '@/content/types'
+import { RADIOACTIVITY_LAB_DEFAULT } from '@/content/radioactivityLabData'
 import { formatSigFigs } from '@/lib/units'
 import narration from './narration'
 
@@ -356,6 +357,7 @@ const lesson: Lesson = {
       },
     },
   ],
+  extras: [RADIOACTIVITY_LAB_DEFAULT],
 }
 
 export default lesson

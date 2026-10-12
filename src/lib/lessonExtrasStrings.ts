@@ -1014,6 +1014,183 @@ export const GROUP_TRENDS_LAB = {
   redoxRole: { en: 'Redox Roles: Halogen is reduced; Halide is oxidized', zh: '氧化还原分析：卤素单质被还原（氧化剂），卤离子被氧化（还原剂）' } satisfies Bilingual,
 } as const
 
+export const MEASUREMENT_LAB = {
+  tabMicrometer: { en: 'Micrometer Screw Gauge (0.01 mm)', zh: '螺旋测微器 (0.01 mm 精度)' } satisfies Bilingual,
+  tabVernier: { en: 'Vernier Callipers (0.1 mm)', zh: '游标卡尺 (0.1 mm 精度)' } satisfies Bilingual,
+  tabPendulum: { en: 'Simple Pendulum Timing (T = t₂₀ / 20)', zh: '单摆周期计时 (20次平均法)' } satisfies Bilingual,
+  sleeveReading: { en: 'Main Sleeve Scale (mm):', zh: '主尺套筒毫米刻度:' } satisfies Bilingual,
+  thimbleReading: { en: 'Thimble Head Divisions (0.01 mm):', zh: '可动微分筒格数 (0.01 mm):' } satisfies Bilingual,
+  zeroErrorSetting: { en: 'Zero Error Calibration (mm):', zh: '零误差校准值 (mm):' } satisfies Bilingual,
+  zeroErrorHint: { en: 'True Reading = Raw Reading − Zero Error', zh: '真实读数 = 表面读数 − 零误差' } satisfies Bilingual,
+  rawReading: { en: 'Raw Observed Reading:', zh: '仪器直接读数:' } satisfies Bilingual,
+  correctedReading: { en: 'Corrected Value:', zh: '扣除零差后校正值:' } satisfies Bilingual,
+  mainScale: { en: 'Main Scale Reading (whole mm):', zh: '主尺整毫米读数:' } satisfies Bilingual,
+  vernierCoincidence: { en: 'Vernier Line Coincidence (0.1 mm):', zh: '游标对齐刻度 (0.1 mm):' } satisfies Bilingual,
+  pendulumLength: { en: 'Pendulum String Length L (m):', zh: '摆线长度 L (m):' } satisfies Bilingual,
+  startStopwatch: { en: '▶ Start 20-Oscillation Timer', zh: '▶ 开始 20 次振动秒表' } satisfies Bilingual,
+  resetStopwatch: { en: '↺ Reset Timer', zh: '↺ 重置秒表' } satisfies Bilingual,
+  totalTime20: { en: 'Total Time for 20 Swings (t₂₀):', zh: '20次全振动总耗时 (t₂₀):' } satisfies Bilingual,
+  periodCalculated: { en: 'Calculated Period T = t₂₀ / 20:', zh: '单摆计算周期 T = t₂₀ / 20:' } satisfies Bilingual,
+  reactionTimeNotice: {
+    en: 'Why 20 swings? Human reaction time error (±0.2 s) is divided by 20, dropping to only ±0.01 s per cycle!',
+    zh: '为什么测20次？人类反应时间误差（约±0.2秒）被20等分，分摊到每个周期的误差仅剩约±0.01秒！',
+  } satisfies Bilingual,
+  btnPresetWire: { en: 'Sample: Copper Wire (2.38 mm)', zh: '预设样例：细铜丝 (2.38 mm)' } satisfies Bilingual,
+  btnPresetBearing: { en: 'Sample: Ball Bearing (6.84 mm)', zh: '预设样例：金属滚珠 (6.84 mm)' } satisfies Bilingual,
+  btnPresetTube: { en: 'Sample: Boiling Tube OD (24.7 mm)', zh: '预设样例：大试管外径 (24.7 mm)' } satisfies Bilingual,
+} as const
+
+export const HOOKES_LAW_LAB = {
+  hangerControl: { en: 'Slotted Mass Hanger (Load F):', zh: '钩码载荷 F (重力):' } satisfies Bilingual,
+  add50g: { en: '+0.5 N (≈50g)', zh: '+0.5 N (约50g)' } satisfies Bilingual,
+  add100g: { en: '+1.0 N (≈100g)', zh: '+1.0 N (约100g)' } satisfies Bilingual,
+  add200g: { en: '+2.0 N (≈200g)', zh: '+2.0 N (约200g)' } satisfies Bilingual,
+  resetLoad: { en: '↺ Remove All Masses', zh: '↺ 卸下载荷' } satisfies Bilingual,
+  unloadedLength: { en: 'Original Length l₀:', zh: '弹簧原长 l₀:' } satisfies Bilingual,
+  stretchedLength: { en: 'Stretched Pointer Reading l:', zh: '指针当前实测长度 l:' } satisfies Bilingual,
+  extensionCalculated: { en: 'Calculated Extension Δx = l − l₀:', zh: '计算伸长量 Δx = l − l₀:' } satisfies Bilingual,
+  springConstantDisplay: { en: 'Spring Constant k = F / Δx:', zh: '弹簧劲度系数 k = F / Δx:' } satisfies Bilingual,
+  limitReachedAlert: {
+    en: '⚠️ LIMIT OF PROPORTIONALITY EXCEEDED: Elastic behavior lost! Plastic deformation has occurred; line curves.',
+    zh: '⚠️ 已超过比例极限（Limit of Proportionality）：失去弹性正比关系！发生塑性形变，曲线弯曲。',
+  },
+  linearRegionNotice: {
+    en: '✅ Hooke’s Law holds: Extension is directly proportional to load (straight line through origin).',
+    zh: '✅ 处于胡克定律区间：伸长量与外加载荷成正比（图线为过原点直线）。',
+  },
+  graphTitle: { en: 'Load–Extension Graph (F vs Δx)', zh: '载荷—伸长量关系图 (F vs Δx)' } satisfies Bilingual,
+} as const
+
+export const MOMENTS_LAB = {
+  anticlockwiseHeading: { en: 'Anticlockwise Moments (Left of Pivot)', zh: '逆时针力矩（支点左侧）' } satisfies Bilingual,
+  clockwiseHeading: { en: 'Clockwise Moments (Right of Pivot)', zh: '顺时针力矩（支点右侧）' } satisfies Bilingual,
+  load1Mass: { en: 'Left Load Mass (g):', zh: '左侧重物质量 (g):' } satisfies Bilingual,
+  load1Dist: { en: 'Left Distance from Pivot d₁ (cm):', zh: '左侧距支点距离 d₁ (cm):' } satisfies Bilingual,
+  load2Mass: { en: 'Right Load Mass (g):', zh: '右侧重物质量 (g):' } satisfies Bilingual,
+  load2Dist: { en: 'Right Distance from Pivot d₂ (cm):', zh: '右侧距支点距离 d₂ (cm):' } satisfies Bilingual,
+  presetBalanced: { en: 'Preset: Perfectly Balanced (200g @ 30cm vs 300g @ 20cm)', zh: '平衡范例：200g @ 30cm vs 300g @ 20cm' } satisfies Bilingual,
+  presetTilted: { en: 'Preset: Clockwise Tilted (100g @ 20cm vs 400g @ 25cm)', zh: '倾斜范例：100g @ 20cm vs 400g @ 25cm' } satisfies Bilingual,
+  equilibriumBalanced: {
+    en: '⚖️ IN EQUILIBRIUM: Total Anticlockwise Moment = Total Clockwise Moment (No resultant turning effect).',
+    zh: '⚖️ 处于平衡状态：逆时针总力矩 = 顺时针总力矩（合力矩为零，杠杆保持水平静止）。',
+  },
+  equilibriumUnbalancedCw: {
+    en: '⤵️ UNBALANCED: Net Clockwise Moment tilts beam to the right!',
+    zh: '⤵️ 不平衡状态：顺时针力矩过大，杠杆向右侧倾斜！',
+  },
+  equilibriumUnbalancedAcw: {
+    en: '⤴️ UNBALANCED: Net Anticlockwise Moment tilts beam to the left!',
+    zh: '⤴️ 不平衡状态：逆时针力矩过大，杠杆向左侧倾斜！',
+  },
+  pivotForce: { en: 'Upward Reaction Force at Pivot (R = ΣW):', zh: '支点向上支持力 (R = ΣW):' } satisfies Bilingual,
+} as const
+
+export const REFRACTION_LAB = {
+  selectMaterial: { en: 'Select Optical Medium:', zh: '选择光学介质:' } satisfies Bilingual,
+  incidentAngleSlider: { en: 'Angle of Incidence i (° inside medium):', zh: '介质内入射角 i (°):' } satisfies Bilingual,
+  normalLine: { en: 'Normal (0° Line)', zh: '法线 (0° 基准)' } satisfies Bilingual,
+  criticalAngleLabel: { en: 'Critical Angle c = arcsin(1/n):', zh: '全反射临界角 c = arcsin(1/n):' } satisfies Bilingual,
+  refractedAngleLabel: { en: 'Angle of Refraction r (° in air):', zh: '空气中折射角 r (°):' } satisfies Bilingual,
+  reflectedAngleLabel: { en: 'Angle of Reflection (°):', zh: '反射角 (°):' } satisfies Bilingual,
+  speedInMedium: { en: 'Speed of Light in Medium v = c₀ / n:', zh: '介质中光速 v = c₀ / n:' } satisfies Bilingual,
+  modeRefraction: {
+    en: '🌈 REFRACTION OCCURS: Light speeds up into air and bends AWAY from normal (sin r = n · sin i).',
+    zh: '🌈 发生折射：光进入空气后速率加快，折射光线偏离法线（sin r = n · sin i）。',
+  },
+  modeCritical: {
+    en: '⚠️ CRITICAL ANGLE REACHED (i = c): Refracted ray emerges grazing along the glass surface at r = 90°!',
+    zh: '⚠️ 达到临界角（i = c）：折射光线沿玻璃砖平面以 r = 90° 掠射逸出！',
+  },
+  modeTir: {
+    en: '💎 TOTAL INTERNAL REFLECTION (TIR): i > c! NO light escapes into air. 100% of light reflects internally.',
+    zh: '💎 发生全内反射 (TIR)：i > c！没有光线逃逸折射至空气中，100% 光能量在界面发生内反射。',
+  },
+  applicationFibre: {
+    en: 'Application: Optical fibres transmit broadband data across oceans using continuous TIR with zero light leakage!',
+    zh: '实际应用：光纤通信与医用内窥镜利用光线在纤芯内连续全反射传输信号，光能几乎无泄漏！',
+  } satisfies Bilingual,
+} as const
+
+export const LENS_LAB = {
+  objectDistanceSlider: { en: 'Object Distance u from Lens (cm):', zh: '物距 u（物至透镜光心距离 cm）:' } satisfies Bilingual,
+  objectHeightSlider: { en: 'Object Arrow Height h₀ (cm):', zh: '物体高度 h₀ (cm):' } satisfies Bilingual,
+  focalLengthInfo: { en: 'Focal Length f = 10.0 cm (2f = 20.0 cm)', zh: '透镜焦距 f = 10.0 cm (两倍焦距 2f = 20.0 cm)' } satisfies Bilingual,
+  imageDistanceLabel: { en: 'Image Distance v (cm):', zh: '像距 v (cm):' } satisfies Bilingual,
+  imageHeightLabel: { en: 'Image Height hᵢ (cm):', zh: '像高 hᵢ (cm):' } satisfies Bilingual,
+  magnificationLabel: { en: 'Linear Magnification M = v / u:', zh: '放大率 M = v / u:' } satisfies Bilingual,
+  natureRealInverted: {
+    en: '📷 REAL & INVERTED IMAGE: Rays converge on screen on opposite side (1/v = 1/f − 1/u).',
+    zh: '📷 倒立实像：光线在透镜另一侧会聚在光屏上 (1/v = 1/f − 1/u)。',
+  },
+  natureVirtualUpright: {
+    en: '🔍 VIRTUAL & UPRIGHT IMAGE (Magnifying Glass): Rays diverge! Eye perceives virtual enlarged image behind object.',
+    zh: '🔍 正立放大虚像（放大镜模式）：折射光线发散！人眼逆着光线反向延长线看到物体后方的放大虚像。',
+  },
+  natureInfinity: {
+    en: '🔦 RAYS PARALLEL AT FOCUS (u = f): Refracted rays emerge parallel to each other. Image formed at infinity (spotlight).',
+    zh: '🔦 焦点处平行出射（u = f）：折射光线相互平行，在无穷远处成平行光束（探照灯模式）。',
+  },
+  ray1Desc: { en: 'Ray 1: Parallel to axis → refracts through focal point F', zh: '光线 1：平行于主光轴 → 经透镜折射后过焦点 F' } satisfies Bilingual,
+  ray2Desc: { en: 'Ray 2: Straight through optical center C without bending', zh: '光线 2：通过光心 C，传播方向不偏折' } satisfies Bilingual,
+} as const
+
+export const RESISTANCE_LAB = {
+  selectComponent: { en: 'Select Component under Test:', zh: '选择待测电学元件:' } satisfies Bilingual,
+  voltageControl: { en: 'Variable DC Power Supply (V):', zh: '可调直流电源输出电压 (V):' } satisfies Bilingual,
+  ammeterReadout: { en: 'Series Ammeter Current I (A):', zh: '串联电流表读数 I (A):' } satisfies Bilingual,
+  voltmeterReadout: { en: 'Parallel Voltmeter Voltage V (V):', zh: '并联电压表读数 V (V):' } satisfies Bilingual,
+  resistanceCalculated: { en: 'Calculated Resistance R = V / I (Ω):', zh: '计算实时电阻 R = V / I (Ω):' } satisfies Bilingual,
+  circuitHeading: { en: 'Standard Practical Circuit Schematic', zh: '标准实验电路接线示意图' } satisfies Bilingual,
+  graphHeading: { en: 'I–V Characteristic Curve', zh: '伏安特性曲线 (I–V Graph)' } satisfies Bilingual,
+  ammeterPlacementNotice: {
+    en: 'Ammeter in series (low R); Voltmeter in parallel (high R).',
+    zh: '电流表串联（极低内阻）；电压表并联（极高内阻）。',
+  } satisfies Bilingual,
+} as const
+
+export const TRANSFORMER_LAB = {
+  primaryTurnsSlider: { en: 'Primary Coil Turns Nₚ:', zh: '原线圈匝数 Nₚ:' } satisfies Bilingual,
+  secondaryTurnsSlider: { en: 'Secondary Coil Turns Nₛ:', zh: '副线圈匝数 Nₛ:' } satisfies Bilingual,
+  primaryVoltageSlider: { en: 'Primary A.C. Voltage Vₚ (V):', zh: '原线圈输入交流电压 Vₚ (V):' } satisfies Bilingual,
+  secondaryVoltageLabel: { en: 'Secondary Output Voltage Vₛ (V):', zh: '副线圈输出电压 Vₛ (V):' } satisfies Bilingual,
+  turnsRatioLabel: { en: 'Turns Ratio (Nₛ / Nₚ):', zh: '变压比 (Nₛ / Nₚ):' } satisfies Bilingual,
+  primaryCurrentLabel: { en: 'Primary Current Iₚ (A):', zh: '原线圈电流 Iₚ (A):' } satisfies Bilingual,
+  secondaryCurrentLabel: { en: 'Secondary Current Iₛ (A):', zh: '副线圈电流 Iₛ (A):' } satisfies Bilingual,
+  softIronCoreLabel: { en: 'Laminated Soft Iron Core (Confines Flux)', zh: '叠片软铁芯（导磁减小涡流）' } satisfies Bilingual,
+  badgeStepUp: { en: '⚡ STEP-UP TRANSFORMER (Vₛ > Vₚ)', zh: '⚡ 升压变压器 (Vₛ > Vₚ)' } satisfies Bilingual,
+  badgeStepDown: { en: '🔌 STEP-DOWN TRANSFORMER (Vₛ < Vₚ)', zh: '🔌 降压变压器 (Vₛ < Vₚ)' } satisfies Bilingual,
+  gridLossHeading: { en: 'National Grid High-Voltage Transmission Impact', zh: '国家电网高压远距离输电能效对比' } satisfies Bilingual,
+  gridLossCompare: {
+    en: 'Transmitting at higher V cuts current I, reducing cable heat dissipation (P = I²R) by factor of (Vₛ/Vₚ)²!',
+    zh: '高压输电大幅降低输电电流 I，使输电线 I²R 发热损耗按 (Vₛ/Vₚ)² 倍数急剧减少！',
+  } satisfies Bilingual,
+  acNotice: {
+    en: 'Must use alternating current (A.C.). Steady D.C. creates no changing magnetic flux, resulting in 0V output!',
+    zh: '必须接入交流电 (A.C.)。若输入恒定直流电，铁芯内无变化的磁通量，副线圈感应电压恒为 0V！',
+  } satisfies Bilingual,
+} as const
+
+export const RADIOACTIVITY_LAB = {
+  tabDecay: { en: 'Half-Life Decay Curve & Background Subtraction', zh: '半衰期衰变曲线与本底扣除' } satisfies Bilingual,
+  tabPenetration: { en: 'Penetrating Power & Deflection Test', zh: '粒子穿透性与电磁场偏转' } satisfies Bilingual,
+  timeSlider: { en: 'Elapsed Time t (minutes):', zh: '流逝时间 t (分钟):' } satisfies Bilingual,
+  measuredCount: { en: 'Measured Raw Count Rate (Bq):', zh: 'GM 计数器表面测得读数 (Bq):' } satisfies Bilingual,
+  backgroundCount: { en: 'Background Count Rate (Bq):', zh: '环境本底辐射计数率 (Bq):' } satisfies Bilingual,
+  correctedCount: { en: 'Corrected Count Rate = Raw − Background:', zh: '校正真实计数率 = 测量值 − 本底:' } satisfies Bilingual,
+  halfLivesCount: { en: 'Half-Lives Elapsed (t / t½):', zh: '流逝半衰期个数 (t / t½):' } satisfies Bilingual,
+  graphTitle: { en: 'Exponential Decay Curve (with Background Baseline)', zh: '指数衰变曲线（含环境本底基线）' } satisfies Bilingual,
+  selectSource: { en: 'Select Radioactive Source:', zh: '选择放射源种类:' } satisfies Bilingual,
+  selectAbsorber: { en: 'Select Absorber Material:', zh: '插入阻挡吸收介质:' } satisfies Bilingual,
+  absorberNone: { en: 'None (Air only)', zh: '无阻挡（空气）' } satisfies Bilingual,
+  absorberPaper: { en: 'Thin Paper (0.1 mm)', zh: '薄纸张 (0.1 mm)' } satisfies Bilingual,
+  absorberAluminium: { en: 'Aluminium Plate (5 mm)', zh: '铝板 (5 mm)' } satisfies Bilingual,
+  absorberLead: { en: 'Thick Lead Block (25 mm)', zh: '厚铅板 (25 mm)' } satisfies Bilingual,
+  gmDetected: { en: 'GM Counter Detected Rate:', zh: 'GM 计数器探测计数率:' } satisfies Bilingual,
+  absorbedStatusBlocked: { en: '🛑 RADIATION BLOCKED by absorber!', zh: '🛑 辐射被该介质完全阻挡吸收！' } satisfies Bilingual,
+  absorbedStatusTransmitted: { en: '⚡ RADIATION PENETRATES through absorber!', zh: '⚡ 辐射成功穿透该介质！' } satisfies Bilingual,
+  deflectionHeading: { en: 'Electric & Magnetic Field Deflection', zh: '电场与磁场偏转特性' } satisfies Bilingual,
+} as const
+
 
 
 

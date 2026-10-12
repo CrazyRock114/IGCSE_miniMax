@@ -1,4 +1,5 @@
 import type { Lesson } from '@/content/types'
+import { RESISTANCE_LAB_DEFAULT } from '@/content/resistanceLabData'
 import { formatSigFigs } from '@/lib/units'
 import narration from './narration'
 
@@ -290,6 +291,7 @@ const lesson: Lesson = {
       },
     },
   ],
+  extras: [RESISTANCE_LAB_DEFAULT],
 }
 
 export default lesson

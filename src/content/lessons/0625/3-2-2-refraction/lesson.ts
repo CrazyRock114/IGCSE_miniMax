@@ -1,4 +1,5 @@
 import type { Lesson } from '@/content/types'
+import { REFRACTION_LAB_DEFAULT } from '@/content/refractionLabData'
 import { formatSigFigs } from '@/lib/units'
 import narration from './narration'
 
@@ -287,6 +288,7 @@ const lesson: Lesson = {
       },
     },
   ],
+  extras: [REFRACTION_LAB_DEFAULT],
 }
 
 export default lesson

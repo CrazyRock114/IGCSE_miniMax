@@ -1,4 +1,5 @@
 import type { Lesson } from '@/content/types'
+import { MOMENTS_LAB_DEFAULT } from '@/content/momentsLabData'
 import { formatSigFigs } from '@/lib/units'
 import narration from './narration'
 
@@ -278,6 +279,7 @@ const lesson: Lesson = {
       },
     },
   ],
+  extras: [MOMENTS_LAB_DEFAULT],
 }
 
 export default lesson
