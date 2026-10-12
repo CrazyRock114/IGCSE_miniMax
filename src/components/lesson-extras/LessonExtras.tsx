@@ -41,6 +41,13 @@ import { VisualIllusions } from './VisualIllusions'
 import { NeuroneStructure } from './NeuroneStructure'
 import { ThreeNeurones } from './ThreeNeurones'
 import { FoodTestsLab } from './FoodTestsLab'
+import { OsmosisLab } from './OsmosisLab'
+import { MenstrualTimeline } from './MenstrualTimeline'
+import { PotometerLab } from './PotometerLab'
+import { CardiacCycle } from './CardiacCycle'
+import { NephronLab } from './NephronLab'
+import { BreedingGarden } from './BreedingGarden'
+import { SynapseTransmission } from './SynapseTransmission'
 
 const DnaHelix3D = lazy(() =>
   import('./DnaHelix3D').then((m) => ({ default: m.DnaHelix3D }))
@@ -182,5 +189,19 @@ function renderExtra(extra: LessonExtra) {
       return <ThreeNeurones extra={extra} />
     case 'food-tests-lab':
       return <FoodTestsLab extra={extra} />
+    case 'osmosis-lab':
+      return <OsmosisLab extra={extra} />
+    case 'menstrual-timeline':
+      return <MenstrualTimeline extra={extra} />
+    case 'potometer-lab':
+      return <PotometerLab extra={extra} />
+    case 'cardiac-cycle':
+      return <CardiacCycle extra={extra} />
+    case 'nephron-lab':
+      return <NephronLab extra={extra} />
+    case 'breeding-garden':
+      return <BreedingGarden extra={extra} />
+    case 'synapse-transmission':
+      return <SynapseTransmission extra={extra} />
   }
 }

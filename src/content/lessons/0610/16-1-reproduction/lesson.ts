@@ -1,5 +1,6 @@
 import type { Lesson } from '@/content/types'
 import narration from './narration'
+import { menstrualTimelineData } from '@/content/menstrualCycleData'
 
 const lesson: Lesson = {
   slug: '16-1-reproduction',
@@ -1240,6 +1241,7 @@ const lesson: Lesson = {
         zh: '两套血液并不混合——一旦混合会有凝集风险（母体和胎儿血型可能不同），且母体血压更高会损伤胎儿血管。物质靠扩散穿过胎盘薄膜，按浓度梯度方向移动。胎盘也是一道屏障——多数细菌和许多病毒不能穿过，所以胎儿受到部分保护。',
       },
     },
+    menstrualTimelineData,
   ],
 }
 

@@ -1,5 +1,6 @@
 import type { Lesson } from '@/content/types'
 import narration from './narration'
+import { breedingGardenData } from '@/content/breedingGardenData'
 
 const lesson: Lesson = {
   slug: '17-1-inheritance',
@@ -980,6 +981,7 @@ const lesson: Lesson = {
         },
       ],
     },
+    breedingGardenData,
   ],
 }
 

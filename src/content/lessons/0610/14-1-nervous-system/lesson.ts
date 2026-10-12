@@ -1,5 +1,6 @@
 import type { Lesson } from '@/content/types'
 import narration from './narration'
+import { synapseTransmissionData } from '@/content/synapseTransmissionData'
 
 const lesson: Lesson = {
   slug: '14-1-nervous-system',
@@ -1617,6 +1618,7 @@ const lesson: Lesson = {
       },
     ],
   },
+  synapseTransmissionData,
 ]
 }
 

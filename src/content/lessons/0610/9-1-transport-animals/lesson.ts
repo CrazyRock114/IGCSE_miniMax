@@ -1,5 +1,6 @@
 import type { Lesson } from '@/content/types'
 import narration from './narration'
+import { cardiacCycleData } from '@/content/cardiacCycleData'
 
 const lesson: Lesson = {
   slug: '9-1-transport-animals',
@@ -1003,6 +1004,7 @@ const lesson: Lesson = {
         },
       ],
     },
+    cardiacCycleData,
   ],
 }
 

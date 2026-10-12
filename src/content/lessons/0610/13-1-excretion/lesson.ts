@@ -1,5 +1,6 @@
 import type { Lesson } from '@/content/types'
 import narration from './narration'
+import { nephronLabData } from '@/content/nephronLabData'
 
 const lesson: Lesson = {
   slug: '13-1-excretion',
@@ -384,6 +385,7 @@ const lesson: Lesson = {
         },
       ],
     },
+    nephronLabData,
   ],
 }
 

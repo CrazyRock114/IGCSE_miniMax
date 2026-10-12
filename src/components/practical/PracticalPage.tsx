@@ -7,6 +7,9 @@ import { PRACTICAL } from '@/lib/practicalStrings'
 import { ApparatusArt } from './ApparatusArt'
 
 const GraphTrainer = lazy(() => import('./GraphTrainer').then((m) => ({ default: m.GraphTrainer })))
+const MicroscopyTrainer = lazy(() =>
+  import('./MicroscopyTrainer').then((m) => ({ default: m.MicroscopyTrainer }))
+)
 
 function MeasuringDrill() {
   const [seed, setSeed] = useState(1)
@@ -133,7 +136,7 @@ function MeasuringDrill() {
 }
 
 export default function PracticalPage() {
-  const [tab, setTab] = useState<'apparatus' | 'graph'>('apparatus')
+  const [tab, setTab] = useState<'apparatus' | 'graph' | 'microscopy'>('apparatus')
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-8">
@@ -152,7 +155,7 @@ export default function PracticalPage() {
       </div>
 
       <div className="mt-5 flex gap-2" role="tablist">
-        {(['apparatus', 'graph'] as const).map((t) => (
+        {(['apparatus', 'graph', 'microscopy'] as const).map((t) => (
           <button
             key={t}
             type="button"
@@ -163,12 +166,20 @@ export default function PracticalPage() {
               tab === t ? 'bg-ink text-white' : 'border border-line text-ink/70 hover:bg-white/10'
             }`}
           >
-            <T value={t === 'apparatus' ? PRACTICAL.tabApparatus : PRACTICAL.tabGraph} />
+            <T
+              value={
+                t === 'apparatus'
+                  ? PRACTICAL.tabApparatus
+                  : t === 'graph'
+                    ? PRACTICAL.tabGraph
+                    : PRACTICAL.tabMicroscopy
+              }
+            />
           </button>
         ))}
       </div>
 
-      {tab === 'apparatus' ? (
+      {tab === 'apparatus' && (
         <div className="mt-4 space-y-5">
           <section className="rounded-xl border border-line bg-surface p-5">
             <h3 className="text-lg font-semibold text-ink">
@@ -206,10 +217,20 @@ export default function PracticalPage() {
           </section>
           <MeasuringDrill />
         </div>
-      ) : (
+      )}
+
+      {tab === 'graph' && (
         <div className="mt-4">
           <Suspense fallback={<div className="h-64 animate-pulse rounded-xl bg-white/5" />}>
             <GraphTrainer />
+          </Suspense>
+        </div>
+      )}
+
+      {tab === 'microscopy' && (
+        <div className="mt-4">
+          <Suspense fallback={<div className="h-64 animate-pulse rounded-xl bg-white/5" />}>
+            <MicroscopyTrainer />
           </Suspense>
         </div>
       )}

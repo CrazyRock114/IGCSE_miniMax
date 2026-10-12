@@ -1,5 +1,6 @@
 import type { Lesson } from '@/content/types'
 import narration from './narration'
+import { potometerLabData } from '@/content/potometerData'
 
 const lesson: Lesson = {
   slug: '8-1-transport-plants',
@@ -373,6 +374,7 @@ const lesson: Lesson = {
       },
     },
   ],
+  extras: [potometerLabData],
 }
 
 export default lesson

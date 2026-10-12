@@ -1,5 +1,6 @@
 import type { Lesson } from '@/content/types'
 import narration from './narration'
+import { osmosisLabData } from '@/content/osmosisLabData'
 
 const lesson: Lesson = {
   slug: '3-2-osmosis',
@@ -381,6 +382,7 @@ const lesson: Lesson = {
       },
     ],
   },
+  osmosisLabData,
   ],
 }
 

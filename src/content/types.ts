@@ -650,6 +650,13 @@ export type LessonExtra =
   | NeuroneStructureExtra
   | ThreeNeuronesExtra
   | FoodTestsLabExtra
+  | OsmosisLabExtra
+  | MenstrualTimelineExtra
+  | PotometerLabExtra
+  | CardiacCycleExtra
+  | NephronLabExtra
+  | BreedingGardenExtra
+  | SynapseTransmissionExtra
 
 /** What to show in the side panel when an organ is selected. */
 export interface AnatomyOrgan {
@@ -1243,6 +1250,117 @@ export interface FoodTestsLabExtra {
   hint: Bilingual
   tests: FoodTestItem[]
   samples: FoodSample[]
+}
+
+// ---------------------------------------------------------------------------
+// Biology Interactive Simulation & Practical Extras
+// ---------------------------------------------------------------------------
+
+export interface PotatoTubeSpec {
+  id: string
+  concMol: number
+  initialMassG: number
+  finalMassG: number
+  percentChange: number
+  cellState: 'turgid' | 'equilibrium' | 'flaccid' | 'plasmolysed'
+  note: Bilingual
+}
+
+export interface OsmosisLabExtra {
+  type: 'osmosis-lab'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  cellSapConc: number
+  tubes: PotatoTubeSpec[]
+  controlVariables: Bilingual[]
+  examinerNotes: Bilingual
+}
+
+export interface MenstrualTimelineExtra {
+  type: 'menstrual-timeline'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  cycleDays: number
+  examinerNotes: Bilingual
+}
+
+export interface PotometerLabExtra {
+  type: 'potometer-lab'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  conditions: Array<{
+    id: string
+    name: Bilingual
+    bubbleSpeedMmMin: number
+    transpirationRate: 'very-high' | 'high' | 'normal' | 'low'
+    explanation: Bilingual
+  }>
+  examinerNotes: Bilingual
+}
+
+export interface CardiacCycleExtra {
+  type: 'cardiac-cycle'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  phases: Array<{
+    id: 'atrial-systole' | 'ventricular-systole' | 'diastole'
+    name: Bilingual
+    durationSec: number
+    avValves: 'open' | 'closed'
+    slValves: 'open' | 'closed'
+    bloodFlow: Bilingual
+    pressureNote: Bilingual
+  }>
+  examinerNotes: Bilingual
+}
+
+export interface NephronLabExtra {
+  type: 'nephron-lab'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  regions: Array<{
+    id: 'glomerulus' | 'proximal-tubule' | 'loop-of-henle' | 'collecting-duct'
+    name: Bilingual
+    process: Bilingual
+    substancesMoved: Bilingual
+    keyFeature: Bilingual
+  }>
+  examinerNotes: Bilingual
+}
+
+export interface BreedingGardenExtra {
+  type: 'breeding-garden'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  traitName: Bilingual
+  dominantAllele: string
+  recessiveAllele: string
+  dominantPhenotype: Bilingual
+  recessivePhenotype: Bilingual
+  f1Phenotype: Bilingual
+  expectedRatio: string
+  sampleTotal: number
+  examinerNotes: Bilingual
+}
+
+export interface SynapseTransmissionExtra {
+  type: 'synapse-transmission'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  steps: Array<{
+    stepNumber: number
+    title: Bilingual
+    description: Bilingual
+    detail: Bilingual
+  }>
+  examinerNotes: Bilingual
 }
 
 /**
