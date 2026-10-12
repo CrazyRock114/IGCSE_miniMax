@@ -1,5 +1,6 @@
 import type { Lesson } from '@/content/types'
 import narration from './narration'
+import { defaultEnergeticsLabData } from '@/content/energeticsLabData'
 
 const lesson: Lesson = {
   slug: '5-1-energetics',
@@ -321,6 +322,7 @@ const lesson: Lesson = {
       },
     },
   ],
+  extras: [defaultEnergeticsLabData],
 }
 
 export default lesson

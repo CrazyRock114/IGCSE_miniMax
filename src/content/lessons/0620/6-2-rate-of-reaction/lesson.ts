@@ -1,6 +1,7 @@
 import type { Lesson } from '@/content/types'
 import { formatSigFigs } from '@/lib/units'
 import narration from './narration'
+import { defaultRatesLabData } from '@/content/ratesLabData'
 
 const lesson: Lesson = {
   slug: '6-2-rate-of-reaction',
@@ -329,6 +330,7 @@ const lesson: Lesson = {
       },
     },
   ],
+  extras: [defaultRatesLabData],
 }
 
 export default lesson

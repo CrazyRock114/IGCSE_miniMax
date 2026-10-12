@@ -872,4 +872,152 @@ export const SYNAPSE_TRANSMISSION = {
   newImpulse: { en: 'New Action Potential (Nerve Impulse)', zh: '新生成的电神经冲动' } satisfies Bilingual,
 } as const
 
+export const TITRATION_LAB = {
+  tabBench: { en: 'Virtual Titration Testbench', zh: '虚拟酸碱滴定实验台' } satisfies Bilingual,
+  tabConcordance: { en: 'Results & Concordant Table', zh: '滴定结果与重合体积计算' } satisfies Bilingual,
+  tabTechnique: { en: 'Paper 5/6 Technique & Traps', zh: 'Paper 5/6 装置操作与高频失分点' } satisfies Bilingual,
+  btnDrop: { en: '💧 Add 0.05 cm³ (Dropwise)', zh: '💧 滴入 0.05 cm³（精细逐滴）' } satisfies Bilingual,
+  btnDeliver1: { en: '+ Add 1.0 cm³', zh: '+ 加入 1.0 cm³' } satisfies Bilingual,
+  btnDeliver5: { en: '+ Add 5.0 cm³ (Fast)', zh: '+ 加入 5.0 cm³（快速放流）' } satisfies Bilingual,
+  btnResetBurette: { en: '↺ Refill Burette (Reset)', zh: '↺ 重新注满滴定管（重置）' } satisfies Bilingual,
+  btnRecordTitre: { en: '📌 Record Titre to Table', zh: '📌 记录本次滴定读数' } satisfies Bilingual,
+  indicatorChoice: { en: 'Indicator Choice', zh: '指示剂选择' } satisfies Bilingual,
+  buretteReading: { en: 'Burette Reading', zh: '滴定管实时读数' } satisfies Bilingual,
+  volumeAdded: { en: 'Volume Added (Titre)', zh: '已滴入酸液体积 (Titre)' } satisfies Bilingual,
+  flaskContents: { en: 'Conical Flask (25.0 cm³ NaOH)', zh: '锥形瓶内待测液 (25.0 cm³ NaOH)' } satisfies Bilingual,
+  whiteTileLabel: { en: 'White tile under flask (enhances color detection)', zh: '底垫白瓷板（清晰衬托指示剂变色）' } satisfies Bilingual,
+  meniscusReadingHint: { en: 'Read bottom of meniscus at eye level (avoid parallax)', zh: '视线平视凹液面最低处（避免视差）' } satisfies Bilingual,
+  endPointReached: { en: '⚡ END POINT REACHED! Sharp color transition!', zh: '⚡ 达到滴定终点！指示剂发生敏锐变色！' } satisfies Bilingual,
+  concordantNotice: { en: 'Concordant titres are within 0.10 cm³ of each other', zh: '重合读数 (Concordant titres) 彼此相差不超过 0.10 cm³' } satisfies Bilingual,
+  calcFormula: { en: 'Concentration Calculation: c₁V₁ = c₂V₂', zh: '浓度定量计算：c₁V₁ = c₂V₂' } satisfies Bilingual,
+} as const
+
+export const ELECTROLYSIS_LAB = {
+  tabBench: { en: 'Electrolysis Cell Bench', zh: '电解池实操实验台' } satisfies Bilingual,
+  tabEquations: { en: 'Half-Equations & Observations', zh: '电极半反应与实验现象' } satisfies Bilingual,
+  tabRules: { en: 'Discharge Rules & Selective Discharge', zh: '考纲离子选择性放电规律' } satisfies Bilingual,
+  selectScenario: { en: 'Electrolyte System', zh: '选择电解体系' } satisfies Bilingual,
+  powerSupply: { en: 'DC Power Pack', zh: '直流电源控制' } satisfies Bilingual,
+  powerOn: { en: '⚡ Power ON (Current flowing)', zh: '⚡ 接通电源（电流流动）' } satisfies Bilingual,
+  powerOff: { en: '⏹ Power OFF (Circuit open)', zh: '⏹ 断开电源（回路断开）' } satisfies Bilingual,
+  voltageLabel: { en: 'Operating Voltage (6V DC)', zh: '工作电压 (6V 直流)' } satisfies Bilingual,
+  currentLabel: { en: 'Ammeter Current', zh: '电流表读数' } satisfies Bilingual,
+  elapsedTime: { en: 'Electrolysis Time', zh: '通电电解时间' } satisfies Bilingual,
+  anodeLabel: { en: 'Anode (+) [Oxidation / AN OX]', zh: '阳极 (+) [失电子氧化 / AN OX]' } satisfies Bilingual,
+  cathodeLabel: { en: 'Cathode (-) [Reduction / RED CAT]', zh: '阴极 (-) [得电子还原 / RED CAT]' } satisfies Bilingual,
+  electronFlow: { en: 'Electron flow: Anode (+) → Wire → Cathode (-)', zh: '外电路电子流向：阳极 (+) → 导线 → 阴极 (-)' } satisfies Bilingual,
+  ionsInElectrolyte: { en: 'Mobile Ions Present', zh: '体系内自由移动离子' } satisfies Bilingual,
+  electrodesUsed: { en: 'Electrodes in use', zh: '所用电极材料' } satisfies Bilingual,
+  productFormed: { en: 'Discharged Product', zh: '电极放电生成产物' } satisfies Bilingual,
+  halfEquation: { en: 'Electrode Half-Equation', zh: '电极半反应方程' } satisfies Bilingual,
+  observation: { en: 'Observable Phenonemon', zh: '肉眼可观察实验现象' } satisfies Bilingual,
+  solutionChange: { en: 'Electrolyte Solution Change', zh: '电解液浓度与性状演变' } satisfies Bilingual,
+  gasRatioLabel: { en: 'Gas Volume Ratio (Cathode : Anode)', zh: '产气体积比（阴极 : 阳极）' } satisfies Bilingual,
+  panicMnemonic: { en: 'PANIC: Positive Anode, Negative Is Cathode', zh: '口诀 PANIC：正极是阳极，负极是阴极' } satisfies Bilingual,
+  redCatMnemonic: { en: 'RED CAT: Reduction occurs at Cathode; AN OX: Oxidation at Anode', zh: '口诀 RED CAT / AN OX：阴极发生还原，阳极发生氧化' } satisfies Bilingual,
+} as const
+
+export const RATES_LAB = {
+  tabBench: { en: 'Gas Syringe Reaction Bench', zh: '气体注射器反应实验台' } satisfies Bilingual,
+  tabGraph: { en: 'V-t Reaction Curves & Tangents', zh: 'V-t 反应曲线与切线分析' } satisfies Bilingual,
+  tabTheory: { en: 'Collision Theory & Core Rules', zh: '碰撞理论与图像核心考点' } satisfies Bilingual,
+  selectCondition: { en: 'Experimental Condition Set', zh: '对比实验变量组' } satisfies Bilingual,
+  btnStartReaction: { en: '▶ Drop CaCO₃ & Start Stopwatch', zh: '▶ 投入碳酸钙并启动秒表' } satisfies Bilingual,
+  btnPause: { en: '⏸ Pause Reaction', zh: '⏸ 暂停反应' } satisfies Bilingual,
+  btnReset: { en: '↺ Wash Flask & Reset Syringe', zh: '↺ 清洗锥形瓶与重置注射器' } satisfies Bilingual,
+  timeElapsed: { en: 'Reaction Time', zh: '秒表计时' } satisfies Bilingual,
+  currentVolume: { en: 'CO₂ Volume in Syringe', zh: '注射器内收集 CO₂ 体积' } satisfies Bilingual,
+  instantRate: { en: 'Instantaneous Rate (dV/dt)', zh: '当前瞬时反应速率 (切线斜率)' } satisfies Bilingual,
+  initialRateLabel: { en: 'Initial Rate (at t = 0)', zh: '初始最大速率 (t = 0 处切线)' } satisfies Bilingual,
+  reactionPlateau: { en: 'Reaction Finished (Horizontal plateau reached)', zh: '反应已结束（达到水平平衡平台）' } satisfies Bilingual,
+  deliveryTube: { en: 'Rubber bung & delivery tube to gas syringe', zh: '胶塞与气密玻璃导管' } satisfies Bilingual,
+  gasSyringeLabel: { en: '100 cm³ Gas Syringe with frictionless plunger', zh: '100 cm³ 润滑气体注射器' } satisfies Bilingual,
+  conicalFlaskLabel: { en: 'Conical flask with effervescing reaction mixture', zh: '锥形瓶内剧烈反应混合液' } satisfies Bilingual,
+  tangentLabel: { en: 'Tangent Line (Rate = ΔV / Δt)', zh: '切线斜率 (速率 = ΔV / Δt)' } satisfies Bilingual,
+} as const
+
+export const QUALITATIVE_LAB = {
+  tabCations: { en: 'Cation Tests (NaOH & NH₃)', zh: '阳离子沉淀反应 (NaOH 与 NH₃)' } satisfies Bilingual,
+  tabAnions: { en: 'Anion Tests (Acids & Precipitates)', zh: '阴离子特征检验' } satisfies Bilingual,
+  tabGases: { en: 'Gas Identification', zh: '常见气体检验' } satisfies Bilingual,
+  tabFlame: { en: 'Flame Tests (Bunsen Burner)', zh: '焰色反应' } satisfies Bilingual,
+  selectCation: { en: 'Select Cation Solution', zh: '选择待测阳离子' } satisfies Bilingual,
+  reagentFewNaOH: { en: '+ Few Drops NaOH', zh: '+ 滴加少量 NaOH' } satisfies Bilingual,
+  reagentExcessNaOH: { en: '+ Excess NaOH', zh: '+ 过量 NaOH' } satisfies Bilingual,
+  reagentFewNH3: { en: '+ Few Drops NH₃(aq)', zh: '+ 滴加少量氨水' } satisfies Bilingual,
+  reagentExcessNH3: { en: '+ Excess NH₃(aq)', zh: '+ 过量氨水' } satisfies Bilingual,
+  btnResetTube: { en: '↺ Wash Test Tube', zh: '↺ 清洗试管（重置）' } satisfies Bilingual,
+  reagentAddedLabel: { en: 'Reagent In Tube', zh: '当前加入试剂' } satisfies Bilingual,
+  observationLabel: { en: 'Experimental Observation', zh: '实验现象' } satisfies Bilingual,
+  precipitateSolubility: { en: 'Solubility in Excess', zh: '过量试剂溶解性' } satisfies Bilingual,
+  solubilitySoluble: { en: 'SOLUBLE (Dissolves in excess)', zh: '沉淀溶解消失' } satisfies Bilingual,
+  solubilityInsoluble: { en: 'INSOLUBLE (Precipitate remains)', zh: '沉淀不溶' } satisfies Bilingual,
+  examTrapNote: { en: 'Paper 6 Al³⁺ vs Zn²⁺ vs Ca²⁺ Discrimination', zh: 'Paper 6 核心难点：区分 Al³⁺ / Zn²⁺ / Ca²⁺' } satisfies Bilingual,
+} as const
+
+export const ENERGETICS_LAB = {
+  tabProfile: { en: 'Reaction Energy Profile', zh: '反应能级与活化能曲线' } satisfies Bilingual,
+  tabBonds: { en: 'Bond Energy Calculations', zh: '键能定量计算与焓变' } satisfies Bilingual,
+  tabCatalyst: { en: 'Catalytic Lowering of Ea', zh: '催化剂对活化能的作用' } satisfies Bilingual,
+  selectReaction: { en: 'Select Reaction System', zh: '选择化学反应体系' } satisfies Bilingual,
+  reactantsLabel: { en: 'Reactants Energy Level', zh: '反应物能量水平' } satisfies Bilingual,
+  productsLabel: { en: 'Products Energy Level', zh: '生成物能量水平' } satisfies Bilingual,
+  activationEnergyLabel: { en: 'Activation Energy (Ea)', zh: '活化能 (Ea)' } satisfies Bilingual,
+  catalysedEaLabel: { en: 'Catalysed Path (Lower Ea)', zh: '催化路径 (更低 Ea)' } satisfies Bilingual,
+  overallDeltaH: { en: 'Enthalpy Change (ΔH)', zh: '反应焓变 (ΔH)' } satisfies Bilingual,
+  bondsBrokenTitle: { en: 'Bonds Broken (Energy in / BENDO)', zh: '断裂吸收总键能 (吸热)' } satisfies Bilingual,
+  bondsFormedTitle: { en: 'Bonds Formed (Energy out / MEXO)', zh: '成键释放总能量 (放热)' } satisfies Bilingual,
+  bondFormula: { en: 'ΔH = Σ(Broken) - Σ(Formed)', zh: 'ΔH = 吸收总键能 - 释放总键能' } satisfies Bilingual,
+  exothermicNotice: { en: 'EXOTHERMIC: Products are at lower energy than reactants (ΔH < 0, heat released)', zh: '放热反应：生成物能量低于反应物（ΔH < 0，向环境释放热量）' } satisfies Bilingual,
+  endothermicNotice: { en: 'ENDOTHERMIC: Products are at higher energy than reactants (ΔH > 0, heat absorbed)', zh: '吸热反应：生成物能量高于反应物（ΔH > 0，从环境吸收热量）' } satisfies Bilingual,
+  btnToggleCatalyst: { en: 'Toggle Catalyst Pathway', zh: '添加 / 移除催化剂路径' } satisfies Bilingual,
+} as const
+
+export const EQUILIBRIUM_LAB = {
+  tabLeChatelier: { en: 'Le Chatelier Shift Simulator', zh: '勒夏特列平衡移动模拟器' } satisfies Bilingual,
+  tabColorShift: { en: 'Color Shift (NO₂ ⇌ N₂O₄)', zh: 'NO₂/N₂O₄ 显色与活塞压缩' } satisfies Bilingual,
+  tabIndustrial: { en: 'Haber & Contact Compromises', zh: '哈伯法与接触法工业折中' } satisfies Bilingual,
+  selectSystem: { en: 'Select Equilibrium System', zh: '选择平衡反应体系' } satisfies Bilingual,
+  tempControl: { en: 'Temperature Setting', zh: '温度调控' } satisfies Bilingual,
+  tempCold: { en: '❄️ Cold (0°C Ice bath)', zh: '❄️ 冰水浴 (0°C)' } satisfies Bilingual,
+  tempModerate: { en: '🌡️ Moderate (Default)', zh: '🌡️ 常温/基准' } satisfies Bilingual,
+  tempHot: { en: '🔥 Hot (100°C Boiling)', zh: '🔥 热水浴 (100°C)' } satisfies Bilingual,
+  pressureControl: { en: 'Pressure Setting', zh: '压强调控' } satisfies Bilingual,
+  pressureLow: { en: 'Low Pressure (1 atm / Expanded)', zh: '低压 (1 atm / 膨胀)' } satisfies Bilingual,
+  pressureModerate: { en: 'Moderate Pressure', zh: '常压基准' } satisfies Bilingual,
+  pressureHigh: { en: 'High Pressure (200 atm / Compressed)', zh: '高压 (200 atm / 压缩)' } satisfies Bilingual,
+  catalystControl: { en: 'Catalyst (Iron / V₂O₅)', zh: '催化剂调控' } satisfies Bilingual,
+  catalystOn: { en: 'Catalyst Present', zh: '添加催化剂' } satisfies Bilingual,
+  catalystOff: { en: 'No Catalyst', zh: '无催化剂' } satisfies Bilingual,
+  shiftHeading: { en: 'Le Chatelier Prediction', zh: '平衡移动判定结果' } satisfies Bilingual,
+  shiftForward: { en: 'SHIFTS FORWARD (Right) → Higher Yield', zh: '平衡正向移动（向右）→ 产率升高' } satisfies Bilingual,
+  shiftReverse: { en: 'SHIFTS REVERSE (Left) → Lower Yield', zh: '平衡逆向移动（向左）→ 产率降低' } satisfies Bilingual,
+  shiftNone: { en: 'NO SHIFT in position (Yield unchanged)', zh: '平衡位置不移动（产率不变，仅速率加快）' } satisfies Bilingual,
+  gasMolesComparison: { en: 'Gas Molecules Moles', zh: '两端气体分子数之比' } satisfies Bilingual,
+  plungerLabel: { en: 'Gas Syringe Plunger (Compress or Expand)', zh: '气体注射器活塞（压缩或拉伸）' } satisfies Bilingual,
+} as const
+
+export const GROUP_TRENDS_LAB = {
+  tabGroup1: { en: 'Group I Alkali Metals (Water Reactions)', zh: '第一主族碱金属与水反应' } satisfies Bilingual,
+  tabHalogens: { en: 'Group VII Halogen Displacement Matrix', zh: '第七主族卤素置换反应矩阵' } satisfies Bilingual,
+  tabTrends: { en: 'Atomic Periodic Trends & Shielding', zh: '原子结构屏蔽与周期律机理' } satisfies Bilingual,
+  selectMetal: { en: 'Select Alkali Metal (Group I)', zh: '选择第一主族碱金属' } satisfies Bilingual,
+  btnDropInWater: { en: 'Drop Metal into Water', zh: '将金属投入盛水水槽' } satisfies Bilingual,
+  btnResetTrough: { en: '↺ Reset Water Trough', zh: '↺ 重置水槽' } satisfies Bilingual,
+  reactionObservation: { en: 'Reaction with Water Observation', zh: '与水反应剧烈现象' } satisfies Bilingual,
+  selectHalogen: { en: 'Step 1: Choose Halogen Solution (Added)', zh: '第一步：选择加入的卤素单质溶液' } satisfies Bilingual,
+  selectHalide: { en: 'Step 2: Choose Halide Salt Solution (In tube)', zh: '第二步：选择试管底物卤化物溶液' } satisfies Bilingual,
+  displacementResult: { en: 'Displacement Outcome', zh: '置换反应判定结果' } satisfies Bilingual,
+  reactionOccurs: { en: '✅ DISPLACEMENT OCCURS (More reactive halogen displaces halide)', zh: '✅ 发生置换反应（强活性卤素置换弱卤素离子）' } satisfies Bilingual,
+  noReaction: { en: '❌ NO REACTION (Halogen is less reactive than halide)', zh: '❌ 不发生反应（外加卤素活性较弱，无法置换）' } satisfies Bilingual,
+  netIonicEquation: { en: 'Net Ionic Equation', zh: '净离子方程式' } satisfies Bilingual,
+  redoxRole: { en: 'Redox Roles: Halogen is reduced; Halide is oxidized', zh: '氧化还原分析：卤素单质被还原（氧化剂），卤离子被氧化（还原剂）' } satisfies Bilingual,
+} as const
+
+
+
+
+
+
+
 

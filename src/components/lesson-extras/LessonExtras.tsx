@@ -48,6 +48,13 @@ import { CardiacCycle } from './CardiacCycle'
 import { NephronLab } from './NephronLab'
 import { BreedingGarden } from './BreedingGarden'
 import { SynapseTransmission } from './SynapseTransmission'
+import { TitrationLab } from './TitrationLab'
+import { ElectrolysisLab } from './ElectrolysisLab'
+import { RatesLab } from './RatesLab'
+import { QualitativeAnalysisLab } from './QualitativeAnalysisLab'
+import { EnergeticsLab } from './EnergeticsLab'
+import { EquilibriumLab } from './EquilibriumLab'
+import { GroupTrendsLab } from './GroupTrendsLab'
 
 const DnaHelix3D = lazy(() =>
   import('./DnaHelix3D').then((m) => ({ default: m.DnaHelix3D }))
@@ -203,5 +210,19 @@ function renderExtra(extra: LessonExtra) {
       return <BreedingGarden extra={extra} />
     case 'synapse-transmission':
       return <SynapseTransmission extra={extra} />
+    case 'titration-lab':
+      return <TitrationLab extra={extra} />
+    case 'electrolysis-lab':
+      return <ElectrolysisLab extra={extra} />
+    case 'rates-lab':
+      return <RatesLab extra={extra} />
+    case 'qualitative-analysis-lab':
+      return <QualitativeAnalysisLab extra={extra} />
+    case 'energetics-lab':
+      return <EnergeticsLab extra={extra} />
+    case 'equilibrium-lab':
+      return <EquilibriumLab extra={extra} />
+    case 'group-trends-lab':
+      return <GroupTrendsLab extra={extra} />
   }
 }

@@ -1,6 +1,7 @@
 import type { Lesson } from '@/content/types'
 import { formatSigFigs } from '@/lib/units'
 import narration from './narration'
+import { titrationLabData } from '@/content/titrationLabData'
 
 const lesson: Lesson = {
   slug: '7-1-acids-bases',
@@ -345,6 +346,7 @@ const lesson: Lesson = {
       },
     },
   ],
+  extras: [titrationLabData],
 }
 
 export default lesson

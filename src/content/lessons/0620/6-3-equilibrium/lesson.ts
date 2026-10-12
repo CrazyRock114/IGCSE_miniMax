@@ -1,5 +1,6 @@
 import type { Lesson } from '@/content/types'
 import narration from './narration'
+import { defaultEquilibriumLabData } from '@/content/equilibriumLabData'
 
 const lesson: Lesson = {
   slug: '6-3-equilibrium',
@@ -338,6 +339,7 @@ const lesson: Lesson = {
       },
     },
   ],
+  extras: [defaultEquilibriumLabData],
 }
 
 export default lesson

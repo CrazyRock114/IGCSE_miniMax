@@ -1,5 +1,6 @@
 import type { Lesson } from '@/content/types'
 import narration from './narration'
+import { defaultGroupTrendsLabData } from '@/content/groupTrendsLabData'
 
 const lesson: Lesson = {
   slug: '8-2-groups',
@@ -284,6 +285,7 @@ const lesson: Lesson = {
       },
     },
   ],
+  extras: [defaultGroupTrendsLabData],
 }
 
 export default lesson

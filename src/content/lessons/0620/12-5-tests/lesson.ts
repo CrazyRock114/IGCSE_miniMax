@@ -2,6 +2,7 @@ import type { Lesson } from '@/content/types'
 import { placementParams } from '@/lib/assignment'
 import { ALL_ITEMS, MAX_TARGETS } from './kernel'
 import narration from './narration'
+import { defaultQualitativeAnalysisLabData } from '@/content/qualitativeAnalysisData'
 
 const lesson: Lesson = {
   slug: '12-5-tests',
@@ -283,6 +284,7 @@ const lesson: Lesson = {
       },
     },
   ],
+  extras: [defaultQualitativeAnalysisLabData],
 }
 
 export default lesson

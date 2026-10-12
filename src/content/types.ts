@@ -657,6 +657,13 @@ export type LessonExtra =
   | NephronLabExtra
   | BreedingGardenExtra
   | SynapseTransmissionExtra
+  | TitrationLabExtra
+  | ElectrolysisLabExtra
+  | RatesLabExtra
+  | QualitativeAnalysisLabExtra
+  | EnergeticsLabExtra
+  | EquilibriumLabExtra
+  | GroupTrendsLabExtra
 
 /** What to show in the side panel when an organ is selected. */
 export interface AnatomyOrgan {
@@ -1362,6 +1369,195 @@ export interface SynapseTransmissionExtra {
   }>
   examinerNotes: Bilingual
 }
+
+export interface TitrationLabExtra {
+  type: 'titration-lab'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  analyte: {
+    name: Bilingual
+    formula: string
+    volumeCm3: number
+    unknownConcentration: number
+  }
+  titrant: {
+    name: Bilingual
+    formula: string
+    knownConcentration: number
+  }
+  stoichiometryRatio: number
+  examinerNotes: Bilingual
+}
+
+export interface ElectrolysisLabExtra {
+  type: 'electrolysis-lab'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  scenarios: Array<{
+    id: string
+    name: Bilingual
+    electrolyteName: Bilingual
+    electrolyteFormula: string
+    isAqueous: boolean
+    electrodes?: Bilingual
+    ionsPresent?: string[]
+    cathodeProduct: Bilingual
+    anodeProduct: Bilingual
+    cathodeHalfEquation: string
+    anodeHalfEquation: string
+    observationCathode: Bilingual
+    observationAnode: Bilingual
+    explanation: Bilingual
+    solutionObservation?: Bilingual
+  }>
+  examinerNotes: Bilingual
+}
+
+export interface RatesLabExtra {
+  type: 'rates-lab'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  reaction: {
+    title: Bilingual
+    equation: string
+  }
+  presetRuns?: Array<{
+    id: string
+    name: Bilingual
+    tempC: number
+    concM: number
+    particleSize: 'large' | 'medium' | 'powder'
+    hasCatalyst: boolean
+    massReactantG: number
+    kRate: number
+    maxVolumeCm3: number
+    notes: Bilingual
+  }>
+  examinerNotes: Bilingual
+}
+
+export interface QualitativeAnalysisLabExtra {
+  type: 'qualitative-analysis-lab'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  cations?: Array<{
+    id: string
+    name: Bilingual
+    formula: string
+    naohFew: Bilingual
+    naohExcess: Bilingual
+    nh3Few: Bilingual
+    nh3Excess: Bilingual
+    precipitateColor: string
+    isSolubleExcessNaOH: boolean
+    isSolubleExcessNH3: boolean
+  }>
+  anions?: Array<{
+    id: string
+    name: Bilingual
+    formula: string
+    reagent: Bilingual
+    observation: Bilingual
+    precipitateColor?: string
+    equation: string
+  }>
+  gases?: Array<{
+    id: string
+    name: Bilingual
+    formula: string
+    test: Bilingual
+    result: Bilingual
+    colorHint: string
+  }>
+  flameTests?: Array<{
+    id: string
+    name: Bilingual
+    ion: string
+    flameColor: string
+    flameDescription: Bilingual
+  }>
+  examinerNotes: Bilingual
+}
+
+export interface EnergeticsLabExtra {
+  type: 'energetics-lab'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  reactions: Array<{
+    id: string
+    name: Bilingual
+    equation: string
+    deltaH: number
+    activationEnergy: number
+    isExothermic: boolean
+    bondsBroken: Array<{ bond: string; count: number; energy: number }>
+    bondsFormed: Array<{ bond: string; count: number; energy: number }>
+  }>
+  examinerNotes: Bilingual
+}
+
+export interface EquilibriumLabExtra {
+  type: 'equilibrium-lab'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  systems: Array<{
+    id: string
+    name: Bilingual
+    equation: string
+    deltaH: string
+    forwardExothermic: boolean
+    gasMolesLeft: number
+    gasMolesRight: number
+    colorLeft?: string
+    colorRight?: string
+    colorDescriptionLeft?: Bilingual
+    colorDescriptionRight?: Bilingual
+    temperatureEffect?: Bilingual
+    pressureEffect?: Bilingual
+    industrialConditions: Bilingual
+  }>
+  examinerNotes: Bilingual
+}
+
+export interface GroupTrendsLabExtra {
+  type: 'group-trends-lab'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  group1Metals: Array<{
+    name: Bilingual
+    symbol: string
+    atomicNumber: number
+    meltingPointC?: number
+    densityGcm3?: number
+    reactionWithWater: Bilingual
+    flameColor: Bilingual
+    vigorRank: number
+  }>
+  halogensList?: Array<{
+    name: Bilingual
+    formula: string
+    stateAtRtp: Bilingual
+    colorAtRtp: string
+    colorDescription: Bilingual
+    reactivityRank: number
+  }>
+  halogenDisplacements: Array<{
+    halogen: string
+    halide: string
+    occurs: boolean
+    colorChange: Bilingual
+    equation: string
+  }>
+  examinerNotes: Bilingual
+}
+
 
 /**
  * A grid of the four blood components: plasma, red cells, white cells

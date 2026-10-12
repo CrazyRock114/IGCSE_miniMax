@@ -2,6 +2,7 @@ import type { Lesson } from '@/content/types'
 import { placementParams } from '@/lib/assignment'
 import { ALL_ITEMS, MAX_TARGETS } from './kernel'
 import narration from './narration'
+import { defaultElectrolysisLabData } from '@/content/electrolysisLabData'
 
 const lesson: Lesson = {
   slug: '4-1-electrolysis',
@@ -324,6 +325,7 @@ const lesson: Lesson = {
       },
     },
   ],
+  extras: [defaultElectrolysisLabData],
 }
 
 export default lesson
