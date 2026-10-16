@@ -143,8 +143,12 @@ const lesson: Lesson = {
       },
       {
         key: 'angle',
-        label: { en: 'Angle turned', zh: '已转过的角度' },
+        label: {
+          en: 'Angle turned (0° = vertical dead center)',
+          zh: '已转过的角度（0° 为垂直死点 / 平衡位置）',
+        },
         unit: '°',
+        symbol: 'θ',
         min: 0,
         max: 360,
         step: 5,

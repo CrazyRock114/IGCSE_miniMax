@@ -227,6 +227,23 @@ describe('circuitKernel', () => {
     expect(circuitKernel({ ...base, t: 2.5 })).toEqual(circuitKernel({ ...base, t: 2.5 }))
   })
 
+  it('has conditional showWhen on sumOfPds and sumOfCurrents in lesson readouts', async () => {
+    const { default: lesson } = await import('./lesson')
+    const pdsSpec = lesson.sim?.readouts.find((r) => r.key === 'sumOfPds')
+    const currentsSpec = lesson.sim?.readouts.find((r) => r.key === 'sumOfCurrents')
+
+    expect(pdsSpec?.showWhen).toBeDefined()
+    expect(currentsSpec?.showWhen).toBeDefined()
+
+    // Series mode: parallel = 0
+    expect(pdsSpec?.showWhen?.({ parallel: 0 }, { isParallel: 0 })).toBe(true)
+    expect(currentsSpec?.showWhen?.({ parallel: 0 }, { isParallel: 0 })).toBe(false)
+
+    // Parallel mode: parallel = 1
+    expect(pdsSpec?.showWhen?.({ parallel: 1 }, { isParallel: 1 })).toBe(false)
+    expect(currentsSpec?.showWhen?.({ parallel: 1 }, { isParallel: 1 })).toBe(true)
+  })
+
   it('is finite everywhere across the parameter range', () => {
     for (const parallel of [0, 1]) {
       for (const emf of [1, 12]) {

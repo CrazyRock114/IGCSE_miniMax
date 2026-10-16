@@ -154,6 +154,12 @@ export interface ReadoutSpec {
    * 50.5, so rounding to a whole number would be wrong too.
    */
   exact?: boolean
+  /**
+   * Optional condition to show/hide this readout based on simulation parameters or computed readouts.
+   * Useful when a simulation has multiple topologies (e.g. series vs parallel) where showing
+   * inapplicable quantities would mislead students.
+   */
+  showWhen?: (params: Record<string, number>, readouts: Record<string, number>) => boolean
 }
 
 /**

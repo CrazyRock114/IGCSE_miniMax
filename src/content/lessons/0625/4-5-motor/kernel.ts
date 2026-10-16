@@ -41,6 +41,14 @@ export interface MotorParams extends Record<string, number> {
 /** Turns drawn on the graph. */
 export const TURNS_DRAWN = 2
 
+/**
+ * Width of the motor coil (distance between the two active sides), acting as the lever arm:
+ * w = 0.05 m (5 cm).
+ * The turning effect (torque) of the couple is τ = F · w · sin(θ).
+ * In this demonstration d.c. motor, w = 0.05 m sets the physical lever arm dimension.
+ */
+export const COIL_WIDTH_M = 0.05
+
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v))
 
 /** The force on each side of the coil. It does not depend on the angle — only the moment does. */
@@ -51,6 +59,8 @@ export function forceOnSide(current: number, field: number, turns: number): numb
 /**
  * Turning effect without a commutator, in relative units.
  *
+ * Coil width w = 0.05 m serves as the lever arm: τ = F · w · sin(θ).
+ * Angle θ = 0° is the vertical dead center (face-on to field, turning effect zero).
  * Positive through the first half turn and negative through the second, because the sides of
  * the coil have swapped over while the current in them has not.
  */
@@ -85,12 +95,11 @@ export const motorKernel: SimKernel<MotorParams, SimResult> = (params) => {
   const turns = clamp(params['turns'] ?? 20, 1, 100)
   const angle = clamp(params['angle'] ?? 90, 0, 360)
 
-  const scale = 0.05
   const span = 360 * TURNS_DRAWN
   const sample = (f: (a: number) => number) =>
     Array.from({ length: 145 }, (_, i) => {
       const x = (i / 144) * span
-      return [round(x), round(f(x) * scale)] as [number, number]
+      return [round(x), round(f(x) * COIL_WIDTH_M)] as [number, number]
     })
 
   const series: SimSeries[] = [
@@ -127,10 +136,10 @@ export const motorKernel: SimKernel<MotorParams, SimResult> = (params) => {
   return {
     series,
     readouts: {
-      forceOnSide: round(force * scale),
-      turningNow: round(turningEffectCommutated(angle, current, field, turns) * scale),
-      turningNoCommutator: round(turningEffect(angle, current, field, turns) * scale),
-      peakTurning: round(force * scale),
+      forceOnSide: round(force * COIL_WIDTH_M),
+      turningNow: round(turningEffectCommutated(angle, current, field, turns) * COIL_WIDTH_M),
+      turningNoCommutator: round(turningEffect(angle, current, field, turns) * COIL_WIDTH_M),
+      peakTurning: round(force * COIL_WIDTH_M),
     },
     markers: [
       {

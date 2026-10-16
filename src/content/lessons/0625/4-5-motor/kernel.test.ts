@@ -1,11 +1,18 @@
 import { describe, expect, it } from 'vitest'
 import kernel, {
+  COIL_WIDTH_M,
   TURNS_DRAWN,
   forceOnSide,
   turningEffect,
   turningEffectCommutated,
   type MotorParams,
 } from './kernel'
+
+describe('physical dimensions and lever arm', () => {
+  it('defines a realistic coil width (lever arm) of 5 cm', () => {
+    expect(COIL_WIDTH_M).toBe(0.05)
+  })
+})
 
 const base: MotorParams = { current: 2, fieldStrength: 1, turns: 20, angle: 90 }
 const merge = (p: Partial<MotorParams>): MotorParams => ({

@@ -18,7 +18,9 @@ const SPLIT = 0.52
 export function Waves({ result, params }: SimViewProps) {
   const bounds = result.bounds ?? { xMin: 0, xMax: 4, yMin: -1.35, yMax: 1.35 }
   const isLongitudinal = (params['longitudinal'] ?? 0) >= 0.5
-  const wavelength = params['wavelength'] ?? 1
+  const wavelength =
+    params['wavelength'] ?? (isLongitudinal ? (bounds.xMax - bounds.xMin) / 3 : 1)
+  const speed = result.readouts['waveSpeed'] ?? result.readouts['speed'] ?? 0
 
   const mediumH = (H - 2 * PAD) * SPLIT
   const graphH = (H - 2 * PAD) * (1 - SPLIT) - 14
@@ -41,7 +43,7 @@ export function Waves({ result, params }: SimViewProps) {
         viewBox={`0 0 ${W} ${H}`}
         className="w-full select-none"
         role="img"
-        aria-label={`${isLongitudinal ? 'Longitudinal' : 'Transverse'} wave. Wavelength ${wavelength} metres, speed ${(result.readouts['waveSpeed'] ?? 0).toFixed(2)} metres per second.`}
+        aria-label={`${isLongitudinal ? 'Longitudinal' : 'Transverse'} wave. Wavelength ${typeof wavelength === 'number' ? wavelength.toFixed(2) : wavelength} metres, speed ${speed.toFixed(2)} metres per second.`}
       >
         {/* --- medium --- */}
         <rect x={PAD} y={PAD} width={W - 2 * PAD} height={mediumH} fill="#f8fafc" rx={4} />

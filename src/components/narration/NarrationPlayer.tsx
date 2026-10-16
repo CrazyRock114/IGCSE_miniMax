@@ -29,8 +29,9 @@ export function NarrationPlayer({ script, onAction }: NarrationPlayerProps) {
   const [speaking, setSpeaking] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
-  // Chinese narration only makes sense when the student has asked for Chinese support.
-  const lang: Lang = assist === 'off' ? 'en' : 'zh'
+  // Chinese narration is used when the student has explicitly chosen 'inline' bilingual scaffolding.
+  // In 'off' and default 'hover' modes, TTS reads the primary English exam text.
+  const lang: Lang = assist === 'inline' ? 'zh' : 'en'
 
   const section = script.sections[sectionIdx]
   const line = section?.lines[lineIdx]

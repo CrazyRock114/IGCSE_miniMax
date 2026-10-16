@@ -191,6 +191,27 @@ const lesson: Lesson = {
         default: 100,
       },
       {
+        key: 'longitudinal',
+        label: { en: 'Longitudinal wave', zh: '纵波' },
+        unit: '',
+        min: 0,
+        max: 1,
+        step: 1,
+        default: 1,
+        hidden: true,
+      },
+      {
+        key: 'wavelength',
+        label: { en: 'Display wavelength', zh: '显示波长' },
+        unit: 'm',
+        symbol: 'λ',
+        min: 0.1,
+        max: 10,
+        step: 0.01,
+        default: 4 / 3,
+        hidden: true,
+      },
+      {
         key: 't',
         label: { en: 'Time', zh: '时间' },
         unit: 's',
@@ -216,19 +237,19 @@ const lesson: Lesson = {
     presets: [
       {
         label: { en: 'Musical note in air', zh: '空气中的乐音' },
-        params: { frequency: 440, medium: 0, amplitude: 0.6, wallDistance: 100 },
+        params: { frequency: 440, medium: 0, amplitude: 0.6, wallDistance: 100, longitudinal: 1, wavelength: 4 / 3 },
       },
       {
         label: { en: 'Same note in steel', zh: '钢中的同一乐音' },
-        params: { frequency: 440, medium: 2, amplitude: 0.6, wallDistance: 100 },
+        params: { frequency: 440, medium: 2, amplitude: 0.6, wallDistance: 100, longitudinal: 1, wavelength: 4 / 3 },
       },
       {
         label: { en: 'Higher pitch, louder', zh: '更高更响' },
-        params: { frequency: 880, medium: 0, amplitude: 1, wallDistance: 100 },
+        params: { frequency: 880, medium: 0, amplitude: 1, wallDistance: 100, longitudinal: 1, wavelength: 4 / 3 },
       },
       {
         label: { en: 'Ultrasound in water', zh: '水中的超声' },
-        params: { frequency: 40000, medium: 1, amplitude: 0.6, wallDistance: 100 },
+        params: { frequency: 40000, medium: 1, amplitude: 0.6, wallDistance: 100, longitudinal: 1, wavelength: 4 / 3 },
       },
     ],
   },

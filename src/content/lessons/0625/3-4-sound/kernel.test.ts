@@ -143,6 +143,12 @@ describe('soundKernel', () => {
     expect(soundKernel({ ...base, t: 1.4 })).toEqual(soundKernel({ ...base, t: 1.4 }))
   })
 
+  it('reports consistent speed and waveSpeed in readouts', () => {
+    const r = soundKernel(base)
+    expect(r.readouts['waveSpeed']).toBe(r.readouts['speed'])
+    expect(r.readouts['waveSpeed']).toBe(MEDIA[AIR]!.speed)
+  })
+
   it('is finite everywhere across the parameter range', () => {
     for (const frequency of [20, 440, 40000]) {
       for (const medium of [AIR, WATER, STEEL]) {

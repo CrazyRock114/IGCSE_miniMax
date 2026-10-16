@@ -60,24 +60,45 @@ function MeasuringDrill() {
               {minors.map((v) => (
                 <line key={v} x1={majors.includes(v) ? 52 : 62} y1={16 + (1 - (v - task.minValue) / (task.maxValue - task.minValue)) * H} x2={80} y2={16 + (1 - (v - task.minValue) / (task.maxValue - task.minValue)) * H} stroke="currentColor" strokeWidth={majors.includes(v) ? 1.5 : 0.8} opacity="0.8" />
               ))}
-              <rect x="41.5" y={levelY} width="37" height={226 - levelY} fill="#38bdf8" opacity="0.3" />
+              {majors.map((v) => {
+                const y = 16 + (1 - (v - task.minValue) / (task.maxValue - task.minValue)) * H
+                return (
+                  <text key={v} x="84" y={y + 3.5} fontSize="9" fill="currentColor" opacity="0.9">
+                    {v}
+                  </text>
+                )
+              })}
+              <rect x="41.5" y={levelY} width="37" height={Math.max(0, 226 - levelY)} fill="#38bdf8" opacity="0.3" />
               <ellipse cx="60" cy={levelY} rx="18.5" ry="3" fill="#38bdf8" opacity="0.45" />
             </>
           ) : (
             <>
               <circle cx="60" cy="226" r="12" fill="none" stroke="currentColor" strokeWidth="2" />
               <path d="M54 216V28a6 6 0 0 1 12 0v188" fill="none" stroke="currentColor" strokeWidth="2" />
-              <rect x="58" y={levelY} width="4" height={210 - levelY} fill="#ef4444" opacity="0.75" />
+              <rect x="58" y={levelY} width="4" height={Math.max(0, 236 - levelY)} fill="#ef4444" opacity="0.75" />
               <circle cx="60" cy="226" r="8" fill="#ef4444" opacity="0.75" />
+              {minors.map((v) => {
+                const y = 16 + (1 - (v - task.minValue) / (task.maxValue - task.minValue)) * H
+                const isMajor = majors.includes(v)
+                return (
+                  <line
+                    key={v}
+                    x1="66"
+                    y1={y}
+                    x2={isMajor ? 78 : 72}
+                    y2={y}
+                    stroke="currentColor"
+                    strokeWidth={isMajor ? 1.5 : 0.8}
+                    opacity="0.8"
+                  />
+                )
+              })}
               {majors.map((v) => {
                 const y = 16 + (1 - (v - task.minValue) / (task.maxValue - task.minValue)) * H
                 return (
-                  <g key={v}>
-                    <line x1="66" y1={y} x2="78" y2={y} stroke="currentColor" strokeWidth="1.5" opacity="0.8" />
-                    <text x="82" y={y + 4} fontSize="11" fill="currentColor" opacity="0.9">
-                      {v}
-                    </text>
-                  </g>
+                  <text key={v} x="82" y={y + 4} fontSize="11" fill="currentColor" opacity="0.9">
+                    {v}
+                  </text>
                 )
               })}
             </>

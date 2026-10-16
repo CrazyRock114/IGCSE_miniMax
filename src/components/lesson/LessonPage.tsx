@@ -253,7 +253,7 @@ function LessonView({ lesson, kernel }: { lesson: Lesson; kernel?: SimKernel | u
           {lesson.sim && result && (
             <div className="rounded-xl border border-line bg-surface p-4">
               <h3 className="mb-3 text-sm font-semibold text-ink">Readings</h3>
-              <ReadoutPanel readouts={lesson.sim.readouts} values={result.readouts} />
+              <ReadoutPanel readouts={lesson.sim.readouts} values={result.readouts} params={params} />
             </div>
           )}
         </aside>

@@ -227,8 +227,20 @@ const lesson: Lesson = {
         symbol: 'I',
         sigFigs: 3,
       },
-      { key: 'sumOfPds', label: { en: 'V₁ + V₂', zh: 'V₁ + V₂' }, unit: 'V', sigFigs: 3 },
-      { key: 'sumOfCurrents', label: { en: 'I₁ + I₂', zh: 'I₁ + I₂' }, unit: 'A', sigFigs: 3 },
+      {
+        key: 'sumOfPds',
+        label: { en: 'V₁ + V₂', zh: 'V₁ + V₂' },
+        unit: 'V',
+        sigFigs: 3,
+        showWhen: (params, readouts) => (params['parallel'] ?? readouts['isParallel'] ?? 0) < 0.5,
+      },
+      {
+        key: 'sumOfCurrents',
+        label: { en: 'I₁ + I₂', zh: 'I₁ + I₂' },
+        unit: 'A',
+        sigFigs: 3,
+        showWhen: (params, readouts) => (params['parallel'] ?? readouts['isParallel'] ?? 0) >= 0.5,
+      },
     ],
     presets: [
       {

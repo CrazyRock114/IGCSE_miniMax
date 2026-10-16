@@ -42,6 +42,9 @@ export const AUDIBLE_MAX = 20000
 /** Ultrasound is sound above the upper limit of human hearing. */
 export const ULTRASOUND_THRESHOLD = 20000
 
+/** Fixed wavelength drawn in the visualizer for clean legible particle demonstration. */
+export const DISPLAY_WAVELENGTH = MEDIUM_LENGTH / 3
+
 const PARTICLE_ROWS = 3
 const PARTICLES_PER_ROW = 34
 
@@ -80,7 +83,7 @@ export const soundKernel: SimKernel<SoundParams, SimResult> = ({
 
   // The display shows a fixed number of waves so the pattern stays legible across a huge
   // real range of wavelengths; the readouts carry the true physical values.
-  const displayWavelength = MEDIUM_LENGTH / 3
+  const displayWavelength = DISPLAY_WAVELENGTH
   const displayFrequency = 1
 
   const points: Array<[number, number]> = []
@@ -119,6 +122,7 @@ export const soundKernel: SimKernel<SoundParams, SimResult> = ({
     bodies,
     readouts: {
       speed,
+      waveSpeed: speed,
       wavelength: trueWavelength,
       period: frequency > 0 ? 1 / frequency : 0,
       echoTime: echoTime(wallDistance, speed),

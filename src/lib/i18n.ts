@@ -38,7 +38,7 @@ export const assistLevelLabels: Record<AssistLevel, Bilingual> = {
  */
 export const assistLevelShortLabels: Record<AssistLevel, string> = {
   off: 'EN',
-  hover: 'EN + 中?',
+  hover: 'EN · 悬停中文',
   inline: 'EN + 中',
 }
 

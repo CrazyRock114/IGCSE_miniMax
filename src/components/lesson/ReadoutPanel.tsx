@@ -5,6 +5,7 @@ import { formatExact, formatSigFigs } from '@/lib/units'
 interface ReadoutPanelProps {
   readouts: ReadoutSpec[]
   values: Record<string, number>
+  params?: Record<string, number>
 }
 
 /**
@@ -13,10 +14,12 @@ interface ReadoutPanelProps {
  * These are the numbers a student would be asked to calculate, so they are shown
  * with the same precision discipline the exam expects rather than raw floats.
  */
-export function ReadoutPanel({ readouts, values }: ReadoutPanelProps) {
+export function ReadoutPanel({ readouts, values, params = {} }: ReadoutPanelProps) {
+  const visibleReadouts = readouts.filter((r) => !r.showWhen || r.showWhen(params, values))
+
   return (
     <dl className="grid grid-cols-2 gap-3">
-      {readouts.map((r) => (
+      {visibleReadouts.map((r) => (
         <div key={r.key} className="rounded-lg border border-line bg-canvas px-3 py-2">
           <dt className="text-xs text-muted">
             <T value={r.label} />
