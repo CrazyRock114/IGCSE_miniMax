@@ -59,11 +59,11 @@
       desc: 'Sky G8 科学游戏化词汇与考点攻坚'
     },
     {
-      id: 'pre',
+      id: 'why',
       emoji: '🌱',
-      name: '低年级自然启蒙',
-      url: 'https://pre.igcse.xyz',
-      desc: '跨学科自然探究与趣味现象观察'
+      name: '小问号百科',
+      url: 'https://why.igcse.xyz',
+      desc: '生活化问题驱动少儿双轨互动百科（G3/G5 专席）'
     },
     {
       id: 'zperiod',
@@ -77,6 +77,7 @@
   // 4. Navigation Bar DOM Builder
   function renderNavInto(container, activeId) {
     activeId = (activeId || 'main').toLowerCase().trim();
+    if (activeId === 'pre') activeId = 'why';
 
     container.innerHTML = `
       <header class="igcse-nav-wrapper" role="banner">
