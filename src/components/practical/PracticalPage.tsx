@@ -1,9 +1,11 @@
 import { lazy, Suspense, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { T } from '@/components/i18n/T'
 import { APPARATUS } from '@/content/practical/apparatus'
 import { checkReading, makeMeasuringTask } from '@/content/practical/kernel'
 import { PRACTICAL } from '@/lib/practicalStrings'
+import { TitrationLab } from '@/components/lesson-extras/TitrationLab'
+import { titrationLabData } from '@/content/titrationLabData'
 import { ApparatusArt } from './ApparatusArt'
 
 const GraphTrainer = lazy(() => import('./GraphTrainer').then((m) => ({ default: m.GraphTrainer })))
@@ -157,7 +159,12 @@ function MeasuringDrill() {
 }
 
 export default function PracticalPage() {
-  const [tab, setTab] = useState<'apparatus' | 'graph' | 'microscopy'>('apparatus')
+  const [searchParams] = useSearchParams()
+  const initialTab =
+    searchParams.get('tab') === 'titration' || searchParams.get('lab') === 'titration'
+      ? 'titration'
+      : 'apparatus'
+  const [tab, setTab] = useState<'apparatus' | 'titration' | 'graph' | 'microscopy'>(initialTab)
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-8">
@@ -175,8 +182,8 @@ export default function PracticalPage() {
         </Link>
       </div>
 
-      <div className="mt-5 flex gap-2" role="tablist">
-        {(['apparatus', 'graph', 'microscopy'] as const).map((t) => (
+      <div className="mt-5 flex flex-wrap gap-2" role="tablist">
+        {(['apparatus', 'titration', 'graph', 'microscopy'] as const).map((t) => (
           <button
             key={t}
             type="button"
@@ -191,14 +198,30 @@ export default function PracticalPage() {
               value={
                 t === 'apparatus'
                   ? PRACTICAL.tabApparatus
-                  : t === 'graph'
-                    ? PRACTICAL.tabGraph
-                    : PRACTICAL.tabMicroscopy
+                  : t === 'titration'
+                    ? PRACTICAL.tabTitration
+                    : t === 'graph'
+                      ? PRACTICAL.tabGraph
+                      : PRACTICAL.tabMicroscopy
               }
             />
           </button>
         ))}
       </div>
+
+      {tab === 'titration' && (
+        <div className="mt-4 space-y-5">
+          <section className="rounded-xl border border-line bg-surface p-5">
+            <h3 className="text-lg font-semibold text-ink">
+              <T value={PRACTICAL.titrationHeading} />
+            </h3>
+            <p className="mt-1 text-sm text-ink/70" data-zh>
+              <T value={PRACTICAL.titrationIntro} />
+            </p>
+          </section>
+          <TitrationLab extra={titrationLabData} />
+        </div>
+      )}
 
       {tab === 'apparatus' && (
         <div className="mt-4 space-y-5">

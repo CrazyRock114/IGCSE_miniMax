@@ -6,7 +6,16 @@ import type { Bilingual } from '@/content/types'
 
 export const PRACTICAL = {
   tabApparatus: { en: 'Apparatus & reading', zh: '器材与读数' } as Bilingual,
+  tabTitration: { en: 'Titration Lab (Acid–Base)', zh: '酸碱滴定虚拟实验室' } as Bilingual,
   tabGraph: { en: 'Graph paper', zh: '方格纸描点' } as Bilingual,
+  titrationHeading: {
+    en: 'Acid–Base Volumetric Titration (Paper 5/6)',
+    zh: '酸碱容量分析与滴定实验台（Paper 5/6）',
+  } as Bilingual,
+  titrationIntro: {
+    en: 'Read the burette meniscus at eye level, observe sharp indicator color changes with a white tile, and record concordant titres within 0.10 cm³.',
+    zh: '平视滴定管弯月面读取体积，白瓷板衬托观察指示剂敏锐变色，记录误差 ≤0.10 cm³ 的重合有效体积。',
+  } as Bilingual,
   apparatusHeading: { en: 'Know your apparatus', zh: '认识常用器材' } as Bilingual,
   apparatusIntro: {
     en: 'Paper 5 asks you to choose instruments and state readings. Tap a card to see what it is for; then drill yourself on cylinder and thermometer readings below.',

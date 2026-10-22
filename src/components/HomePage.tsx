@@ -10,6 +10,7 @@ import { UserMenu } from '@/components/auth/UserMenu'
 import { ProgressCard } from '@/components/progress/ProgressCard'
 import { useProgressSnapshot } from '@/hooks/useProgressSnapshot'
 import { classify, statementFillClass } from '@/lib/progressTypes'
+import { SkyG8Expressway } from '@/components/expressway/SkyG8Expressway'
 
 /**
  * The syllabus *is* the home page.
@@ -97,6 +98,10 @@ export function HomePage() {
           <ProgressCard />
         </div>
       </header>
+
+      <div className="mb-8">
+        <SkyG8Expressway />
+      </div>
 
       {/* The syllabus document (and therefore the statement map) streams in on its own
           chunk. The skeleton reserves vertical space so the header doesn't jump. */}

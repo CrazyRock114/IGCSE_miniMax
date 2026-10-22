@@ -7,11 +7,15 @@ import {
 } from './titrationLabData'
 
 describe('Acid-Base Titration & Volumetric Analysis Kernel', () => {
-  it('defines methyl orange and phenolphthalein with proper IGCSE syllabus colors', () => {
+  it('defines methyl orange, thymolphthalein and phenolphthalein with proper IGCSE syllabus colors', () => {
     const mo = TITRATION_INDICATORS.find((i) => i.id === 'methyl-orange')!
     expect(mo.colorInAlkali.en).toBe('Yellow')
     expect(mo.colorAtEndPoint.en).toContain('Orange')
     expect(mo.colorInAcid.en).toBe('Red')
+
+    const thy = TITRATION_INDICATORS.find((i) => i.id === 'thymolphthalein')!
+    expect(thy.colorInAlkali.en).toBe('Blue')
+    expect(thy.colorInAcid.en).toBe('Colourless')
 
     const ph = TITRATION_INDICATORS.find((i) => i.id === 'phenolphthalein')!
     expect(ph.colorInAlkali.en).toBe('Pink')

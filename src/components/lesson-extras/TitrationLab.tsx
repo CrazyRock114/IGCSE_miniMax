@@ -13,7 +13,7 @@ type ActiveTab = 'bench' | 'concordance' | 'technique'
 
 export function TitrationLab({ extra }: { extra: TitrationLabExtra }) {
   const [activeTab, setActiveTab] = useState<ActiveTab>('bench')
-  const [indicatorId, setIndicatorId] = useState<'methyl-orange' | 'phenolphthalein'>('methyl-orange')
+  const [indicatorId, setIndicatorId] = useState<'methyl-orange' | 'thymolphthalein' | 'phenolphthalein'>('methyl-orange')
   const [addedVolumeCm3, setAddedVolumeCm3] = useState<number>(0.0)
   const [trials, setTrials] = useState<TitrationTrialRecord[]>([])
 

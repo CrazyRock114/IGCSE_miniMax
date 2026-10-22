@@ -14,7 +14,7 @@
 import type { Bilingual, TitrationLabExtra } from '@/content/types'
 
 export interface IndicatorSpec {
-  id: 'methyl-orange' | 'phenolphthalein'
+  id: 'methyl-orange' | 'thymolphthalein' | 'phenolphthalein'
   name: Bilingual
   colorInAlkali: Bilingual
   colorAtEndPoint: Bilingual
@@ -34,6 +34,16 @@ export const TITRATION_INDICATORS: IndicatorSpec[] = [
     hexInAlkali: '#EAB308',
     hexAtEndPoint: '#F97316',
     hexInAcid: '#EF4444',
+  },
+  {
+    id: 'thymolphthalein',
+    name: { en: 'Thymolphthalein', zh: '百里酚酞指示剂' },
+    colorInAlkali: { en: 'Blue', zh: '蓝色（碱性）' },
+    colorAtEndPoint: { en: 'Pale Blue / Just colourless', zh: '淡蓝色至极淡（滴定终点）' },
+    colorInAcid: { en: 'Colourless', zh: '无色（酸性/中性）' },
+    hexInAlkali: '#3B82F6',
+    hexAtEndPoint: '#BFDBFE',
+    hexInAcid: '#F1F5F9',
   },
   {
     id: 'phenolphthalein',
@@ -63,7 +73,7 @@ export interface TitrationTrialRecord {
 export function getTitrationVisualState(
   addedVolumeCm3: number,
   equivalenceVolumeCm3: number,
-  indicatorId: 'methyl-orange' | 'phenolphthalein'
+  indicatorId: 'methyl-orange' | 'thymolphthalein' | 'phenolphthalein'
 ) {
   const indicator = TITRATION_INDICATORS.find((i) => i.id === indicatorId) ?? TITRATION_INDICATORS[0]!
   const delta = addedVolumeCm3 - equivalenceVolumeCm3
