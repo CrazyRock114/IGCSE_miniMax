@@ -1,5 +1,6 @@
 import type { Lesson } from '@/content/types'
 import narration from './narration'
+import { g8SaltsGuideData } from './g8SaltsData'
 
 const lesson: Lesson = {
   slug: '7-3-salts',
@@ -97,6 +98,78 @@ const lesson: Lesson = {
         zh: '把冷玻璃棒伸入时刚开始析出晶体的时刻。超过这一点继续加热就会把溶液蒸干，失去晶形。',
       },
       syllabus: ['0620.7.3.1'],
+    },
+    {
+      en: 'excess reactant',
+      zh: '过量反应物',
+      definition: {
+        en: 'Adding more solid than is required to react with all the acid, guaranteeing 100% neutralisation.',
+        zh: '加入比完全反应所需更多的固体，以确保所有的酸被 100% 彻底中和。',
+      },
+      syllabus: ['0620.7.3.1'],
+    },
+    {
+      en: 'filtrate',
+      zh: '滤液',
+      definition: {
+        en: 'The clear liquid that passes through the filter paper during filtration, containing dissolved product salt.',
+        zh: '过滤时穿过过滤介质（滤纸）流入下方容器的清澈液体，含有溶解的产物盐。',
+      },
+      syllabus: ['0620.7.3.1'],
+    },
+    {
+      en: 'residue',
+      zh: '滤渣',
+      definition: {
+        en: 'The insoluble solid left behind trapped on the filter paper after filtration.',
+        zh: '过滤后留在滤纸上被截留的难溶性固体残余物。',
+      },
+      syllabus: ['0620.7.3.1'],
+    },
+    {
+      en: 'burette',
+      zh: '滴定管',
+      definition: {
+        en: 'A graduated glass tube with a tap at the bottom, delivering precise variable volumes accurate to 0.1 cm³.',
+        zh: '带有精细刻度且下端配有旋塞的长玻璃管，能够精确滴加并读出精确到 0.1 cm³ 的液体体积。',
+      },
+      syllabus: ['0620.7.3.1'],
+    },
+    {
+      en: 'volumetric pipette',
+      zh: '移液管',
+      definition: {
+        en: 'A laboratory tool designed to measure and transfer one exact, fixed volume of liquid (e.g. exactly 25.0 cm³).',
+        zh: '用于准确移取单一固定体积溶液（如精确 25.0 cm³）的玻璃计量仪器。',
+      },
+      syllabus: ['0620.7.3.1'],
+    },
+    {
+      en: 'concordant titres',
+      zh: '重现性读数 (平行滴定体积)',
+      definition: {
+        en: 'Titration volumes that agree within 0.10 cm³ of each other, used to calculate an accurate average titre.',
+        zh: '多次重复滴定中相互偏差不超过 0.10 cm³ 的相近读数，用于计算高精度平均用量。',
+      },
+      syllabus: ['0620.7.3.1'],
+    },
+    {
+      en: 'precipitation reaction',
+      zh: '沉淀反应',
+      definition: {
+        en: 'A chemical reaction in which two soluble salt solutions are mixed, producing an insoluble solid salt.',
+        zh: '两种可溶性盐的水溶液相混合，瞬时交换离子结合生成不溶性固体盐晶体的反应。',
+      },
+      syllabus: ['0620.7.3.4'],
+    },
+    {
+      en: 'solubility rules',
+      zh: '溶解性规律',
+      definition: {
+        en: 'Rules predicting whether ionic salts dissolve in water (e.g. all nitrates are soluble; BaSO₄, PbCl₂, AgCl are insoluble).',
+        zh: '预测离子化合物在水中能否溶解的规律（如所有硝酸盐全溶；硫酸钡、氯化铅、氯化银难溶）。',
+      },
+      syllabus: ['0620.7.3.2'],
     },
   ],
 
@@ -329,7 +402,64 @@ const lesson: Lesson = {
         zh: '过量固体法完全依赖于碱不可溶这一点。看清这一点后，三条路线之间的选择就归结为一个问题。',
       },
     },
+    {
+      id: '0620-7-3-cp7',
+      syllabus: ['0620.7.3.1'],
+      tier: 'core',
+      commandWord: 'Describe',
+      marks: 4,
+      stem: 'Describe how to prepare a pure, dry sample of copper(II) sulfate crystals in the laboratory starting from copper(II) oxide powder and dilute sulfuric acid.',
+      markScheme: [
+        {
+          text: 'Warm dilute sulfuric acid and add copper(II) oxide in excess with stirring until some unreacted black solid remains',
+          marks: 1,
+        },
+        {
+          text: 'Filter off the excess unreacted copper(II) oxide using a funnel and filter paper to collect the blue filtrate',
+          marks: 1,
+        },
+        {
+          text: 'Heat the filtrate in an evaporating basin to the crystallisation point / until crystals form on a cold glass rod',
+          marks: 1,
+        },
+        {
+          text: 'Leave to cool slowly to crystallise, then filter the crystals and pat dry between filter papers',
+          marks: 1,
+        },
+      ],
+      examinerNote: {
+        en: 'Adding excess solid ensures all acid is consumed. Heating must stop at the crystallisation point — never boil dry, or anhydrous powder forms instead of hydrated crystals.',
+        zh: '加过量固体确保所有酸被耗尽。加热至结晶点即停止——切勿蒸干，否则会形成无水粉末而非结晶水合物晶体。',
+      },
+    },
+    {
+      id: '0620-7-3-cp8',
+      syllabus: ['0620.7.3.4'],
+      tier: 'extended',
+      commandWord: 'Describe',
+      marks: 3,
+      stem: 'Barium sulfate is an insoluble salt. Describe how a pure, dry sample of barium sulfate can be prepared by precipitation from two aqueous solutions.',
+      markScheme: [
+        {
+          text: 'Mix aqueous barium chloride / barium nitrate with aqueous sodium sulfate / dilute sulfuric acid',
+          marks: 1,
+        },
+        {
+          text: 'Filter the mixture through filter paper in a funnel to collect the insoluble barium sulfate precipitate',
+          marks: 1,
+        },
+        {
+          text: 'Wash the residue on the filter paper with distilled water and dry between filter papers / in a warm oven',
+          marks: 1,
+        },
+      ],
+      examinerNote: {
+        en: 'Precipitation requires two soluble starting solutions. Washing with distilled water is essential to remove soluble spectator ions such as sodium chloride.',
+        zh: '沉淀法必须从两种可溶性溶液出发。用蒸馏水洗涤沉淀物至关重要，能彻底洗去附着的可溶性旁观离子（如氯化钠）。',
+      },
+    },
   ],
+  extras: [g8SaltsGuideData],
 }
 
 export default lesson

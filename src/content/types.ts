@@ -679,6 +679,7 @@ export type LessonExtra =
   | TransformerLabExtra
   | RadioactivityLabExtra
   | G8AcidsBasesGuideExtra
+  | G8SaltsGuideExtra
 
 /** What to show in the side panel when an organ is selected. */
 export interface AnatomyOrgan {
@@ -2358,6 +2359,14 @@ export interface G8AcidsBasesSection {
 
 export interface G8AcidsBasesGuideExtra {
   type: 'g8-acids-bases-guide'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  sections: G8AcidsBasesSection[]
+}
+
+export interface G8SaltsGuideExtra {
+  type: 'g8-salts-guide'
   id: string
   title: Bilingual
   hint: Bilingual

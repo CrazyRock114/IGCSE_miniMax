@@ -1207,6 +1207,22 @@ export const G8_ACIDS_BASES_GUIDE = {
   modalClose: { en: 'Close Preview', zh: '关闭全屏大图' } satisfies Bilingual,
 } as const
 
+export const G8_SALTS_GUIDE = {
+  headerTag: { en: 'Cambridge G8 Chemistry · Salts Preparation Guide', zh: '剑桥 G8 化学 · 盐类制备与官方讲义原图精讲' } satisfies Bilingual,
+  selectModulePrompt: { en: 'Select a Salt Synthesis Route to Explore:', zh: '选择制盐工艺路线进行深入探索：' } satisfies Bilingual,
+  officialDiagramTitle: { en: 'Curriculum Textbook / PPT Original Apparatus Diagram', zh: '官方讲义 / PPT 原版实验装置图' } satisfies Bilingual,
+  clickToEnlarge: { en: '🔍 Click to view full high-res figure', zh: '🔍 点击查看高清大图' } satisfies Bilingual,
+  coreMechanismTitle: { en: 'Experimental Procedure & Chemical Principles', zh: '实验操作步骤与化学反应原理' } satisfies Bilingual,
+  keyEquationTitle: { en: 'Chemical Equation', zh: '化学方程式' } satisfies Bilingual,
+  examTakeawayTitle: { en: 'Examiner Marking & Method Criteria', zh: '考官评分标准与高分要诀' } satisfies Bilingual,
+  checkpointQuizTitle: { en: 'Interactive Knowledge Check', zh: '课堂即问即答自测' } satisfies Bilingual,
+  questionLabel: { en: 'Question:', zh: '思考题：' } satisfies Bilingual,
+  checkAnswerBtn: { en: 'Check Answer', zh: '核对答案' } satisfies Bilingual,
+  answeredCorrect: { en: '✓ Correct! Excellent reasoning.', zh: '✓ 完全正确！制盐步骤精准。' } satisfies Bilingual,
+  answeredIncorrect: { en: '✗ Not quite. Review the separation method above!', zh: '✗ 答错了，请仔细查看上方分离提纯步骤！' } satisfies Bilingual,
+  modalClose: { en: 'Close Preview', zh: '关闭全屏大图' } satisfies Bilingual,
+} as const
+
 
 
 

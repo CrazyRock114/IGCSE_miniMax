@@ -536,5 +536,254 @@ export const g8AcidsBasesGuideData: G8AcidsBasesGuideExtra = {
         },
       },
     },
+    {
+      id: 'ions-and-conductivity',
+      title: {
+        en: '7. Ions in Solution & Electrical Conductivity',
+        zh: '7. 溶液中的微观离子与导电性测试',
+      },
+      badge: {
+        en: 'Lesson 7 · Microscopic Theory',
+        zh: '第 7 课 · 微观离子理论',
+      },
+      subtitle: {
+        en: 'H⁺ in acids, OH⁻ in alkalis, and how mobile charged particles carry electric current',
+        zh: '酸中氢离子、碱中氢氧根与自由移动带电粒子导电本质',
+      },
+      description: {
+        en: 'Why do acidic and alkaline solutions conduct electricity, while pure distilled water cannot? In aqueous solution, acids release hydrogen ions (H⁺) and alkalis release hydroxide ions (OH⁻). These freely moving charged ions act as charge carriers in an electrical circuit.',
+        zh: '为什么酸性溶液与碱性溶液能够导电，而纯蒸馏水却几乎不导电？在水溶液中，酸电离产生氢离子（H⁺），碱电离产生氢氧根离子（OH⁻）。这些能在水中自由移动的带电离子充当了闭合回路中的电荷载流子。',
+      },
+      image: '/figures/g8/0620-7-1-acids-bases/fig-1-9-ions-particles.png',
+      secondaryImage: '/figures/g8/0620-7-1-acids-bases/fig-1-10-electrical-conductivity.png',
+      imageCaption: {
+        en: 'Figure 1.9 & 1.10: Left: Particle model showing H⁺ ions in acid and OH⁻ ions in alkali. Right: Circuit with DC power source, bulb, and inert electrodes dipped into aqueous solution to test electrical conductivity.',
+        zh: '图 1.9 与 1.10：左图为酸中 H⁺ 离子与碱中 OH⁻ 离子的粒子微观模型；右图为利用电源、灯泡及插入溶液中的惰性电极测试溶液导电性的标准实验装置。',
+      },
+      bulletPoints: [
+        {
+          title: {
+            en: 'The Universal Definition of Acid & Alkali Ions',
+            zh: '酸与碱的微观离子定义',
+          },
+          body: {
+            en: 'An acid is any chemical that produces hydrogen ions (H⁺) when dissolved in water. An alkali is a soluble base that produces hydroxide ions (OH⁻) when dissolved in water.',
+            zh: '酸是溶于水时能电离产生氢离子（H⁺）的化合物；碱（可溶性碱）是溶于水时能电离产生氢氧根离子（OH⁻）的化合物。',
+          },
+          equation: '\\mathrm{HCl(aq) \\rightarrow H^+(aq) + Cl^-(aq), \\quad NaOH(aq) \\rightarrow Na^+(aq) + OH^-(aq)}',
+        },
+        {
+          title: {
+            en: 'Electrical Conductivity Mechanism',
+            zh: '导电性微观机理与灯泡实验',
+          },
+          body: {
+            en: 'Pure water contains almost no free ions (non-conductor; bulb remains off). When acid or alkali is added, free mobile ions migrate toward opposite electrodes: cations (H⁺) to the cathode, anions to the anode, completing the circuit and making the bulb glow brightly.',
+            zh: '纯水几乎不电离，极度缺乏自由移动的离子（灯泡不发光）。加入酸或碱后，大量带电离子在电场驱动下定向移动：阳离子（H⁺）移向阴极，阴离子移向阳极，接通电路使灯泡明亮发光。',
+          },
+        },
+        {
+          title: {
+            en: 'Concentration of Ions Determines Current',
+            zh: '离子浓度与导电强度的正相关规律',
+          },
+          body: {
+            en: 'The greater the concentration of free mobile ions, the higher the electrical conductivity of the electrolyte solution and the brighter the test lamp glows.',
+            zh: '溶液中自由移动离子的浓度越高，电解质溶液的电导率就越高，电路中串联的测试小灯泡发光越耀眼。',
+          },
+        },
+      ],
+      keyTakeaway: {
+        en: 'Core Exam Concept: Two conditions are REQUIRED for any liquid to conduct electricity: 1. Must contain charged particles (ions or electrons); 2. Those particles must be free to move.',
+        zh: '核心考点定律：任何液体导电必须同时满足两大刚性条件：1. 必须含有带电粒子（离子或自由电子）；2. 这些带电粒子必须能够自由移动。',
+      },
+      quiz: {
+        question: {
+          en: 'Why does dilute hydrochloric acid conduct electricity whereas pure distilled water does not?',
+          zh: '为什么稀盐酸能够导电，而纯蒸馏水却几乎不导电？',
+        },
+        options: [
+          { en: 'Hydrochloric acid contains free-moving metal atoms', zh: '盐酸中含有自由移动的金属原子' },
+          { en: 'Hydrochloric acid contains mobile H⁺ and Cl⁻ ions', zh: '盐酸在水中完全电离出能自由移动的 H⁺ 和 Cl⁻ 离子' },
+          { en: 'Pure water has free electrons that move too fast', zh: '纯水中的自由电子移动过快' },
+          { en: 'Pure water neutralises electrical charge', zh: '纯水会中和抵消所有电荷' },
+        ],
+        correctIndex: 1,
+        explanation: {
+          en: 'Correct! Hydrochloric acid dissociates completely in water into freely moving H⁺ and Cl⁻ ions, which act as mobile charge carriers.',
+          zh: '回答正确！盐酸在水中完全电离为自由移动的 H⁺ 与 Cl⁻ 离子，充当了导电的电荷载流子。',
+        },
+      },
+    },
+    {
+      id: 'proton-transfer-bronsted-lowry',
+      title: {
+        en: '8. Proton Transfer Theory & The Ammonia Demonstration',
+        zh: '8. 布朗斯特-劳里质子转移理论与氨气特征实验',
+      },
+      badge: {
+        en: 'Lesson 10 · Extended Theory',
+        zh: '第 10 课 · 质子转移理论',
+      },
+      subtitle: {
+        en: 'Acids as proton (H⁺) donors, bases as proton acceptors, and the classic white smoke ring',
+        zh: '酸作为质子给体、碱作为质子受体与经典的氯化铵白烟环扩散实验',
+      },
+      description: {
+        en: 'A hydrogen atom consists of one proton and one electron. When it loses its electron to form H⁺, only the bare nucleus remains — a proton! Therefore, in the Brønsted–Lowry definition, acid–base chemistry is simply the transfer of protons from donors to acceptors.',
+        zh: '氢原子由 1 个质子和 1 个核外电子组成。当它失去电子成为 H⁺ 离子时，只剩下一个裸露的原子核——即单个质子！因此，在布朗斯特-劳里（Brønsted–Lowry）理论中，酸碱反应本质上就是质子（H⁺）从给体转移至受体的过程。',
+      },
+      image: '/figures/g8/0620-7-1-acids-bases/fig-1-11-proton-transfer-ammonia.png',
+      imageCaption: {
+        en: 'Figure 1.11: Left: Ammonia (NH₃) accepting a proton from water to form the ammonium ion (NH₄⁺). Right: The classic diffusion experiment: NH₃ gas and HCl gas meet in a glass tube to form a dense white smoke ring of NH₄Cl.',
+        zh: '图 1.11：左图为氨分子（NH₃）接受质子形成铵根离子（NH₄⁺）；右图为经典的扩散管实验：浓氨水与浓盐酸挥发出的气体相遇，化合生成氯化铵（NH₄Cl）微晶密集白烟环。',
+      },
+      bulletPoints: [
+        {
+          title: {
+            en: 'Brønsted–Lowry Formal Definitions',
+            zh: '剑桥 0620 考纲官方权威定义',
+          },
+          body: {
+            en: '• An acid is a PROTON DONOR (releases H⁺).\n• A base is a PROTON ACCEPTOR (accepts H⁺).\nIn neutralisation: H⁺ (from acid) + OH⁻ (from base) → H₂O.',
+            zh: '• 酸是质子给体 (Proton Donor，释放 H⁺)。\n• 碱是质子受体 (Proton Acceptor，接受 H⁺)。\n在中和反应中：来自酸的 H⁺ 被来自碱的 OH⁻ 接受结合生成水分子。',
+          },
+          equation: '\\mathrm{Acid (donor) + Base (acceptor) \\rightarrow Conjugate\\ Pair}',
+        },
+        {
+          title: {
+            en: 'Ammonia (NH₃) as a Brønsted Base',
+            zh: '氨气（NH₃）作为典型质子受体的反应',
+          },
+          body: {
+            en: 'Ammonia contains a lone pair of electrons on the nitrogen atom. When dissolved in water, it grabs a proton (H⁺) from water to form an ammonium ion (NH₄⁺) and leaves hydroxide (OH⁻) behind, making the solution alkaline.',
+            zh: '氨气分子中的氮原子拥有一对孤对电子。当其溶于水时，能主动从水分子中夺取一个质子（H⁺）结合成铵根离子（NH₄⁺），并释放出 OH⁻ 使溶液呈弱碱性。',
+          },
+          equation: '\\mathrm{NH_3(aq) + H_2O(l) \\rightleftharpoons NH_4^+(aq) + OH^-(aq)}',
+        },
+        {
+          title: {
+            en: 'Ammonia & HCl Diffusion Tube Demonstration',
+            zh: '浓氨水与浓盐酸气相扩散白烟环实验（考卷经典大题）',
+          },
+          body: {
+            en: 'Cotton wool soaked in conc. NH₃ is placed at one end of a sealed glass tube, conc. HCl at the other. Gaseous NH₃ (M_r = 17) is lighter and diffuses faster than HCl (M_r = 36.5). Therefore, the white smoke ring of solid ammonium chloride forms CLOSER to the hydrochloric acid end!',
+            zh: '在两端开口的玻璃管两端分别塞入浸有浓氨水与浓盐酸的脱脂棉球。NH₃ 分子量小（Mr = 17）扩散速率快，HCl 分子量大（Mr = 36.5）扩散慢。两者相遇生成的白色氯化铵固体烟环必定更靠近浓盐酸一侧！',
+          },
+          equation: '\\mathrm{NH_3(g) + HCl(g) \\rightarrow NH_4Cl(s)}',
+        },
+      ],
+      keyTakeaway: {
+        en: 'Exam Trap: In NH₃ + HCl → NH₄Cl, HCl is the acid (donates H⁺ to NH₃) and NH₃ is the base (accepts H⁺). The resulting white ring is solid NH₄Cl particles suspended in air.',
+        zh: '高频考点必背：在 NH₃ + HCl → NH₄Cl 反应中，HCl 是酸（向 NH₃ 给出质子），NH₃ 是碱（接受质子）。实验中观察到的“白烟”不是气体也不是液体，而是悬浮在空气中的氯化铵固体微晶！',
+      },
+      quiz: {
+        question: {
+          en: 'In the reaction NH₃ + H₂O ⇌ NH₄⁺ + OH⁻, which species acts as the Brønsted–Lowry acid?',
+          zh: '在反应 NH₃ + H₂O ⇌ NH₄⁺ + OH⁻ 中，哪个物质充当了布朗斯特-劳里酸（质子给体）？',
+        },
+        options: [
+          { en: 'NH₃', zh: 'NH₃' },
+          { en: 'H₂O', zh: 'H₂O (水分子，给出 H⁺ 给 NH₃)' },
+          { en: 'NH₄⁺', zh: 'NH₄⁺' },
+          { en: 'OH⁻', zh: 'OH⁻' },
+        ],
+        correctIndex: 1,
+        explanation: {
+          en: 'Correct! H₂O loses an H⁺ proton to become OH⁻, so it acts as the proton donor (acid) in this reaction.',
+          zh: '回答正确！水分子（H₂O）向 NH₃ 贡献出一个质子（H⁺）自身转变为 OH⁻，因此在此反应中水充当了酸（质子给体）。',
+        },
+      },
+    },
+    {
+      id: 'strong-weak-dissociation-kinetics',
+      title: {
+        en: '9. Strong vs Weak Acids & Dissociation Kinetics',
+        zh: '9. 强酸与弱酸的电离平衡、导电性与反应速率对比',
+      },
+      badge: {
+        en: 'Lesson 11 · Extended Mastery',
+        zh: '第 11 课 · 深度考点进阶',
+      },
+      subtitle: {
+        en: 'Degree of dissociation, hydrogen ion concentration, and "Strong vs Concentrated"',
+        zh: '完全电离 vs 部分电离、氢离子瞬间浓度差异与“强/弱”与“浓/稀”的严格区分',
+      },
+      description: {
+        en: 'A strong acid and a weak acid of the exact same molar concentration (e.g. 0.1 mol/dm³) have drastically different pH values and react at different speeds. This difference is governed not by the total quantity of acid, but by its degree of ionization in water.',
+        zh: '摩尔浓度完全相同的强酸与弱酸（例如均为 0.1 mol/dm³ 的盐酸与醋酸），其 pH 值与反应速率存在天壤之别。这种本质差异不是因为酸的总量不同，而是由分子在水中的电离度（Dissociation）决定的。',
+      },
+      image: '/figures/g8/0620-7-1-acids-bases/fig-1-12-strong-weak-dissociation.png',
+      secondaryImage: '/figures/g8/0620-7-1-acids-bases/fig-1-13-exothermic-neutralisation-temp.png',
+      imageCaption: {
+        en: 'Figure 1.12 & 1.13: Left: Microscopic model: HCl is 100% dissociated into ions; CH₃COOH exists mainly as undissociated molecules. Right: Exothermic temperature curve during neutralization confirming release of heat energy.',
+        zh: '图 1.12 与 1.13：左图为微观电离模型：强酸 HCl 100% 完全电离为离子，弱酸 CH₃COOH 大部分仍以中性分子形式存在；右图为中和反应过程中的放热温度曲线。',
+      },
+      bulletPoints: [
+        {
+          title: {
+            en: 'Strong Acid: Complete Dissociation',
+            zh: '强酸的完全电离（单向不可逆）',
+          },
+          body: {
+            en: 'Strong acids (HCl, H₂SO₄, HNO₃) dissociate 100% in water. Every molecule splits into ions. For 0.1 mol/dm³ HCl, [H⁺] = 0.1 mol/dm³ → pH = 1.0. High [H⁺] causes rapid effervescence with Mg.',
+            zh: '强酸（盐酸、硫酸、硝酸）在水中完全电离，每个分子都释放出质子。0.1 mol/dm³ 的盐酸中 [H⁺] 即为 0.1 mol/dm³，pH 为 1.0。高浓度 H⁺ 使其与镁条反应剧烈冒泡。',
+          },
+          equation: '\\mathrm{HCl(aq) \\rightarrow H^+(aq) + Cl^-(aq) \\quad (100\\%\\ dissociation)}',
+        },
+        {
+          title: {
+            en: 'Weak Acid: Partial Dissociation Equilibrium',
+            zh: '弱酸的部分电离平衡（双向可逆）',
+          },
+          body: {
+            en: 'Weak acids (ethanoic, citric, carbonic) only partially dissociate (~1% of molecules split; 99% remain intact). For 0.1 mol/dm³ CH₃COOH, [H⁺] ≈ 0.001 mol/dm³ → pH ≈ 3.0. Slower reaction rate with Mg.',
+            zh: '弱酸（乙酸、柠檬酸、碳酸）在水中只发生部分电离（约仅 1% 的分子拆散成离子，99% 保持中性分子状态）。0.1 mol/dm³ 乙酸中 [H⁺] 仅约 0.001 mol/dm³，pH 约 3.0。与镁反应明显慢得多。',
+          },
+          equation: '\\mathrm{CH_3COOH(aq) \\rightleftharpoons CH_3COO^-(aq) + H^+(aq) \\quad (\\sim 1\\%\\ dissociation)}',
+        },
+        {
+          title: {
+            en: 'Equal Total Hydrogen Yield: A Huge Exam Trap!',
+            zh: '同浓度同体积强弱酸生成氢气总量完全相同！（压轴避坑）',
+          },
+          body: {
+            en: 'If equal volumes of 0.1 mol/dm³ HCl and 0.1 mol/dm³ CH₃COOH react with excess magnesium: HCl fizzes much faster at the start, but BOTH produce the EXACT SAME final volume of hydrogen gas! As H⁺ is consumed, the weak acid shifts equilibrium to release more H⁺.',
+            zh: '若取相同体积、相同浓度的盐酸与醋酸分别与过量镁反应：强酸初始冒泡剧烈，但两支试管最终收集到的氢气总体积完全相同！因为随着 H⁺ 被消耗，弱酸分子会持续电离补足，直至所有潜在氢全部释放。',
+          },
+        },
+        {
+          title: {
+            en: '"Strong" vs "Concentrated" — Never Confuse Them!',
+            zh: '“强酸/弱酸”与“浓酸/稀酸”的本质辨析',
+          },
+          body: {
+            en: '• "Strong / Weak" describes the EXTENT of dissociation in water (chemical property).\n• "Concentrated / Dilute" describes the AMOUNT of solute dissolved per dm³ of solvent (physical proportion). A concentrated weak acid (e.g. pure vinegar) is still weak!',
+            zh: '• “强 / 弱”衡量的是分子电离为离子的百分比程度（物质固有化学属性）；\n• “浓 / 稀”衡量的是单位体积溶液中溶质的多少（物理配比比例）。即使是极浓的纯醋酸也是弱酸；即使稀释至 0.0001 mol/dm³ 的盐酸依然是强酸！',
+          },
+        },
+      ],
+      keyTakeaway: {
+        en: 'Cambridge 0620 Marking Rule: To distinguish a strong acid from a weak acid of the same concentration: 1. Measure pH (strong has lower pH); 2. Test electrical conductivity (strong conducts better); 3. Compare initial rate of effervescence with Mg/CaCO₃ (strong reacts faster).',
+        zh: '剑桥 0620 实验设计满分答案：区分同浓度强酸与弱酸的三大标准实验方案：1. 测定 pH（强酸 pH 显著更低）；2. 测量导电性（强酸回路灯泡更亮/读数更大）；3. 加入相同镁条或碳酸钙比较初始冒泡速率（强酸反应速率更快）。',
+      },
+      quiz: {
+        question: {
+          en: 'A student compares 50 cm³ of 1.0 mol/dm³ HCl and 50 cm³ of 1.0 mol/dm³ CH₃COOH reacting with excess zinc. What is the difference between the two reactions?',
+          zh: '学生取 50 cm³ 1.0 mol/dm³ 的盐酸和 50 cm³ 1.0 mol/dm³ 的醋酸分别与过量锌反应。两个实验的真实区别是什么？',
+        },
+        options: [
+          { en: 'HCl produces twice the volume of hydrogen gas', zh: '盐酸生成的氢气总体积是醋酸的 2 倍' },
+          { en: 'HCl reacts with a faster initial rate, but both yield the exact same total volume of hydrogen', zh: '盐酸初始反应速率更快，但两者最终生成的氢气总体积完全相同' },
+          { en: 'CH₃COOH fizzes faster because it has more hydrogen atoms', zh: '醋酸冒泡更快，因为分子含氢更多' },
+          { en: 'CH₃COOH does not produce any hydrogen gas', zh: '醋酸完全不生成氢气' },
+        ],
+        correctIndex: 1,
+        explanation: {
+          en: 'Correct! Strong acid has a higher initial [H⁺] so it fizzes faster, but both contain identical total moles of replaceable hydrogen (0.05 mol) so the total gas volume is identical.',
+          zh: '回答正确！强酸盐酸的初始 [H⁺] 更高，因此初始反应更剧烈；但两者所含可置换氢离子的总摩尔数完全相同（均为 0.05 mol），因此最终收集到的氢气总体积完全一致。',
+        },
+      },
+    },
   ],
 }

@@ -1040,7 +1040,7 @@ export const LESSON_INDEX: LessonMeta[] = [
       "0620.7.3.5"
     ],
     "estimatedMinutes": 50,
-    "checkpointCount": 6
+    "checkpointCount": 8
   },
   {
     "subject": "0620",
