@@ -65,7 +65,7 @@ export function G8SaltsGuide({ extra }: { extra: G8SaltsGuideExtra }) {
                   key={sec.id}
                   type="button"
                   onClick={() => setActiveSectionId(sec.id)}
-                  className={`flex flex-col items-start rounded-lg border px-3 py-2.5 text-left transition-all ${
+                  className={`flex flex-col items-start rounded-lg border px-3 py-2.5 text-left transition-all min-w-0 ${
                     isActive
                       ? 'border-accent bg-accent/10 shadow-sm'
                       : 'border-line bg-canvas hover:border-accent/40 hover:bg-surface'
@@ -181,7 +181,7 @@ export function G8SaltsGuide({ extra }: { extra: G8SaltsGuideExtra }) {
               {currentSection.bulletPoints.map((point, pIdx) => (
                 <div
                   key={pIdx}
-                  className="flex flex-col justify-between rounded-lg border border-line bg-canvas p-3.5"
+                  className="flex flex-col justify-between rounded-lg border border-line bg-canvas p-3.5 min-w-0"
                 >
                   <div>
                     <h5 className="text-sm font-semibold text-ink">
@@ -192,7 +192,7 @@ export function G8SaltsGuide({ extra }: { extra: G8SaltsGuideExtra }) {
                     </p>
                   </div>
                   {point.equation && (
-                    <div className="mt-2.5 overflow-x-auto rounded border border-line bg-surface/80 px-2 py-1.5 text-center text-xs">
+                    <div className="mt-2.5 w-full max-w-full overflow-x-auto rounded border border-line bg-surface/80 px-2 py-1.5 text-center text-xs">
                       <div
                         dangerouslySetInnerHTML={{
                           __html: renderFormula(point.equation, true),
