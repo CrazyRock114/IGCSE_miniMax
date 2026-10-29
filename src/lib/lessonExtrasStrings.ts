@@ -1191,6 +1191,22 @@ export const RADIOACTIVITY_LAB = {
   deflectionHeading: { en: 'Electric & Magnetic Field Deflection', zh: '电场与磁场偏转特性' } satisfies Bilingual,
 } as const
 
+export const G8_ACIDS_BASES_GUIDE = {
+  headerTag: { en: 'Cambridge G8 Chemistry · Intensive Handout Guide', zh: '剑桥 G8 化学 · 官方讲义与原图精讲' } satisfies Bilingual,
+  selectModulePrompt: { en: 'Select a Core Lesson Topic to Explore:', zh: '选择核心课时主题进行深入探索：' } satisfies Bilingual,
+  officialDiagramTitle: { en: 'Curriculum Textbook / PPT Original Diagram', zh: '官方讲义 / PPT 原版图示' } satisfies Bilingual,
+  clickToEnlarge: { en: '🔍 Click to view full high-res figure', zh: '🔍 点击查看高清大图' } satisfies Bilingual,
+  coreMechanismTitle: { en: 'Core Reaction Mechanism & Principles', zh: '核心反应机理与关键要点' } satisfies Bilingual,
+  keyEquationTitle: { en: 'Chemical Equation', zh: '化学方程式' } satisfies Bilingual,
+  examTakeawayTitle: { en: 'Exam & Memory Takeaway', zh: '考点精要与高分铁律' } satisfies Bilingual,
+  checkpointQuizTitle: { en: 'Interactive Knowledge Check', zh: '课堂即问即答自测' } satisfies Bilingual,
+  questionLabel: { en: 'Question:', zh: '思考题：' } satisfies Bilingual,
+  checkAnswerBtn: { en: 'Check Answer', zh: '核对答案' } satisfies Bilingual,
+  answeredCorrect: { en: '✓ Correct! Excellent reasoning.', zh: '✓ 完全正确！解题思路精准。' } satisfies Bilingual,
+  answeredIncorrect: { en: '✗ Not quite. Review the explanation above!', zh: '✗ 答错了，请结合上方知识点再思考一下！' } satisfies Bilingual,
+  modalClose: { en: 'Close Preview', zh: '关闭全屏大图' } satisfies Bilingual,
+} as const
+
 
 
 

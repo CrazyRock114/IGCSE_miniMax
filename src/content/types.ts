@@ -678,6 +678,7 @@ export type LessonExtra =
   | ResistanceLabExtra
   | TransformerLabExtra
   | RadioactivityLabExtra
+  | G8AcidsBasesGuideExtra
 
 /** What to show in the side panel when an organ is selected. */
 export interface AnatomyOrgan {
@@ -2326,4 +2327,39 @@ export interface PopulationCurveExtra {
   /** Optional y-value to draw the carrying-capacity line at. */
   carryingCapacity?: number
   points: PopulationPoint[]
+}
+
+export interface G8AcidsBasesBullet {
+  title: Bilingual
+  body: Bilingual
+  equation?: string
+}
+
+export interface G8AcidsBasesQuiz {
+  question: Bilingual
+  options: Bilingual[]
+  correctIndex: number
+  explanation: Bilingual
+}
+
+export interface G8AcidsBasesSection {
+  id: string
+  title: Bilingual
+  badge: Bilingual
+  subtitle: Bilingual
+  description: Bilingual
+  image: string
+  secondaryImage?: string
+  imageCaption: Bilingual
+  bulletPoints: G8AcidsBasesBullet[]
+  keyTakeaway: Bilingual
+  quiz?: G8AcidsBasesQuiz
+}
+
+export interface G8AcidsBasesGuideExtra {
+  type: 'g8-acids-bases-guide'
+  id: string
+  title: Bilingual
+  hint: Bilingual
+  sections: G8AcidsBasesSection[]
 }

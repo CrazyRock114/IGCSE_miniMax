@@ -2,6 +2,7 @@ import type { Lesson } from '@/content/types'
 import { formatSigFigs } from '@/lib/units'
 import narration from './narration'
 import { titrationLabData } from '@/content/titrationLabData'
+import { g8AcidsBasesGuideData } from './g8GuideData'
 
 const lesson: Lesson = {
   slug: '7-1-acids-bases',
@@ -133,6 +134,114 @@ const lesson: Lesson = {
       definition: {
         en: 'A measure of hydrogen ion concentration. Each unit is a factor of ten; 7 is neutral.',
         zh: '氢离子浓度的量度。每差一个单位相差十倍；7 为中性。',
+      },
+      syllabus: ['0620.7.1.7'],
+    },
+    {
+      en: 'citric acid',
+      zh: '柠檬酸',
+      definition: {
+        en: 'A natural weak organic acid found in citrus fruits like lemons and oranges.',
+        zh: '存在于柠檬和橙子等柑橘类水果中的天然弱有机酸。',
+      },
+      syllabus: ['0620.7.1.1'],
+    },
+    {
+      en: 'ethanoic acid',
+      zh: '乙酸 (醋酸)',
+      definition: {
+        en: 'A weak organic acid present in vinegar, formed by the oxidation of ethanol.',
+        zh: '食用醋中所含的弱有机酸，由乙醇氧化而成。',
+      },
+      syllabus: ['0620.7.1.1'],
+    },
+    {
+      en: 'carbonic acid',
+      zh: '碳酸',
+      definition: {
+        en: 'A weak acid formed when carbon dioxide gas dissolves in water under pressure.',
+        zh: '二氧化碳气体在高压下溶解于水中形成的弱酸。',
+      },
+      syllabus: ['0620.7.1.1'],
+    },
+    {
+      en: 'effervescence',
+      zh: '冒泡 / 沸腾放气',
+      definition: {
+        en: 'The rapid formation and release of gas bubbles from a liquid reaction mixture.',
+        zh: '液体反应混合物中迅速产生并逸出大量气体气泡的现象。',
+      },
+      syllabus: ['0620.7.1.1'],
+    },
+    {
+      en: 'exothermic',
+      zh: '放热反应',
+      definition: {
+        en: 'A chemical reaction that releases thermal energy to the surroundings, causing the temperature to rise.',
+        zh: '向周围环境释放热能、导致体系温度上升的化学反应。',
+      },
+      syllabus: ['0620.7.1.8'],
+    },
+    {
+      en: 'squeaky pop test',
+      zh: '氢气爆鸣检验',
+      definition: {
+        en: 'The diagnostic test for hydrogen gas: introducing a lighted splint to the tube mouth produces a sharp squeaky pop.',
+        zh: '氢气的特征检验法：将点燃的木条移至试管口，引燃微量氢气发出清脆的爆鸣声。',
+      },
+      syllabus: ['0620.7.1.1'],
+    },
+    {
+      en: 'reactivity series',
+      zh: '金属活动性顺序',
+      definition: {
+        en: 'A ranking of metals in order of their reactivity based on electron-losing tendency; metals above hydrogen displace it from acids.',
+        zh: '金属依据失电子能力从强到弱的排列顺序；排在氢前面的金属能从酸中置换出氢气。',
+      },
+      syllabus: ['0620.7.1.1'],
+    },
+    {
+      en: 'limewater',
+      zh: '澄清石灰水',
+      definition: {
+        en: 'A clear aqueous solution of calcium hydroxide (Ca(OH)₂) that turns cloudy white when carbon dioxide is bubbled through it.',
+        zh: '氢氧化钙（Ca(OH)₂）的澄清饱和水溶液，通入二氧化碳气体会生成白色沉淀变浑浊。',
+      },
+      syllabus: ['0620.7.1.1'],
+    },
+    {
+      en: 'litmus',
+      zh: '石蕊指示剂',
+      definition: {
+        en: 'An indicator dye that is red in acidic solutions and blue in alkaline solutions.',
+        zh: '一种指示剂染料，在酸性溶液中显红色，在碱性溶液中显蓝色。',
+      },
+      syllabus: ['0620.7.1.2'],
+    },
+    {
+      en: 'methyl orange',
+      zh: '甲基橙指示剂',
+      definition: {
+        en: 'A synthetic indicator: red in acid (pH < 3.1), peach/orange at end point, and yellow in alkali (pH > 4.4).',
+        zh: '一种合成指示剂：酸中显红色（pH < 3.1），滴定终点显橙色，碱中显黄色（pH > 4.4）。',
+      },
+      syllabus: ['0620.7.1.2'],
+    },
+    {
+      en: 'thymolphthalein',
+      zh: '百里酚酞指示剂',
+      definition: {
+        en: 'An indicator that is colourless in acidic and neutral solutions and turns vibrant blue in alkaline solutions (pH > 10.5).',
+        zh: '一种指示剂：在酸性与中性环境中无色透明，在强碱性溶液中（pH > 10.5）显鲜蓝色。',
+      },
+      syllabus: ['0620.7.1.2'],
+    },
+    {
+      en: 'universal indicator',
+      zh: '广范指示剂',
+      definition: {
+        en: 'A mixture of several indicators that exhibits a continuous rainbow of colors across the full pH range from 0 to 14.',
+        zh: '多种指示剂的混合溶液，在 pH 0 至 14 的全部范围内呈现连续的彩虹变色。',
       },
       syllabus: ['0620.7.1.7'],
     },
@@ -345,8 +454,54 @@ const lesson: Lesson = {
         zh: '两种酸最终生成的氢气体积相同——酸的总量相同。只有速率不同，因为只有 H⁺ 浓度不同。',
       },
     },
+    {
+      id: '0620-7-1-cp5',
+      syllabus: ['0620.7.1.1'],
+      tier: 'core',
+      commandWord: 'Describe',
+      marks: 3,
+      stem: 'A student adds dilute hydrochloric acid separately to pieces of magnesium and copper. Describe what is observed in each test tube and state the test for any gas produced.',
+      markScheme: [
+        {
+          text: 'Magnesium: rapid effervescence / bubbles and solid dissolves (test tube feels warm)',
+          marks: 1,
+        },
+        {
+          text: 'Copper: no reaction / no effervescence / solid remains unchanged',
+          marks: 1,
+        },
+        {
+          text: 'Gas test: lighted splint at the mouth of the tube gives a squeaky pop (confirms hydrogen)',
+          marks: 1,
+        },
+      ],
+      examinerNote: {
+        en: 'Magnesium is above hydrogen in the reactivity series and reacts vigorously, while copper is below hydrogen and does not react. Remember: for hydrogen, the splint must be lighted, not glowing.',
+        zh: '镁在金属活动性顺序中排在氢前面，反应剧烈；而铜排在氢后面，不发生反应。切记：检验氢气必须用点燃的木条，不能用带火星的木条。',
+      },
+    },
+    {
+      id: '0620-7-1-cp6',
+      syllabus: ['0620.7.1.1'],
+      tier: 'core',
+      commandWord: 'State',
+      marks: 3,
+      stem: 'When dilute nitric acid is added to solid calcium carbonate, a gas is evolved. State the chemical name of the gas, state the reagent used to test for it and its positive observation, and state the name of the salt produced.',
+      markScheme: [
+        { text: 'Gas: carbon dioxide', marks: 1 },
+        {
+          text: 'Reagent and observation: bubble through limewater and it turns cloudy / milky',
+          marks: 1,
+        },
+        { text: 'Salt: calcium nitrate', marks: 1 },
+      ],
+      examinerNote: {
+        en: 'Acid + carbonate always yields salt + water + carbon dioxide. Nitric acid always makes a nitrate salt. The limewater test must specify turning cloudy/milky.',
+        zh: '酸 + 碳酸盐永远生成盐 + 水 + 二氧化碳。硝酸生成硝酸盐，故生成的盐为硝酸钙。澄清石灰水检验必须说明变浑浊/乳白色。',
+      },
+    },
   ],
-  extras: [titrationLabData],
+  extras: [g8AcidsBasesGuideData, titrationLabData],
 }
 
 export default lesson

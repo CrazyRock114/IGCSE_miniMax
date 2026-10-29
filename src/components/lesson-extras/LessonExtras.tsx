@@ -63,6 +63,7 @@ import { LensLab } from './LensLab'
 import { ResistanceLab } from './ResistanceLab'
 import { TransformerLab } from './TransformerLab'
 import { RadioactivityLab } from './RadioactivityLab'
+import { G8AcidsBasesGuide } from './G8AcidsBasesGuide'
 
 const DnaHelix3D = lazy(() =>
   import('./DnaHelix3D').then((m) => ({ default: m.DnaHelix3D }))
@@ -248,5 +249,7 @@ function renderExtra(extra: LessonExtra) {
       return <TransformerLab extra={extra} />
     case 'radioactivity-lab':
       return <RadioactivityLab extra={extra} />
+    case 'g8-acids-bases-guide':
+      return <G8AcidsBasesGuide extra={extra} />
   }
 }
