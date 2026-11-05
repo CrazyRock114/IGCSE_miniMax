@@ -88,7 +88,7 @@ export function hormones(day: number, cycleLength: number, pregnant: boolean): L
 
   return {
     fsh: (15 + 35 * bump(day, 3, 3) + 22 * bump(day, ov, 1.5)) * suppression,
-    lh: (12 + 80 * bump(day, ov, 1.2)) * suppression,
+    lh: (12 + 88 * bump(day, ov, 1.2)) * suppression,
     oestrogen: pregnant && afterOv >= 7 ? Math.max(oestrogen, 55) : oestrogen,
     progesterone,
   }
@@ -107,21 +107,24 @@ export function liningThickness(day: number, cycleLength: number, pregnant: bool
 
   if (day <= PERIOD_DAYS) {
     // Being shed: falls from what was left to almost nothing.
-    return 5 - (4 * (day - 1)) / (PERIOD_DAYS - 1)
+    return 4.8 - (3.8 * (day - 1)) / (PERIOD_DAYS - 1)
   }
 
   // Rebuilding, then thickening further after ovulation.
-  const rebuilt = 1 + (7 * (day - PERIOD_DAYS)) / Math.max(1, ov - PERIOD_DAYS)
+  const rebuilt = 1 + (3.8 * (day - PERIOD_DAYS)) / Math.max(1, ov - PERIOD_DAYS)
   if (day <= ov) return rebuilt
 
-  const peak = 12
-  const thickened = 8 + ((peak - 8) * Math.min(day - ov, 7)) / 7
-  if (pregnant) return thickened
+  if (pregnant) {
+    return 4.8 + ((11.0 - 4.8) * Math.min(day - ov, cycle - ov)) / Math.max(1, cycle - ov)
+  }
+
+  const peak = 7.2
+  const thickened = 4.8 + ((peak - 4.8) * Math.min(day - ov, 7)) / 7
 
   // Progesterone falls in the last two days and the lining begins to break down.
   const breakdownFrom = cycle - 2
   if (day <= breakdownFrom) return thickened
-  return thickened - (thickened - 5) * ((day - breakdownFrom) / 2)
+  return thickened - (thickened - 4.8) * ((day - breakdownFrom) / 2)
 }
 
 export type Phase = 'menstruation' | 'follicular' | 'ovulation' | 'luteal' | 'pregnancy'

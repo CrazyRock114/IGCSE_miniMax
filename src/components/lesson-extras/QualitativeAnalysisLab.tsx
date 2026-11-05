@@ -88,7 +88,7 @@ export function QualitativeAnalysisLab({
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex rounded-lg bg-slate-800/80 p-1 text-xs font-semibold">
+        <div className="flex flex-wrap rounded-lg bg-slate-800/80 p-1 text-xs font-semibold">
           <button
             type="button"
             onClick={() => setActiveTab('cations')}

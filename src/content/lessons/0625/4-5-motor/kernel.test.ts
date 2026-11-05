@@ -12,6 +12,13 @@ describe('physical dimensions and lever arm', () => {
   it('defines a realistic coil width (lever arm) of 5 cm', () => {
     expect(COIL_WIDTH_M).toBe(0.05)
   })
+
+  it('maintains correct dimensional scaling between force (N) and peak torque (N cm)', () => {
+    const res = run()
+    expect(res.readouts['forceOnSide']).toBe(2)
+    expect(res.readouts['peakTurning']).toBe(10)
+    expect(res.readouts['peakTurning']).toBe((res.readouts['forceOnSide'] ?? 0) * 5)
+  })
 })
 
 const base: MotorParams = { current: 2, fieldStrength: 1, turns: 20, angle: 90 }

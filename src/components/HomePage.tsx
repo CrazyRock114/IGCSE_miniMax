@@ -99,9 +99,11 @@ export function HomePage() {
         </div>
       </header>
 
-      <div className="mb-8">
-        <SkyG8Expressway />
-      </div>
+      {code === '0620' && (
+        <div className="mb-8">
+          <SkyG8Expressway />
+        </div>
+      )}
 
       {/* The syllabus document (and therefore the statement map) streams in on its own
           chunk. The skeleton reserves vertical space so the header doesn't jump. */}

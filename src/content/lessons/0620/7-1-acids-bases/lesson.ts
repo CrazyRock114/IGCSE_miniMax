@@ -41,7 +41,7 @@ const lesson: Lesson = {
     },
     {
       en: 'State that bases are metal oxides or hydroxides, and that alkalis are soluble bases.',
-      zh: '说明碱是金属氧化物或氢氧化物，可溶的碱称为强碱溶液。',
+      zh: '说明碱是金属氧化物或氢氧化物，可溶的碱称为可溶性碱。',
     },
     {
       en: 'State that acidic solutions contain H⁺ ions and alkaline solutions contain OH⁻ ions.',

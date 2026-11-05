@@ -24,7 +24,7 @@ export function NephronLab({ extra }: { extra: NephronLabExtra }) {
   return (
     <div className="space-y-6">
       {/* Tab Navigation */}
-      <div className="flex border-b border-line">
+      <div className="flex flex-wrap border-b border-line">
         <button
           type="button"
           onClick={() => setActiveTab('nephron')}

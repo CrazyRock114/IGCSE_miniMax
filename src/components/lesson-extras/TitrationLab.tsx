@@ -82,7 +82,7 @@ export function TitrationLab({ extra }: { extra: TitrationLabExtra }) {
   return (
     <div className="space-y-6">
       {/* Tab Navigation */}
-      <div className="flex border-b border-line">
+      <div className="flex flex-wrap border-b border-line">
         <button
           type="button"
           onClick={() => setActiveTab('bench')}
@@ -123,7 +123,7 @@ export function TitrationLab({ extra }: { extra: TitrationLabExtra }) {
           {/* Apparatus & Interactive Canvas (7 cols) */}
           <div className="space-y-4 lg:col-span-7">
             {/* Indicator Selector */}
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <span className="text-xs text-ink/60 font-medium">
                 <T value={TITRATION_LAB.indicatorChoice} />:
               </span>

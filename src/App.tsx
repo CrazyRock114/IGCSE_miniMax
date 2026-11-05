@@ -14,6 +14,9 @@ import { ErrorBoundary } from '@/components/ErrorBoundary'
  * the lazy anatomy/lesson chunks.
  */
 const HomePage = lazy(() => import('@/components/HomePage').then((m) => ({ default: m.HomePage })))
+const SubjectPage = lazy(() =>
+  import('@/pages/SubjectPage').then((m) => ({ default: m.SubjectPage }))
+)
 const LessonPage = lazy(() =>
   import('@/components/lesson/LessonPage').then((m) => ({ default: m.LessonPage }))
 )
@@ -55,7 +58,7 @@ export default function App() {
       <Suspense fallback={<RouteFallback />}>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/subject/:subject" element={<HomePage />} />
+          <Route path="/subject/:subject" element={<SubjectPage />} />
           <Route path="/lesson/:subject/:slug" element={<LessonPage />} />
           <Route path="/anatomy" element={<AnatomyPage />} />
           <Route path="/anatomy/:subject/:slug" element={<AnatomyPage />} />

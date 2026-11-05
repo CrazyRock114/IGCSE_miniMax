@@ -23,7 +23,7 @@ const STORAGE_KEYS = [
   'igcse.vocab.wordbank.v1',
   'igcse.vocab.streak.v1',
   'igcse.mistakes.v1',
-  'igcse.statement-progress.v1',
+  'igcse.progress.v1',
 ]
 
 interface State {

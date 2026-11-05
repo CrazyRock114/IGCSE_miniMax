@@ -15,9 +15,9 @@ export interface HormoneState {
   oestrogen: number // Relative scale 0-100
   lh: number // Relative scale 0-100
   progesterone: number // Relative scale 0-100
-  liningThicknessMm: number // 1 to 6 mm
+  liningThicknessMm: number // 1 to 8 mm
   ovaryPhase: 'follicular' | 'ovulation' | 'luteal' | 'degenerating'
-  uterusPhase: 'menstruation' | 'repair' | 'secretory'
+  uterusPhase: 'menstruation' | 'repair' | 'ovulation' | 'secretory'
   ovaryPhaseName: Bilingual
   uterusPhaseName: Bilingual
   eventNote: Bilingual
@@ -29,41 +29,47 @@ export interface HormoneState {
 export function getHormoneLevels(day: number, pregnant = false): HormoneState {
   const d = Math.max(1, Math.min(28, Math.round(day)))
 
-  // 1. FSH (Peaks mildly around Day 3-4 to stimulate follicle; small surge at Day 14)
+  // 1. FSH (Peaks mildly around Day 3-4 to stimulate follicle; accompanying surge of ~38% at Day 14)
   const fsh =
     d <= 5
       ? 45 + (d - 1) * 3
       : d <= 12
         ? 35 - (d - 5) * 2
-        : d === 13 || d === 14
-          ? 65
-          : 20 - (d - 14) * 0.5
+        : d === 13
+          ? 42
+          : d === 14
+            ? 38
+            : Math.max(12, 22 - (d - 14) * 0.7)
 
-  // 2. Oestrogen (Secreted by growing follicle; sharp peak around Day 12-13)
+  // 2. Oestrogen (Secreted by growing follicle; sharp peak around Day 12-13; drops around Day 14)
   const oestrogen =
     d <= 5
       ? 15 + d * 2
-      : d <= 13
-        ? 25 + Math.pow((d - 5) / 8, 2.5) * 70
-        : d <= 16
-          ? 40 - (d - 13) * 8
-          : d <= 22
-            ? 35 + (d - 16) * 3
-            : 40 - (d - 22) * 5
+      : d <= 12
+        ? 25 + Math.pow((d - 5) / 7, 2.5) * 60
+        : d === 13
+          ? 90
+          : d === 14
+            ? 72
+            : d <= 16
+              ? 50 - (d - 14) * 7
+              : d <= 22
+                ? 36 + (d - 16) * 3
+                : Math.max(15, 54 - (d - 22) * 6.5)
 
-  // 3. LH (Quiet until sudden dramatic surge triggering ovulation at Day 13-14)
+  // 3. LH (Quiet until dramatic surge triggering ovulation peaking at 100% on Day 14)
   const lh =
     d < 12
       ? 12 + d * 0.5
       : d === 12
-        ? 35
+        ? 28
         : d === 13
-          ? 95
+          ? 85
           : d === 14
-            ? 70
+            ? 100
             : d === 15
-              ? 25
-              : 10
+              ? 30
+              : Math.max(8, 16 - (d - 15) * 0.6)
 
   // 4. Progesterone (Low in follicular phase; produced by corpus luteum, peaks Day 20-22)
   let progesterone = 5
@@ -79,20 +85,20 @@ export function getHormoneLevels(day: number, pregnant = false): HormoneState {
     }
   }
 
-  // 5. Uterus lining thickness in mm (1 mm menstruation -> 3.5 mm repair -> 5.5 mm secretory)
+  // 5. Uterus lining thickness in mm (1.0 mm flow -> 4.8 mm ovulation -> 7.2 mm secretory; up to 11 mm in pregnancy)
   let liningThicknessMm = 1.0
   if (d <= 5) {
-    liningThicknessMm = Math.max(1.0, 3.5 - d * 0.5)
+    liningThicknessMm = Math.max(1.0, 4.8 - (d - 1) * 0.95)
   } else if (d <= 14) {
-    liningThicknessMm = 1.0 + ((d - 5) / 9) * 2.8
+    liningThicknessMm = 1.0 + ((d - 5) / 9) * 3.8
   } else {
     if (pregnant) {
-      liningThicknessMm = Math.min(6.0, 3.8 + ((d - 14) / 14) * 2.2)
+      liningThicknessMm = Math.min(11.0, 4.8 + ((d - 14) / 14) * 6.2)
     } else {
       liningThicknessMm =
         d <= 22
-          ? 3.8 + ((d - 14) / 8) * 1.8
-          : Math.max(1.2, 5.6 - (d - 22) * 0.7)
+          ? 4.8 + ((d - 14) / 8) * 2.4
+          : Math.max(1.2, 7.2 - (d - 22) * 1.0)
     }
   }
 
@@ -112,9 +118,12 @@ export function getHormoneLevels(day: number, pregnant = false): HormoneState {
 
   let uterusPhase: HormoneState['uterusPhase'] = 'menstruation'
   let uterusPhaseName: Bilingual = { en: 'Menstruation (Flow)', zh: '月经期（内膜脱落出血）' }
-  if (d > 5 && d <= 14) {
+  if (d > 5 && d < 14) {
     uterusPhase = 'repair'
     uterusPhaseName = { en: 'Proliferative / Repair Phase', zh: '增殖修复期（内膜增厚）' }
+  } else if (d === 14) {
+    uterusPhase = 'ovulation'
+    uterusPhaseName = { en: 'Ovulation', zh: '排卵期（内膜就绪）' }
   } else if (d > 14) {
     uterusPhase = 'secretory'
     uterusPhaseName = { en: 'Secretory Phase', zh: '分泌期（血管充盈维持）' }

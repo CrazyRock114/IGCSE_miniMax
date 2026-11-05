@@ -54,8 +54,10 @@ export function NarrationPlayer({ script, onAction }: NarrationPlayerProps) {
     const src = `/audio/${lang}/${script.id}/${line.id}.mp3`
 
     const audio = new Audio(src)
-    audio.onended = () => setSpeaking(false)
-    audio.onerror = () => {
+    let fallbackTriggered = false
+    const fallbackToSpeechSynthesis = () => {
+      if (fallbackTriggered) return
+      fallbackTriggered = true
       // No pre-generated file — fall back to the browser voice.
       if (typeof speechSynthesis === 'undefined') {
         setSpeaking(false)
@@ -68,9 +70,12 @@ export function NarrationPlayer({ script, onAction }: NarrationPlayerProps) {
       speechSynthesis.speak(u)
     }
 
+    audio.onended = () => setSpeaking(false)
+    audio.onerror = fallbackToSpeechSynthesis
+
     audioRef.current = audio
     setSpeaking(true)
-    void audio.play().catch(() => audio.onerror?.(new Event('error')))
+    void audio.play().catch(() => fallbackToSpeechSynthesis())
   }, [line, lang, script.id, stop])
 
   const goTo = useCallback(

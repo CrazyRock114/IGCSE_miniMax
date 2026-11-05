@@ -56,3 +56,6 @@ export function SkyG8Expressway() {
     </section>
   )
 }
+
+export const SkyG8ChemistryExpressway = SkyG8Expressway
+export default SkyG8Expressway

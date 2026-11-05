@@ -50,7 +50,8 @@ body {
 }
 
 .zh-hint::after {
-  content: '中';
+  content: '中' / '';
+  speak: none;
   margin-left: 0.3em;
   font-size: 0.62em;
   vertical-align: 0.45em;

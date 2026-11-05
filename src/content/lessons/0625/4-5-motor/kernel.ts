@@ -45,9 +45,13 @@ export const TURNS_DRAWN = 2
  * Width of the motor coil (distance between the two active sides), acting as the lever arm:
  * w = 0.05 m (5 cm).
  * The turning effect (torque) of the couple is τ = F · w · sin(θ).
- * In this demonstration d.c. motor, w = 0.05 m sets the physical lever arm dimension.
+ * In this demonstration d.c. motor, w = 0.05 m (5.0 cm) sets the physical lever arm dimension.
  */
 export const COIL_WIDTH_M = 0.05
+export const COIL_WIDTH_CM = 5.0
+
+/** Force scaling factor (converts raw I · B · N to Newtons): 0.05 N / (A · relative B · turn). */
+export const FORCE_SCALE = 0.05
 
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v))
 
@@ -99,7 +103,7 @@ export const motorKernel: SimKernel<MotorParams, SimResult> = (params) => {
   const sample = (f: (a: number) => number) =>
     Array.from({ length: 145 }, (_, i) => {
       const x = (i / 144) * span
-      return [round(x), round(f(x) * COIL_WIDTH_M)] as [number, number]
+      return [round(x), round(f(x) * FORCE_SCALE * COIL_WIDTH_CM)] as [number, number]
     })
 
   const series: SimSeries[] = [
@@ -131,15 +135,15 @@ export const motorKernel: SimKernel<MotorParams, SimResult> = (params) => {
   ]
 
   const sine = Math.sin((angle * Math.PI) / 180)
-  const force = forceOnSide(current, field, turns)
+  const force = forceOnSide(current, field, turns) * FORCE_SCALE
 
   return {
     series,
     readouts: {
-      forceOnSide: round(force * COIL_WIDTH_M),
-      turningNow: round(turningEffectCommutated(angle, current, field, turns) * COIL_WIDTH_M),
-      turningNoCommutator: round(turningEffect(angle, current, field, turns) * COIL_WIDTH_M),
-      peakTurning: round(force * COIL_WIDTH_M),
+      forceOnSide: round(force),
+      turningNow: round(turningEffectCommutated(angle, current, field, turns) * FORCE_SCALE * COIL_WIDTH_CM),
+      turningNoCommutator: round(turningEffect(angle, current, field, turns) * FORCE_SCALE * COIL_WIDTH_CM),
+      peakTurning: round(force * COIL_WIDTH_CM),
     },
     markers: [
       {

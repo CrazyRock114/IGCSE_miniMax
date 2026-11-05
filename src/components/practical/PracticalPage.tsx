@@ -35,10 +35,14 @@ function MeasuringDrill() {
     setResult('idle')
   }
 
-  // scale geometry (shared by both instrument kinds)
-  const H = 220
+  // Instrument-specific scale geometry
+  const isCylinder = task.kind === 'cylinder'
+  const yTop = 26
+  const yBottom = isCylinder ? 226 : 206
+  const H = yBottom - yTop // 200 for cylinder [26, 226], 180 for thermometer [26, 206]
   const rel = (task.liquidValue - task.minValue) / (task.maxValue - task.minValue)
-  const levelY = 16 + (1 - rel) * H
+  const levelY = yTop + (1 - rel) * H
+  const getY = (v: number) => yTop + (1 - (v - task.minValue) / (task.maxValue - task.minValue)) * H
 
   const majors: number[] = []
   for (let v = task.minValue; v <= task.maxValue + 1e-9; v += task.majorEvery) majors.push(Number(v.toFixed(6)))
@@ -56,20 +60,17 @@ function MeasuringDrill() {
 
       <div className="mt-4 flex flex-wrap items-center gap-6">
         <svg viewBox="0 0 120 260" className="h-64" role="img" aria-label={task.kind}>
-          {task.kind === 'cylinder' ? (
+          {isCylinder ? (
             <>
               <path d="M40 20h40v200a6 6 0 0 1-6 6H46a6 6 0 0 1-6-6z" fill="none" stroke="currentColor" strokeWidth="2" />
               {minors.map((v) => (
-                <line key={v} x1={majors.includes(v) ? 52 : 62} y1={16 + (1 - (v - task.minValue) / (task.maxValue - task.minValue)) * H} x2={80} y2={16 + (1 - (v - task.minValue) / (task.maxValue - task.minValue)) * H} stroke="currentColor" strokeWidth={majors.includes(v) ? 1.5 : 0.8} opacity="0.8" />
+                <line key={v} x1={majors.includes(v) ? 52 : 62} y1={getY(v)} x2={80} y2={getY(v)} stroke="currentColor" strokeWidth={majors.includes(v) ? 1.5 : 0.8} opacity="0.8" />
               ))}
-              {majors.map((v) => {
-                const y = 16 + (1 - (v - task.minValue) / (task.maxValue - task.minValue)) * H
-                return (
-                  <text key={v} x="84" y={y + 3.5} fontSize="9" fill="currentColor" opacity="0.9">
-                    {v}
-                  </text>
-                )
-              })}
+              {majors.map((v) => (
+                <text key={v} x="84" y={getY(v) + 3.5} fontSize="9" fill="currentColor" opacity="0.9">
+                  {v}
+                </text>
+              ))}
               <rect x="41.5" y={levelY} width="37" height={Math.max(0, 226 - levelY)} fill="#38bdf8" opacity="0.3" />
               <ellipse cx="60" cy={levelY} rx="18.5" ry="3" fill="#38bdf8" opacity="0.45" />
             </>
@@ -77,10 +78,10 @@ function MeasuringDrill() {
             <>
               <circle cx="60" cy="226" r="12" fill="none" stroke="currentColor" strokeWidth="2" />
               <path d="M54 216V28a6 6 0 0 1 12 0v188" fill="none" stroke="currentColor" strokeWidth="2" />
-              <rect x="58" y={levelY} width="4" height={Math.max(0, 236 - levelY)} fill="#ef4444" opacity="0.75" />
+              <rect x="58" y={levelY} width="4" height={Math.max(0, 226 - levelY)} fill="#ef4444" opacity="0.75" />
               <circle cx="60" cy="226" r="8" fill="#ef4444" opacity="0.75" />
               {minors.map((v) => {
-                const y = 16 + (1 - (v - task.minValue) / (task.maxValue - task.minValue)) * H
+                const y = getY(v)
                 const isMajor = majors.includes(v)
                 return (
                   <line
@@ -95,14 +96,11 @@ function MeasuringDrill() {
                   />
                 )
               })}
-              {majors.map((v) => {
-                const y = 16 + (1 - (v - task.minValue) / (task.maxValue - task.minValue)) * H
-                return (
-                  <text key={v} x="82" y={y + 4} fontSize="11" fill="currentColor" opacity="0.9">
-                    {v}
-                  </text>
-                )
-              })}
+              {majors.map((v) => (
+                <text key={v} x="82" y={getY(v) + 4} fontSize="11" fill="currentColor" opacity="0.9">
+                  {v}
+                </text>
+              ))}
             </>
           )}
         </svg>
@@ -124,7 +122,7 @@ function MeasuringDrill() {
               className="ml-2 w-28 rounded-md border border-line bg-white/5 px-2 py-1 font-mono text-ink focus:border-accent focus:outline-none"
             />
           </label>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             {result === 'idle' && (
               <button type="button" onClick={check} className="rounded-md bg-ink px-4 py-1.5 text-sm font-medium text-white hover:opacity-90">
                 <T value={PRACTICAL.submit} />

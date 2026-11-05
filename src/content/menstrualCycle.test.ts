@@ -28,6 +28,12 @@ describe('28-Day Menstrual Cycle Hormone & Organ Synchronizer', () => {
     expect(day13.lh).toBeGreaterThan(day7.lh)
     expect(day13.lh).toBeGreaterThan(day20.lh)
     expect(day14.ovaryPhase).toBe('ovulation')
+    expect(day14.uterusPhase).toBe('ovulation')
+    expect(day14.lh).toBe(100)
+    expect(day14.fsh).toBeGreaterThanOrEqual(35)
+    expect(day14.fsh).toBeLessThanOrEqual(45)
+    expect(day14.liningThicknessMm).toBeGreaterThanOrEqual(4.5)
+    expect(day14.liningThicknessMm).toBeLessThanOrEqual(5.0)
   })
 
   it('demonstrates progesterone peaks in luteal phase after ovulation', () => {

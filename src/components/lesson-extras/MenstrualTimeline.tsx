@@ -362,7 +362,7 @@ export function MenstrualTimeline({ extra }: { extra: MenstrualTimelineExtra }) 
               <T value={MENSTRUAL_TIMELINE.liningThickness} />: <strong className="text-accent font-mono">{state.liningThicknessMm} mm</strong>
             </span>
             <span className="text-[11px] text-ink/50">
-              (Range: 1.0 mm flow → 5.6 mm secretory)
+              (Range: 1.0 mm flow → 7.2 mm secretory)
             </span>
           </div>
         </div>
