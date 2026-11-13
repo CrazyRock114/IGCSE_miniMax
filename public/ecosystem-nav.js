@@ -78,6 +78,13 @@
       name: '3D 周期表工坊',
       url: 'https://zperiod.igcse.xyz',
       desc: '化学元素 3D 周期表与电子排布可视化'
+    },
+    {
+      id: 'phet',
+      emoji: '⚗️',
+      name: 'PhET 仿真实验台',
+      url: 'https://phet.igcse.xyz',
+      desc: '42 款 HTML5 交互式物理化学经典实验仿真'
     }
   ];
 
