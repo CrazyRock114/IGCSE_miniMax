@@ -232,8 +232,8 @@ function LessonView({ lesson, kernel }: { lesson: Lesson; kernel?: SimKernel | u
         </div>
 
         {/* Sticky, and starting level with the canvas, so a parameter can be changed
-            while its effect is still on screen. */}
-        <aside className="space-y-4 lg:sticky lg:top-6 lg:self-start">
+            while its effect is still on screen. Offset clears the 52px sticky ecosystem nav. */}
+        <aside className="space-y-4 lg:sticky lg:top-[68px] lg:self-start">
           {lesson.sim && (
             <div className="rounded-xl border border-line bg-surface p-4">
               <h3 className="text-sm font-semibold text-ink">Controls</h3>
